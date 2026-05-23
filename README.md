@@ -1,9 +1,7 @@
 <p align="center">
-  <img src="MEIDNet_logo.png" alt="MEIDNet Logo" width="220"/>
+  <img src="MEIDNet_logo.png" alt="MEIDNet — Multimodal Equivariant Inverse Design Network" width="540"/>
 </p>
 
-<h1 align="center">MEIDNet</h1>
-<h3 align="center">Multimodal Equivariant Inverse Design Network</h3>
 <p align="center">
   <em>Property-conditioned constrained inverse design of cubic ABX₃ perovskites</em>
 </p>

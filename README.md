@@ -31,15 +31,6 @@ All accepted candidates are guaranteed to satisfy:
 - Octahedral factor μ = r_B / r_X ∈ [0.414, 0.90]
 - B–X bond distance within [0.75, 1.35] × (r_B + r_X)
 
-**Demonstrated performance (MACE-MP-0 stability screening, 27 CIFs):**
-
-| Metric | Value |
-|--------|-------|
-| Stable (ΔH_f ≤ 0.10 eV/atom) | **100.0 %** |
-| Unique (StructureMatcher) | **92.3 %** |
-| Novel (not in training set) | **76.9 %** |
-| **SUN rate** | **73.1 %** |
-
 ---
 
 ## How It Works
@@ -192,10 +183,9 @@ python demo.py
 ```
 
 Generates a small set of ABX₃ perovskite candidates for the halide family with
-a user-specified band-gap target, validates all outputs against the cubic Pm-3m
-crystallographic constraints (stoichiometry, lattice angles, spacegroup, bond
-distances), and prints the pre-computed SUN rate from `results/sun_rate.csv`.
-**Runtime: ~60 seconds on GPU.**
+a user-specified band-gap target and validates all outputs against the cubic
+Pm-3m crystallographic constraints (stoichiometry, lattice angles, spacegroup,
+bond distances). **Runtime: ~60 seconds on GPU.**
 
 Options:
 ```bash
@@ -301,32 +291,6 @@ first use.  Runtime: ~2–3 minutes for 27 structures on an RTX GPU.
 
 ---
 
-## Pre-computed Results
-
-The `results/` directory contains 26 verified CIFs generated from the
-pretrained checkpoint, screened with MACE-MP-0 (threshold 0.10 eV/atom).
-
-| Family | Generated | Valid | Stable | Unique | Novel | SUN |
-|--------|-----------|-------|--------|--------|-------|-----|
-| **Halide** | 13 | 13 | 13/13 | 12/13 | 13/13 | **12/13 (92.3 %)** |
-| **Chalcogenide** | 5 | 5 | 5/5 | 5/5 | 5/5 | **5/5 (100.0 %)** |
-| **Oxide** | 8 | 8 | 8/8 | 7/8 | 2/8 | **2/8 (25.0 %)** |
-| **Total** | **27** | **26** | **26/26** | **24/26** | **20/26** | **19/26 (73.1 %)** |
-
-The halide and chalcogenide families achieve high novelty rates, reflecting
-the model's capacity to extrapolate beyond the oxide-dominant training
-distribution.  The oxide family predominantly recovers compositions that lie
-within the well-sampled training domain, which is expected behaviour and
-serves as an internal validity check.  Full per-structure screening results
-including MACE-MP-0 formation energies, convergence flags, and S/U/N labels
-are available in `results/sun_rate.csv`.
-
-> **Note:** All property values in `results/sun_rate.csv` are MACE-MP-0
-> machine-learning force-field estimates.  Independent DFT validation is
-> required before any experimental or application-oriented interpretation.
-
----
-
 ## Repository Structure
 
 ```
@@ -369,11 +333,11 @@ MEIDNet/
 │   ├── dual_autoencoder_clip_earlyfusion_propertyaware.pth
 │   └── dual_autoencoder_clip_earlyfusion.pth
 │
-└── results/                        Pre-computed generation outputs
-    ├── halide/         13 halide perovskite CIFs
-    ├── oxide/           8 oxide perovskite CIFs
-    ├── chalcogenide/    5 chalcogenide perovskite CIFs
-    └── sun_rate.csv    MACE-MP-0 screening results (S/U/N labels)
+└── results/                        Generation outputs (written by pipeline scripts)
+    ├── halide/                     Halide perovskite CIFs
+    ├── oxide/                      Oxide perovskite CIFs
+    ├── chalcogenide/               Chalcogenide perovskite CIFs
+    └── sun_rate.csv                MACE-MP-0 screening results (S/U/N labels)
 ```
 
 ---

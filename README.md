@@ -19,7 +19,7 @@
 
 MEIDNet is a generative machine-learning framework for the inverse design of cubic
 ABX₃ perovskites with user-specified electronic and thermodynamic properties.  Given
-target values for the **direct band-gap** (E_g) and **formation enthalpy** (ΔH_f),
+target values for the **direct band-gap** (Eg) and **formation enthalpy** (ΔHf),
 MEIDNet searches a shared structure–property latent space and decodes candidate
 compositions subject to hard crystallographic and electrostatic constraints.
 
@@ -117,11 +117,7 @@ After optimisation, the latent is decoded by the crystal decoder:
    a = 2 · (r_B + r_X),   clamped to [3.0, 8.0] Å
    ```
 
-3. **Template projection** — all accepted sites are snapped to the ideal
-   Pm-3m Wyckoff positions (A: 1a, B: 1b, X: 3c) regardless of decoder
-   coordinate output.
-
-4. **Physics post-filters** — charge balance, Goldschmidt tolerance,
+3. **Physics post-filters** — charge balance, Goldschmidt tolerance,
    octahedral factor, B–X bond distance, and structural uniqueness.
 
 Only structures that pass **all** five filters are written as CIF output.
@@ -219,13 +215,6 @@ python scripts/train.py --epochs 200 --batch 16 --save_every 50
 | `--save_every` | 50 | Checkpoint interval (epochs) |
 | `--checkpoint` | `checkpoints/dual_autoencoder_clip_earlyfusion_propertyaware_2k.pth` | Output path |
 
-Training prints per-epoch diagnostics including the crystal-property latent
-cosine similarity — a useful alignment monitor:
-
-```
-Epoch 50/200 | Loss=1.2841 | Recon=0.9512 | Prop=0.1834 | Contrast=0.0031
-   CosSim(z_c, z_p)=0.5412 | L2(z_c - z_p)=1.8301
-```
 
 ### Step 2 — Generate Candidates
 
@@ -254,19 +243,6 @@ python meidnet/design.py \
     --output_prefix     halide \
     --dedup_abx
 ```
-
-> **Note on negative values:** Always use `=` syntax for negative targets
-> (`"--ent_targets=-0.10"`, not `--ent_targets -0.10`) to prevent argparse
-> from treating them as flags.
-
-#### Property target guide
-
-| Family | Typical E_g target (eV) | Typical ΔH_f target (eV/atom) |
-|--------|------------------------|-------------------------------|
-| Halide | 1.5 – 3.5 | −0.05 to −0.20 |
-| Oxide | 2.0 – 4.0 | −0.20 to −0.50 |
-| Chalcogenide | 0.5 – 2.5 | −0.10 to −0.30 |
-| Nitride | 1.5 – 3.5 | −0.20 to −0.40 |
 
 ### Step 3 — Verify Generated Structures
 
@@ -352,32 +328,6 @@ MEIDNet/
 
 Place checkpoints in `checkpoints/` or specify `--checkpoint path/to/file.pth`.
 
----
-
-## Design Space
-
-| Site | Coordination | Elements |
-|------|-------------|----------|
-| **A** | 12-fold (cuboctahedral) | Ba, Sr, Ca, Na, K, Rb, Cs, La, Ce, Pr, Nd, Sm, Eu, Gd, Tb, Dy, Ho, Er, Tm, Yb, Lu |
-| **B** | 6-fold (octahedral) | Ti, Zr, Hf, V, Nb, Ta, Cr, Mn, Fe, Co, Ni, Cu, Zn, Sc, Y, Al, Ga, In, Ge, Sn, Pb, W, Mo |
-| **X** (oxide) | — | O |
-| **X** (halide) | — | F, Cl, Br, I |
-| **X** (chalcogenide) | — | S, Se, Te |
-| **X** (nitride) | — | N |
-
-Physics filter parameters:
-
-| Filter | Criterion |
-|--------|-----------|
-| Goldschmidt t (oxide) | [0.80, 1.05] |
-| Goldschmidt t (halide) | [0.75, 1.02] |
-| Goldschmidt t (chalcogenide) | [0.78, 1.05] |
-| Goldschmidt t (nitride) | [0.75, 1.08] |
-| Octahedral factor μ | [0.414, 0.90] |
-| B–X bond distance | [0.75, 1.35] × (r_B + r_X) |
-
----
-
 ## Generation CLI Reference
 
 ```
@@ -403,20 +353,6 @@ python meidnet/design.py --help
 | `--anti_repeat_alpha` | `0.5` | Anti-repeat downweighting exponent |
 | `--steps` | `800` | Gradient steps per round |
 
----
-
-## Property Index Convention
-
-> **Critical:** This order is fixed across all modules and must not be changed.
-
-| Tensor index | Property | Units | Sign convention |
-|-------------|----------|-------|----------------|
-| `[:, 0]` | `heat_all` — formation enthalpy | eV/atom | negative = stable |
-| `[:, 1]` | `dir_gap` — direct band-gap | eV | positive |
-
-Applies to both `PropertyEncoder` inputs and `PropertyDecoder` outputs.
-
----
 
 ## Citation
 
@@ -424,23 +360,11 @@ If you use MEIDNet in your research, please cite:
 
 ```bibtex
 @software{meidnet2025,
-  title   = {MEIDNet: Multimodal Equivariant Inverse Design Network},
-  author  = {MEIDNet Contributors},
-  year    = {2025},
-  url     = {https://github.com/ABnano/MEIDNet},
+  title   = {MEIDNet: Multimodal generative AI framework for inverse materials design},
+  author  = {Anand Babu, Rogério Almeida Gouvêa, Pierre Vandergheynst, Gian-Marco Rignanese},
+  year    = {2026},
+  url     = {https://arxiv.org/abs/2601.22009},
 }
 ```
 
 ---
-
-## Disclaimer
-
-Band-gap and formation-enthalpy values reported in generated CSV outputs
-are **internal model surrogate scores** from the trained property decoder.
-They reflect the model's learned property distribution and should **not**
-be interpreted as DFT-validated or experimental values.  All generated
-structures require independent DFT relaxation and thermodynamic stability
-analysis (e.g., convex-hull placement) before experimental consideration.
-The MACE-MP-0 energies computed by `screen_stability.py` are machine-
-learning force-field approximations and carry an estimated error of
-±50–100 meV/atom relative to PBE DFT.

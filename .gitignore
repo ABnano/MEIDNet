@@ -1,0 +1,54 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Large training data — store with Git LFS or download via scripts/
+cif_files/
+cif_files_val/
+cif_files_test/
+data/cif_files/
+
+# Pretrained checkpoints — use Git LFS for large files
+# The three shipped checkpoints are tracked; future ones are excluded by default
+*.pth
+*.pt
+!checkpoints/dual_autoencoder_clip_earlyfusion_propertyaware_2k.pth
+!checkpoints/dual_autoencoder_clip_earlyfusion_propertyaware.pth
+!checkpoints/dual_autoencoder_clip_earlyfusion.pth
+
+# New generation output directories (fresh runs)
+results_demo/
+results_run*/
+results_campaign*/
+
+# Plots and logs (not source-controlled)
+*.png
+!MEIDNet_logo.png
+*.log
+train_log.txt
+train_err.txt
+generation_log.txt
+demo_out.txt
+demo_err.txt
+sun_rate_log.txt
+sun_rate_err.txt
+
+# IDE / OS
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db

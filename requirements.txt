@@ -1,0 +1,20 @@
+# MEIDNet — Python dependencies
+# Tested on Python 3.12, CUDA 12.8, Windows/Linux
+
+# ── Core (required for training + generation) ─────────────────────────────────
+# Install PyTorch with CUDA support first (see README for platform-specific URLs)
+# pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu128
+torch>=2.0.0
+torchvision
+torchaudio
+
+pymatgen>=2024.1.1
+scikit-learn>=1.3
+matplotlib>=3.7
+pandas>=2.0
+numpy>=1.24
+
+# ── Stability screening (required for sun_rate.py only) ───────────────────────
+# Heavy download (~500 MB model weights on first run)
+ase>=3.22
+mace-torch>=0.3.6

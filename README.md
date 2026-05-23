@@ -37,7 +37,7 @@ All accepted candidates are guaranteed to satisfy:
 
 ### 1 — Dual-Modality Autoencoder with CLIP-style Alignment
 
-MEIDNet trains two autoencoders simultaneously on a dataset of ~23 000 ABX₃
+MEIDNet trains two autoencoders simultaneously on a dataset of ~23 k ABX₃
 perovskite structures with DFT-computed properties:
 
 ```

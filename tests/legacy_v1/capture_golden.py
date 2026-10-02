@@ -12,6 +12,7 @@ Run once (CPU, fixed hash seed):
 import hashlib
 import json
 import os
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -128,9 +129,9 @@ def main():
     }
     for fam, extra in runs.items():
         out = os.path.join(GOLDEN, f"g4_{fam}")
-        os.makedirs(out, exist_ok=True)
-        for f in os.listdir(out):
-            os.remove(os.path.join(out, f))
+        if os.path.isdir(out):
+            shutil.rmtree(out)
+        os.makedirs(out)
         n_t = str(len(extra[2].split("=")[1].split(",")))
         cmd = [sys.executable, os.path.join(HERE, "design_v1.py"), "--checkpoint", CKPT, *extra,
                "--num_targets", n_t, "--per_target", "3", "--batch_attempts", "16",

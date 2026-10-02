@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MEIDNet Studio</title>
+<style>
+:root{--bg:#f4f5f3;--card:#fff;--ink:#1d2327;--muted:#5d6670;--line:#dcdfe3;--accent:#2457c5;--accent2:#d9822b;
+--good:#1f8a4c;--warn:#b7791f;--bad:#c0392b;--goodbg:#e8f5ee;--warnbg:#fdf3e1;--badbg:#fbeaea;--track:#e4e8ee;--win:#2457c518;
+--node:#fff;--nodesel:#eaf0fc;--pulse:#d9822b}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14171b;--card:#1d2126;--ink:#e6e9ec;--muted:#9aa4ae;
+--line:#30363d;--accent:#7aa2ff;--accent2:#f0a35e;--good:#4cc38a;--warn:#e0b252;--bad:#ff7b72;--goodbg:#173326;--warnbg:#3a2f17;
+--badbg:#3d1f1f;--track:#2b3138;--win:#7aa2ff22;--node:#1d2126;--nodesel:#26304a}}
+:root[data-theme="dark"]{--bg:#14171b;--card:#1d2126;--ink:#e6e9ec;--muted:#9aa4ae;--line:#30363d;--accent:#7aa2ff;--accent2:#f0a35e;
+--good:#4cc38a;--warn:#e0b252;--bad:#ff7b72;--goodbg:#173326;--warnbg:#3a2f17;--badbg:#3d1f1f;--track:#2b3138;--win:#7aa2ff22;--node:#1d2126;--nodesel:#26304a}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+header{display:flex;align-items:center;gap:14px;padding:10px 16px;border-bottom:1px solid var(--line);background:var(--card);flex-wrap:wrap}
+header .brand{font-weight:800;letter-spacing:.06em;color:var(--accent)}header .sub{color:var(--muted);font-size:13px}
+header .mode{margin-left:auto;font-size:12px;border:1px solid var(--line);border-radius:999px;padding:2px 10px;color:var(--muted)}
+.wrap{max-width:1280px;margin:auto;padding:12px 16px 40px}
+.strip{overflow-x:auto;padding:6px 0}.strip svg{min-width:860px;width:100%;height:auto;display:block}
+.node rect{fill:var(--node);stroke:var(--line);stroke-width:1.2;rx:10}.node.sel rect{fill:var(--nodesel);stroke:var(--accent);stroke-width:2}
+.node text.t{font-weight:700;fill:var(--ink);font-size:13px}.node text.s{fill:var(--muted);font-size:11px}.node{cursor:pointer}
+.node.changed rect{stroke:var(--pulse);stroke-width:2.5}
+.edge{stroke:var(--line);stroke-width:2;fill:none}.edge.pulse{stroke:var(--pulse);stroke-dasharray:6 5;animation:flow .9s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-22}}
+.ribbon{border:1px solid var(--line);border-left:4px solid var(--accent2);background:var(--card);border-radius:8px;padding:8px 12px;margin:8px 0;font-size:13.5px;min-height:38px}
+.ribbon b{color:var(--accent2)}.ribbon.quiet{color:var(--muted);border-left-color:var(--line)}
+.cols{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:14px}@media(max-width:980px){.cols{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;margin:0 0 12px}
+h2{font-size:18px;margin:0 0 8px}h3{font-size:15px;margin:12px 0 6px}h4{font-size:13px;margin:8px 0 4px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.muted{color:var(--muted)}.small{font-size:12.5px}.flag{color:var(--warn)}.pass{color:var(--good);font-weight:700}.fail{color:var(--bad);font-weight:700}
+table{border-collapse:collapse;width:100%;font-size:13px}td,th{padding:4px 6px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{color:var(--muted);font-weight:600}
+tr.clk{cursor:pointer}tr.clk:hover{background:var(--nodesel)}
+button{font:inherit;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:6px 12px;cursor:pointer}
+button.primary{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}button.danger{border-color:var(--bad);color:var(--bad)}
+button:disabled{opacity:.5;cursor:not-allowed}
+input[type=number],select,input[type=text]{font:inherit;border:1px solid var(--line);border-radius:6px;padding:4px 6px;background:var(--card);color:var(--ink);width:100px}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.chip{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:1px 9px;margin:2px;font-size:12.5px;cursor:pointer;user-select:none}
+.chip.off{opacity:.38;text-decoration:line-through}.chip.pin{border-color:var(--accent);color:var(--accent);cursor:default}
+.rule{border:1px solid var(--line);border-radius:8px;padding:10px;margin:8px 0}.rule.off{opacity:.55}
+.rule .hd{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.rule .hd b{flex:1}
+.params{display:flex;gap:12px;flex-wrap:wrap;margin:6px 0}.param label{display:block;font-size:12px;color:var(--muted)}
+.chart{width:100%;max-width:520px;height:auto;display:block}.mini{width:100%;max-width:300px;height:auto}
+.ax{stroke:var(--muted);stroke-width:1}.grid{stroke:var(--line);stroke-width:.6}.tick,.val{fill:var(--muted);font-size:10.5px}
+.lab{fill:var(--ink);font-size:11.5px}.bar{fill:var(--accent);opacity:.85}.barx{fill:var(--muted);opacity:.35}.ok{fill:var(--good)}.win{fill:var(--win)}
+.mark{stroke:var(--accent2);stroke-width:2;stroke-dasharray:4 3}.pt{fill:var(--accent);opacity:.55}.ptx{fill:var(--muted);opacity:.22}.star{fill:var(--good);stroke:var(--card)}
+.track{fill:var(--track)}.dot{fill:var(--accent)}.gauge{width:100%;max-width:300px;height:30px;display:block}
+.prog{height:8px;background:var(--track);border-radius:4px;overflow:hidden;margin:4px 0}.prog i{display:block;height:100%;background:var(--accent);width:0;transition:width .3s}
+pre{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px;overflow:auto;font-size:12.5px;max-height:320px}
+.cand{border:1px solid var(--line);border-radius:8px;padding:10px;margin:8px 0}.cand h3{margin:0 0 4px}
+ul.chk{list-style:none;margin:6px 0;padding:0}ul.chk li{padding:1px 0;font-size:13px}
+.modal{position:fixed;inset:0;background:#0006;display:none;align-items:center;justify-content:center;padding:16px;z-index:10}
+.modal.open{display:flex}.modal .card{max-width:620px;width:100%;max-height:90vh;overflow:auto}
+.verdict{border-radius:8px;padding:8px 12px;margin:6px 0;border:1px solid var(--line)}.verdict.good{background:var(--goodbg);border-color:var(--good)}
+.verdict.warn{background:var(--warnbg);border-color:var(--warn)}.verdict.bad{background:var(--badbg);border-color:var(--bad)}
+details{margin:6px 0}summary{cursor:pointer;color:var(--accent)}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:8px;margin:6px 0}.kpi div{border:1px solid var(--line);border-radius:8px;padding:6px 8px}
+.kpi b{display:block;font-size:20px}.kpi span{font-size:12px;color:var(--muted)}
+.help{border-left:3px solid var(--accent);padding:4px 10px;margin:8px 0;color:var(--muted);font-size:13px}
+</style>
+</head>
+<body>
+<header><span class="brand">MEIDNet Studio</span><span class="sub" id="hdr-sub">loading…</span><span class="mode" id="mode"></span></header>
+<div class="wrap">
+  <div class="strip"><svg id="pipe" viewBox="0 0 980 92" aria-label="MEIDNet workflow"></svg></div>
+  <div class="ribbon quiet" id="ribbon">Change anything — the effect appears here and in the nodes above.</div>
+  <div class="cols">
+    <div id="panel"></div>
+    <aside>
+      <div class="card" id="live"></div>
+      <div class="card small" id="legend"></div>
+    </aside>
+  </div>
+</div>
+<div class="modal" id="modal" onclick="if(event.target===this)closeModal()"><div class="card" id="modal-body"></div></div>
+<script>
+/* ───────────────────────── state ───────────────────────── */
+const STATIC = window.MEIDNET_STATIC || null;
+const S = {state:null, fam:null, data:null, ui:null, prev:null, panel:'family', search:{running:false, poll:null, status:null}};
+// each browser tab gets its own search session on shared (public) servers
+const SID = (()=>{ try{ let s=sessionStorage.getItem('meidnet_sid'); if(!s){ s=(crypto.randomUUID?crypto.randomUUID():Math.random().toString(36).slice(2)+Math.random().toString(36).slice(2)).replace(/-/g,'').slice(0,32); sessionStorage.setItem('meidnet_sid', s);} return s; }catch(e){ return 'local'; } })();
+const NODES = [['data','Data'],['model','Model'],['family','Family'],['rules','Rules'],['targets','Targets'],['search','Search'],['candidates','Candidates']];
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmt = v => (v===null||v===undefined||Number.isNaN(v)) ? '–' : (Math.abs(v)>=1000||(Math.abs(v)<0.01&&v!==0)) ? v.toPrecision(2) : (+v).toPrecision(3).replace(/\.?0+$/,'');
+const $ = id => document.getElementById(id);
+
+async function api(path, body){
+  if(STATIC){
+    if(path==='/api/state') return STATIC.state;
+    if(path==='/api/data') return STATIC.data || {available:false, note:'Static demo: training data not included.'};
+    if(path==='/api/family'){ const k=(body.family||'')+'|'+(body.variant||''); const p=STATIC.families[k]; if(!p) throw new Error('This family/variant is not in the static demo; run MEIDNet Studio locally.'); return p; }
+    if(path==='/api/export') return exportYamlLocal();
+    throw new Error('Searching needs the local Studio: pip install meidnet && meidnet studio');
+  }
+  const r = await fetch(path, body ? {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body)} : {});
+  const t = await r.text();
+  if(path==='/api/export') return t;
+  const j = JSON.parse(t); if(j && j.error && r.status>=400) throw new Error(j.error); return j;
+}
+
+/* ───────────────────────── boot ───────────────────────── */
+async function boot(){
+  S.state = await api('/api/state');
+  const g = S.state.config.generation || {};
+  const props = S.state.model.properties;
+  S.ui = {
+    family: g.family || S.state.current_family, variant: g.variant || null, exclude: new Set(g.exclude_elements||[]),
+    rules: {}, extraRules: [],
+    objectives: (g.objectives||[]).map(o=>({property:o.property, loss:o.loss||'l2', weight:o.weight??1e4, select_weight:o.select_weight??1, select_loss:o.select_loss||o.loss||'l2'})),
+    target: Object.assign({}, (g.targets||[{}])[0]),
+    search: {per_target:g.per_target??3, population:g.population??24, rounds:g.rounds??3, steps:g.steps??300, seed:g.seed??937},
+    overrides: Object.assign({}, g.overrides||{}),
+  };
+  if(!S.ui.objectives.length){ S.ui.objectives=[{property:props[0].column, loss:'l2', weight:1e4, select_weight:1, select_loss:'l2'}]; }
+  for(const o of S.ui.objectives) if(S.ui.target[o.property]===undefined) S.ui.target[o.property] = midRange(o.property);
+  $('mode').textContent = STATIC ? 'static demo · published model' : (S.state.public ? 'live · public server' : 'live · local server');
+  const links = [S.state.docs_url ? `<a href="${S.state.docs_url}" target="_blank">Docs</a>` : '',
+                 '<a href="https://github.com/ABnano/MEIDNet" target="_blank">Code</a>',
+                 '<a href="https://www.nature.com/articles/s41524-026-02153-3" target="_blank">Paper</a>'].filter(Boolean).join(' · ');
+  $('hdr-sub').innerHTML = esc((S.state.model.legacy ? 'published Perov-5 model' : S.state.model.path) + ' · ' + props.map(p=>p.label).join(', ')) + ' &nbsp;·&nbsp; ' + links;
+  drawPipe();
+  await loadFamily();
+  api('/api/data').then(d=>{S.data=d; status('data', dataStatus()); if(S.panel==='data') render();}).catch(()=>{});
+  render();
+}
+function midRange(p){ const r=S.state.ranges[p]; return r ? +((r[0]+r[1])/2).toFixed(2) : 0; }
+
+async function loadFamily(){
+  $('ribbon').textContent = 'Enumerating the design space of '+S.ui.family+(S.ui.variant?' / '+S.ui.variant:'')+' …';
+  S.fam = await api('/api/family', {family:S.ui.family, variant:S.ui.variant});
+  S.ui.variant = S.fam.variant;
+  // rule state from the family (keep user edits for rules that still exist)
+  const keep = S.ui.rules; S.ui.rules = {};
+  for(const c of S.fam.constraints){ const old = keep[c.name]; S.ui.rules[c.name] = old ? old : {enabled:true, params:Object.assign({}, c, {name:undefined})};
+    delete S.ui.rules[c.name].params.name; }
+  for(const [k,v] of Object.entries(S.ui.overrides)) if(S.ui.rules[k]) Object.assign(S.ui.rules[k].params, v);
+  S.prev = null;
+}
+
+/* ───────────────────────── live evaluation (same descriptors as meidnet generate) ───────────────────────── */
+function rulePass(rule, params, row){
+  const d = row.d[rule], ok = row.ok[rule];
+  switch(rule){
+    case 'min_distance': return d>=+params.min;
+    case 'bond_window': return d>=+params.low && d<=+params.high;
+    case 'tolerance_factor': case 'octahedral_factor': return d>=+params.min && d<=+params.max;
+    case 'charge_neutrality': case 'symmetry_refinement': return !!ok;
+    case 'property_window': { const v=row.p[params.property]; if(v===undefined) return true; return (params.min===''||params.min===null||v>=+params.min) && (params.max===''||params.max===null||v<=+params.max); }
+    default: return ok!==false;
+  }
+}
+function evaluateSpace(){
+  const rows = S.fam.space.rows.filter(r => !Object.values(r.e).some(el => S.ui.exclude.has(el)));
+  const rules = activeRules();
+  const perRule = {}; rules.forEach(r=>perRule[r.name]=0);
+  const alive = []; const funnel=[['compositions', rows.length]];
+  const lost = {}; rules.forEach(r=>lost[r.name]=0);
+  for(const row of rows){
+    let ok = true;
+    for(const r of rules){ const p = rulePass(r.name, r.params, row); if(p) perRule[r.name]++; else if(ok){ok=false; lost[r.name]++;} }
+    row._ok = ok; if(ok) alive.push(row);
+  }
+  let left = rows.length; for(const r of rules){ left -= lost[r.name]; funnel.push([ruleTitle(r.name), left]); }
+  const ranked = rankByTarget(alive);
+  return {rows, alive, perRule, funnel, ranked, lost};
+}
+function activeRules(){ const out=[]; for(const [n,r] of Object.entries(S.ui.rules)) if(r.enabled) out.push({name:n, params:r.params});
+  S.ui.extraRules.forEach((r,i)=>{ if(r.enabled) out.push({name:'property_window', params:r.params, key:'extra'+i}); }); return out; }
+function dist(pred, t, kind){ const e=pred-t; return kind==='l2'?e*e : kind==='l1'?Math.abs(e) : kind==='at_most'?Math.max(0,e) : Math.max(0,-e); }
+function rankByTarget(alive){
+  if(!S.fam.space.columns.length) return [];
+  return alive.map(r=>{ let s=0; for(const o of S.ui.objectives){ const v=r.p[o.property]; if(v===undefined) continue; s += o.select_weight*dist(v, +S.ui.target[o.property], o.select_loss); } return [s,r]; })
+              .sort((a,b)=>a[0]-b[0]).slice(0,12);
+}
+function ruleTitle(n){ const r=(S.fam.space.rules||[]).find(x=>x.name===n); return r? r.title : n; }
+function ruleText(n){ const r=(S.fam.space.rules||[]).find(x=>x.name===n); return r? r.text : ''; }
+
+/* ───────────────────────── change tracking ───────────────────────── */
+function recompute(changedNode, what){
+  const ev = evaluateSpace(); S.ev = ev;
+  const msgs = [];
+  if(S.prev){
+    const p=S.prev;
+    if(ev.alive.length!==p.alive){ const d=ev.alive.length-p.alive; msgs.push(`compositions passing all rules <b>${p.alive} → ${ev.alive.length}</b> (${d>0?'+':''}${d})`); }
+    const t0 = p.top, t1 = ev.ranked[0] ? ev.ranked[0][1].f : null;
+    if(t0!==t1) msgs.push(`best predicted match <b>${esc(t0||'–')} → ${esc(t1||'–')}</b>`);
+    if(S.search.status && S.search.status.candidates && S.search.status.candidates.length){
+      const bad = S.search.status.candidates.filter(c => !candStillPasses(c)).length;
+      if(bad) msgs.push(`<span class="flag">${bad} of your found candidates would now be rejected</span>`);
+    }
+  }
+  S.prev = {alive:ev.alive.length, top: ev.ranked[0] ? ev.ranked[0][1].f : null};
+  const rib = $('ribbon');
+  if(what){ rib.className='ribbon'; rib.innerHTML = `<b>${esc(what)}</b>` + (msgs.length? ' → '+msgs.join(' · ') : ' → no change in what passes'); }
+  status('family', `${S.fam.variant||S.fam.name} · ${ev.rows.length.toLocaleString()} compositions`);
+  status('rules', `${activeRules().length} rules · ${ev.alive.length.toLocaleString()} pass`);
+  status('targets', S.ui.objectives.map(o=>`${label(o.property)} ${fmt(+S.ui.target[o.property])}`).join(', '));
+  if(changedNode) pulseFrom(changedNode);
+  renderLive();
+}
+function candStillPasses(c){ // re-check a found candidate against the current rule windows using its stored descriptor values
+  const row = {d:{}, ok:{}, p:c.predictions||{}}; for(const r of c.constraint_results){ row.d[r.name]=r.value; row.ok[r.name]=r.passed; }
+  return activeRules().every(r=>rulePass(r.name, r.params, row));
+}
+function label(p){ const m=S.state.model.properties.find(x=>x.column===p); return m? m.label : p; }
+function unit(p){ const m=S.state.model.properties.find(x=>x.column===p); return m&&m.unit ? ' '+m.unit : ''; }
+
+/* ───────────────────────── pipeline strip ───────────────────────── */
+function drawPipe(){
+  const svg=$('pipe'); let s=''; const w=126, gap=14, x0=8;
+  NODES.forEach(([id,name],i)=>{ const x=x0+i*(w+gap);
+    if(i<NODES.length-1) s+=`<path class="edge" id="edge-${id}" d="M${x+w},46 L${x+w+gap},46"/>`;
+    s+=`<g class="node" id="node-${id}" onclick="show('${id}')"><rect x="${x}" y="12" width="${w}" height="68"/>
+        <text class="t" x="${x+10}" y="36">${name}</text><text class="s" id="st-${id}" x="${x+10}" y="56">…</text><text class="s" id="st2-${id}" x="${x+10}" y="70"></text></g>`; });
+  svg.innerHTML=s;
+}
+function status(id, a, b){ const e=$('st-'+id); if(e) e.textContent=a.length>22?a.slice(0,21)+'…':a; const e2=$('st2-'+id); if(e2) e2.textContent=b||''; if(e&&a.length>22) e.innerHTML=`<title>${esc(a)}</title>`+esc(e.textContent); }
+function pulseFrom(id){ const i=NODES.findIndex(n=>n[0]===id); NODES.forEach(([n],j)=>{ const ed=$('edge-'+n); if(ed) ed.classList.toggle('pulse', j>=i && j<NODES.length-1); const nd=$('node-'+n); if(nd) nd.classList.toggle('changed', j===i); });
+  setTimeout(()=>{ document.querySelectorAll('.edge.pulse').forEach(e=>e.classList.remove('pulse')); document.querySelectorAll('.node.changed').forEach(e=>e.classList.remove('changed')); }, 1600); }
+function show(id){ S.panel=id; document.querySelectorAll('.node').forEach(n=>n.classList.toggle('sel', n.id==='node-'+id)); render(); }
+
+/* ───────────────────────── charts (JS twins of meidnet/svg.py) ───────────────────────── */
+function ticks(lo,hi,n=5){ const span=hi-lo; if(!(span>0)) return [lo]; let step=Math.pow(10,Math.floor(Math.log10(span/n))); for(const m of [1,2,2.5,5,10]){ if(span/(step*m)<=n){step*=m;break;} } const out=[]; for(let v=Math.ceil(lo/step)*step; v<=hi+1e-12; v+=step) out.push(+v.toFixed(10)); return out; }
+function hist(values, title, xlabel, opts={}){
+  const v=values.filter(Number.isFinite); if(!v.length) return '<p class="muted small">no values</p>';
+  let lo=Math.min(...v), hi=Math.max(...v); if(opts.marks) for(const m of Object.values(opts.marks)) {lo=Math.min(lo,m);hi=Math.max(hi,m);}
+  if(hi-lo<1e-9){lo-=.5;hi+=.5;} const pad=.04*(hi-lo); lo-=pad; hi+=pad;
+  const bins=opts.bins||28, counts=new Array(bins).fill(0), countsX=new Array(bins).fill(0);
+  v.forEach((x,i)=>{ let b=Math.floor((x-lo)/(hi-lo)*bins); b=Math.max(0,Math.min(bins-1,b)); if(opts.okMask && !opts.okMask[i]) countsX[b]++; else counts[b]++; });
+  const W=opts.w||300,H=opts.h||150,ml=38,mr=8,mt=10,mb=30, cmax=Math.max(1,...counts.map((c,i)=>c+countsX[i]));
+  const X=x=>ml+(x-lo)/(hi-lo)*(W-ml-mr), Y=c=>H-mb-c/(cmax*1.08)*(H-mt-mb);
+  let s=''; if(opts.window){ const a=X(Math.max(lo,opts.window[0]??lo)), b=X(Math.min(hi,opts.window[1]??hi)); s+=`<rect class="win" x="${a}" y="${mt}" width="${Math.max(0,b-a)}" height="${H-mt-mb}"/>`; }
+  s+=`<line class="ax" x1="${ml}" y1="${H-mb}" x2="${W-mr}" y2="${H-mb}"/>`;
+  for(const t of ticks(lo,hi,4)) s+=`<text class="tick" x="${X(t)}" y="${H-mb+13}" text-anchor="middle">${fmt(t)}</text>`;
+  const bw=(W-ml-mr)/bins; for(let i=0;i<bins;i++){ const a=lo+i*(hi-lo)/bins;
+    if(countsX[i]) s+=`<rect class="barx" x="${X(a)+.5}" y="${Y(counts[i]+countsX[i])}" width="${Math.max(.5,bw-1)}" height="${Y(0)-Y(counts[i]+countsX[i])}"/>`;
+    if(counts[i]) s+=`<rect class="bar" x="${X(a)+.5}" y="${Y(counts[i])}" width="${Math.max(.5,bw-1)}" height="${Y(0)-Y(counts[i])}"><title>${fmt(a)}–${fmt(a+(hi-lo)/bins)}: ${counts[i]}</title></rect>`; }
+  for(const [lab,m] of Object.entries(opts.marks||{})) s+=`<line class="mark" x1="${X(m)}" y1="${mt}" x2="${X(m)}" y2="${H-mb}"/><text class="tick" x="${X(m)+3}" y="${mt+10}">${esc(lab)}</text>`;
+  s+=`<text class="lab" x="${(ml+W-mr)/2}" y="${H-3}" text-anchor="middle">${esc(xlabel)}</text>`;
+  return `<svg class="${opts.cls||'mini'}" viewBox="0 0 ${W} ${H}" role="img"><title>${esc(title)}</title>${s}</svg>`;
+}
+function scatter(rows, px, py, target, highlight){
+  const pts=rows.map(r=>[r.p[px], r.p[py], r]).filter(p=>Number.isFinite(p[0])&&Number.isFinite(p[1]));
+  if(!pts.length) return '';
+  let xl=Math.min(...pts.map(p=>p[0]), target[px]), xh=Math.max(...pts.map(p=>p[0]), target[px]);
+  let yl=Math.min(...pts.map(p=>p[1]), target[py]), yh=Math.max(...pts.map(p=>p[1]), target[py]);
+  const padx=.05*(xh-xl||1), pady=.05*(yh-yl||1); xl-=padx;xh+=padx;yl-=pady;yh+=pady;
+  const W=420,H=300,ml=48,mr=10,mt=10,mb=36; const X=x=>ml+(x-xl)/(xh-xl)*(W-ml-mr), Y=y=>H-mb-(y-yl)/(yh-yl)*(H-mt-mb);
+  let s=`<line class="ax" x1="${ml}" y1="${H-mb}" x2="${W-mr}" y2="${H-mb}"/><line class="ax" x1="${ml}" y1="${mt}" x2="${ml}" y2="${H-mb}"/>`;
+  for(const t of ticks(xl,xh)) s+=`<text class="tick" x="${X(t)}" y="${H-mb+13}" text-anchor="middle">${fmt(t)}</text>`;
+  for(const t of ticks(yl,yh)) s+=`<text class="tick" x="${ml-5}" y="${Y(t)+4}" text-anchor="end">${fmt(t)}</text>`;
+  s+=`<line class="mark" x1="${X(target[px])}" y1="${mt}" x2="${X(target[px])}" y2="${H-mb}"/><line class="mark" x1="${ml}" y1="${Y(target[py])}" x2="${W-mr}" y2="${Y(target[py])}"/>`;
+  const hs=new Set((highlight||[]).map(f=>f));
+  for(const [x,y,r] of pts){ if(!r._ok) s+=`<circle class="ptx" cx="${X(x)}" cy="${Y(y)}" r="2.4"><title>${esc(r.f)} (rejected)</title></circle>`; }
+  for(const [x,y,r] of pts){ if(r._ok&&!hs.has(r.f)) s+=`<circle class="pt" cx="${X(x)}" cy="${Y(y)}" r="2.8" onclick="inspect('${esc(r.f)}')" style="cursor:pointer"><title>${esc(r.f)}: ${fmt(x)}, ${fmt(y)}</title></circle>`; }
+  for(const [x,y,r] of pts){ if(hs.has(r.f)) s+=`<path class="star" d="M${X(x)},${Y(y)-7} l2,5 5,0 -4,3 2,5 -5,-3 -5,3 2,-5 -4,-3 5,0z" onclick="inspect('${esc(r.f)}')" style="cursor:pointer"><title>${esc(r.f)} (found by search)</title></path>`; }
+  s+=`<text class="lab" x="${(ml+W-mr)/2}" y="${H-4}" text-anchor="middle">predicted ${esc(label(px))}${esc(unit(px))}</text><text class="lab" transform="translate(12,${(mt+H-mb)/2}) rotate(-90)" text-anchor="middle">predicted ${esc(label(py))}${esc(unit(py))}</text>`;
+  return `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img"><title>Predicted properties of every composition; dashed lines = target</title>${s}</svg>`;
+}
+function gauge(p, value, target){
+  const r=S.state.ranges[p]||[Math.min(value,target),Math.max(value,target)]; let lo=Math.min(r[0],value,target), hi=Math.max(r[1],value,target); const pad=.04*(hi-lo||1); lo-=pad;hi+=pad;
+  const W=300, X=x=>6+(x-lo)/(hi-lo)*(W-12);
+  return `<svg class="gauge" viewBox="0 0 ${W} 30"><title>${esc(label(p))}: predicted ${fmt(value)} target ${fmt(target)}; training range ${fmt(r[0])}–${fmt(r[1])}</title><rect class="track" x="${X(r[0])}" y="11" width="${Math.max(1,X(r[1])-X(r[0]))}" height="8" rx="4"/><line class="mark" x1="${X(target)}" y1="4" x2="${X(target)}" y2="26"/><circle class="dot" cx="${X(value)}" cy="15" r="5.5"/></svg>`;
+}
+function funnelSvg(stages){ const W=520,row=26,H=6+row*stages.length, top=Math.max(1,stages[0][1]); let s='';
+  stages.forEach(([lab,c],i)=>{ const w=Math.max(2,(W-250)*c/top), y=4+i*row; s+=`<text class="tick" x="4" y="${y+16}">${esc(lab.slice(0,30))}</text><rect class="${i===stages.length-1?'ok':'bar'}" x="200" y="${y+5}" width="${w}" height="${row-10}"/><text class="val" x="${200+w+5}" y="${y+16}">${c.toLocaleString()}</text>`; });
+  return `<svg class="chart" viewBox="0 0 ${W} ${H}" style="max-width:560px"><title>Compositions left after each rule</title>${s}</svg>`; }
+
+/* ───────────────────────── panels ───────────────────────── */
+function render(){
+  const P=$('panel'); const f={data:panelData, model:panelModel, family:panelFamily, rules:panelRules, targets:panelTargets, search:panelSearch, candidates:panelCandidates}[S.panel];
+  P.innerHTML = f ? f() : ''; document.querySelectorAll('.node').forEach(n=>n.classList.toggle('sel', n.id==='node-'+S.panel));
+  if(!S.ev) recompute(null, null); else renderLive();
+  renderLegend();
+}
+function dataStatus(){ const d=S.data; if(!d) return '…'; if(!d.available) return 'not loaded'; return d.skipped&&Object.keys(d.skipped).length ? `${d.kept} of ${d.rows} usable` : `${d.rows.toLocaleString()} materials`; }
+function panelData(){
+  const d=S.data; let b=`<div class="card"><h2>Data</h2>`;
+  if(!d) b+=`<p class="muted">reading the data…</p>`;
+  else if(!d.available) b+=`<p>${esc(d.note)}</p>`;
+  else { b+=`<div class="kpi"><div><b>${d.rows.toLocaleString()}</b><span>rows</span></div><div><b>${d.kept.toLocaleString()}</b><span>usable</span></div><div><b>${Object.values(d.skipped||{}).reduce((a,c)=>a+c,0)}</b><span>skipped</span></div></div>`;
+    if(d.skipped && Object.keys(d.skipped).length){ b+='<table><tr><th>Skipped because</th><th>rows</th><th>e.g.</th></tr>'; for(const [k,v] of Object.entries(d.skipped)) b+=`<tr><td>${esc(k)}</td><td>${v}</td><td class="muted">${esc((d.examples&&d.examples[k]||[]).join(', '))}</td></tr>`; b+='</table>'; }
+    for(const [col,svg] of Object.entries(d.charts||{})) b+=`<h3>${esc(label(col))}</h3>${svg}`; }
+  b+=`<div class="help">MEIDNet can only design for property values it has seen. The dashed targets you set later are drawn on these distributions so you can tell interpolation from extrapolation.</div></div>`;
+  return b;
+}
+function panelModel(){
+  const m=S.state.model; let b=`<div class="card"><h2>Model</h2><pre>${esc(m.description)}</pre>`;
+  if(m.note) b+=`<p class="muted">${esc(m.note)}</p>`;
+  b+=`<table><tr><th>Property</th><th>unit</th><th>training range</th>${m.validation?'<th>validation MAE</th>':''}</tr>`;
+  for(const p of m.properties){ const r=S.state.ranges[p.column]; b+=`<tr><td>${esc(p.label)}</td><td>${esc(p.unit)}</td><td>${r?fmt(r[0])+' – '+fmt(r[1]):'–'}</td>${m.validation?`<td>${fmt((m.validation.mae||{})[p.column])}</td>`:''}</tr>`; }
+  b+=`</table><div class="help">Two directions are used in this Studio. <b>Structure → property</b> (the encoder) scores every composition of the family instantly: that is what the live tables use. <b>Property → structure</b> (the latent search of the paper) is what the Search node runs. Both are the same network; numbers are predictions, not measurements.</div></div>`;
+  return b;
+}
+function panelFamily(){
+  const f=S.fam, fams=S.state.families; let b=`<div class="card"><h2>Family</h2><div class="row"><label>Family <select onchange="setFamily(this.value)">${Object.entries(fams).map(([k,v])=>`<option value="${k}" ${k===S.ui.family?'selected':''}>${esc(v.title)}</option>`).join('')}</select></label>`;
+  const vs=fams[S.ui.family].variants||{}; if(Object.keys(vs).length) b+=`<label>Variant <select onchange="setVariant(this.value)">${Object.entries(vs).map(([k,v])=>`<option value="${k}" ${k===S.ui.variant?'selected':''}>${esc(k)} – ${esc(v)}</option>`).join('')}</select></label>`;
+  b+=`</div><p class="muted">${esc(fams[S.ui.family].description||'')}</p>`;
+  b+=`<h3>Prototype: ${f.sites.length} sites</h3><table><tr><th>#</th><th>group</th><th>position (fractional)</th></tr>${f.sites.map((s,i)=>`<tr><td>${i+1}</td><td>${esc(s.group)}</td><td>${s.frac.map(x=>x.toFixed(2)).join(', ')}</td></tr>`).join('')}</table>`;
+  const lr=f.lattice_rule; b+=`<p class="small muted">Cell size: ${lr.rule==='bond_sum'?`a = ${lr.factor} × (${lr.groups.map(g=>'r<sub>'+esc(g)+'</sub>').join(' + ')}) from ionic radii, kept within ${lr.min}–${lr.max} Å`:'fixed'}.</p>`;
+  b+=`<h3>Elements per site group <span class="muted small">(click to exclude / include)</span></h3>`;
+  for(const [g,grp] of Object.entries(f.groups)){ b+=`<h4>${esc(g)} — ${esc(grp.description)} · ${grp.slots.length} site${grp.slots.length>1?'s':''}</h4><div>`;
+    for(const el of grp.sample){ const off=S.ui.exclude.has(el); const ox=(grp.oxidation_states[el]||[]).map(q=>(q>0?'+':'')+q).join('/'); b+=`<span class="chip ${off?'off':''}" onclick="toggleEl('${el}')" title="charges ${ox}">${el}<small class="muted"> ${ox}</small></span>`; } b+='</div>'; }
+  b+=`<div class="help">The family file describes the crystal type, which elements may sit on which site, and their charges. Excluding an element here removes every composition containing it. Everything shown is read from <code>${esc(S.ui.family)}.yaml</code>; copy that file to define your own family.</div></div>`;
+  return b;
+}
+function panelRules(){
+  const ev=S.ev||evaluateSpace(); let b=`<div class="card"><h2>Rules</h2><p class="muted small">Hard rules every candidate must pass. Move a limit and watch the count change — the search uses exactly these windows.</p>`;
+  for(const c of S.fam.constraints){ const r=S.ui.rules[c.name]; const d=S.fam.space.rows.map(x=>x.d[c.name]).filter(Number.isFinite);
+    b+=`<div class="rule ${r.enabled?'':'off'}"><div class="hd"><input type="checkbox" ${r.enabled?'checked':''} onchange="toggleRule('${c.name}',this.checked)"><b>${esc(ruleTitle(c.name))}</b><span class="muted small">${(ev.perRule[c.name]??'–').toLocaleString()} of ${ev.rows.length.toLocaleString()} pass</span></div><p class="small muted">${esc(ruleText(c.name))}</p>`;
+    const num=Object.entries(r.params).filter(([k,v])=>typeof v==='number' && !['cutoff'].includes(k));
+    if(num.length){ b+='<div class="params">'; for(const [k,v] of num){ const lo=d.length?Math.min(...d):0, hi=d.length?Math.max(...d):1; const span=(hi-lo)||1;
+      b+=`<div class="param"><label>${k}</label><input type="number" step="0.01" value="${v}" onchange="setParam('${c.name}','${k}',this.value)"><br><input type="range" min="${(lo-.2*span).toFixed(3)}" max="${(hi+.2*span).toFixed(3)}" step="0.005" value="${v}" oninput="setParam('${c.name}','${k}',this.value,true)" style="width:150px"></div>`; } b+='</div>'; }
+    if(d.length>1 && ['tolerance_factor','octahedral_factor','bond_window','min_distance'].includes(c.name)){ const w = c.name==='bond_window'?[+r.params.low,+r.params.high] : c.name==='min_distance'?[+r.params.min,null] : [+r.params.min,+r.params.max];
+      b+=hist(d, ruleTitle(c.name), 'value over all compositions', {window:w, bins:30}); }
+    b+='</div>'; }
+  S.ui.extraRules.forEach((r,i)=>{ b+=`<div class="rule ${r.enabled?'':'off'}"><div class="hd"><input type="checkbox" ${r.enabled?'checked':''} onchange="S.ui.extraRules[${i}].enabled=this.checked;recompute('rules','Property window ${r.enabled?'disabled':'enabled'}');render()"><b>Predicted ${esc(label(r.params.property))} window</b><button onclick="S.ui.extraRules.splice(${i},1);recompute('rules','Property window removed');render()">remove</button></div>
+    <div class="params"><div class="param"><label>property</label><select onchange="S.ui.extraRules[${i}].params.property=this.value;recompute('rules','Property window changed');render()">${S.state.model.properties.map(p=>`<option value="${p.column}" ${p.column===r.params.property?'selected':''}>${esc(p.label)}</option>`).join('')}</select></div>
+    <div class="param"><label>min</label><input type="number" step="0.01" value="${r.params.min??''}" onchange="S.ui.extraRules[${i}].params.min=this.value===''?null:+this.value;recompute('rules','Property window min');render()"></div><div class="param"><label>max</label><input type="number" step="0.01" value="${r.params.max??''}" onchange="S.ui.extraRules[${i}].params.max=this.value===''?null:+this.value;recompute('rules','Property window max');render()"></div></div></div>`; });
+  if(S.state.model.properties.length) b+=`<button onclick="S.ui.extraRules.push({enabled:true,params:{property:'${S.state.model.properties[0].column}',min:null,max:null}});recompute('rules','Added a predicted-property window');render()">+ add a predicted-property window</button>`;
+  b+=`<h3>Funnel</h3>${funnelSvg(ev.funnel)}<div class="help">Rules are evaluated in this order; each bar is how many compositions survive. The largest drop is the rule that limits this family most.</div></div>`;
+  return b;
+}
+function panelTargets(){
+  const ev=S.ev||evaluateSpace(); const props=S.state.model.properties; let b=`<div class="card"><h2>Targets</h2><p class="muted small">What should the material have? Each objective pulls the search; weights say how much.</p>`;
+  S.ui.objectives.forEach((o,i)=>{ const r=S.state.ranges[o.property]||[0,1]; const span=(r[1]-r[0])||1; const t=+S.ui.target[o.property];
+    const vals=ev.rows.map(x=>x.p[o.property]); const okm=ev.rows.map(x=>x._ok);
+    b+=`<div class="rule"><div class="hd"><b>${esc(label(o.property))}${esc(unit(o.property))}</b>${S.ui.objectives.length>1?`<button onclick="removeObjective(${i})">remove</button>`:''}</div>
+      <div class="params"><div class="param"><label>target</label><input type="number" step="0.01" value="${t}" onchange="setTarget('${o.property}',this.value)"><br><input type="range" min="${(r[0]-.2*span).toFixed(3)}" max="${(r[1]+.2*span).toFixed(3)}" step="${(span/200).toFixed(4)}" value="${t}" oninput="setTarget('${o.property}',this.value,true)" style="width:220px"></div>
+      <div class="param"><label>how to compare</label><select onchange="S.ui.objectives[${i}].loss=this.value;S.ui.objectives[${i}].select_loss=this.value;recompute('targets','Comparison for ${esc(label(o.property))}: '+this.value);render()">${['l2','l1','at_most','at_least'].map(k=>`<option value="${k}" ${k===o.loss?'selected':''}>${{l2:'as close as possible (squared)',l1:'as close as possible (absolute)',at_most:'at most the target',at_least:'at least the target'}[k]}</option>`).join('')}</select></div>
+      <div class="param"><label>weight in search</label><input type="number" step="100" value="${o.weight}" onchange="S.ui.objectives[${i}].weight=+this.value"></div><div class="param"><label>weight in ranking</label><input type="number" step="0.1" value="${o.select_weight}" onchange="S.ui.objectives[${i}].select_weight=+this.value;recompute('targets','Ranking weight changed');render()"></div></div>
+      ${hist(vals, 'predicted '+label(o.property), 'predicted '+label(o.property)+unit(o.property), {marks:{target:t}, okMask:okm, bins:30})}
+      ${(t<r[0]||t>r[1])?`<p class="flag small">⚠ ${fmt(t)} is outside the training range ${fmt(r[0])}–${fmt(r[1])}: the model would be extrapolating.</p>`:''}</div>`; });
+  const unused=props.filter(p=>!S.ui.objectives.some(o=>o.property===p.column));
+  if(unused.length) b+=`<button onclick="addObjective('${unused[0].column}')">+ add objective: ${esc(unused[0].label)}</button>`;
+  if(S.ui.objectives.length>=2){ const [a,c]=S.ui.objectives; const found=(S.search.status&&S.search.status.candidates||[]).map(x=>x.formula); b+=`<h3>Where the compositions sit</h3>${scatter(ev.rows, a.property, c.property, S.ui.target, found)}<p class="small muted">blue = passes all rules, grey = rejected, ★ = found by the search. Click a point for its full checklist.</p>`; }
+  b+=`<div class="help">Grey bars/points are compositions rejected by the current rules. A target in a region with few blue compositions is hard to reach; a target outside the training range asks the model to extrapolate.</div></div>`;
+  return b;
+}
+function panelSearch(){
+  const s=S.ui.search, st=S.search.status; const est=estimateSeconds(); let b=`<div class="card"><h2>Search (the paper's latent optimisation)</h2>`;
+  const lim=S.state.limits||{}; const cap=(k,hi)=>lim[k]?Math.min(hi,lim[k]):hi;
+  for(const k of ['per_target','population','rounds','steps']) if(lim[k]&&s[k]>lim[k]) s[k]=lim[k];
+  b+=`<div class="params">${[['per_target','candidates to find',1,cap('per_target',20),1],['population','latents per round',4,cap('population',128),4],['rounds','max rounds',1,cap('rounds',50),1],['steps','steps per round',20,cap('steps',2000),20],['seed','random seed',0,99999,1]].map(([k,l,lo,hi,step])=>`<div class="param"><label>${l}</label><input type="number" min="${lo}" max="${hi}" step="${step}" value="${s[k]}" onchange="S.ui.search['${k}']=Math.max(${lo},Math.min(${hi},+this.value));render()"></div>`).join('')}</div>
+    <p class="small muted">Rough time on a laptop CPU: ≈ ${est<90?est.toFixed(0)+' s':(est/60).toFixed(0)+' min'} (GPU: several times faster). More rounds and latents find more, and more diverse, candidates.</p>`;
+  if(S.state.public) b+=`<p class="small flag">Public server: budgets are capped (≤ ${lim.rounds} rounds, ≤ ${lim.steps} steps, ≤ ${lim.population} latents) and a few searches run at a time. Install MEIDNet locally for full control and your own data.</p>`;
+  if(STATIC) b+=`<div class="verdict warn">The static demo cannot run a search. Locally: <code>pip install meidnet</code> then <code>meidnet studio</code> — the same page with this button enabled.</div>`;
+  b+=`<div class="row"><button class="primary" ${S.search.running||STATIC?'disabled':''} onclick="startSearch()">▶ Run search</button><button class="danger" ${S.search.running?'':'disabled'} onclick="stopSearch()">■ Stop</button><button onclick="downloadYaml()">⬇ Export meidnet.yaml</button></div>`;
+  if(st){ const p=st.progress; const frac=p.steps?((p.step+1)/p.steps):0;
+    b+=`<h3>${st.running?'Running':(st.error?'Failed':'Finished')}</h3><p class="small">target ${p.target}/${p.targets} · round ${p.round}/${p.rounds} · step ${p.step}/${p.steps}${p.loss!==null&&p.loss!==undefined?' · loss '+fmt(p.loss):''} · ${st.seconds.toFixed(0)} s</p><div class="prog"><i style="width:${(100*frac).toFixed(1)}%"></i></div>`;
+    if(st.error) b+=`<pre>${esc(st.error)}</pre>`;
+    b+=`<details ${st.running?'open':''}><summary>log</summary><pre id="log">${esc(st.log.join('\n'))}</pre></details>`;
+    if(st.report) b+=`<p><a href="/files/${esc(st.report)}" target="_blank">open the full generation report</a></p>`; }
+  b+=`<div class="help">What runs: start latents near the latent of your targets, optimise them so the decoder's output hits the targets while obeying the family's soft terms, decode compositions, keep those that pass every rule. The live tables on the right use the encoder instead (structure → property); the search can only return compositions that exist in that table, so compare the two.</div></div>`;
+  return b;
+}
+function estimateSeconds(){ const s=S.ui.search; return 3 + s.rounds*(s.steps*0.0022*s.population + 0.04*s.population); }
+function panelCandidates(){
+  const st=S.search.status; const c=(st&&st.candidates)||[]; let b=`<div class="card"><h2>Candidates found by the search</h2>`;
+  if(!c.length) b+=`<p class="muted">None yet. Run a search from the Search node.</p>`;
+  for(const x of c){ const still=candStillPasses(x);
+    b+=`<div class="cand"><h3>${esc(x.formula)} <span class="muted small">target ${x.target_index} · round ${x.round}</span></h3><div>${Object.entries(x.elements).map(([g,e])=>`<span class="chip pin">${esc(g)} = ${esc(e)}</span>`).join('')} <span class="muted small">a = ${x.lattice_a.toFixed(3)} Å</span></div>`;
+    for(const o of S.ui.objectives) b+=`<div class="small">${esc(label(o.property))}: predicted <b>${fmt(x.predictions[o.property])}</b> vs target ${fmt(x.target_values[o.property])}${esc(unit(o.property))}${gauge(o.property,x.predictions[o.property],x.target_values[o.property])}</div>`;
+    b+=`<ul class="chk">${x.constraint_results.map(r=>`<li><span class="${r.passed?'pass':'fail'}">${r.passed?'✓':'✗'}</span> ${esc(ruleTitle(r.name))}${r.value!==null&&r.name!=='charge_neutrality'?' = '+fmt(r.value):''}${r.name==='charge_neutrality'?' — '+esc(r.detail):''}</li>`).join('')}</ul>`;
+    if(!still) b+=`<p class="flag small">⚠ would be rejected by the rules as you have them now</p>`;
+    (x.flags||[]).forEach(f=>b+=`<p class="flag small">⚠ ${esc(f)}</p>`);
+    if(!STATIC && st.report) b+=`<p class="small"><a href="/files/${esc(st.report.replace('generation_report.html','generation/'+x.file).replace(/\\/g,'/'))}" target="_blank">CIF</a></p>`;
+    b+='</div>'; }
+  b+=`<div class="help">Each card repeats the checklist the search applied. "Predicted" values are the model's; confirm them with DFT or experiment before trusting a candidate.</div></div>`;
+  return b;
+}
+function renderLive(){
+  const ev=S.ev; if(!ev) return; const L=$('live'); const top=ev.ranked;
+  let b=`<h2>Live effects</h2><div class="kpi"><div><b>${ev.rows.length.toLocaleString()}</b><span>compositions</span></div><div><b>${ev.alive.length.toLocaleString()}</b><span>pass all rules</span></div><div><b>${(S.search.status&&S.search.status.candidates||[]).length}</b><span>found by search</span></div></div>`;
+  if(top.length){ b+=`<h4>Predicted closest to target</h4><table><tr><th>#</th><th>composition</th>${S.ui.objectives.map(o=>`<th>${esc(label(o.property))}</th>`).join('')}</tr>`;
+    top.slice(0,8).forEach(([s,r],i)=>{ b+=`<tr class="clk" onclick="inspect('${esc(r.f)}')"><td>${i+1}</td><td>${esc(r.f)}</td>${S.ui.objectives.map(o=>`<td>${fmt(r.p[o.property])}</td>`).join('')}</tr>`; }); b+='</table><p class="small muted">encoder prediction on the ideal prototype · click a row for the full checklist</p>'; }
+  else if(S.fam.space.columns.length) b+=`<p class="muted small">No composition passes all rules.</p>`;
+  if(S.fam.space.sampled) b+=`<p class="flag small">⚠ family too large to enumerate fully; a random sample of ${S.fam.space.rows.length.toLocaleString()} of ${S.fam.space.total.toLocaleString()} compositions is shown.</p>`;
+  L.innerHTML=b;
+}
+function renderLegend(){ $('legend').innerHTML=`<h4>How to use</h4><ol class="small" style="padding-left:18px;margin:4px 0"><li>Pick a <b>Family</b> and variant; exclude elements you cannot use.</li><li>Adjust <b>Rules</b> — counts update as you move limits.</li><li>Set <b>Targets</b>; the table shows the compositions predicted closest.</li><li><b>Search</b> runs the paper's latent optimisation; <b>Candidates</b> explains each result.</li><li>Export <code>meidnet.yaml</code> to repeat the run from the command line.</li></ol>`; }
+
+/* ───────────────────────── actions ───────────────────────── */
+async function setFamily(v){ S.ui.family=v; S.ui.variant=null; S.ui.exclude=new Set(); S.ui.extraRules=[]; await loadFamily(); recompute('family','Family: '+S.fam.title); render(); }
+async function setVariant(v){ S.ui.variant=v; await loadFamily(); recompute('family','Variant: '+v); render(); }
+function toggleEl(el){ if(S.ui.exclude.has(el)) S.ui.exclude.delete(el); else S.ui.exclude.add(el); recompute('family', (S.ui.exclude.has(el)?'Excluded ':'Included ')+el); render(); }
+function toggleRule(n,on){ S.ui.rules[n].enabled=on; recompute('rules', ruleTitle(n)+(on?' enabled':' disabled')); render(); }
+let _slideTimer=null;
+function setParam(n,k,v,live){ const old=S.ui.rules[n].params[k]; S.ui.rules[n].params[k]=+v; S.ui.overrides[n]=Object.assign(S.ui.overrides[n]||{}, {[k]:+v});
+  recompute('rules', `${ruleTitle(n)} ${k} ${fmt(old)} → ${fmt(+v)}`); if(live){ clearTimeout(_slideTimer); _slideTimer=setTimeout(render,250);} else render(); }
+function setTarget(p,v,live){ const old=S.ui.target[p]; S.ui.target[p]=+v; recompute('targets', `${label(p)} target ${fmt(old)} → ${fmt(+v)}`); if(live){ clearTimeout(_slideTimer); _slideTimer=setTimeout(render,250);} else render(); }
+function addObjective(p){ S.ui.objectives.push({property:p, loss:'l2', weight:1e4, select_weight:1, select_loss:'l2'}); if(S.ui.target[p]===undefined) S.ui.target[p]=midRange(p); recompute('targets','Added objective '+label(p)); render(); }
+function removeObjective(i){ const p=S.ui.objectives[i].property; S.ui.objectives.splice(i,1); recompute('targets','Removed objective '+label(p)); render(); }
+function generationPayload(){
+  const overrides={}; for(const [n,r] of Object.entries(S.ui.rules)){ const base=S.fam.constraints.find(c=>c.name===n); const diff={}; for(const [k,v] of Object.entries(r.params)) if(base[k]!==v) diff[k]=v; if(Object.keys(diff).length) overrides[n]=diff; }
+  // disabled rules and property windows are expressed through overrides/extra constraints: disabled → widest window
+  for(const [n,r] of Object.entries(S.ui.rules)) if(!r.enabled){ if(n==='tolerance_factor'||n==='octahedral_factor') overrides[n]={min:-1e9,max:1e9}; else if(n==='bond_window') overrides[n]={low:0,high:1e9}; else if(n==='min_distance') overrides[n]={min:0}; }
+  return {family:S.ui.family, variant:S.ui.variant, exclude_elements:[...S.ui.exclude], overrides,
+    objectives:S.ui.objectives.map(o=>({property:o.property, loss:o.loss, weight:o.weight, select_weight:o.select_weight, select_loss:o.select_loss})),
+    targets:[Object.fromEntries(S.ui.objectives.map(o=>[o.property,+S.ui.target[o.property]]))],
+    per_target:S.ui.search.per_target, population:S.ui.search.population, rounds:S.ui.search.rounds, steps:S.ui.search.steps, seed:S.ui.search.seed};
+}
+async function startSearch(){ try{ const r=await api('/api/search/start',{session:SID, generation:generationPayload()});
+    if(!r.ok){ $('ribbon').className='ribbon'; $('ribbon').innerHTML=(r.busy?'<b>Server busy</b> → ':'<b>Could not start</b> → ')+esc(r.error); return; }
+    S.search.running=true; status('search','running'); pulseFrom('search'); poll(); render(); }catch(e){ $('ribbon').className='ribbon'; $('ribbon').innerHTML='<b>Could not start</b> → '+esc(e.message); } }
+async function stopSearch(){ await api('/api/search/stop',{session:SID}); }
+async function poll(){ try{ const st=await api('/api/search/status?session='+encodeURIComponent(SID)); S.search.status=st; S.search.running=st.running;
+    status('search', st.running?`running ${st.progress.target}/${st.progress.targets} r${st.progress.round}`:(st.error?'failed':'finished'), st.running?`step ${st.progress.step}/${st.progress.steps}`:'');
+    status('candidates', `${st.candidates.length} found`);
+    if(S.panel==='search'||S.panel==='candidates') render(); else renderLive();
+    if(st.running) S.search.poll=setTimeout(poll,700); else { pulseFrom('candidates'); if(S.panel==='search'){ render(); } $('ribbon').className='ribbon'; $('ribbon').innerHTML=`<b>Search finished</b> → ${st.candidates.length} candidate(s)${st.report?` · <a href="/files/${esc(st.report)}" target="_blank">report</a>`:''}`; }
+  }catch(e){ console.error(e); } }
+async function downloadYaml(){ const y=await api('/api/export',{generation:generationPayload()}); const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([y],{type:'text/yaml'})); a.download='meidnet.yaml'; a.click(); }
+function exportYamlLocal(){ const g=generationPayload(); const lines=['# exported from MEIDNet Studio (static demo)','name: studio','model_path: <path to model.pt>','generation:']; const y=(o,ind)=>{ for(const [k,v] of Object.entries(o)){ if(Array.isArray(v)) { lines.push(`${ind}${k}:`); for(const x of v) lines.push(`${ind}  - ${typeof x==='object'?JSON.stringify(x):x}`); } else if(v&&typeof v==='object'){ lines.push(`${ind}${k}: ${JSON.stringify(v)}`);} else lines.push(`${ind}${k}: ${v}`);} }; y(g,'  '); return lines.join('\n'); }
+
+/* ───────────────────────── inspector ───────────────────────── */
+function inspect(formula){ const r=S.fam.space.rows.find(x=>x.f===formula); if(!r) return; const rules=activeRules();
+  let b=`<h2>${esc(r.f)}</h2><div>${Object.entries(r.e).map(([g,e])=>`<span class="chip pin">${esc(g)} = ${esc(e)}</span>`).join('')} <span class="muted small">cell edge a = ${r.a.toFixed(3)} Å</span></div>`;
+  if(Object.keys(r.p).length){ b+='<h4>Predicted properties (encoder)</h4>'; for(const o of S.ui.objectives) b+=`<div class="small">${esc(label(o.property))}: <b>${fmt(r.p[o.property])}</b> vs target ${fmt(+S.ui.target[o.property])}${esc(unit(o.property))}${gauge(o.property,r.p[o.property],+S.ui.target[o.property])}</div>`; }
+  b+='<h4>Rules</h4><ul class="chk">'; for(const ru of rules){ const ok=rulePass(ru.name, ru.params, r); const v=r.d[ru.name]; let w='';
+    if(ru.name==='bond_window') w=`allowed ${ru.params.low}–${ru.params.high}`; else if(ru.params.min!==undefined||ru.params.max!==undefined) w=`allowed ${ru.params.min??'…'}–${ru.params.max??'…'}`;
+    b+=`<li><span class="${ok?'pass':'fail'}">${ok?'✓':'✗'}</span> ${esc(ru.name==='property_window'?('Predicted '+label(ru.params.property)+' window'):ruleTitle(ru.name))}${v!==undefined&&v!==null&&ru.name!=='charge_neutrality'?' = <b>'+fmt(v)+'</b>':''}${ru.name==='property_window'?' = <b>'+fmt(r.p[ru.params.property])+'</b>':''} <span class="muted small">${w}</span><div class="small muted">${esc(ru.name==='property_window'?'The predicted value must lie inside the window.':ruleText(ru.name))}</div></li>`; }
+  b+='</ul><p class="small muted">Descriptor values are computed by the same Python functions the search uses.</p><button onclick="closeModal()">close</button>';
+  $('modal-body').innerHTML=b; $('modal').classList.add('open'); }
+function closeModal(){ $('modal').classList.remove('open'); }
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeModal(); });
+boot().catch(e=>{ $('ribbon').className='ribbon'; $('ribbon').innerHTML='<b>Could not start:</b> '+esc(e.message); console.error(e); });
+</script>
+</body>
+</html>

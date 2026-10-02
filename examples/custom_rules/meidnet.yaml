@@ -1,0 +1,18 @@
+# Generate lead-free halide perovskites with the published model and two custom rules.
+#   meidnet generate examples/custom_rules/meidnet.yaml
+name: no_toxic_demo
+output_dir: runs/{name}
+model_path: ../../checkpoints/dual_autoencoder_clip_earlyfusion_propertyaware_2k.pth
+plugins: [no_toxic_elements.py]
+generation:
+  family: perovskite_no_toxic.yaml
+  variant: halide
+  objectives:
+    - {property: dir_gap, loss: l2, weight: 10000, select_weight: 1.0}
+    - {property: heat_all, loss: at_most, weight: 6000, select_weight: 0.4}
+  targets:
+    - {dir_gap: 1.8, heat_all: -0.10}
+  per_target: 4
+  population: 24
+  rounds: 5
+  steps: 300

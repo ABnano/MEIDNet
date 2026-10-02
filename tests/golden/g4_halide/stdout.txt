@@ -1,0 +1,16 @@
+Loaded checkpoint.
+  missing keys: [] 
+  unexpected keys: []
+
+=== Target 1/2 | family=halide | bg=1.5 ent<-0.1 | pop/round=16 | goal=3 ===
+  [SAVED] D:\codespace_inv_2201026\MEIDNet2\tests\golden\g4_halide\halide_T1_R1_1.cif  (bg=3.475 ent=-0.543; A=Rb B=Mn X=I t=0.964 mu=0.689)
+  [SAVED] D:\codespace_inv_2201026\MEIDNet2\tests\golden\g4_halide\halide_T1_R1_2.cif  (bg=1.402 ent=13.058; A=Rb B=Zn X=I t=0.963 mu=0.691)
+  [SAVED] D:\codespace_inv_2201026\MEIDNet2\tests\golden\g4_halide\halide_T1_R1_3.cif  (bg=-1.727 ent=-1.014; A=Cs B=Mn X=I t=1.014 mu=0.689)
+  [DONE] reached goal 3 for target 1 in 1 round(s).
+
+=== Target 2/2 | family=halide | bg=2.5 ent<-0.1 | pop/round=16 | goal=3 ===
+  [SAVED] D:\codespace_inv_2201026\MEIDNet2\tests\golden\g4_halide\halide_T2_R1_1.cif  (bg=15.909 ent=9.720; A=Na B=Mn X=I t=0.800 mu=0.689)
+  round 1: saved 1; total so far 1/3
+  [SAVED] D:\codespace_inv_2201026\MEIDNet2\tests\golden\g4_halide\halide_T2_R2_2.cif  (bg=3.512 ent=1.471; A=Na B=Zn X=I t=0.799 mu=0.691)
+  [SAVED] D:\codespace_inv_2201026\MEIDNet2\tests\golden\g4_halide\halide_T2_R2_3.cif  (bg=2.542 ent=6.627; A=Na B=Ni X=I t=0.855 mu=0.581)
+  [DONE] reached goal 3 for target 2 in 2 round(s).

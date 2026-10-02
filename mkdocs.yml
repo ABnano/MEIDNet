@@ -1,0 +1,71 @@
+site_name: MEIDNet
+site_description: Multimodal inverse design of crystalline materials — with your own data, rules and families.
+site_url: https://babu09-meidnet.hf.space/docs/
+use_directory_urls: false
+repo_url: https://github.com/ABnano/MEIDNet
+repo_name: ABnano/MEIDNet
+copyright: MIT licence · Anand Babu
+
+theme:
+  name: material
+  logo: assets/logo.png
+  favicon: assets/logo.png
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: deep orange
+      toggle: {icon: material/weather-night, name: dark mode}
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: deep orange
+      toggle: {icon: material/weather-sunny, name: light mode}
+  features: [navigation.tabs, navigation.sections, navigation.top, content.code.copy, content.tabs.link, search.suggest]
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc: {permalink: true}
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed: {alternate_style: true}
+  - pymdownx.arithmatex: {generic: true}
+
+extra_javascript:
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+
+nav:
+  - Home: index.md
+  - Start:
+      - 5-minute quickstart: start/quickstart.md
+      - What data do I need?: start/what-data.md
+      - Run in Colab: start/colab.md
+  - Use your data:
+      - Bring your own dataset: use/your-data.md
+      - The configuration file: use/config.md
+      - MEIDNet Studio (live workbench): use/studio.md
+      - Reading the reports: use/reports.md
+  - Recipes:
+      - Change the target properties: recipes/change-targets.md
+      - Add a property: recipes/add-property.md
+      - Exclude or restrict elements: recipes/elements.md
+      - Change the material family: recipes/change-family.md
+      - Add a rule (constraint): recipes/add-constraint.md
+      - Screen stability with MACE: recipes/screen.md
+  - Understand:
+      - How MEIDNet works: understand/how-it-works.md
+      - Why you can trust (or not) a candidate: understand/interpretability.md
+      - Scope and roadmap: understand/limits.md
+  - Examples:
+      - Perov-5 (the paper): examples/perov5.md
+      - Double perovskites: examples/double-perovskite.md
+  - Reference:
+      - Command line: reference/cli.md
+      - Configuration: reference/config.md
+      - Family files: reference/families.md
+      - Rules and search terms: reference/rules.md
+      - Python API: reference/api.md
+  - Research: research/paper.md

@@ -1,0 +1,55 @@
+# A family file that extends the built-in perovskite family with two custom rules.
+# Everything else is copied from meidnet/families/perovskite_abx3.yaml (shortened here
+# to the halide variant). Use with:
+#     plugins: [examples/custom_rules/no_toxic_elements.py]
+#     generation: {family: examples/custom_rules/perovskite_no_toxic.yaml, variant: halide, ...}
+name: perovskite_no_toxic
+title: Cubic ABX3 halide perovskite without toxic elements
+prototype:
+  lattice: cubic
+  reference_a: 3.87
+  sites:
+    - {group: A, frac: [0.0, 0.0, 0.0]}
+    - {group: B, frac: [0.5, 0.5, 0.5]}
+    - {group: X, frac: [0.0, 0.5, 0.5]}
+    - {group: X, frac: [0.5, 0.0, 0.5]}
+    - {group: X, frac: [0.5, 0.5, 0.0]}
+groups:
+  A:
+    description: Large cation at the cube corner
+    elements: [Ba, Sr, Ca, Na, K, Rb, Cs]
+    oxidation_states: {Na: [1], K: [1], Rb: [1], Cs: [1], Ca: [2], Sr: [2], Ba: [2]}
+  B:
+    description: Octahedral cation
+    elements: [Mn, Fe, Co, Ni, Cu, Zn, Sn, Pb, Sc, Cr, V, Ge]
+    oxidation_states: {Mn: [2], Fe: [2], Co: [2], Ni: [2], Cu: [2], Zn: [2], Sn: [2], Pb: [2], Sc: [3], Cr: [3], V: [3], Ge: [2]}
+  X:
+    description: Halide anion
+    elements: [F, Cl, Br, I]
+    oxidation_states: {F: [-1], Cl: [-1], Br: [-1], I: [-1]}
+sampling_order: [B, X, A]
+lattice: {rule: bond_sum, groups: [B, X], factor: 2.0, min: 3.0, max: 8.0}
+variants:
+  halide:
+    description: all halides
+    params: {tolerance_factor: {min: 0.75, max: 1.02}}
+search_terms:
+  - {name: site_separation, weight: 200}
+  - {name: site_repulsion, weight: 8000}
+  - {name: cubic_cell, volume_weight: 1000, cubicity_weight: 10000}
+  - {name: prototype_alignment, weight: 800}
+  - {name: tolerance_penalty, weight: 1000, A: A, B: B, X: X}
+  - {name: soft_charge, weight: 3000}
+  - {name: group_consistency, weight: 1500}
+  - {name: entropy_bonus, weight: 0.06}
+  - {name: short_distance_penalty, min: 0.8}
+logit_transforms:
+  - {name: neutrality_bias, group: X, bias: 8.0, topk: 5}
+constraints:
+  - {name: min_distance, min: 0.8}
+  - {name: charge_neutrality}
+  - {name: bond_window, from: X, to: B, low: 0.75, high: 1.35, cutoff: 5.0}
+  - {name: tolerance_factor, A: A, B: B, X: X, min: 0.75, max: 1.02}
+  - {name: octahedral_factor, B: B, X: X, min: 0.414, max: 0.90}
+  - {name: no_toxic_elements}                 # ← custom rule from the plugin
+  - {name: max_cell_edge, max: 6.5}           # ← custom rule with a parameter

@@ -1,0 +1,9 @@
+Loaded checkpoint.
+  missing keys: [] 
+  unexpected keys: []
+
+=== Target 1/1 | family=oxide | bg=2.0 ent<-0.2 | pop/round=16 | goal=3 ===
+  [SAVED] D:\codespace_inv_2201026\MEIDNet2\tests\golden\g4_oxide\oxide_T1_R1_1.cif  (bg=1.870 ent=-0.357; A=Na B=Ta X=O t=0.823 mu=0.651)
+  [SAVED] D:\codespace_inv_2201026\MEIDNet2\tests\golden\g4_oxide\oxide_T1_R1_2.cif  (bg=1.924 ent=-0.604; A=Na B=Nb X=O t=0.823 mu=0.651)
+  [SAVED] D:\codespace_inv_2201026\MEIDNet2\tests\golden\g4_oxide\oxide_T1_R1_3.cif  (bg=1.329 ent=0.847; A=La B=Al X=O t=0.889 mu=0.536)
+  [DONE] reached goal 3 for target 1 in 1 round(s).

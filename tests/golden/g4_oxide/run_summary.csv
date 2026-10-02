@@ -1,0 +1,4 @@
+target_idx,bg_target,ent_target,pred_bg,pred_ent,A,B,X,a0,t,mu,outfile,family,note
+1,2.0,-0.2,1.8699355125427246,-0.35704731941223145,Na,Ta,O,4.16,0.8226915434958869,0.6507936507936507,D:\codespace_inv_2201026\MEIDNet2\tests\golden\g4_oxide\oxide_T1_R1_1.cif,oxide,
+1,2.0,-0.2,1.9243074655532837,-0.6041322946548462,Na,Nb,O,4.16,0.8226915434958869,0.6507936507936507,D:\codespace_inv_2201026\MEIDNet2\tests\golden\g4_oxide\oxide_T1_R1_2.cif,oxide,
+1,2.0,-0.2,1.3291932344436646,0.8469313383102417,La,Al,O,3.87,0.888725422142472,0.5357142857142857,D:\codespace_inv_2201026\MEIDNet2\tests\golden\g4_oxide\oxide_T1_R1_3.cif,oxide,

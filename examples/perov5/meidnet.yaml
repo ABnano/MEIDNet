@@ -1,0 +1,39 @@
+# Reproduces the published MEIDNet experiment on Perov-5.
+#   meidnet download-data            (from the repository root)
+#   meidnet train examples/perov5/meidnet.yaml
+#   meidnet generate examples/perov5/meidnet.yaml --model checkpoints/dual_autoencoder_clip_earlyfusion_propertyaware_2k.pth
+name: perov5
+description: Cubic ABX3 perovskites, direct band gap + formation enthalpy (Perov-5, CDVAE split)
+output_dir: ../../runs/{name}
+
+data:
+  table: ../../data/perov5/train.csv
+  id_column: material_id
+  cif_column: cif
+  properties:
+    - {column: heat_all, label: Formation enthalpy, unit: eV/atom, normalize: false}
+    - {column: dir_gap,  label: Direct band gap,    unit: eV,      normalize: false}
+  val_table: ../../data/perov5/val.csv
+  max_sites: 20
+  align_to_prototype: false        # the published model used atoms in file order
+
+training:
+  epochs: 200
+  batch_size: 16
+  contrastive_warmup_epochs: 1200  # the paper's schedule (full strength only after 1200 epochs)
+  device: auto
+
+generation:
+  family: perovskite_abx3
+  variant: halide
+  objectives:
+    - {property: dir_gap,  loss: l2, weight: 10000, select_weight: 1.0}
+    - {property: heat_all, loss: l1, weight: 6000,  select_weight: 0.4}
+  targets:
+    - {dir_gap: 1.5, heat_all: -0.10}
+    - {dir_gap: 2.5, heat_all: -0.10}
+    - {dir_gap: 3.5, heat_all: -0.10}
+  per_target: 4
+  population: 48
+  rounds: 20
+  steps: 800

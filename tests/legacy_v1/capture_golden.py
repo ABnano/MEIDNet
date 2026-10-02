@@ -117,7 +117,9 @@ def main():
                 losses.append([loss.item(), l_rj.item(), l_pj.item(), l_rp.item(), l_pp.item(), l_ct.item()])
         meta["g3_order"] = order
         meta["g3_losses"] = losses
-        meta["g3_state_sha256"] = state_digest(tmodel)
+        meta["g3_state_sha256"] = state_digest(tmodel)   # exact on the capture platform
+        np.savez_compressed(os.path.join(GOLDEN, "g3_state.npz"),
+                            **{k: v.detach().cpu().numpy() for k, v in tmodel.state_dict().items()})
 
     # G4: small generation runs with the v1 CLI, two families
     runs = {

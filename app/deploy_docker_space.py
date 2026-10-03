@@ -18,6 +18,9 @@ import time
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 STAGE = os.path.join(ROOT, "build", "space_docker")
 CKPT = "dual_autoencoder_clip_earlyfusion_propertyaware_2k.pth"
+# binary file types in the bundle, all tracked by LFS on the Space (see stage())
+LFS_EXTENSIONS = ("pth", "csv", "png", "jpg", "jpeg", "gif", "webp", "ico", "webm", "mp4", "gz", "zip", "pdf",
+                  "woff", "woff2", "ttf")
 
 README = """---
 title: MEIDNet Prism
@@ -29,6 +32,8 @@ app_port: 7860
 pinned: true
 license: mit
 short_description: Learn, build and benchmark multimodal AI for materials
+thumbnail: https://babu09-meidnet.hf.space/docs/assets/meidnet_prism_logo.png
+header: mini
 tags: [materials, inverse-design, generative, crystal, perovskite, multimodal, contrastive-learning, chemistry]
 models: [Babu09/MEIDNet]
 ---
@@ -109,7 +114,10 @@ def build_stage() -> str:
     with open(os.path.join(STAGE, "requirements.txt"), "w", encoding="utf-8") as f:
         f.write(REQUIREMENTS)
     with open(os.path.join(STAGE, ".gitattributes"), "w") as f:
-        f.write("*.pth filter=lfs diff=lfs merge=lfs -text\n*.csv filter=lfs diff=lfs merge=lfs -text\n")
+        # Every binary type must be listed: the Hub stores large binaries in LFS whatever this file says, and the
+        # Space build only restores the files this file names. Unlisted ones arrive as 130-byte pointer files
+        # (that is how the logo, the poster and the tour video broke on the live page).
+        f.write("".join(f"*.{ext} filter=lfs diff=lfs merge=lfs -text\n" for ext in LFS_EXTENSIONS))
     total = sum(os.path.getsize(os.path.join(d, x)) for d, _, fs in os.walk(STAGE) for x in fs)
     print(f"staged {STAGE} ({total / 1e6:.1f} MB)")
     return STAGE

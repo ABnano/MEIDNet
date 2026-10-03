@@ -1071,6 +1071,28 @@ def _page(name: str) -> str:
         return f.read()
 
 
+def _byte_range(header, size: int):
+    """The (start, end) of a single `Range: bytes=` request, inclusive; None to send the whole file;
+    "unsatisfiable" when the range lies outside it. Multi-range requests get the whole file."""
+    if not header or not header.strip().startswith("bytes=") or "," in header or size <= 0:
+        return None
+    spec = header.strip()[len("bytes="):].strip()
+    first, _, last = spec.partition("-")
+    try:
+        if first == "":                      # bytes=-N: the last N bytes
+            n = int(last)
+            if n <= 0:
+                return "unsatisfiable"
+            return max(0, size - n), size - 1
+        start = int(first)
+        end = int(last) if last else size - 1
+    except ValueError:
+        return None
+    if start >= size or start < 0 or end < start:
+        return "unsatisfiable"
+    return start, min(end, size - 1)
+
+
 class Handler(BaseHTTPRequestHandler):
     studio: Studio = None
     timeout = 120                       # seconds a client may stay silent mid-request
@@ -1078,12 +1100,14 @@ class Handler(BaseHTTPRequestHandler):
     def log_message(self, fmt, *args):  # quiet
         pass
 
-    def _send(self, code, body, ctype="application/json", sandbox=False):
+    def _send(self, code, body, ctype="application/json", sandbox=False, headers=None):
         if isinstance(body, (dict, list)):
             body = json.dumps(_finite(body), default=float).encode("utf-8")
         elif isinstance(body, str):
             body = body.encode("utf-8")
         self.send_response(code)
+        for k, v in (headers or {}).items():
+            self.send_header(k, v)
         self.send_header("Content-Type", ctype + ("; charset=utf-8" if ctype.startswith("text") or "json" in ctype else ""))
         self.send_header("Content-Length", str(len(body)))
         # run outputs change under the same name (a retrained model's report): always revalidate those
@@ -1114,8 +1138,18 @@ class Handler(BaseHTTPRequestHandler):
         ctype = mimetypes.guess_type(full)[0] or ("text/plain" if full.endswith((".cif", ".yaml", ".log", ".csv")) else "application/octet-stream")
         if full.endswith((".cif", ".yaml", ".log", ".csv")):
             ctype = "text/plain"
+        sandbox = not rel.startswith("docs/")
+        size = os.path.getsize(full)
+        rng = _byte_range(self.headers.get("Range"), size)
+        if rng == "unsatisfiable":
+            return self._send(416, b"", ctype, sandbox=sandbox, headers={"Content-Range": f"bytes */{size}", "Accept-Ranges": "bytes"})
         with open(full, "rb") as f:
-            return self._send(200, f.read(), ctype, sandbox=not rel.startswith("docs/"))
+            if rng:   # a slice: browsers stream and seek video this way, and Safari requires it to play at all
+                start, end = rng
+                f.seek(start)
+                return self._send(206, f.read(end - start + 1), ctype, sandbox=sandbox,
+                                  headers={"Content-Range": f"bytes {start}-{end}/{size}", "Accept-Ranges": "bytes"})
+            return self._send(200, f.read(), ctype, sandbox=sandbox, headers={"Accept-Ranges": "bytes"})
 
     def do_HEAD(self):
         self.do_GET()

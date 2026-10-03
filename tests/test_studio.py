@@ -143,6 +143,27 @@ def test_http_routes_landing_and_studio(studio, tmp_path):
             c.close()
             st, _, body = get(srv, "/api/state?session=tab-route")
             assert st == 200 and json.loads(body)["home_url"] == "/"
+            # byte ranges: browsers stream and seek the tour video this way; Safari plays nothing without them
+            clip = bytes(range(256)) * 4
+            (docs / "clip.webm").write_bytes(clip)
+
+            def raw(path, rng=None):
+                c = http.client.HTTPConnection("127.0.0.1", srv.server_address[1], timeout=30)
+                c.request("GET", path, headers={"Range": rng} if rng else {})
+                r = c.getresponse()
+                out = r.status, dict(r.getheaders()), r.read()
+                c.close()
+                return out
+            st, h, b = raw("/docs/clip.webm")
+            assert st == 200 and b == clip and h["Accept-Ranges"] == "bytes" and h["Content-Type"] == "video/webm"
+            st, h, b = raw("/docs/clip.webm", "bytes=10-19")
+            assert st == 206 and b == clip[10:20] and h["Content-Range"] == "bytes 10-19/1024"
+            st, h, b = raw("/docs/clip.webm", "bytes=1000-")
+            assert st == 206 and b == clip[1000:] and h["Content-Range"] == "bytes 1000-1023/1024"
+            st, h, b = raw("/docs/clip.webm", "bytes=-4")
+            assert st == 206 and b == clip[-4:]
+            st, h, _ = raw("/docs/clip.webm", "bytes=5000-")
+            assert st == 416 and h["Content-Range"] == "bytes */1024"
         finally:
             srv.shutdown()
             srv.server_close()

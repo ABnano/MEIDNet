@@ -5,14 +5,23 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>MEIDNet Prism — learn, build and benchmark multimodal AI for materials discovery</title>
 <meta name="description" content="MEIDNet Prism: learn what multimodal learning is, choose an architecture, build a model on your own structures and properties, find datasets and benchmark the result. MEIDNet (npj Computational Materials, 2026) is the reference implementation.">
-<link rel="icon" href="/docs/assets/favicon-64.png" type="image/png"><link rel="apple-touch-icon" href="/docs/assets/prism-mark-192.png">
+<meta property="og:type" content="website"><meta property="og:site_name" content="MEIDNet Prism">
+<meta property="og:title" content="MEIDNet Prism — learn, build and benchmark multimodal AI for materials discovery">
+<meta property="og:description" content="Learn multimodal learning, choose an architecture, build a model on your own crystal structures and properties, and design new materials. MEIDNet (npj Computational Materials, 2026) is the reference implementation.">
+<meta property="og:url" content="https://babu09-meidnet.hf.space/"><meta property="og:image" content="https://babu09-meidnet.hf.space/docs/assets/meidnet_prism_logo.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="631"><meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/docs/assets/favicon-64.png" type="image/png">
+<script>/* theme before first paint: the visitor's own choice, else the theme the Hugging Face page asks for (?__theme=light|dark), else the system's */
+(function(){ var d=document.documentElement, t=null; try{ t=localStorage.getItem('meidnet_theme'); }catch(e){}
+  var q=new URLSearchParams(location.search).get('__theme'); if(t) d.dataset.theme=t; else if(q==='light'||q==='dark') d.dataset.theme=q; })();</script><link rel="apple-touch-icon" href="/docs/assets/prism-mark-192.png">
 <style>
 :root{--c-data:#2a78d6;--c-model:#eb6834;--c-family:#1baf7a;--c-rules:#eda100;--c-targets:#e87ba4;--c-search:#008300;--c-candidates:#4a3aa7;
-  --p1:#4f46e5;--p2:#9333ea;--bg:#f6f7f5;--card:#fff;--ink:#0b0b0b;--muted:#52514e;--faint:#898781;--line:#e1e0d9}
-:root[data-theme="dark"]{--bg:#111417;--card:#1b1f24;--ink:#fff;--muted:#c3c2b7;--faint:#898781;--line:#2c2c2a}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#111417;--card:#1b1f24;--ink:#fff;--muted:#c3c2b7;--faint:#898781;--line:#2c2c2a}}
+  --p1:#4f46e5;--p2:#9333ea;--bg:#f6f7f5;--card:#fff;--ink:#0b0b0b;--muted:#52514e;--faint:#898781;--line:#e1e0d9;
+  --link:#4f46e5;--eyebrow-mix:#000}
+:root[data-theme="dark"]{--bg:#111417;--card:#1b1f24;--ink:#fff;--muted:#c3c2b7;--faint:#898781;--line:#2c2c2a;--link:#a5b4fc;--eyebrow-mix:#fff}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#111417;--card:#1b1f24;--ink:#fff;--muted:#c3c2b7;--faint:#898781;--line:#2c2c2a;--link:#a5b4fc;--eyebrow-mix:#fff}}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
-a{color:var(--p1)}:root[data-theme="dark"] a{color:#a5b4fc}
+a{color:var(--link)}
 .wrap{max-width:1100px;margin:auto;padding:0 16px}
 header{position:sticky;top:0;z-index:5;background:var(--card);border-bottom:1px solid var(--line)}
 header .wrap{display:flex;align-items:center;gap:10px;min-height:56px;flex-wrap:wrap}
@@ -33,8 +42,13 @@ h1 .prism{background:linear-gradient(90deg,var(--p1),var(--p2));-webkit-backgrou
 .prismfig{width:100%;height:auto;display:block;border-radius:14px;background:#fff;border:1px solid var(--line)}
 .video{margin:12px 0 28px}.video video{width:100%;height:auto;border-radius:14px;border:1px solid var(--line);background:#000;display:block}
 .video figcaption{font-size:14px;color:var(--muted);margin-top:8px}
+.video video[hidden]{display:none}
+.tour-fallback{position:relative;display:block;border-radius:14px;overflow:hidden;border:1px solid var(--line)}.tour-fallback[hidden]{display:none}
+.tour-fallback img{width:100%;height:auto;display:block}
+.tour-fallback span{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:var(--p1);color:#fff;font-weight:800;font-size:18px;padding:14px 22px;border-radius:999px;box-shadow:0 8px 30px -8px rgba(0,0,0,.6)}
+.tour-fallback:hover span{background:var(--p2)}
 .layers{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:8px 0 28px}@media(max-width:900px){.layers{grid-template-columns:1fr 1fr}}@media(max-width:600px){.layers{grid-template-columns:1fr}}
-.layers .card h2 small{display:block;font:700 11px/1.4 system-ui;letter-spacing:.12em;text-transform:uppercase;color:var(--accent,var(--p1))}
+.layers .card h2 small{display:block;font:700 11px/1.4 system-ui;letter-spacing:.12em;text-transform:uppercase;color:color-mix(in oklab,var(--accent,var(--p1)) 72%,var(--eyebrow-mix))}
 .flow{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:0 0 12px;font-weight:700;font-size:14.5px}
 .flow a{text-decoration:none;color:var(--ink);background:var(--card);border:1px solid var(--line);border-top:3px solid var(--accent);border-radius:10px;padding:6px 12px}
 .flow a:hover{box-shadow:0 4px 14px -8px rgba(0,0,0,.5)}.flow span{color:var(--faint)}
@@ -78,11 +92,14 @@ footer{color:var(--faint);font-size:13.5px;padding:10px 0 40px;display:flex;gap:
     <img class="prismfig" src="/docs/assets/meidnet_prism_logo.png" alt="MEIDNet Prism: several modalities enter a prism and leave it as one connected representation of materials.">
   </section>
 
-  <figure class="video">
-    <video controls muted playsinline preload="metadata" poster="/docs/assets/meidnet_tour_poster.png">
+  <figure class="video" id="tour">
+    <video id="tour-video" controls muted playsinline preload="metadata" poster="/docs/assets/meidnet_tour_poster.png">
       <source src="/docs/assets/meidnet_tour.webm" type="video/webm">
-      Your browser cannot play this video: <a href="/docs/assets/meidnet_tour.webm">download it</a>.
     </video>
+    <a class="tour-fallback" id="tour-fallback" href="/studio/?tour=0" hidden>
+      <img src="/docs/assets/meidnet_tour_poster.png" alt="MEIDNet in one minute: from the properties you want to candidate crystals">
+      <span>▶ Play the one-minute tour</span>
+    </a>
     <figcaption>MEIDNet in one minute: data → model → family → rules → targets → search → candidates. The same tour opens on your first visit to the Studio.</figcaption>
   </figure>
 
@@ -140,6 +157,16 @@ footer{color:var(--faint);font-size:13.5px;padding:10px 0 40px;display:flex;gap:
   <footer><span>MEIDNet Prism: learn, build and benchmark multimodal AI for materials discovery. MEIDNet is its reference implementation.</span><a href="https://github.com/ABnano/MEIDNet">Code</a><a href="/docs/">Documentation</a><a href="/docs/understand/limits.html">Honest scope</a><a href="https://huggingface.co/spaces/Babu09/MEIDNet">Hugging Face Space</a></footer>
 </main>
 <script>
+(function(){
+  // Inside the Hugging Face page this site runs in a frame, and GitHub, doi.org or arXiv refuse to load in one:
+  // open every link that leaves this site in a new tab.
+  document.querySelectorAll('a[href^="http"]').forEach(a=>{ try{ if(new URL(a.href).origin!==location.origin){ a.target='_blank'; a.rel='noopener'; } }catch(e){} });
+  // The tour video is WebM (VP9). A browser that cannot play it gets the poster, linked to the same tour drawn live in the Studio.
+  const v=document.getElementById('tour-video'), fb=document.getElementById('tour-fallback');
+  const fallback=()=>{ v.hidden=true; v.removeAttribute('src'); fb.hidden=false; };
+  if(!v.canPlayType('video/webm; codecs="vp9"') && !v.canPlayType('video/webm')) fallback();
+  else { v.querySelector('source').addEventListener('error', fallback); v.addEventListener('error', fallback); }
+})();
 (function(){ const d=document.documentElement; try{ const t=localStorage.getItem('meidnet_theme'); if(t) d.dataset.theme=t; }catch(e){}
   const b=document.getElementById('theme'); const isDark=()=>d.dataset.theme==='dark'||(!d.dataset.theme&&matchMedia('(prefers-color-scheme: dark)').matches);
   const paint=()=>{ b.textContent=isDark()?'☀️':'🌙'; }; paint();

@@ -1,6 +1,6 @@
 # Scope and roadmap
 
-## What works today
+## Current capabilities
 
 | | |
 |---|---|
@@ -11,7 +11,7 @@
 | **Rules** | charge balance, tolerance and octahedral factors, bond windows, minimum distance, predicted-property windows, element filters, and your own Python rules |
 | **Explanations** | reports for data, training and generation; the Studio for live what-if |
 
-## What does not work (yet)
+## Not yet supported
 
 - **New atomic arrangements.** The decoder's positions are not used to create geometry; candidates are
   compositions placed on the family prototype. Generating free geometry needs a decoder trained to produce it

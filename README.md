@@ -2,7 +2,7 @@
   <img src="docs/assets/meidnet_prism_logo.png" alt="MEIDNet Prism — Multimodal materials representation and inverse design" width="640"/>
 </p>
 
-<p align="center"><em>Design crystalline materials from target properties — with your own data, your own rules, and no code to edit.</em><br/>
+<p align="center"><em>Inverse design of crystalline materials from target properties, with your own data and rules.</em><br/>
 <b>MEIDNet Prism</b>: learn, build and benchmark multimodal AI for materials discovery, with MEIDNet as the reference implementation.<br/>
 <a href="https://babu09-meidnet.hf.space/">home</a> · <a href="https://babu09-meidnet.hf.space/docs/learn/index.html">learn</a> · <a href="https://babu09-meidnet.hf.space/docs/learn/architectures.html">architectures</a> · <a href="https://babu09-meidnet.hf.space/studio/">build (Studio)</a> · <a href="https://babu09-meidnet.hf.space/docs/explore/datasets.html">datasets</a> · <a href="https://babu09-meidnet.hf.space/docs/benchmarks/index.html">benchmarks</a> · <a href="https://babu09-meidnet.hf.space/docs/community/contribute.html">community</a></p>
 
@@ -37,7 +37,7 @@ MEIDNet 2.0 turns the published perovskite code into a framework:
 
 | You want to… | You do… |
 |---|---|
-| see what it does in 30 seconds | `meidnet demo` or the [browser demo](https://babu09-meidnet.hf.space/studio/) |
+| try it | `meidnet demo` or the [browser demo](https://babu09-meidnet.hf.space/studio/) |
 | use **your** structures + properties | put them in a table, run `meidnet init / check / train / generate` |
 | change targets, elements, rules | edit `meidnet.yaml` — or move sliders in **MEIDNet Studio** and export it |
 | a different material family | copy a family `.yaml` (prototype + site groups + rules) |
@@ -92,7 +92,7 @@ meidnet studio meidnet.yaml
 
 A local web page shows the workflow as a strip of colour-coded blocks **Data → Model →
 Family → Rules → Targets → Search → Candidates**. Move a rule's limit or a target and watch
-the change flow through every later block, explained in plain words: how many compositions
+the change flow through every later block, with a short explanation: how many compositions
 still pass, which are predicted closest, which of your earlier candidates would now be
 rejected. Beginner mode shows the input, logic and output of each block, and *Behind the
 scenes* shows the YAML and Python that do the same thing.
@@ -129,7 +129,7 @@ examples/         Perov-5 reproduction, custom-rule plugin, the paper's generate
 docs/             the website (MkDocs)   notebooks/  Colab tutorials   app/  Hugging Face demo
 ```
 
-## Scope (honest version)
+## Scope
 
 * Generation works for **prototype families**: a fixed arrangement of sites whose
   occupants and cell size are chosen (ABX₃, A₂BB′X₆, and anything you describe the same
@@ -164,3 +164,11 @@ MEIDNet 2 produces the same CIFs, predictions and file names.
 ```
 
 MIT licence. Perov-5 data: Xie et al., CDVAE (ICLR 2022); Castelli et al. (2012).
+
+## Further reading
+
+- A. Babu, N. M. A. Krishnan, *Multimodal and cross-modal learning techniques*, APL Machine Learning **4**, 030901
+  (2026). [doi:10.1063/5.0346744](https://doi.org/10.1063/5.0346744)
+- A. Babu, R. Almeida Gouvêa, G.-M. Rignanese, *Toward automated discovery with generative models multimodal
+  learning and closed loop workflows in inverse materials design*, Cell Reports Physical Science **7**, 103561
+  (2026). [doi:10.1016/j.xcrp.2026.103561](https://doi.org/10.1016/j.xcrp.2026.103561)

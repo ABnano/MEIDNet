@@ -55,13 +55,13 @@ nav:
       - Recipes by problem: learn/recipes.md
   - Architectures: learn/architectures.md
   - Build:
-      - MEIDNet Studio (live workbench): use/studio.md
+      - MEIDNet Studio: use/studio.md
       - Explore in 3D: use/explore-3d.md
       - Reading the reports: use/reports.md
   - Datasets:
       - Datasets: explore/datasets.md
       - Databases by application: explore/databases.md
-      - Capabilities (what works today): explore/capabilities.md
+      - Capabilities: explore/capabilities.md
   - Benchmarks:
       - MEIDNet Benchmarks: benchmarks/index.md
       - Perov-5: benchmarks/perov5.md
@@ -83,7 +83,7 @@ nav:
       - Add a rule (constraint): recipes/add-constraint.md
       - Screen stability with MACE: recipes/screen.md
       - How MEIDNet works: understand/how-it-works.md
-      - Why you can trust (or not) a candidate: understand/interpretability.md
+      - Interpreting a candidate: understand/interpretability.md
       - Scope and roadmap: understand/limits.md
       - Perov-5 (the paper): examples/perov5.md
       - Double perovskites: examples/double-perovskite.md

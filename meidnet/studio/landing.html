@@ -63,6 +63,7 @@ h2.sec{font-size:24px;margin:0 0 6px}.sec-sub{color:var(--muted);margin:0 0 14px
 .how small{display:block;font-weight:500;opacity:.9;font-size:12px}
 .cite{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin:0 0 28px}
 .cite pre{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto;font-size:13px;margin:10px 0 0}
+.reading{margin:0;padding-left:18px;color:var(--muted);font-size:14.5px}.reading li{margin:4px 0}
 .cite button{font:inherit;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:9px;padding:6px 12px;cursor:pointer}
 footer{color:var(--faint);font-size:13.5px;padding:10px 0 40px;display:flex;gap:16px;flex-wrap:wrap}
 .theme{font:inherit;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:9px;padding:5px 9px;cursor:pointer}
@@ -85,7 +86,7 @@ footer{color:var(--faint);font-size:13.5px;padding:10px 0 40px;display:flex;gap:
     <div>
       <p class="eyebrow">MEIDNet Prism</p>
       <h1>Learn, build and benchmark <span class="prism">multimodal AI</span> for materials discovery</h1>
-      <p class="tag">From what a modality is to a trained model and a reproducible result. MEIDNet is the reference implementation: one space shared by crystal structures and their properties, searched for new materials with the properties you want.</p>
+      <p class="tag">From the concepts of multimodal learning to a trained model and reproducible results. MEIDNet, the reference implementation, learns one space shared by crystal structures and their properties, and searches it for materials with target properties.</p>
       <div class="btns"><a class="btn primary" href="/studio/">▶ Try MEIDNet</a><a class="btn" href="/studio/?panel=data">Use your dataset</a><a class="btn" href="/docs/learn/index.html">Learn multimodality</a></div>
       <p class="pub"><b>Published in npj Computational Materials (2026)</b> · <a href="https://doi.org/10.1038/s41524-026-02153-3">doi 10.1038/s41524-026-02153-3</a> · <a href="https://github.com/ABnano/MEIDNet">GitHub</a> · MIT licence</p>
     </div>
@@ -104,7 +105,7 @@ footer{color:var(--faint);font-size:13.5px;padding:10px 0 40px;display:flex;gap:
   </figure>
 
   <h2 class="sec">Six connected layers</h2>
-  <p class="sec-sub">Learn the ideas, pick a design, build it on your data, and show the evidence. Each layer links to the next.</p>
+  <p class="sec-sub">From concepts to reproducible results: the methods, the choice of architecture, a model trained on your data, and results compared on shared benchmarks.</p>
   <div class="flow" aria-label="The six layers in order">
     <a href="/docs/learn/index.html" style="--accent:var(--c-data)">Learn</a><span>→</span>
     <a href="/docs/learn/architectures.html" style="--accent:var(--c-model)">Architectures</a><span>→</span>
@@ -118,18 +119,18 @@ footer{color:var(--faint);font-size:13.5px;padding:10px 0 40px;display:flex;gap:
       <p><a class="more" href="/docs/learn/index.html">Learn multimodality →</a></p></div>
     <div class="card" style="--accent:var(--c-model)"><h2><small>2 · Architectures</small>Which design fits my data?</h2><p>Early and late fusion, shared latent spaces, cross-attention and contrastive learning, drawn side by side, with an advisor that recommends one.</p>
       <p><a class="more" href="/docs/learn/architectures.html">Architecture Atlas →</a> &nbsp; <a class="more" href="/docs/learn/architectures.html#advisor">Advisor →</a></p></div>
-    <div class="card" style="--accent:var(--c-family)"><h2><small>3 · Build</small>MEIDNet Studio</h2><p>Upload structures and properties, train in the browser, set targets and rules, run the search and inspect every candidate in 3D. No code; one YAML file.</p>
+    <div class="card" style="--accent:var(--c-family)"><h2><small>3 · Build</small>MEIDNet Studio</h2><p>Upload structures and properties, train in the browser, set targets and rules, run the search and inspect every candidate in 3D. Every setting is saved in one YAML file.</p>
       <p><a class="more" href="/studio/">Try MEIDNet →</a> &nbsp; <a class="more" href="/docs/learn/recipes.html">Recipes by problem →</a></p></div>
-    <div class="card" style="--accent:var(--c-rules)"><h2><small>4 · Datasets</small>Data that works</h2><p>Perov-5, the published multimodal benchmark, other datasets with their status, and 31 computed and experimental databases grouped by application.</p>
+    <div class="card" style="--accent:var(--c-rules)"><h2><small>4 · Datasets</small>Datasets and databases</h2><p>Perov-5, the published multimodal benchmark, other datasets used with MEIDNet, and 31 computed and experimental databases grouped by application.</p>
       <p><a class="more" href="/docs/explore/datasets.html">Datasets →</a> &nbsp; <a class="more" href="/docs/explore/databases.html">Databases →</a></p></div>
-    <div class="card" style="--accent:var(--c-targets)"><h2><small>5 · Benchmarks</small>Results with evidence</h2><p>One leaderboard per dataset, an evidence ladder from “generated” to “experimentally validated”, and rows re-run here marked verified.</p>
+    <div class="card" style="--accent:var(--c-targets)"><h2><small>5 · Benchmarks</small>Reproducible results</h2><p>One leaderboard per dataset, an evidence ladder from “generated” to “experimentally validated”, and rows re-run here marked verified.</p>
       <p><a class="more" href="/docs/benchmarks/index.html">Benchmarks →</a></p></div>
-    <div class="card" style="--accent:var(--c-candidates)"><h2><small>6 · Community</small>Share and reproduce</h2><p>Submit a result through GitHub. The maintainer re-runs it and marks it verified when it reproduces; a run that does not agree is shown too.</p>
+    <div class="card" style="--accent:var(--c-candidates)"><h2><small>6 · Community</small>Contribute results</h2><p>Results are submitted through GitHub, re-run by the maintainer and marked as verified when they reproduce. Re-runs that disagree are published as well.</p>
       <p><a class="more" href="/docs/community/contribute.html">Contribute a result →</a></p></div>
   </section>
 
-  <h2 class="sec">Inside Build: the MEIDNet Studio in seven blocks</h2>
-  <p class="sec-sub">The reference implementation. Change one block and the blocks after it update.</p>
+  <h2 class="sec">MEIDNet Studio: from data to candidates in seven blocks</h2>
+  <p class="sec-sub">A change in one block updates every block after it.</p>
   <div class="how" aria-label="The seven blocks of the Studio">
     <div style="--bc:var(--c-data)">Data<small>your materials</small></div><div style="--bc:var(--c-model)">Model<small>shared space</small></div>
     <div style="--bc:var(--c-family)">Family<small>crystal type</small></div><div style="--bc:var(--c-rules)">Rules<small>chemistry</small></div>
@@ -153,8 +154,13 @@ footer{color:var(--faint);font-size:13.5px;padding:10px 0 40px;display:flex;gap:
   year    = {2026},
   doi     = {10.1038/s41524-026-02153-3}
 }</pre>
+    <h3 style="margin:16px 0 4px;font-size:17px">Further reading</h3>
+    <ul class="reading">
+      <li>A. Babu and N. M. A. Krishnan, <i>Multimodal and cross-modal learning techniques</i>, APL Machine Learning <b>4</b>, 030901 (2026). <a href="https://doi.org/10.1063/5.0346744">doi:10.1063/5.0346744</a></li>
+      <li>A. Babu, R. Almeida Gouvêa and G.-M. Rignanese, <i>Toward automated discovery with generative models multimodal learning and closed loop workflows in inverse materials design</i>, Cell Reports Physical Science <b>7</b>, 103561 (2026). <a href="https://doi.org/10.1016/j.xcrp.2026.103561">doi:10.1016/j.xcrp.2026.103561</a></li>
+    </ul>
   </section>
-  <footer><span>MEIDNet Prism: learn, build and benchmark multimodal AI for materials discovery. MEIDNet is its reference implementation.</span><a href="https://github.com/ABnano/MEIDNet">Code</a><a href="/docs/">Documentation</a><a href="/docs/understand/limits.html">Honest scope</a><a href="https://huggingface.co/spaces/Babu09/MEIDNet">Hugging Face Space</a></footer>
+  <footer><span>MEIDNet Prism: learn, build and benchmark multimodal AI for materials discovery. MEIDNet is its reference implementation.</span><a href="https://github.com/ABnano/MEIDNet">Code</a><a href="/docs/">Documentation</a><a href="/docs/understand/limits.html">Scope and roadmap</a><a href="https://huggingface.co/spaces/Babu09/MEIDNet">Hugging Face Space</a></footer>
 </main>
 <script>
 (function(){

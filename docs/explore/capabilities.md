@@ -1,6 +1,6 @@
-# Capabilities: what works today
+# Capabilities
 
-Generated from the code, so it cannot promise more than the code does. **Supported** = in this release; **Community-tested** = a benchmark result reproduced here names it; **Planned** = designed for, not implemented ([roadmap](../understand/limits.md)).
+This page is generated from the code. **Available**: in this release. **Community-tested**: used by a benchmark result reproduced here. **Planned**: on the [roadmap](../understand/limits.md), not yet implemented.
 
 ## Modalities
 
@@ -16,7 +16,7 @@ Generated from the code, so it cannot promise more than the code does. **Support
 
 ## Fusion
 
-One scheme: **early fusion** - the structure latent and the property latent of a material are averaged into the joint latent (`meidnet/model.py`), after a contrastive alignment whose weight ramps up over `training.contrastive_warmup_epochs` (the curriculum of the paper). There is no late-fusion option; a selector would be a fiction.
+The structure latent and the property latent of a material are averaged into the joint latent (`meidnet/model.py`); the paper calls this early fusion. The two latents are first aligned by a contrastive loss whose weight increases over `training.contrastive_warmup_epochs` (the curriculum of the paper). Other fusion schemes are compared in the [Architecture Atlas](../learn/architectures.md).
 
 ## Input formats
 

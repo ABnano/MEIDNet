@@ -21,7 +21,7 @@ version:
 | `reproduce` | configuration, seed and the exact command that produces the numbers |
 | `status` | always `community_submitted` for a new file |
 
-## The five things people get wrong
+## Common mistakes
 
 1. **Mixing categories** in one file. A representation result (MAE, R², retrieval) and a design result (SUN rate)
    are two files.
@@ -42,11 +42,11 @@ version:
 
 **Verified** means *reproduced from the submitted configuration with this code*. It does not mean the material is
 real: that is what the validation level says. A re-run that does **not** agree is kept too
-(`benchmarks/verified/<id>.attempt.json`) and shown on the row's page next to the submitted numbers, so that a
-disagreement is visible rather than silent — this applies to the paper's own rows as much as to anyone else's.
+(`benchmarks/verified/<id>.attempt.json`) and shown on the row's page next to the submitted numbers, so that
+disagreements are visible. This applies to the paper's own rows as well.
 
 Representation rows that are reproduced here also get their per-material predictions saved
 (`benchmarks/verified/<id>.predictions.csv`), which the pages turn into parity plots and a latent-agreement histogram.
 
 If you prefer not to open a pull request, the issue template *Benchmark submission* asks for the same fields and the
-maintainer converts it. Submissions are reviewed by the author of MEIDNet; there is no promised response time.
+maintainer converts it. Submissions are reviewed by the author of MEIDNet.

@@ -91,5 +91,5 @@
 - Best `mae_dir_gap`: **Shipped checkpoint re-evaluated on the training split (this code)** (2.78 eV), meidnet verified.
 - Best `r2_dir_gap`: **Shipped checkpoint re-evaluated on the training split (this code)** (-29.8), meidnet verified.
 - Evidence levels present: generated, MLIP validated, DFT validated. 2 of 5 rows have been reproduced here.
-- 2 row(s) are quoted from the paper; a verified re-run of the same checkpoint, where it exists, is the row to trust for the exact numbers of this code version.
+- 2 row(s) are quoted from the paper; a verified re-run of the same checkpoint, where it exists, gives the exact numbers for this code version.
 - **A re-run of [MEIDNet (paper): alignment of structure and property latents on Perov-5](results/paper-representation.md) here did not agree** (`cosine_matched` 0.97 → 0.771; `l2_matched` 0.24 → 0.676). The row keeps its status; see its page for the full comparison.

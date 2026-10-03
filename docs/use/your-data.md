@@ -57,7 +57,7 @@ meidnet train meidnet.yaml            # 200 epochs by default
 meidnet train meidnet.yaml --epochs 5 # a quick smoke test first
 ```
 
-`training_report.html` answers three questions in plain words: *how accurate is each property prediction*
+`training_report.html` answers three questions: *how accurate is each property prediction*
 (error vs natural spread → good / fair / weak), *did the two modalities align* (retrieval accuracy), and *what
 were the training curves*. The model is saved as `runs/my_oxides/model.pt` with the property names, units and
 normalisation inside; `meidnet info runs/my_oxides/model.pt` describes it.

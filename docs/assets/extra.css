@@ -38,18 +38,7 @@ th[role="columnheader"]:not(.no-sort):hover::after{visibility:visible;opacity:.3
 .bench-table td,.bench-table th{padding:.5em .6em;white-space:nowrap}
 .bench-table td:first-child{white-space:normal;min-width:14em}
 
-/* ── Learn layer: status badges ── */
-.mstatus{display:inline-block;border-radius:999px;padding:0 10px;font-size:.72rem;font-weight:700;border:1px solid;white-space:nowrap;line-height:1.7;vertical-align:middle}
-.mstatus.sup{color:#0a7d0a;border-color:#6fcf6f;background:rgba(10,125,10,.06)}
-.mstatus.core{color:#fff;background:linear-gradient(90deg,#4f46e5,#9333ea);border-color:transparent}
-.mstatus.part{color:#8a5d00;border-color:#eda100}
-.mstatus.inside{color:#1c5cab;border-color:#86b6ef}
-.mstatus.plan{color:#6b6a65;border-color:#b5b4ab;border-style:dashed}
-.mstatus.no{color:#a8261d;border-color:#f0a8a3}
-.mstatus.info{color:#4a3aa7;border-color:#b9b1ef}
-[data-md-color-scheme="slate"] .mstatus.sup{color:#6fcf6f}[data-md-color-scheme="slate"] .mstatus.part{color:#f0c35b}
-[data-md-color-scheme="slate"] .mstatus.inside{color:#86b6ef}[data-md-color-scheme="slate"] .mstatus.plan{color:#c3c2b7}
-[data-md-color-scheme="slate"] .mstatus.no{color:#f0a8a3}[data-md-color-scheme="slate"] .mstatus.info{color:#b9b1ef}
+/* ── Learn layer ── */
 .learn-steps ol{columns:2;column-gap:2em}@media(max-width:700px){.learn-steps ol{columns:1}}
 
 /* ── Architecture Atlas cards and their diagrams ── */
@@ -130,6 +119,9 @@ svg.ad{width:100%;height:auto;display:block;max-width:420px;margin:auto}
 .md-typeset .adv-card h4{margin:.5em 0 .3em;font-size:.95rem}
 .md-typeset .adv-card p,.md-typeset .adv-card li{font-size:.76rem}
 .adv-notes{color:var(--md-default-fg-color--light)}.adv-alt{color:var(--md-default-fg-color--light);font-style:italic}
+.adv-kicker{font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--md-default-fg-color--light);margin-top:2px}
+.md-typeset .adv-card p.adv-where{border-top:1px solid var(--md-default-fg-color--lightest);padding-top:.5em}
+.mm-legend .mm-legend-title{font-weight:700}
 .md-typeset a.adv-btn{display:inline-block;border-radius:9px;padding:5px 12px;font-weight:700;text-decoration:none;border:1px solid var(--md-default-fg-color--lighter);margin:2px 6px 4px 0;font-size:.72rem}
 .md-typeset a.adv-btn.primary{background:#4f46e5;color:#fff;border-color:#4f46e5}
 .md-typeset a.adv-btn.primary:hover{background:#9333ea;border-color:#9333ea}

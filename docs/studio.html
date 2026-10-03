@@ -198,7 +198,7 @@ body>div:empty:not([id]):not([class]){position:absolute;top:0;left:0;width:0;hei
     </div>
   </section>
   <div class="card strip"><div class="strip-scroll"><svg id="pipe" viewBox="0 0 1270 150" aria-label="MEIDNet workflow"></svg></div></div>
-  <div class="chain" id="chain"><span class="lead">Change anything above or in a block — what it does to the blocks after it appears here.</span></div>
+  <div class="chain" id="chain"><span class="lead">Changes made above or in a block are listed here, with their effect on the blocks after it.</span></div>
   <details id="flowlog"><summary>Flow log (0)</summary><ol id="flowlog-list"></ol></details>
   <div class="cols">
     <div id="panel"><div class="card loading-card"><h2>Loading MEIDNet Studio…</h2><p class="muted">Fetching the model and every composition of the perovskite family. This takes a few seconds; on the hosted Studio the very first visit can take up to a minute while the server wakes up.</p><div class="prog"><i class="indeterminate"></i></div></div></div>
@@ -331,7 +331,7 @@ async function boot(){
   if(BLOCKS.some(b=>b.id===qs.get('panel'))) S.panel = qs.get('panel');
   await loadFamily();
   render();
-  chainText(`Ready: ${nfmt(S.ev.rows.length)} compositions, ${nfmt(S.ev.alive.length)} pass every rule. Change anything — its effect on every later block appears here.`);
+  chainText(`Ready: ${nfmt(S.ev.rows.length)} compositions, ${nfmt(S.ev.alive.length)} pass every rule. Changes and their effect on the later blocks are listed here.`);
   if(!STATIC) await resumeJobs();
   if(['space','candidates','data'].includes(qs.get('explore'))) openExplore(qs.get('explore'));
   api('/api/data').then(d=>{ S.data=d; S.dataOwn = !!(S.state.session && S.state.session.checked); statusAll(); updateEdges(); render(); }).catch(()=>{});
@@ -652,7 +652,7 @@ function render(){
   const b=BLOCKS.find(x=>x.id===S.panel); const n=BLOCKS.indexOf(b)+1;
   P.dataset.block=S.panel;
   P.innerHTML = `<div class="card"><div class="eyebrow">Block ${n} of 7 · ${esc(b.name)}</div><h2>${esc(b.name)}</h2><p class="purpose">${esc(b.purpose)}</p>
-    <div class="plain beginner-only"><b>In plain words.</b> ${esc(b.plain)}</div>${ioStrip(S.panel)}${f?f():''}${behind(S.panel)}</div>`;
+    <div class="plain beginner-only"><b>In short.</b> ${esc(b.plain)}</div>${ioStrip(S.panel)}${f?f():''}${behind(S.panel)}</div>`;
   document.querySelectorAll('.node').forEach(nd=>nd.classList.toggle('sel', nd.id==='node-'+S.panel));
   if(!S.ev && S.fam) recompute(null, null); else { statusAll(); updateEdges(); renderLive(); }
   renderLegend(); mountAll3d();
@@ -860,7 +860,7 @@ function trainBox(){
         <tr><td>typical error (MAE)</td>${Object.entries(p.val.mae).map(([k,v])=>`<td>${fmt(v)}${esc(unit(k))}</td>`).join('')}<td>${(100*p.val.retrieval_top1).toFixed(0)}%</td></tr>
         <tr><td>quality</td>${q.map(x=>`<td class="${x.css}">${x.word}</td>`).join('')}<td></td></tr></table>
         <p class="small muted beginner-only">The typical error is compared with how much each property varies in your data: under 25% of that spread is <b>good</b>, under 50% <b>fair</b>, otherwise <b>weak</b>. "Matched correctly" is how often a material's structure and its properties land closest to each other in the model's hidden space (higher is better). A few epochs give a rough model; more epochs or more data usually help.</p>`; }
-    if(st.done&&!st.error) b+=`<div class="verdict good">✅ Model ready — the blocks below now use <b>your</b> model and properties.${st.report?` <a href="/files/${esc(st.report)}" target="_blank">training report</a> · <a href="/files/${esc(st.report.replace('training_report.html','model.pt'))}" download="model.pt">download model.pt</a>`:''}</div>`; }
+    if(st.done&&!st.error) b+=`<div class="verdict good">Model ready. The blocks below now use <b>your</b> model and properties.${st.report?` <a href="/files/${esc(st.report)}" target="_blank">training report</a> · <a href="/files/${esc(st.report.replace('training_report.html','model.pt'))}" download="model.pt">download model.pt</a>`:''}</div>`; }
   return b;
 }
 async function startTrain(){
@@ -913,13 +913,13 @@ function panelFamily(){
   b+=`<h3>Elements per site group <span class="muted small">(click to exclude / include)</span></h3>`;
   for(const [g,grp] of Object.entries(f.groups)){ b+=`<h4>${esc(g)} — ${esc(grp.description)} · ${grp.slots.length} site${grp.slots.length>1?'s':''}</h4><div>`;
     for(const el of grp.sample){ const off=S.ui.exclude.has(el); const ox=(grp.oxidation_states[el]||[]).map(q=>(q>0?'+':'')+q).join('/'); b+=`<span class="chip ${off?'off':''}" onclick="toggleEl(${jsq(el)})" title="charges ${esc(ox)}"><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:${CPK[el]||'#999'};border:1px solid var(--line);margin-right:5px;vertical-align:-1px"></span>${esc(el)}<small class="muted"> ${esc(ox)}</small></span>`; } b+='</div>'; }
-  b+=`<div class="help beginner-only">Excluding an element removes every composition containing it — watch the Family → Rules numbers change. To change which elements a family allows at all, copy <code>${esc(S.ui.family)}.yaml</code> and edit its <code>groups:</code>.</div>`;
+  b+=`<div class="help beginner-only">Excluding an element removes every composition that contains it; the Family and Rules counts update accordingly. To change which elements a family allows at all, copy <code>${esc(S.ui.family)}.yaml</code> and edit its <code>groups:</code>.</div>`;
   return b;
 }
 
 /* ── Rules ── */
 function panelRules(){
-  const ev=S.ev||evaluateSpace(); let b=`<p class="muted small">Move a limit and watch the count change — the search enforces exactly these windows.</p>`;
+  const ev=S.ev||evaluateSpace(); let b=`<p class="muted small">Moving a limit updates the count; the search applies exactly these windows.</p>`;
   for(const c of S.fam.constraints){ const key=ruleKey(c); const r=S.ui.rules[key]; const d=S.fam.space.rows.map(x=>x.d[key]).filter(Number.isFinite);
     b+=`<div class="rule ${r.enabled?'':'off'}"><div class="hd"><input type="checkbox" ${r.enabled?'checked':''} onchange="toggleRule(${jsq(key)},this.checked)"><b>${esc(ruleTitle(key))}</b><span class="muted small"><b style="color:var(--accent-text)">${nfmt(ev.perRule[key]??0)}</b> of ${nfmt(ev.rows.length)} pass</span></div><p class="small muted">${esc(ruleText(key))}</p>`;
     const num=Object.entries(r.params).filter(([k,v])=>typeof v==='number' && !['cutoff'].includes(k));
@@ -1005,7 +1005,7 @@ function renderLive(){
   L.innerHTML=b;
 }
 function renderLegend(){ const beg=document.body.classList.contains('beginner');
-  $('legend').innerHTML = beg ? `<h4>Glossary</h4><dl class="gloss"><dt>Composition</dt><dd>one element per site of the prototype, e.g. CsPbBr₃.</dd><dt>Rule</dt><dd>a hard check with a measured value and an allowed window.</dd><dt>Target</dt><dd>a property value you want; the model predicts how close each composition gets.</dd><dt>Latent space</dt><dd>the hidden coordinates where structures and properties meet; the search moves through it.</dd><dt>Extrapolation</dt><dd>a target outside the training range — predictions there are guesses.</dd></dl><p class="small muted">Switch on Researcher mode in the header for the configuration as text and the Python behind each block.</p>`
+  $('legend').innerHTML = beg ? `<h4>Glossary</h4><dl class="gloss"><dt>Composition</dt><dd>one element per site of the prototype, e.g. CsPbBr₃.</dd><dt>Rule</dt><dd>a hard check with a measured value and an allowed window.</dd><dt>Target</dt><dd>a property value you want; the model predicts how close each composition gets.</dd><dt>Latent space</dt><dd>the hidden coordinates where structures and properties meet; the search moves through it.</dd><dt>Extrapolation</dt><dd>a target outside the training range; predictions there are less reliable.</dd></dl><p class="small muted">Switch on Researcher mode in the header for the configuration as text and the Python behind each block.</p>`
     : `<h4>How to use</h4><ol class="small" style="padding-left:18px;margin:4px 0"><li><b>Family</b>: pick the crystal type; exclude elements.</li><li><b>Rules</b>: move limits; counts update live.</li><li><b>Targets</b>: set values; see the closest compositions.</li><li><b>Search</b> runs the latent optimisation; <b>Candidates</b> explains each result.</li><li><b>Data/Model</b>: upload your table, train, and design with your own properties.</li></ol>`; }
 
 /* ═══════════════════════════ actions ═══════════════════════════ */

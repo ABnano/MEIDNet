@@ -5,7 +5,8 @@
 [← MEIDNet Prism home](https://babu09-meidnet.hf.space/) · the documentation of the MEIDNet framework and its platform.
 
 **Learn, build and benchmark multimodal AI for materials discovery.** MEIDNet is the reference implementation:
-it designs crystalline materials from target properties, with your own data, your own rules and no code to edit.
+it designs crystalline materials from target properties, using your own data and rules, configured in one YAML
+file or in the Studio.
 
 ```
    Learn ──► Architectures ──► Build ──► Datasets ──► Benchmarks ──► Community
@@ -51,8 +52,8 @@ accepts any table of structures and scalar properties and any prototype family y
 
     ---
 
-    See what it does in 30 seconds: the [live Studio](https://babu09-meidnet.hf.space/studio/) needs nothing installed;
-    `meidnet demo` runs on any laptop.
+    The [live Studio](https://babu09-meidnet.hf.space/studio/) runs in the browser without installation;
+    `meidnet demo` runs on a laptop CPU.
 
     [:octicons-arrow-right-24: 5-minute quickstart](start/quickstart.md)
 
@@ -60,8 +61,8 @@ accepts any table of structures and scalar properties and any prototype family y
 
     ---
 
-    A table with an id, properties and CIFs is all you need. Four commands take you from
-    "is my data usable?" to candidates with explanations.
+    A table with an id, property columns and CIFs. Four commands lead from a data check to
+    candidates with reports.
 
     [:octicons-arrow-right-24: Bring your own dataset](use/your-data.md)
 
@@ -69,8 +70,8 @@ accepts any table of structures and scalar properties and any prototype family y
 
     ---
 
-    Targets, elements, rules, family — all in one YAML file, or by moving sliders in
-    MEIDNet Studio and exporting the file.
+    Targets, elements, rules and family are set in one YAML file, or with the controls of
+    MEIDNet Studio, which exports the same file.
 
     [:octicons-arrow-right-24: Recipes](recipes/change-targets.md)
 
@@ -93,10 +94,10 @@ accepts any table of structures and scalar properties and any prototype family y
    + CIFs   latent    + sites    checks    goals      optimisation
 ```
 
-Each block is a setting in `meidnet.yaml`, a node in [MEIDNet Studio](use/studio.md) — where changing one
-block immediately shows its effect on the ones after it — and a section in the HTML report each step writes.
+Each block is a setting in `meidnet.yaml`, a node in [MEIDNet Studio](use/studio.md), where a change in one block
+updates the blocks after it, and a section in the HTML report that each step writes.
 
-## Honest scope
+## Scope
 
 - Generation works for **prototype families**: a fixed arrangement of sites whose occupants and cell size are
   chosen (ABX₃ perovskites, A₂BB′X₆ double perovskites, and anything you describe the same way). MEIDNet does
@@ -109,3 +110,9 @@ block immediately shows its effect on the ones after it — and a section in the
 A. Babu, R. Almeida Gouvêa, P. Vandergheynst, G.-M. Rignanese, *MEIDNet: Multimodal generative AI framework for
 inverse materials design*, npj Computational Materials (2026). [Citation and benchmarks](research/paper.md) ·
 [code as published (v1.0)](https://github.com/ABnano/MEIDNet/releases/tag/v1.0.0-paper).
+
+Further reading: A. Babu, N. M. A. Krishnan, *Multimodal and cross-modal learning techniques*, APL Machine
+Learning **4**, 030901 (2026), [doi:10.1063/5.0346744](https://doi.org/10.1063/5.0346744) · A. Babu,
+R. Almeida Gouvêa, G.-M. Rignanese, *Toward automated discovery with generative models multimodal learning and
+closed loop workflows in inverse materials design*, Cell Reports Physical Science **7**, 103561 (2026),
+[doi:10.1016/j.xcrp.2026.103561](https://doi.org/10.1016/j.xcrp.2026.103561).

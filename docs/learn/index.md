@@ -3,11 +3,11 @@
 A material can be described in many ways: by its atoms and their positions, by a formula, by measured or computed
 properties, by a diffraction pattern, a spectrum, a micrograph or a paragraph in a paper. Each way of describing it
 is a **modality**. Multimodal learning trains one model on several modalities of the same materials, so that it can
-connect them: read a structure and predict a property, or — the point of MEIDNet — start from the properties you
-want and propose a structure.
+connect them: read a structure and predict a property, or start from the properties you want and propose a
+structure, which is what MEIDNet does.
 
-This short course takes about ten minutes. It explains the ideas behind MEIDNet and the alternatives to it, and every
-item says what works in MEIDNet today.
+This short course takes about ten minutes. It covers the main ideas of multimodal learning for materials and, for
+each, how MEIDNet implements it. For a full review, see Babu and Krishnan (2026).
 
 <div class="learn-steps" markdown>
 
@@ -44,32 +44,32 @@ together can translate between them in either direction.
 
 ## 2. The multimodality map { #the-multimodality-map }
 
-Click a modality to see what it is, which networks read it, how it is combined with others and its status in
-MEIDNet. Click the centre for the idea that ties them together.
+Select a modality to see what it contains, which networks encode it, how it is combined with other modalities and
+how MEIDNet handles it. The centre describes the shared representation.
 
 <div class="mm" id="mm-map" aria-label="Interactive map of materials modalities"></div>
 
 ??? note "The map as a table"
 
-    | modality | status in MEIDNet | how |
+    | modality | MEIDNet | how |
     |---|---|---|
-    | Crystal structure | **Supported** | an E(n)-equivariant graph network (EGNN) encodes up to `max_sites` atoms (default 20) |
-    | Scalar properties | **Supported** | all numeric columns form one vector, read by one MLP; every column becomes a target |
-    | Composition | **Inside the structure** | the element on each site is part of the structure; formula-only data needs a composition model |
-    | Processing conditions | **Partly** | numeric conditions can be extra scalar columns, encoded together with the properties |
-    | Diffraction (XRD) | **Planned** | a vector-modality encoder for binned patterns, first item of the [roadmap](../understand/limits.md) |
-    | Spectra and DOS | **Planned** | as vector modalities |
-    | Microscopy images | **Planned** | an image encoder into the shared space |
-    | Text | **Planned** | a text encoder into the shared space |
+    | Crystal structure | available | an E(n)-equivariant graph network (EGNN) encodes up to `max_sites` atoms (default 20) |
+    | Scalar properties | available | all numeric columns form one vector, read by one MLP; every column becomes a target |
+    | Composition | via the structure | the element on each site is part of the structure; formula-only data needs a composition model |
+    | Processing conditions | partial | numeric conditions can be extra scalar columns, encoded together with the properties |
+    | Diffraction (XRD) | planned | a vector-modality encoder for binned patterns, first item of the [roadmap](../understand/limits.md) |
+    | Spectra and DOS | planned | as vector modalities |
+    | Microscopy images | planned | an image encoder into the shared space |
+    | Text | planned | a text encoder into the shared space |
 
-    The same statuses, generated from the code, are on the [capabilities page](../explore/capabilities.md).
+    The [capabilities page](../explore/capabilities.md) lists the same information, generated from the code.
 
 ## 3. Five challenges of multimodal learning { #five-challenges }
 
 Baltrušaitis, Ahuja and Morency organise multimodal machine learning around five challenges. Every multimodal model
 answers each of them in some way, even if only by leaving it out.
 
-| challenge | the question | a materials example | the answer in MEIDNet |
+| challenge | the question | a materials example | in MEIDNet |
 |---|---|---|---|
 | **Representation** | How is each modality encoded, and do they share one space (*joint*) or keep separate spaces tied by a constraint (*coordinated*)? | a graph network for the structure, an MLP for the property vector | both: two encoders whose outputs are coordinated by contrastive learning and then averaged into one joint latent of 128 numbers |
 | **Translation** | How is one modality mapped to another? | structure → properties (prediction), properties → structure (inverse design) | both directions: decoders read the joint latent and the property latent alone |
@@ -78,7 +78,8 @@ answers each of them in some way, even if only by leaving it out.
 | **Co-learning** | Can one modality help learn another, for example a scarce one? | learn from many simulated XRD patterns to read a few measured ones | closest analogue: the property branch is trained to rebuild the crystal on its own, so at design time properties alone are enough |
 
 *Further reading:* Baltrušaitis *et al.* 2019 (the taxonomy) · Guo *et al.* 2019 (deep multimodal
-representation learning) · Ngiam *et al.* 2011 (shared representations between modalities).
+representation learning) · Ngiam *et al.* 2011 (shared representations between modalities) · Babu and Krishnan
+2026 (multimodal and cross-modal learning techniques).
 
 ## 4. Contrastive learning: how two modalities are aligned { #contrastive-learning }
 
@@ -116,7 +117,7 @@ latents are pulled together. After training, the [training report](../use/report
 
 The same loss pairs pictures with their captions in CLIP; MEIDNet pairs crystals with their properties.
 
-*Further reading:* van den Oord *et al.* 2018 (InfoNCE) · Radford *et al.* 2021 (CLIP) ·
+*Further reading:* van den Oord *et al.* 2018 (InfoNCE) · Radford *et al.* 2021 (CLIP) · Babu and Krishnan 2026 ·
 [Contrastive learning in the Architecture Atlas](architectures.md#contrastive).
 
 ## 5. From a shared space to inverse design { #inverse-design }
@@ -139,8 +140,9 @@ The full objective and every step are in [How MEIDNet works](../understand/how-i
 MEIDNet does not invent new atomic arrangements, and its predicted properties are estimates to confirm with DFT or
 experiment ([scope and roadmap](../understand/limits.md)).
 
-*Further reading:* the MEIDNet paper (Babu *et al.* 2026) · Moro, Loh *et al.* 2025 (multimodal foundation models
-for materials).
+*Further reading:* the MEIDNet paper (Babu *et al.* 2026) · Babu, Gouvêa and Rignanese 2026 (generative models,
+multimodal learning and closed-loop workflows in inverse materials design) · Moro, Loh *et al.* 2025 (multimodal
+foundation models for materials).
 
 ## 6. Where to go next { #where-next }
 
@@ -196,5 +198,10 @@ for materials).
   [arXiv:2102.09844](https://arxiv.org/abs/2102.09844)
 - V. Moro, C. Loh *et al.*, "Multimodal foundation models for material property prediction and discovery",
   *Newton* (2025). [doi:10.1016/j.newton.2025.100016](https://doi.org/10.1016/j.newton.2025.100016)
+- A. Babu, N. M. A. Krishnan, "Multimodal and cross-modal learning techniques", *APL Mach. Learn.* **4**, 030901
+  (2026). [doi:10.1063/5.0346744](https://doi.org/10.1063/5.0346744)
+- A. Babu, R. Almeida Gouvêa, G.-M. Rignanese, "Toward automated discovery with generative models multimodal
+  learning and closed loop workflows in inverse materials design", *Cell Rep. Phys. Sci.* **7**, 103561 (2026).
+  [doi:10.1016/j.xcrp.2026.103561](https://doi.org/10.1016/j.xcrp.2026.103561)
 - A. Babu, R. Almeida Gouvêa, P. Vandergheynst, G.-M. Rignanese, "MEIDNet: Multimodal generative AI framework for
   inverse materials design", *npj Comput. Mater.* (2026). [doi:10.1038/s41524-026-02153-3](https://doi.org/10.1038/s41524-026-02153-3)

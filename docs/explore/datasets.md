@@ -1,16 +1,15 @@
 # Datasets
 
-Datasets that work with MEIDNet, and what has been done with each. **One card per dataset, never one score
-across datasets**: the tasks, sizes and properties differ, so results are only compared within a dataset
-(see [Benchmarks](../benchmarks/index.md)).
+Datasets used with MEIDNet and what has been done with each. Tasks, sizes and properties differ from one dataset to
+the next, so results are compared within a dataset only (see [Benchmarks](../benchmarks/index.md)).
 
-| dataset | structures | properties used | size | with MEIDNet |
+| dataset | structures | properties used | size | available here |
 |---|---|---|---|---|
-| [Perov-5](#perov-5) | cubic ABX₃ perovskites, 5 atoms per cell | direct band gap, formation enthalpy | 18,928 | <span class="mstatus sup">trained model, configuration, tutorial, benchmark</span> |
-| [MP-20](#mp-20) | Materials Project, up to 20 atoms | none aligned in the paper | about 45,000 | <span class="mstatus plan">structure representation, published</span> |
-| [Carbon-24](#carbon-24) | carbon allotropes, up to 24 atoms | none aligned in the paper | about 10,000 | <span class="mstatus plan">structure representation, published</span> |
-| [Double perovskites A₂BB′X₆](../examples/double-perovskite.md) | a family file, no dataset | none | 10,800 compositions (halide variant) | <span class="mstatus part">design space and rules only</span> |
-| [Your dataset](#your-dataset) | one material family | any scalar columns | any | <span class="mstatus sup">supported</span> |
+| [Perov-5](#perov-5) | cubic ABX₃ perovskites, 5 atoms per cell | direct band gap, formation enthalpy | 18,928 | pretrained model, configuration, tutorial, benchmark results |
+| [MP-20](#mp-20) | Materials Project, up to 20 atoms | none aligned in the paper | about 45,000 | structure-representation results in the paper |
+| [Carbon-24](#carbon-24) | carbon allotropes, up to 24 atoms | none aligned in the paper | about 10,000 | structure-representation results in the paper |
+| [Double perovskites A₂BB′X₆](../examples/double-perovskite.md) | a family file, no dataset | none | 10,800 compositions (halide variant) | design space and rules |
+| [Your dataset](#your-dataset) | one material family | any scalar columns | any | upload in the Studio, or the command line |
 
 New to multimodal data? [Learn multimodality](../learn/index.md) explains what a modality is, and
 [Databases by application](databases.md) lists 31 computed and experimental sources.
@@ -39,9 +38,8 @@ New to multimodal data? [Learn multimodality](../learn/index.md) explains what a
     **Suitable tasks:** inverse design from a band gap and a stability target · property prediction from the
     structure · structure–property retrieval · measuring how well two modalities align.
 
-    **MEIDNet implementation:** ✓ pretrained model · ✓ configuration (`examples/perov5/meidnet.yaml`) ·
-    ✓ tutorial ([the paper's experiment](../examples/perov5.md), [Colab](../start/colab.md)) ·
-    ✓ benchmark results.
+    **Available here:** pretrained model · configuration (`examples/perov5/meidnet.yaml`) ·
+    tutorial ([the paper's experiment](../examples/perov5.md), [Colab](../start/colab.md)) · benchmark results.
 
     [Open in the Studio](https://babu09-meidnet.hf.space/studio/){ .md-button .md-button--primary }
 
@@ -86,8 +84,8 @@ or run `meidnet init` → `check` → `train` → `generate` ([bring your own da
 The structures must belong to one [material family](../reference/families.md) (prototype + site groups), which is
 what the rules and the search need.
 
-## Datasets we would like to see benchmarked
+## Next datasets
 
-Battery conductors, MOFs, 2D materials and spinels are natural next families. If you run MEIDNet on one of them,
-[contribute the result](../community/contribute.md): the dataset gets its own benchmark page, and a verified row
-once the result has been reproduced here.
+Battery conductors, MOFs, 2D materials and spinels are natural next families. Results on any of them can be
+[contributed](../community/contribute.md): the dataset gets its own benchmark page, and a result reproduced here is
+marked as verified.

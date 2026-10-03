@@ -4,7 +4,7 @@
   "use strict";
   var STUDIO = "https://babu09-meidnet.hf.space/studio/";
   var STATUS = {
-    sup: "Supported", part: "Partly", inside: "Inside the structure", plan: "Planned",
+    sup: "Available", part: "Partial", inside: "Via the structure", plan: "Planned",
   };
 
   function h(tag, attrs, html) {
@@ -24,7 +24,7 @@
       ex: "Relaxed DFT structures (Materials Project, OQMD, JARVIS, Alexandria) and experimental ones (ICSD, COD). Perov-5 in MEIDNet.",
       enc: "Graph neural networks. MEIDNet uses an E(n)-equivariant graph network (EGNN), so rotating or translating the cell changes nothing; CGCNN is a widely used alternative.",
       combo: "With scalar properties (MEIDNet), with diffraction patterns (structure from a pattern), with text, with images.",
-      meid: "Supported. Up to max_sites atoms per cell (default 20), any elements.",
+      meid: "Available: up to max_sites atoms per cell (default 20), any elements.",
       links: [["Datasets", "../explore/datasets.html"], ["Databases by application", "../explore/databases.html"]],
       refs: [["Satorras et al. 2021 (EGNN)", "https://arxiv.org/abs/2102.09844"], ["Xie and Grossman 2018 (CGCNN)", "https://doi.org/10.1103/PhysRevLett.120.145301"]] },
     { id: "properties", name: "Scalar properties", st: "sup",
@@ -32,7 +32,7 @@
       ex: "In Perov-5: direct band gap (dir_gap, eV) and formation enthalpy (heat_all, eV/atom). Any numeric column of your table.",
       enc: "A small fully connected network (MLP) over the vector of normalised values.",
       combo: "With structures (MEIDNet: design from target properties), with compositions, with spectra.",
-      meid: "Supported. All scalar columns form one vector, read by one MLP; every column becomes a target you can set in the search.",
+      meid: "Available: all scalar columns form one vector, read by one MLP; every column becomes a target that can be set in the search.",
       links: [["Change the target properties", "../recipes/change-targets.html"], ["Add a property", "../recipes/add-property.html"]],
       refs: [["Babu et al. 2026 (MEIDNet)", "https://doi.org/10.1038/s41524-026-02153-3"]] },
     { id: "conditions", name: "Processing conditions", st: "part",
@@ -40,7 +40,7 @@
       ex: "Synthesis and processing tables of experimental groups; growth logs of thin films.",
       enc: "Numbers go into an MLP like properties; categories (atmosphere, method) as one-hot codes.",
       combo: "With composition (early fusion of features), with text (the same information written in a paper).",
-      meid: "Partly. Numeric conditions can be added as extra scalar columns. They are then encoded together with the properties, and the model does not know that they are conditions rather than outcomes.",
+      meid: "Partial: numeric conditions can be added as extra scalar columns. They are encoded together with the properties, so the model does not distinguish conditions from outcomes.",
       links: [["Add a property", "../recipes/add-property.html"]],
       refs: [["Baltrušaitis et al. 2019", "https://doi.org/10.1109/TPAMI.2018.2798607"]] },
     { id: "composition", name: "Composition", st: "inside",
@@ -48,7 +48,7 @@
       ex: "Experimental property tables often give only formulas, for example experimental band gaps and several Matbench tasks.",
       enc: "Networks over the set of elements weighted by their fractions, such as Roost; element descriptors with tree models.",
       combo: "With processing conditions (early fusion), with structures when they are known.",
-      meid: "Inside the structure. The element on each site is part of the structure, so MEIDNet sees the composition, but it cannot train on formulas alone. Formulas that sit on one prototype can be turned into structures on that prototype.",
+      meid: "Via the structure: the element on each site is part of the structure, so the composition is encoded, but formulas alone cannot be used for training. Formulas that sit on one prototype can be turned into structures on that prototype.",
       links: [["Recipe: formula only", "recipes.html#formula-only"]],
       refs: [["Goodall and Lee 2020 (Roost)", "https://doi.org/10.1038/s41467-020-19964-7"]] },
     { id: "text", name: "Text", st: "plan",
@@ -56,7 +56,7 @@
       ex: "Text-mined synthesis recipes: nearly 20,000 procedures extracted from the literature.",
       enc: "Language models: BERT-style encoders or embeddings of large language models.",
       combo: "With structures (contrastive alignment, like images and captions in CLIP), with processing conditions.",
-      meid: "Planned: a text encoder into the shared space. Not implemented.",
+      meid: "Planned: a text encoder that maps into the shared space; not yet available.",
       links: [["Recipe: synthesis text", "recipes.html#synthesis-text"]],
       refs: [["Kononova et al. 2019", "https://doi.org/10.1038/s41597-019-0224-1"], ["Moro, Loh et al. 2025", "https://doi.org/10.1016/j.newton.2025.100016"]] },
     { id: "images", name: "Microscopy images", st: "plan",
@@ -64,7 +64,7 @@
       ex: "Microscopy collections of experimental groups; usually small and rarely paired with structures.",
       enc: "2D convolutional networks or vision transformers.",
       combo: "With processing conditions (how the microstructure formed), with properties measured on the same sample.",
-      meid: "Planned: an image encoder into the shared space. Not implemented.",
+      meid: "Planned: an image encoder that maps into the shared space; not yet available.",
       links: [["Capabilities", "../explore/capabilities.html"]],
       refs: [["Guo et al. 2019", "https://doi.org/10.1109/ACCESS.2019.2916887"]] },
     { id: "spectra", name: "Spectra and DOS", st: "plan",
@@ -72,7 +72,7 @@
       ex: "Computed DOS in the Materials Project and JARVIS; measured spectra.",
       enc: "1D convolutional networks or transformers over the binned curve.",
       combo: "With structures (which sites shape which features), with properties (a band gap read from the DOS).",
-      meid: "Planned: as vector modalities with an encoder each. Not implemented.",
+      meid: "Planned: vector modalities with one encoder each; not yet available.",
       links: [["Scope and roadmap", "../understand/limits.html"]],
       refs: [["Tsai et al. 2019 (attention across sequences)", "https://doi.org/10.18653/v1/P19-1656"]] },
     { id: "xrd", name: "Diffraction (XRD)", st: "plan",
@@ -80,7 +80,7 @@
       ex: "Patterns simulated from any structure database (for example with pymatgen); measured powder patterns.",
       enc: "1D convolutional networks; transformers over peak lists.",
       combo: "With structures (identify a structure from its pattern), with compositions.",
-      meid: "Planned: binned XRD as a vector modality, the first item of the roadmap. Not implemented.",
+      meid: "Planned: binned XRD patterns as a vector modality, the first item of the roadmap; not yet available.",
       links: [["Recipe: XRD to structure", "recipes.html#xrd-structure"]],
       refs: [["Park et al. 2017", "https://doi.org/10.1107/S205225251700714X"]] },
   ];
@@ -98,12 +98,12 @@
   };
 
   function detailHtml(m) {
-    return '<h4>' + m.name + ' <span class="mstatus ' + m.st + '">' + STATUS[m.st] + "</span></h4>" +
+    return "<h4>" + m.name + "</h4>" +
       '<table class="mm-facts"><tr><th>What it is</th><td>' + m.what + "</td></tr>" +
       "<tr><th>Examples</th><td>" + m.ex + "</td></tr>" +
       "<tr><th>Networks that read it</th><td>" + m.enc + "</td></tr>" +
       "<tr><th>Combined with</th><td>" + m.combo + "</td></tr>" +
-      "<tr><th>In MEIDNet</th><td>" + m.meid + "</td></tr>" +
+      "<tr><th>MEIDNet</th><td>" + m.meid + "</td></tr>" +
       "<tr><th>Go further</th><td>" + links(m.links) + "</td></tr>" +
       "<tr><th>References</th><td>" + links(m.refs) + "</td></tr></table>";
   }
@@ -134,8 +134,8 @@
         '<text class="st" x="' + pos[i][0].toFixed(1) + '" y="' + (pos[i][1] + 14).toFixed(1) + '" text-anchor="middle">' + STATUS[m.st] + "</text></g>");
     });
     svg.push("</svg>");
-    var legend = '<div class="mm-legend"><span><i class="sw sup"></i>Supported in MEIDNet</span><span><i class="sw part"></i>Partly</span>' +
-      '<span><i class="sw inside"></i>Inside the structure</span><span><i class="sw plan"></i>Planned</span></div>';
+    var legend = '<div class="mm-legend"><span class="mm-legend-title">MEIDNet:</span><span><i class="sw sup"></i>available</span>' +
+      '<span><i class="sw part"></i>partial</span><span><i class="sw inside"></i>via the structure</span><span><i class="sw plan"></i>planned</span></div>';
     var list = '<div class="mm-list" role="group" aria-label="Modalities"><button type="button" data-id="core" class="core-btn">Shared representation</button>' +
       MODS.map(function (m) { return '<button type="button" data-id="' + m.id + '" class="' + m.st + '">' + m.name + "<small>" + STATUS[m.st] + "</small></button>"; }).join("") + "</div>";
     root.innerHTML = legend + svg.join("") + list + '<div class="mm-detail" aria-live="polite"></div>';
@@ -225,7 +225,12 @@
   var GOALS = [["design", "Design new materials from target properties"], ["predict", "Predict properties"],
     ["retrieve", "Find materials that match a profile, across modalities"], ["identify", "Identify a structure or phase from a measurement"],
     ["combine", "Combine all my data into one prediction"]];
-  var LABEL = { sup: "Supported in MEIDNet", part: "Partly in MEIDNet", plan: "Planned in MEIDNet", no: "Not in MEIDNet: use another tool", info: "First step" };
+  var WHERE = {
+    sup: "MEIDNet: the Studio, or the meidnet command line.",
+    part: "MEIDNet provides the structure and property encoders and their fusion; a prediction head for another quantity is not included.",
+    plan: "Planned for MEIDNet and not yet available; the single-modality models named above can be used today.",
+    no: "Outside the scope of MEIDNet; the models named above are the usual choice.",
+  };
   var EXTRA_NAMES = { xrd: "diffraction patterns", spectra: "spectra", images: "images", text: "text" };
 
   function advise(has, goal) {
@@ -240,11 +245,11 @@
     var extra = ["xrd", "spectra", "images", "text"].filter(function (k) { return has[k]; }).map(function (k) { return EXTRA_NAMES[k]; });
     var n = Object.keys(has).filter(function (k) { return has[k]; }).length;
     function meidnetNotes() {
-      if (extra.length) notes.push("MEIDNet uses structures and scalar properties today. Your " + extra.join(", ") +
-        " would each need an encoder of their own, which is planned; train on the structures and properties now.");
-      if (K) notes.push("Processing conditions can be added as extra scalar columns. They are encoded with the properties, and the model does not know they are conditions rather than outcomes.");
+      if (extra.length) notes.push("MEIDNet currently uses crystal structures and scalar properties. The " + extra.join(", ") +
+        " would each need a dedicated encoder, which is planned; the structures and properties can be used now.");
+      if (K) notes.push("Processing conditions can be added as extra scalar columns. They are encoded with the properties, so the model does not distinguish conditions from outcomes.");
     }
-    if (!n) return { st: "info", title: "Tick the data you have", why: "The recommendation depends on which modalities describe your materials." };
+    if (!n) return { st: "info", title: "Select the data you have", why: "The recommendation depends on which modalities describe your materials." };
 
     if (goal === "design") {
       if (S && P) {
@@ -260,6 +265,7 @@
       }
       if (P && C && !S) return { st: "no", arch: "early-fusion", title: "A composition model in a screening loop, or structures built on a prototype",
         why: "MEIDNet needs a structure for every row. If all your formulas sit on one prototype (for example ABX₃), build those structures on the prototype and use MEIDNet. Otherwise train a composition model such as Roost and use it to screen candidate formulas.",
+        where: "Roost or another composition model; MEIDNet requires a crystal structure for each material.",
         links: [["Recipe: formula only", "recipes.html#formula-only", 1], ["Roost (Goodall and Lee 2020)", "https://doi.org/10.1038/s41467-020-19964-7"]] };
       if (S && !P) return { st: "info", arch: "shared-latent", title: "First add property values to your structures",
         why: "Design from properties needs examples of structures with their property values. Compute them (DFT) or take them from a database, then train the shared space.",
@@ -268,27 +274,29 @@
         why: "The same design as MEIDNet, with an encoder suited to your modality in place of the structure encoder. Design then returns " + extra.join(" or ") + " rather than structures, which is useful only if those can be turned into materials.",
         links: [["Shared latent space", "#shared-latent", 1], ["Scope and roadmap", "../understand/limits.html"]] };
       return { st: "info", title: "Add a description of each material besides its properties",
-        why: "Design needs to output something you can make: structures (MEIDNet) or at least formulas. Tick crystal structures or formulas.",
+        why: "Design needs to output something that can be made: structures (MEIDNet) or at least formulas. Select crystal structures or formulas.",
         links: [["Datasets", "../explore/datasets.html", 1]] };
     }
 
     if (goal === "predict") {
       if (!P) return { st: "info", title: "Add the property values you want to predict",
-        why: "A model learns to predict a property from examples where the property is known. Tick scalar properties if you have them.",
+        why: "A model learns to predict a property from examples where the property is known. Select scalar properties if you have them.",
         links: [["Databases by application", "../explore/databases.html", 1]] };
       if (S) {
         if (extra.length) notes.push("To add your " + extra.join(", ") + ", join one encoder per modality in a shared space (intermediate fusion), or use late fusion if some materials lack them.");
         return { st: "sup", arch: "shared-latent", title: "A graph network on the structure (MEIDNet's structure encoder does this)",
           why: "For structure to property alone, a single-modality graph network such as CGCNN is the simplest strong choice. MEIDNet's structure encoder does the same and scores every composition of a family instantly, and it adds the reverse direction if you later want to design.",
+          where: "MEIDNet's structure encoder (the Studio or meidnet space), or a graph network such as CGCNN.",
           links: [["Recipe: screen a family", "recipes.html#screen-family", 1], ["Open the Studio", STUDIO], ["CGCNN (Xie and Grossman 2018)", "https://doi.org/10.1103/PhysRevLett.120.145301"]] };
       }
       if (C && !extra.length) return { st: "no", arch: K ? "early-fusion" : null, title: "A composition network such as Roost" + (K ? ", with the conditions joined by early fusion" : ""),
         why: "Without structures, the formula is the description. Roost learns from the formula alone; numeric conditions can be concatenated to its features.",
+        where: "Roost or another composition model; MEIDNet requires a crystal structure for each material.",
         links: [["Recipe: formula only", "recipes.html#formula-only", 1], ["Roost (Goodall and Lee 2020)", "https://doi.org/10.1038/s41467-020-19964-7"]] };
       if (extra.length === 1 && !C && !K) {
         var one = { "diffraction patterns": "a 1D convolutional network on the binned pattern", spectra: "a 1D convolutional network on the binned spectrum",
           images: "a 2D convolutional network or a vision transformer", text: "a fine-tuned language model" }[extra[0]];
-        return { st: "no", title: "One modality: " + one, why: "With a single input modality, a network suited to its shape is the right start. Multimodal designs help once a second modality is paired with it.",
+        return { st: "no", title: "One modality: " + one, why: "With a single input modality, a network suited to its shape is the natural starting point. Multimodal designs become useful once a second modality is paired with it.",
           links: [["Modalities and their networks", "index.html#what-is-a-modality", 1]] };
       }
       return { st: "no", arch: "late-fusion", title: "Late fusion, or early fusion if every material has every modality",
@@ -310,32 +318,33 @@
         why: "The same loss that pairs pictures with captions pairs your " + extra.join(" and ") + " with structures, given enough pairs. MEIDNet plans these encoders; they are not implemented.",
         links: [["Contrastive learning", "#contrastive", 1], ["Recipe: synthesis text", "recipes.html#synthesis-text"]] };
       return { st: "info", title: "Retrieval needs pairs of two modalities",
-        why: "Tick at least two modalities that describe the same materials, for example crystal structures and scalar properties." };
+        why: "Select at least two modalities that describe the same materials, for example crystal structures and scalar properties." };
     }
 
     if (goal === "identify") {
       if (X || Sp) {
         if (S) notes.push("With structures as well, a contrastive model can retrieve the matching structure instead of a class label; simulate the patterns from the structures to get as many pairs as you need.");
         return { st: "plan", arch: "contrastive", title: "A 1D convolutional classifier on the pattern; contrastive retrieval as the multimodal version",
-          why: "A pattern or spectrum is a fingerprint. A classifier needs labels (crystal system, space group, phase); a contrastive pattern-structure model needs only pairs. In MEIDNet the pattern encoder is planned.",
+          why: "A pattern or spectrum is a fingerprint. A classifier needs labels (crystal system, space group, phase); a contrastive pattern-structure model needs only pairs.",
+          where: "1D convolutional classifiers can be used today; the contrastive version needs the pattern encoder planned for MEIDNet.",
           links: [["Recipe: XRD to structure", "recipes.html#xrd-structure", 1], ["Park et al. 2017", "https://doi.org/10.1107/S205225251700714X"]] };
       }
       if (I) return { st: "no", title: "An image classifier: a convolutional network or a vision transformer",
         why: "Phases and microstructures can be classified from micrographs given labelled examples. This is a single-modality task outside MEIDNet.",
         links: [["Microscopy images on the map", "index.html#the-multimodality-map", 1]] };
       return { st: "info", title: "Identification starts from a measurement",
-        why: "Tick diffraction patterns, spectra or images: the measurement you want to identify a structure or phase from." };
+        why: "Select diffraction patterns, spectra or images: the measurement to identify a structure or phase from." };
     }
 
     // combine
-    if (n < 2) return { st: "info", title: "Combining needs at least two modalities", why: "Tick every kind of data you have for the same materials." };
+    if (n < 2) return { st: "info", title: "Combining needs at least two modalities", why: "Select every kind of data available for the same materials." };
     var tabular = ["structure", "xrd", "spectra", "images", "text"].every(function (k) { return !has[k]; });
     notes.push("If some materials lack a modality, late fusion (one model per modality, predictions averaged) is the robust choice.");
     if (tabular) return { st: "no", arch: "early-fusion", title: "Early fusion: concatenate the features into one model",
       why: "Properties, formulas and conditions all become fixed-length numbers, so concatenating them is a strong and cheap baseline.",
       links: [["Early fusion", "#early-fusion", 1], ["Late fusion", "#late-fusion"]] };
     if (T || (n >= 3 && (X || Sp || I))) return { st: "no", arch: "cross-attention", title: "Cross-attention fusion, with a shared latent space as the cheaper start",
-      why: "Text, spectra or images next to structures have parts that interact in detail; attention learns which parts matter to which. It needs much data. A shared latent space (one encoder per modality, aligned and averaged) is the cheaper first step.",
+      why: "Text, spectra or images next to structures have parts that interact in detail; attention learns which parts matter to which. It needs much data. A shared latent space (one encoder per modality, aligned and averaged) is a less expensive first step.",
       links: [["Cross-attention", "#cross-attention", 1], ["Shared latent space", "#shared-latent"]] };
     return { st: S && P && !extra.length ? "part" : "no", arch: "shared-latent", title: "Intermediate fusion: one encoder per modality into a shared space, then a prediction head",
       why: "Modalities of different shapes each get the encoder that suits them, and their latents are joined. MEIDNet does this for structures and scalar properties (aligned, then averaged); a separate prediction head for another quantity is not part of it.",
@@ -343,11 +352,13 @@
   }
 
   function renderAdvice(r, notes) {
-    var b = '<div class="adv-card ' + r.st + '"><span class="mstatus ' + r.st + '">' + LABEL[r.st] + "</span><h4>" + r.title + "</h4>" +
+    var b = '<div class="adv-card ' + r.st + '"><div class="adv-kicker">' + (r.st === "info" ? "Next step" : "Recommendation") + "</div><h4>" + r.title + "</h4>" +
       "<p><b>Why.</b> " + r.why + "</p>";
     if (r.steps) b += "<ol>" + r.steps.map(function (s) { return "<li>" + s + "</li>"; }).join("") + "</ol>";
     if (notes.length) b += '<ul class="adv-notes">' + notes.map(function (s) { return "<li>" + s + "</li>"; }).join("") + "</ul>";
     if (r.alt) b += '<p class="adv-alt">' + r.alt + "</p>";
+    var where = r.where || WHERE[r.st];
+    if (where) b += '<p class="adv-where"><b>Where to run it.</b> ' + where + "</p>";
     var ls = (r.links || []).slice();
     if (r.arch && !ls.some(function (l) { return l[1] === "#" + r.arch; })) ls.push(["This architecture in the Atlas", "#" + r.arch]);
     if (ls.length) b += '<p class="adv-links">' + ls.map(function (l) {

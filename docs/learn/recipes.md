@@ -1,25 +1,23 @@
 # Recipes by problem
 
-Start from a research question. Each recipe goes **problem → architecture → why → data → configuration → tutorial
-→ references**, and says plainly whether MEIDNet does it today. Where it does not, the recipe points to the kind of
-model that does.
+Start from a research question. Each recipe goes **problem → architecture → why → data → implementation →
+tutorial → references**. The implementation is MEIDNet where it applies; otherwise the recipe names established
+alternatives.
 
 For step-by-step changes to a MEIDNet configuration (another target, another family, a new rule), see the
 [how-to guides](../recipes/change-targets.md).
 
-| problem | architecture | MEIDNet today |
+| problem | architecture | implementation |
 |---|---|---|
-| [Perovskites with a target band gap that are likely to be stable](#target-band-gap) | shared latent + contrastive | <span class="mstatus sup">Supported</span> |
-| [Candidates from your own DFT results for one family](#own-family) | shared latent + contrastive | <span class="mstatus sup">Supported</span> |
-| [Screen a whole family for a target before searching](#screen-family) | structure encoder of the shared space | <span class="mstatus sup">Supported</span> |
-| [Identify the crystal structure from an XRD pattern](#xrd-structure) | 1D convolutional network; contrastive pattern ↔ structure | <span class="mstatus plan">Planned</span> |
-| [Predict a property when only the formula is known](#formula-only) | composition network | <span class="mstatus no">Use another tool</span> |
-| [Connect synthesis text with structures](#synthesis-text) | text encoder + contrastive or cross-attention | <span class="mstatus plan">Planned</span> |
-| [Design new atomic arrangements](#new-arrangements) | conditional generative model over full geometry | <span class="mstatus no">Use another tool</span> |
+| [Perovskites with a target band gap that are likely to be stable](#target-band-gap) | shared latent + contrastive | MEIDNet |
+| [Candidates from your own DFT results for one family](#own-family) | shared latent + contrastive | MEIDNet |
+| [Screen a whole family for a target before searching](#screen-family) | structure encoder of the shared space | MEIDNet |
+| [Identify the crystal structure from an XRD pattern](#xrd-structure) | 1D convolutional network; contrastive pattern ↔ structure | 1D CNN classifiers; pattern encoder planned for MEIDNet |
+| [Predict a property when only the formula is known](#formula-only) | composition network | Roost and similar composition models |
+| [Connect synthesis text with structures](#synthesis-text) | text encoder + contrastive or cross-attention | text encoder planned for MEIDNet |
+| [Design new atomic arrangements](#new-arrangements) | conditional generative model over full geometry | MatterGen, CDVAE |
 
 ## Perovskites with a target band gap that are likely to be stable { #target-band-gap }
-
-<span class="mstatus sup">Supported in MEIDNet</span>
 
 | | |
 |---|---|
@@ -27,8 +25,9 @@ For step-by-step changes to a MEIDNet configuration (another target, another fam
 | **Architecture** | [Shared latent space](architectures.md#shared-latent) with [contrastive alignment](architectures.md#contrastive): MEIDNet. |
 | **Why** | The question runs from properties to structure. A shared space whose crystal decoder is also trained from the property latent alone gives that direction, and the family's rules keep the chemistry sensible. |
 | **Data** | Perov-5: 18,928 structures with DFT band gap and formation enthalpy ([dataset card](../explore/datasets.md)). The published checkpoint is trained on it. |
+| **Implementation** | MEIDNet: `meidnet demo`, `meidnet generate` or the Studio's Targets and Search blocks. |
 | **Tutorial** | [The paper's experiment](../examples/perov5.md) · in the browser: [Studio, Targets block](https://babu09-meidnet.hf.space/studio/?panel=targets) · [screen the candidates with MACE](../recipes/screen.md) |
-| **References** | Babu *et al.* 2026 (MEIDNet); Castelli *et al.* 2012 (the dataset). |
+| **References** | Babu *et al.* 2026 (MEIDNet); Castelli *et al.* 2012 (the dataset); Babu, Gouvêa and Rignanese 2026 (review of inverse design). |
 
 One command with the published model:
 
@@ -51,16 +50,15 @@ generation:
 
 ## Candidates from your own DFT results for one family { #own-family }
 
-<span class="mstatus sup">Supported in MEIDNet</span>
-
 | | |
 |---|---|
 | **Problem** | You computed structures and properties for one prototype family, for example A₂BB′X₆ double perovskites, and want new compositions with chosen property values. |
 | **Architecture** | [Shared latent space](architectures.md#shared-latent) with [contrastive alignment](architectures.md#contrastive), trained on your table. |
 | **Why** | The same reasoning as above. Every scalar column you give becomes a target you can set, and the family file says which sites exist and which elements may sit on them. |
 | **Data** | A table with an id, numeric property columns and one CIF per row. Public sources by application are on [Databases by application](../explore/databases.md). |
+| **Implementation** | MEIDNet: `meidnet init`, `check`, `train`, `generate`, or the Studio's Data and Model blocks. |
 | **Tutorial** | [Bring your own dataset](../use/your-data.md) · in the browser: [Studio, Data block](https://babu09-meidnet.hf.space/studio/?panel=data) · [change the material family](../recipes/change-family.md) |
-| **References** | Babu *et al.* 2026. |
+| **References** | Babu *et al.* 2026 (MEIDNet). |
 
 ```yaml
 data:
@@ -84,16 +82,15 @@ Then `meidnet check` → `meidnet train` → `meidnet generate`; each step write
 
 ## Screen a whole family for a target before searching { #screen-family }
 
-<span class="mstatus sup">Supported in MEIDNet</span>
-
 | | |
 |---|---|
 | **Problem** | Before running a search, see every composition the family allows, its rule values and its predicted properties, and which are predicted closest to the target. |
 | **Architecture** | The structure encoder of the [shared space](architectures.md#shared-latent), read in the forward direction (structure → properties). |
 | **Why** | For a prototype family the set of compositions is finite, so it can be scored exhaustively in seconds. Comparing these predictions with the search's candidates is a useful sanity check. |
-| **Data** | A trained model and a family; nothing else. |
+| **Data** | A trained model and a family. |
+| **Implementation** | MEIDNet: `meidnet space` or the Studio's design-space view. |
 | **Tutorial** | [Explore in 3D](../use/explore-3d.md) · in the browser: [Studio, design space](https://babu09-meidnet.hf.space/studio/?explore=space) · [How MEIDNet works](../understand/how-it-works.md#the-design-space) |
-| **References** | Babu *et al.* 2026. |
+| **References** | Babu *et al.* 2026 (MEIDNet). |
 
 ```bash
 meidnet space examples/perov5/meidnet.yaml --model checkpoints/dual_autoencoder_clip_earlyfusion_propertyaware_2k.pth -o space.csv
@@ -101,32 +98,27 @@ meidnet space examples/perov5/meidnet.yaml --model checkpoints/dual_autoencoder_
 
 ## Identify the crystal structure from an XRD pattern { #xrd-structure }
 
-<span class="mstatus plan">Planned in MEIDNet</span>
-
 | | |
 |---|---|
 | **Problem** | Given a powder diffraction pattern, tell which crystal system, space group or known structure it comes from. |
-| **Architecture** | Today: a 1D convolutional classifier on the pattern (one modality). Multimodal: a pattern encoder aligned with a structure encoder by [contrastive learning](architectures.md#contrastive), so a pattern retrieves the structures it matches. |
+| **Architecture** | A 1D convolutional classifier on the pattern (one modality). Multimodal: a pattern encoder aligned with a structure encoder by [contrastive learning](architectures.md#contrastive), so a pattern retrieves the structures it matches. |
 | **Why** | A pattern is a fingerprint of the lattice. A classifier needs labels; a contrastive model needs only (pattern, structure) pairs, which can be simulated from any structure database. |
 | **Data** | Simulate patterns from computed or experimental structures ([semiconductor physics](../explore/databases.md#semiconductor-physics), [all databases](../explore/databases.md#all-databases)), for example with pymatgen's XRD calculator; validate on measured patterns. |
-| **In MEIDNet** | A vector-modality encoder for binned XRD is the first item of the [roadmap](../understand/limits.md). It is not implemented. |
-| **References** | Park *et al.* 2017; Baltrušaitis *et al.* 2019. |
+| **Implementation** | 1D convolutional classifiers such as Park *et al.* (2017). In MEIDNet, an encoder for binned XRD patterns is the first item of the [roadmap](../understand/limits.md) and is not yet available. |
+| **References** | Park *et al.* 2017; Baltrušaitis *et al.* 2019; Babu and Krishnan 2026. |
 
 ## Predict a property when only the formula is known { #formula-only }
-
-<span class="mstatus no">Use another tool</span>
 
 | | |
 |---|---|
 | **Problem** | Predict a band gap or a stability measure for compositions whose crystal structure is unknown, as in many experimental tables. |
 | **Architecture** | A composition network that reads the formula as a weighted set of elements, such as Roost. With extra numeric inputs (temperature, doping), [early fusion](architectures.md#early-fusion) of composition features and those numbers is a strong baseline. |
-| **Why** | MEIDNet needs a structure for every row. If your formulas all sit on one prototype (for example ABX₃), you can build those structures on the prototype and use MEIDNet; otherwise a composition model is the right tool. |
+| **Why** | MEIDNet needs a structure for every row. If your formulas all sit on one prototype (for example ABX₃), you can build those structures on the prototype and use MEIDNet; otherwise a composition model is the appropriate choice. |
 | **Data** | Experimental band gaps and Matbench tasks are listed on [Databases by application](../explore/databases.md#semiconductor-physics). |
+| **Implementation** | Roost or another composition model; outside MEIDNet, which requires a crystal structure per material. |
 | **References** | Goodall and Lee 2020 (Roost); Dunn *et al.* 2020 (Matbench). |
 
 ## Connect synthesis text with structures { #synthesis-text }
-
-<span class="mstatus plan">Planned in MEIDNet</span>
 
 | | |
 |---|---|
@@ -134,12 +126,10 @@ meidnet space examples/perov5/meidnet.yaml --model checkpoints/dual_autoencoder_
 | **Architecture** | A text encoder (a language model) aligned with a structure encoder by [contrastive learning](architectures.md#contrastive); [cross-attention](architectures.md#cross-attention) when individual words must be tied to individual elements or steps. |
 | **Why** | Text and structures have no common format; a shared space lets each be compared with the other. |
 | **Data** | Text-mined synthesis recipes (Kononova *et al.* 2019) paired with structures from a structure database. |
-| **In MEIDNet** | A text encoder into the shared space is planned, not implemented. |
-| **References** | Kononova *et al.* 2019; Moro, Loh *et al.* 2025. |
+| **Implementation** | A text encoder that maps into MEIDNet's shared space is planned and not yet available. |
+| **References** | Kononova *et al.* 2019; Moro, Loh *et al.* 2025; Babu and Krishnan 2026. |
 
 ## Design new atomic arrangements { #new-arrangements }
-
-<span class="mstatus no">Use another tool</span>
 
 | | |
 |---|---|
@@ -147,7 +137,8 @@ meidnet space examples/perov5/meidnet.yaml --model checkpoints/dual_autoencoder_
 | **Architecture** | A conditional generative model over the full geometry: diffusion (MatterGen) or a variational autoencoder (CDVAE). |
 | **Why** | MEIDNet places compositions on a family prototype and does not invent arrangements ([scope](../understand/limits.md)). Models that generate positions and cells directly can. |
 | **Data** | Large structure databases; the generative benchmarks are listed under [generative-model benchmarks](../explore/databases.md#generative-model-benchmarks). |
-| **References** | Zeni *et al.* 2025 (MatterGen); Xie *et al.* 2022 (CDVAE). |
+| **Implementation** | MatterGen, CDVAE and related generative models. |
+| **References** | Zeni *et al.* 2025 (MatterGen); Xie *et al.* 2022 (CDVAE); Babu, Gouvêa and Rignanese 2026 (review). |
 
 ## References { #references }
 
@@ -163,6 +154,11 @@ meidnet space examples/perov5/meidnet.yaml --model checkpoints/dual_autoencoder_
   test set and Automatminer reference algorithm", *npj Comput. Mater.* **6**, 138 (2020). [doi:10.1038/s41524-020-00406-3](https://doi.org/10.1038/s41524-020-00406-3)
 - O. Kononova *et al.*, "Text-mined dataset of inorganic materials synthesis recipes", *Sci. Data* **6**, 203 (2019).
   [doi:10.1038/s41597-019-0224-1](https://doi.org/10.1038/s41597-019-0224-1)
+- A. Babu, N. M. A. Krishnan, "Multimodal and cross-modal learning techniques", *APL Mach. Learn.* **4**, 030901
+  (2026). [doi:10.1063/5.0346744](https://doi.org/10.1063/5.0346744)
+- A. Babu, R. Almeida Gouvêa, G.-M. Rignanese, "Toward automated discovery with generative models multimodal
+  learning and closed loop workflows in inverse materials design", *Cell Rep. Phys. Sci.* **7**, 103561 (2026).
+  [doi:10.1016/j.xcrp.2026.103561](https://doi.org/10.1016/j.xcrp.2026.103561)
 - C. Zeni *et al.*, "A generative model for inorganic materials design", *Nature* **639**, 624–632 (2025).
   [doi:10.1038/s41586-025-08628-5](https://doi.org/10.1038/s41586-025-08628-5)
 - T. Xie *et al.*, "Crystal diffusion variational autoencoder for periodic material generation", *ICLR* (2022).

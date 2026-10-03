@@ -1,10 +1,12 @@
 # Architecture Atlas
 
-Five ways to build a model from several modalities, drawn the same way: inputs on the left, what the model produces
-on the right. Each card says when the design fits, what it costs, an example from materials science and whether
-MEIDNet implements it. At the end, [the advisor](#advisor) recommends one for your data and your goal.
+Five ways to build a model from several modalities, drawn the same way: inputs on the left, outputs on the right.
+Each card gives the idea, when it fits, its strengths and weaknesses, an example from materials science and
+references. The [comparison table](#side-by-side) shows which of these designs MEIDNet uses, and
+[the advisor](#advisor) suggests one for a given dataset and task.
 
-New to the topic? Start with [Learn multimodality](index.md).
+New to the topic? Start with [Learn multimodality](index.md). Babu and Krishnan (2026) review multimodal and
+cross-modal learning techniques in more depth.
 
 <div class="atlas" markdown>
 
@@ -24,8 +26,6 @@ New to the topic? Start with [Learn multimodality](index.md).
 <div class="atlas-body" markdown>
 
 ### Early fusion { #early-fusion }
-
-<span class="mstatus no">Not in MEIDNet</span>
 
 **Idea.** Join the modalities at the input: turn each into features, concatenate them into one vector, train one
 model on it.
@@ -63,8 +63,6 @@ pattern, concatenated and given to a gradient-boosted regressor.
 <div class="atlas-body" markdown>
 
 ### Late fusion { #late-fusion }
-
-<span class="mstatus no">Not in MEIDNet</span>
 
 **Idea.** One model per modality, each makes its own prediction; the predictions are combined by averaging, voting
 or a small model on top.
@@ -106,8 +104,6 @@ phase label; the final label averages their probabilities.
 
 ### Shared latent space (joint and coordinated) { #shared-latent }
 
-<span class="mstatus core">Core idea used by MEIDNet</span> <span class="mstatus sup">Supported</span>
-
 **Idea.** One encoder per modality maps into a common space. In a *coordinated* representation the latents stay
 separate but are trained to agree; in a *joint* representation they are merged into one vector that the decoders
 read. MEIDNet does both: the structure latent and the property latent are aligned by
@@ -124,7 +120,8 @@ encoder that suits its shape.
 **Materials example.** MEIDNet: crystal structures and DFT properties of 18,928 cubic perovskites, searched for
 compositions with a target band gap and formation enthalpy ([the paper's experiment](../examples/perov5.md)).
 
-*References:* Ngiam *et al.* 2011; Baltrušaitis *et al.* 2019; Babu *et al.* 2026; Moro, Loh *et al.* 2025.
+*References:* Ngiam *et al.* 2011; Baltrušaitis *et al.* 2019; Babu *et al.* 2026 (MEIDNet); Moro, Loh *et al.* 2025;
+Babu and Krishnan 2026.
 
 </div>
 </div>
@@ -147,8 +144,6 @@ compositions with a target band gap and formation enthalpy ([the paper's experim
 <div class="atlas-body" markdown>
 
 ### Cross-attention and transformer fusion { #cross-attention }
-
-<span class="mstatus no">Not in MEIDNet</span>
 
 **Idea.** Each modality becomes a sequence of tokens (atoms, segments of a spectrum, words). Attention lets every
 token of one modality look up the tokens of the other that matter to it, layer after layer.
@@ -188,8 +183,6 @@ which spectral features.
 
 ### Contrastive learning { #contrastive }
 
-<span class="mstatus core">Used by MEIDNet</span> <span class="mstatus sup">Supported</span>
-
 **Idea.** A training objective rather than a wiring. In a batch of paired examples, each example's two embeddings
 must be more similar to each other than to any other example's. It is how the latents of a
 [shared space](#shared-latent) are coordinated.
@@ -197,14 +190,14 @@ must be more similar to each other than to any other example's. It is how the la
 **When it fits.** You have pairs (a structure and its properties, a pattern and its structure) and want a space in
 which nearest neighbours are meaningful across modalities.
 
-**Strengths.** Learns from the pairing alone; gives retrieval for free; scales to large datasets.
-**Weaknesses.** Needs batches with enough other examples; sensitive to the temperature; two genuinely similar
-materials in one batch are still pushed apart.
+**Strengths.** Learns from the pairing alone; provides cross-modal retrieval; scales to large datasets.
+**Weaknesses.** Needs large enough batches; sensitive to the temperature; two similar materials in the same batch
+are treated as negatives and pushed apart.
 
 **In MEIDNet.** Symmetric InfoNCE with temperature 0.01 and weight 5, switched on gradually over the warm-up
 (the paper's curriculum). [The formula and a playground](index.md#contrastive-learning).
 
-*References:* van den Oord *et al.* 2018 (InfoNCE); Radford *et al.* 2021 (CLIP).
+*References:* van den Oord *et al.* 2018 (InfoNCE); Radford *et al.* 2021 (CLIP); Babu and Krishnan 2026.
 
 </div>
 </div>
@@ -220,16 +213,16 @@ materials in one batch are still pushed apart.
 | learns interactions between modalities | yes | no | yes | yes, in detail | for whole samples |
 | translates one modality into another | no | no | yes | with a decoder | retrieval |
 | data needed | small to medium | small per model | medium | large | medium to large |
-| in MEIDNet | no | no | **yes, the core** | no | **yes** |
+| used in MEIDNet | – | – | yes: structure and property encoders, averaged latent | – | yes: symmetric InfoNCE |
 
 **Beyond these five.** Conditional generative models such as diffusion (MatterGen) or variational autoencoders
-(CDVAE) also translate from properties to structures, and they generate free atomic arrangements, which MEIDNet does
-not. MEIDNet instead decodes compositions onto a prototype family and checks them against chemical rules.
+(CDVAE) also translate from properties to structures, and they generate free atomic arrangements. MEIDNet instead
+decodes compositions onto a prototype family and checks them against chemical rules. Babu, Gouvêa and Rignanese
+(2026) review generative models, multimodal learning and closed-loop workflows for inverse materials design.
 
 ## Which architecture should I use? { #advisor }
 
-Tick the data you have and choose what you want to do. The recommendation says why, what it costs and whether
-MEIDNet can do it today.
+Select the data you have and the task. The recommendation explains the choice and says where it can be run.
 
 <div class="advisor" id="arch-advisor" aria-live="polite"></div>
 
@@ -275,5 +268,10 @@ over `training.contrastive_warmup_epochs`, so that the decoders learn first.
   (2022). [arXiv:2110.06197](https://arxiv.org/abs/2110.06197)
 - V. Moro, C. Loh *et al.*, "Multimodal foundation models for material property prediction and discovery",
   *Newton* (2025). [doi:10.1016/j.newton.2025.100016](https://doi.org/10.1016/j.newton.2025.100016)
+- A. Babu, N. M. A. Krishnan, "Multimodal and cross-modal learning techniques", *APL Mach. Learn.* **4**, 030901
+  (2026). [doi:10.1063/5.0346744](https://doi.org/10.1063/5.0346744)
+- A. Babu, R. Almeida Gouvêa, G.-M. Rignanese, "Toward automated discovery with generative models multimodal
+  learning and closed loop workflows in inverse materials design", *Cell Rep. Phys. Sci.* **7**, 103561 (2026).
+  [doi:10.1016/j.xcrp.2026.103561](https://doi.org/10.1016/j.xcrp.2026.103561)
 - A. Babu, R. Almeida Gouvêa, P. Vandergheynst, G.-M. Rignanese, "MEIDNet: Multimodal generative AI framework for
   inverse materials design", *npj Comput. Mater.* (2026). [doi:10.1038/s41524-026-02153-3](https://doi.org/10.1038/s41524-026-02153-3)

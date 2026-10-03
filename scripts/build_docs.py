@@ -4,7 +4,7 @@ Generate the parts of the documentation that come from the code, so they never g
     docs/reference/config.md       every meidnet.yaml setting with its description and default
     docs/reference/rules.md        built-in constraints and search terms with their explanations
     docs/studio.html               the static "try it in your browser" Studio (published model)
-    docs/explore/capabilities.md   what works today, from the registries (Supported / Planned)
+    docs/explore/capabilities.md   capabilities, from the registries (Available / Planned)
     docs/benchmarks/**             the benchmark pages, from benchmarks/*.json (scripts/benchmarks.py)
 
 Run before `mkdocs build` (the docs workflow does).
@@ -96,25 +96,26 @@ def rules_reference() -> str:
 
 
 def capabilities_reference(verified_modalities=()) -> str:
-    """Supported / Community-tested / Planned, read from the code. Community-tested is given only to a modality or
+    """Available / Community-tested / Planned, read from the code. Community-tested is given only to a modality or
     property named by a benchmark row that has been reproduced here (scripts/benchmarks.py)."""
     def status(name, planned=False):
         if planned:
             return "Planned"
-        return "Community-tested" if name in verified_modalities else "Supported"
-    out = ["# Capabilities: what works today", "",
-           "Generated from the code, so it cannot promise more than the code does. **Supported** = in this release; "
-           "**Community-tested** = a benchmark result reproduced here names it; **Planned** = designed for, not implemented "
-           "([roadmap](../understand/limits.md)).", "",
+        return "Community-tested" if name in verified_modalities else "Available"
+    out = ["# Capabilities", "",
+           "This page is generated from the code. **Available**: in this release. **Community-tested**: used by a "
+           "benchmark result reproduced here. **Planned**: on the [roadmap](../understand/limits.md), not yet "
+           "implemented.", "",
            "## Modalities", "", "| modality | status | how |", "|---|---|---|",
            f"| Crystal structure (CIF, up to `max_sites` atoms, default 20) | {status('structure')} | an equivariant graph encoder; structures are aligned to the family prototype |",
            f"| Scalar properties (any number of numeric columns) | {status('property')} | one property encoder; every column becomes a target you can set |",
            f"| Published properties: direct band gap (`dir_gap`), formation enthalpy (`heat_all`) | {status('property:dir_gap')} | the shipped Perov-5 checkpoint |"]
     for name, how in PLANNED_MODALITIES:
         out.append(f"| {name} | {status(name, planned=True)} | {how} |")
-    out += ["", "## Fusion", "", "One scheme: **early fusion** - the structure latent and the property latent of a material are averaged into the "
-            "joint latent (`meidnet/model.py`), after a contrastive alignment whose weight ramps up over `training.contrastive_warmup_epochs` "
-            "(the curriculum of the paper). There is no late-fusion option; a selector would be a fiction.", "",
+    out += ["", "## Fusion", "", "The structure latent and the property latent of a material are averaged into the joint "
+            "latent (`meidnet/model.py`); the paper calls this early fusion. The two latents are first aligned by a "
+            "contrastive loss whose weight increases over `training.contrastive_warmup_epochs` (the curriculum of the "
+            "paper). Other fusion schemes are compared in the [Architecture Atlas](../learn/architectures.md).", "",
             "## Input formats", "", "| format | note |", "|---|---|"]
     for name, note in UPLOAD_FORMATS:
         out.append(f"| {name} | {note} |")

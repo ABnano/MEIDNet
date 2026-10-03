@@ -26,7 +26,7 @@
 
     [Notebook 01 — quickstart](https://colab.research.google.com/github/ABnano/MEIDNet/blob/main/notebooks/01_quickstart.ipynb){ .md-button }
 
-## What you just saw
+## What the demo did
 
 1. **Targets → latent.** The property encoder maps (band gap, enthalpy) to a point in the shared latent space.
 2. **Search.** A population of latents near that point is optimised so that the decoder's output matches the

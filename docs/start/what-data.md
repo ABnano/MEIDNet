@@ -31,7 +31,7 @@ but expect rough predictions (the training report tells you how rough).
 
 `meidnet check` reads every row exactly as training would and writes `check_report.html` with one line per
 reason a row was skipped (unreadable CIF, too many atoms, missing value, does not match the prototype) and
-example ids. Nothing is silently dropped.
+example ids, so every skipped row is accounted for.
 
 ## Properties and ranges
 

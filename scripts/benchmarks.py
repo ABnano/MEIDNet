@@ -510,7 +510,7 @@ def _insights(ds: Dataset, rows: list[Submission]) -> str:
     pub = [r for r in rows if r.status == "published"]
     if pub:
         out.append(f"- {len(pub)} row(s) are quoted from the paper; a verified re-run of the same checkpoint, where it exists, "
-                   f"is the row to trust for the exact numbers of this code version.")
+                   f"gives the exact numbers for this code version.")
     for r in rows:
         att = attempt_record(r.id)
         if att and r.status != "meidnet_verified":

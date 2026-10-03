@@ -26,6 +26,16 @@ Anand Babu, Rogério Almeida Gouvêa, Pierre Vandergheynst, Gian-Marco Rignanese
 
 ## Related
 
+Reviews by the authors:
+
+- A. Babu, N. M. A. Krishnan, *Multimodal and cross-modal learning techniques*, APL Machine Learning **4**, 030901
+  (2026). [doi:10.1063/5.0346744](https://doi.org/10.1063/5.0346744)
+- A. Babu, R. Almeida Gouvêa, G.-M. Rignanese, *Toward automated discovery with generative models multimodal
+  learning and closed loop workflows in inverse materials design*, Cell Reports Physical Science **7**, 103561
+  (2026). [doi:10.1016/j.xcrp.2026.103561](https://doi.org/10.1016/j.xcrp.2026.103561)
+
+Methods MEIDNet builds on:
+
 - Satorras, Hoogeboom, Welling, *E(n) equivariant graph neural networks*, ICML 2021 (the encoder).
 - Radford et al., *CLIP*, ICML 2021 (the alignment objective).
 - Batatia et al., *MACE-MP-0* (stability screening).

@@ -1,4 +1,4 @@
-# Why you can trust (or not) a candidate
+# Interpreting a candidate
 
 MEIDNet shows its reasoning rather than a score. Where to look:
 
@@ -31,7 +31,7 @@ MEIDNet shows its reasoning rather than a score. Where to look:
 - **Rejected examples** — what the search *wanted* to make; often more informative than what it kept.
 - **Latent map** — whether the population spread out (diversity) or collapsed.
 
-## What MEIDNet never claims
+## What a candidate is
 
 A candidate is a *composition on an ideal prototype with model-predicted properties*. Whether it is stable,
 synthesisable, or has those properties is for `meidnet screen`, DFT and the lab to decide.

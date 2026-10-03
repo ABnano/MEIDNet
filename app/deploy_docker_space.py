@@ -55,7 +55,7 @@ with the properties you want. Six connected layers:
   one for your data; [recipes by problem](https://babu09-meidnet.hf.space/docs/learn/recipes.html).
 * **[Build: Studio](https://babu09-meidnet.hf.space/studio/)** — the live workbench: seven colour-coded blocks
   *Data → Model → Family → Rules → Targets → Search → Candidates*. Change a rule, exclude an element or
-  move a target and watch the effect flow through the later blocks. Bring your own table (CSV / Excel /
+  move a target and see the effect on the later blocks. Bring your own table (CSV / Excel /
   JSON + CIFs), train a model in the browser, run the search, inspect every candidate in 3D, export the
   `meidnet.yaml` that reproduces it on your machine.
 * **[Datasets](https://babu09-meidnet.hf.space/docs/explore/datasets.html)** — datasets that work with
@@ -70,6 +70,12 @@ with the properties you want. Six connected layers:
 **Code:** [github.com/ABnano/MEIDNet](https://github.com/ABnano/MEIDNet) (MIT) ·
 **Paper:** A. Babu, R. A. Gouvêa, P. Vandergheynst, G.-M. Rignanese, *npj Computational Materials* (2026),
 [doi:10.1038/s41524-026-02153-3](https://doi.org/10.1038/s41524-026-02153-3).
+
+**Further reading:** A. Babu, N. M. A. Krishnan, *Multimodal and cross-modal learning techniques*, APL Machine
+Learning 4, 030901 (2026), [doi:10.1063/5.0346744](https://doi.org/10.1063/5.0346744) · A. Babu,
+R. Almeida Gouvêa, G.-M. Rignanese, *Toward automated discovery with generative models multimodal learning and
+closed loop workflows in inverse materials design*, Cell Reports Physical Science 7, 103561 (2026),
+[doi:10.1016/j.xcrp.2026.103561](https://doi.org/10.1016/j.xcrp.2026.103561).
 
 This public Space is shared: uploads are capped (8 MB, 1,500 rows, 30 epochs), one training at a time,
 sessions are private per browser tab and removed after an hour. Predicted properties are the model's

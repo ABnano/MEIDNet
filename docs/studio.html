@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>MEIDNet Studio</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M8 1.5l6 3.2v6.6l-6 3.2-6-3.2V4.7z' fill='%231baf7a'/%3E%3Cpath d='M8 8l6-3.3M8 8L2 4.7M8 8v6.5' stroke='%23fff' stroke-width='1.2' fill='none'/%3E%3C/svg%3E">
 <style>
 /* ───────── design tokens: one hue per block (order is fixed), semantic colours, surfaces ───────── */
 :root{
@@ -364,9 +365,10 @@ function ruleText(n){ if(n==='property_window') return 'The predicted value must
 function label(p){ const m=S.state.model.properties.find(x=>x.column===p); return m? m.label : p; }
 function unit(p){ const m=S.state.model.properties.find(x=>x.column===p); return m&&m.unit ? ' '+m.unit : ''; }
 /* a search result's rule, in words: property windows name their property (the result says "predicted dir_gap = …") */
-function resultTitle(r){ if(/^property_window/.test(r.name)){ const m=/predicted (.+?) =/.exec(r.detail||''); return 'Predicted '+(m?label(m[1]):'property')+' window'; }
+function resultTitle(r){ if(r.name==='symmetry_refinement') return 'Symmetry analysis';
+  if(/^property_window/.test(r.name)){ const m=/predicted (.+?) =/.exec(r.detail||''); return 'Predicted '+(m?label(m[1]):'property')+' window'; }
   return sameFamilyAsSearch() ? ruleTitle(r.name) : r.name; }
-function sameFamilyAsSearch(){ const F=S.search.fam; return !F || (F.name===S.fam.name && (F.variant||null)===(S.fam.variant||null)); }
+function sameFamilyAsSearch(){ const F=S.search.fam; return !F || !S.fam || (F.name===S.fam.name && (F.variant||null)===(S.fam.variant||null)); }
 function candStillPasses(c){ if(!sameFamilyAsSearch()) return true;   // other family: its rules do not apply
   const row = {d:{}, ok:{}, p:c.predictions||{}}; for(const r of c.constraint_results){ row.d[r.name]=r.value; row.ok[r.name]=r.passed; } return activeRules().every(r=>rulePass(r.name, r.params, row, r.extra?null:r.key)); }
 function foundCands(){ return (S.search.status && S.search.status.candidates) || []; }
@@ -588,7 +590,8 @@ function mountAll3d(){ document.querySelectorAll('.cell3d[data-key]').forEach(el
 
 /* ═══════════════════════════ panels ═══════════════════════════ */
 function render(){
-  if(S.fam && !S.ev){ S.ev = evaluateSpace(); S.prev = {rows:S.ev.rows.length, alive:S.ev.alive.length, top:S.ev.ranked[0]?S.ev.ranked[0][1].f:null, bad:0}; }
+  if(!S.fam) return;            // a family is being (re)loaded, e.g. right after a training: its loader renders
+  if(!S.ev){ S.ev = evaluateSpace(); S.prev = {rows:S.ev.rows.length, alive:S.ev.alive.length, top:S.ev.ranked[0]?S.ev.ranked[0][1].f:null, bad:0}; }
   const P=$('panel'); const f={data:panelData, model:panelModel, family:panelFamily, rules:panelRules, targets:panelTargets, search:panelSearch, candidates:panelCandidates}[S.panel];
   const b=BLOCKS.find(x=>x.id===S.panel); const n=BLOCKS.indexOf(b)+1;
   P.dataset.block=S.panel;
@@ -782,10 +785,12 @@ async function pollTrain(){ let st;
 }
 async function afterModelChange(text){
   await refreshState();
-  S.ui = uiFromConfig(S.state.config.generation, S.state.model.properties);
-  S.genBase = S.state.config.generation || {};
-  S.search.status=null; S.fam=null; S.ev=null; S.prev=null; S.cells={};
-  await loadFamily();
+  const ui = uiFromConfig(S.state.config.generation, S.state.model.properties);
+  chainText('Scoring the design space with '+(S.state.model.own?'your':'the published')+' model …');
+  const fam = await api('/api/family', {family:ui.family, variant:ui.variant});   // the page stays usable meanwhile
+  S.ui = ui; S.genBase = S.state.config.generation || {};
+  S.search.status=null; S.ev=null; S.prev=null; S.cells={};
+  await loadFamily(fam);
   const v=S.state.model.validation; const mae=v&&v.mae? ' (validation MAE '+Object.entries(v.mae).map(([k,x])=>`${label(k)} ${fmt(x)}`).join(', ')+')' : '';
   const ev=evaluateSpace(); S.ev=ev;
   renderChain([{block:'model', text:text+mae},{block:'family', text:`${nfmt(ev.rows.length)} compositions re-scored`},{block:'rules', text:`${nfmt(ev.alive.length)} pass`},{block:'targets', text:`targets now: ${S.ui.objectives.map(o=>label(o.property)).join(', ')}`}]);
@@ -895,7 +900,7 @@ function panelCandidates(){
 
 /* ── sidebar ── */
 function renderLive(){
-  const ev=S.ev; const L=$('live'); if(!ev){ L.innerHTML='<h2 style="font-size:17px">Live effects</h2><p class="muted small">…</p>'; return; } const top=ev.ranked;
+  const ev=S.ev; const L=$('live'); if(!ev || !S.fam){ L.innerHTML='<h2 style="font-size:17px">Live effects</h2><p class="muted small">…</p>'; return; } const top=ev.ranked;
   let b=`<h2 style="font-size:17px">Live effects</h2><div class="kpi side"><div><b>${nfmt(ev.rows.length)}</b><span><i style="background:var(--c-family)"></i>compositions</span></div><div><b>${nfmt(ev.alive.length)}</b><span><i style="background:var(--c-rules)"></i>pass all rules</span></div><div><b>${foundCands().length}</b><span><i style="background:var(--c-candidates)"></i>found by search</span></div></div>`;
   if(top.length){ b+=`<h4 style="color:var(--c-targets)">Predicted closest to target</h4><table><tr><th>#</th><th>composition</th>${S.ui.objectives.map(o=>`<th>${esc(label(o.property))}${esc(unit(o.property))}</th>`).join('')}</tr>`;
     top.slice(0,8).forEach(([s,r],i)=>{ b+=`<tr class="clk" onclick="inspect(${jsq(r.f)})"><td>${i+1}</td><td><b>${esc(r.f)}</b></td>${S.ui.objectives.map(o=>`<td>${fmt(r.p[o.property])}</td>`).join('')}</tr>`; }); b+='</table><p class="small muted">encoder prediction on the ideal prototype · click a row for the checklist and 3D cell</p>'; }

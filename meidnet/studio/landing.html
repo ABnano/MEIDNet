@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MEIDNet Prism — multimodal materials representation and inverse design</title>
+<meta name="description" content="MEIDNet Prism: bring crystal structures and properties into one shared representation, explore it, and design new materials. The interactive platform around the MEIDNet framework (npj Computational Materials, 2026).">
+<link rel="icon" href="/docs/assets/prism-mark.svg" type="image/svg+xml">
+<style>
+:root{--c-data:#2a78d6;--c-model:#eb6834;--c-family:#1baf7a;--c-rules:#eda100;--c-targets:#e87ba4;--c-search:#008300;--c-candidates:#4a3aa7;
+  --p1:#4f46e5;--p2:#9333ea;--bg:#f6f7f5;--card:#fff;--ink:#0b0b0b;--muted:#52514e;--faint:#898781;--line:#e1e0d9}
+:root[data-theme="dark"]{--bg:#111417;--card:#1b1f24;--ink:#fff;--muted:#c3c2b7;--faint:#898781;--line:#2c2c2a}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#111417;--card:#1b1f24;--ink:#fff;--muted:#c3c2b7;--faint:#898781;--line:#2c2c2a}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+a{color:var(--p1)}:root[data-theme="dark"] a{color:#a5b4fc}
+.wrap{max-width:1100px;margin:auto;padding:0 16px}
+header{position:sticky;top:0;z-index:5;background:var(--card);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;gap:10px;min-height:56px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:8px;font-weight:800;font-size:18px;text-decoration:none;color:var(--ink)}.brand img{width:28px;height:28px}
+nav{margin-left:auto;display:flex;gap:2px;flex-wrap:wrap}nav a{text-decoration:none;color:var(--muted);padding:6px 10px;border-radius:8px;font-size:14.5px;font-weight:600}
+nav a:hover,nav a[aria-current]{background:var(--bg);color:var(--ink)}nav a.cta{background:var(--p1);color:#fff}nav a.cta:hover{background:var(--p2);color:#fff}
+.hero{display:grid;grid-template-columns:1.1fr 1fr;gap:28px;align-items:center;padding:44px 0 24px}
+@media(max-width:860px){.hero{grid-template-columns:1fr}}
+.eyebrow{font:700 12px/1 system-ui;letter-spacing:.14em;text-transform:uppercase;color:var(--p1);margin:0 0 10px}
+h1{font-size:clamp(34px,5vw,54px);line-height:1.05;margin:0 0 10px;letter-spacing:-.02em}
+h1 .prism{background:linear-gradient(90deg,var(--p1),var(--p2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.tag{font-size:clamp(18px,2.2vw,22px);color:var(--muted);margin:0 0 18px;max-width:34ch}
+.btns{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 16px}
+.btn{display:inline-flex;align-items:center;gap:8px;border-radius:12px;padding:12px 18px;font-weight:700;text-decoration:none;border:1px solid var(--line);background:var(--card);color:var(--ink);font-size:16px}
+.btn.primary{background:var(--p1);border-color:var(--p1);color:#fff}.btn.primary:hover{background:var(--p2);border-color:var(--p2)}.btn:hover{box-shadow:0 4px 14px -8px rgba(0,0,0,.5)}
+.pub{font-size:14px;color:var(--muted)}.pub b{color:var(--ink)}
+.prismfig{width:100%;height:auto;display:block}
+.video{margin:12px 0 28px}.video video{width:100%;height:auto;border-radius:14px;border:1px solid var(--line);background:#000;display:block}
+.video figcaption{font-size:14px;color:var(--muted);margin-top:8px}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:8px 0 28px}@media(max-width:760px){.three{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;border-top:4px solid var(--accent,var(--p1))}
+.card h2{margin:0 0 6px;font-size:21px}.card p{margin:0 0 10px;color:var(--muted)}.card a.more{font-weight:700;text-decoration:none}
+.card ul{margin:0;padding-left:18px;color:var(--muted);font-size:14.5px}
+.strip{display:flex;flex-wrap:wrap;gap:8px 18px;justify-content:center;padding:14px;border:1px solid var(--line);border-radius:14px;background:var(--card);font-size:14px;color:var(--muted);margin:0 0 28px}
+.strip span::before{content:"✓ ";color:var(--c-search);font-weight:800}
+.how{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin:0 0 28px}@media(max-width:760px){.how{grid-template-columns:repeat(4,1fr)}}
+.how div{border-radius:10px;padding:10px 8px;text-align:center;font-weight:700;font-size:14px;color:#fff;background:var(--bc)}
+.how small{display:block;font-weight:500;opacity:.9;font-size:12px}
+.cite{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin:0 0 28px}
+.cite pre{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto;font-size:13px;margin:10px 0 0}
+.cite button{font:inherit;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:9px;padding:6px 12px;cursor:pointer}
+footer{color:var(--faint);font-size:13.5px;padding:10px 0 40px;display:flex;gap:16px;flex-wrap:wrap}
+.theme{font:inherit;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:9px;padding:5px 9px;cursor:pointer}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <a class="brand" href="/"><img src="/docs/assets/prism-mark.svg" alt=""> MEIDNet <span style="font-weight:500;color:var(--muted)">Prism</span></a>
+  <nav aria-label="Main">
+    <a href="/" aria-current="page">Home</a><a href="/docs/explore/datasets.html">Explore</a><a href="/docs/benchmarks/index.html">Benchmarks</a>
+    <a href="/docs/community/contribute.html">Community</a><a href="/docs/">Docs</a><a href="/docs/research/paper.html">About</a>
+    <a class="cta" href="/studio/">Launch Studio</a>
+  </nav>
+  <button class="theme" id="theme" title="light / dark" aria-label="Switch light or dark mode">🌙</button>
+</div></header>
+
+<main class="wrap">
+  <section class="hero">
+    <div>
+      <p class="eyebrow">MEIDNet Prism</p>
+      <h1>Multimodal materials <span class="prism">representation</span> and inverse design</h1>
+      <p class="tag">Bring your crystal structures and properties together in one shared representation. Explore it, design new materials from the properties you want, and benchmark the result.</p>
+      <div class="btns"><a class="btn primary" href="/studio/">▶ Launch Studio</a><a class="btn" href="/docs/explore/datasets.html">Explore datasets</a><a class="btn" href="/docs/benchmarks/index.html">Benchmarks</a></div>
+      <p class="pub"><b>Published in npj Computational Materials (2026)</b> · <a href="https://doi.org/10.1038/s41524-026-02153-3">doi 10.1038/s41524-026-02153-3</a> · <a href="https://github.com/ABnano/MEIDNet">GitHub</a> · MIT licence</p>
+    </div>
+    <img class="prismfig" src="/docs/assets/prism.svg" alt="Crystal structure, band gap and formation enthalpy enter a prism and leave it as one shared representation; new materials come out of it. Your own property, XRD, DOS and spectra are drawn dashed: extensible.">
+  </section>
+
+  <figure class="video">
+    <video controls muted playsinline preload="metadata" poster="/docs/assets/meidnet_tour_poster.png">
+      <source src="/docs/assets/meidnet_tour.webm" type="video/webm">
+      Your browser cannot play this video: <a href="/docs/assets/meidnet_tour.webm">download it</a>.
+    </video>
+    <figcaption>MEIDNet in one minute: data → model → family → rules → targets → search → candidates. The same tour opens on your first visit to the Studio.</figcaption>
+  </figure>
+
+  <div class="how" aria-label="The seven blocks of the Studio">
+    <div style="--bc:var(--c-data)">Data<small>your materials</small></div><div style="--bc:var(--c-model)">Model<small>shared space</small></div>
+    <div style="--bc:var(--c-family)">Family<small>crystal type</small></div><div style="--bc:var(--c-rules)">Rules<small>chemistry</small></div>
+    <div style="--bc:var(--c-targets)">Targets<small>what you want</small></div><div style="--bc:var(--c-search)">Search<small>inverse design</small></div>
+    <div style="--bc:var(--c-candidates)">Candidates<small>new materials</small></div>
+  </div>
+
+  <section class="three">
+    <div class="card" style="--accent:var(--c-data)"><h2>Explore</h2><p>Datasets, properties and modalities that work with MEIDNet today, and what is planned.</p>
+      <ul><li>Perov-5: the published multimodal benchmark</li><li>Structure + any scalar properties: supported</li><li>XRD, DOS, spectra: extensible, planned</li></ul>
+      <p><a class="more" href="/docs/explore/datasets.html">Datasets →</a> &nbsp; <a class="more" href="/docs/explore/capabilities.html">Capabilities →</a></p></div>
+    <div class="card" style="--accent:var(--c-family)"><h2>Build</h2><p>Upload a table of structures and properties, train in the browser, set targets and rules, run the search, inspect every candidate in 3D.</p>
+      <ul><li>No code: seven coloured blocks, one YAML file</li><li>Researcher mode for the configuration as text</li><li>Colab notebooks and a command line for bigger runs</li></ul>
+      <p><a class="more" href="/studio/">Launch Studio →</a> &nbsp; <a class="more" href="/docs/start/quickstart.html">Quickstart →</a></p></div>
+    <div class="card" style="--accent:var(--c-candidates)"><h2>Benchmark</h2><p>Reproducible results per dataset, with an evidence ladder from “generated” to “experimentally validated”. Contribute yours through GitHub.</p>
+      <ul><li>Published results of the paper</li><li>Rows re-run from this repository are marked verified</li><li>Never one leaderboard across different datasets</li></ul>
+      <p><a class="more" href="/docs/benchmarks/index.html">Benchmarks →</a> &nbsp; <a class="more" href="/docs/community/contribute.html">Contribute →</a></p></div>
+  </section>
+
+  <div class="strip" aria-label="Credibility">
+    <span>Published in npj Computational Materials</span><span>Open source, MIT</span><span>Bit-exact regression against the paper’s code</span>
+    <span>Three pretrained checkpoints</span><span>MLIP stability screening (MACE)</span><span>Runs on a laptop CPU</span>
+  </div>
+
+  <section class="cite" id="cite">
+    <h2 style="margin:0 0 4px;font-size:20px">Citation</h2>
+    <p style="margin:0;color:var(--muted)">A. Babu, R. A. Gouvêa, P. Vandergheynst and G.-M. Rignanese, <i>MEIDNet: Multimodal generative AI framework for inverse materials design</i>, npj Computational Materials (2026). <a href="https://doi.org/10.1038/s41524-026-02153-3">doi:10.1038/s41524-026-02153-3</a> · <a href="https://arxiv.org/abs/2601.22009">arXiv:2601.22009</a></p>
+    <p style="margin:10px 0 0"><button id="copybib">Copy BibTeX</button> <span id="copied" style="color:var(--c-search);font-weight:700"></span></p>
+<pre id="bib">@article{meidnet2026,
+  title   = {MEIDNet: Multimodal generative AI framework for inverse materials design},
+  author  = {Anand Babu and Rog{\'e}rio Almeida Gouv{\^e}a and Pierre Vandergheynst and Gian-Marco Rignanese},
+  journal = {npj Computational Materials},
+  year    = {2026},
+  doi     = {10.1038/s41524-026-02153-3}
+}</pre>
+  </section>
+  <footer><span>MEIDNet Prism is the interactive platform around the MEIDNet framework.</span><a href="https://github.com/ABnano/MEIDNet">Code</a><a href="/docs/">Documentation</a><a href="/docs/understand/limits.html">Honest scope</a><a href="https://huggingface.co/spaces/Babu09/MEIDNet">Hugging Face Space</a></footer>
+</main>
+<script>
+(function(){ const d=document.documentElement; try{ const t=localStorage.getItem('meidnet_theme'); if(t) d.dataset.theme=t; }catch(e){}
+  const b=document.getElementById('theme'); const isDark=()=>d.dataset.theme==='dark'||(!d.dataset.theme&&matchMedia('(prefers-color-scheme: dark)').matches);
+  const paint=()=>{ b.textContent=isDark()?'☀️':'🌙'; }; paint();
+  b.onclick=()=>{ d.dataset.theme=isDark()?'light':'dark'; try{localStorage.setItem('meidnet_theme', d.dataset.theme);}catch(e){} paint(); };
+  document.getElementById('copybib').onclick=async()=>{ const m=document.getElementById('copied'); try{ await navigator.clipboard.writeText(document.getElementById('bib').textContent); m.textContent='copied'; setTimeout(()=>m.textContent='',1500); }catch(e){ m.textContent='select the text below and copy it'; } };
+})();
+</script>
+</body>
+</html>

@@ -300,6 +300,7 @@ class Studio:
         return {
             "version": __version__, "public": self.public, "limits": PUBLIC_LIMITS if self.public else None,
             "docs_url": "/docs/" if self.docs_dir else None,
+            "home_url": "/" if self.docs_dir else None,            # the landing page exists in platform mode only
             "config": self._visible_config(cfg),
             "model": self._model_info(lm, own=self._own(s)),
             "ranges": property_ranges(lm),
@@ -1062,6 +1063,13 @@ def _finite(obj):
     return obj
 
 
+def _page(name: str) -> str:
+    """One of the two pages shipped with the package (studio.html, landing.html), read on every request so that
+    edits show without a restart."""
+    with open(os.path.join(HERE, name), "r", encoding="utf-8") as f:
+        return f.read()
+
+
 class Handler(BaseHTTPRequestHandler):
     studio: Studio = None
     timeout = 120                       # seconds a client may stay silent mid-request
@@ -1115,8 +1123,17 @@ class Handler(BaseHTTPRequestHandler):
         s = self.studio
         try:
             if path in ("/", "/index.html"):
-                with open(os.path.join(HERE, "studio.html"), "r", encoding="utf-8") as f:
-                    return self._send(200, f.read(), "text/html")
+                # platform mode (a docs site is served): the landing page; deep links keep working via /studio/
+                if s.docs_dir and not any(k in q for k in ("panel", "explore", "tour")):
+                    return self._send(200, _page("landing.html"), "text/html")
+                if s.docs_dir:
+                    self.send_response(302)
+                    self.send_header("Location", "/studio/" + ("?" + u.query if u.query else ""))
+                    self.end_headers()
+                    return
+                return self._send(200, _page("studio.html"), "text/html")
+            if path in ("/studio", "/studio/", "/studio/index.html"):
+                return self._send(200, _page("studio.html"), "text/html")
             if path == "/api/state":
                 return self._send(200, s.state(sid))
             if path == "/api/data":
@@ -1250,9 +1267,10 @@ def serve(cfg: MEIDNetConfig | None, model_path: str | None = None, port: int = 
         threading.Thread(target=warm_up, args=(Handler.studio,), daemon=True).start()
         threading.Thread(target=_clean_periodically, args=(Handler.studio,), daemon=True).start()
     url = f"http://{'127.0.0.1' if host in ('0.0.0.0', '') else host}:{port}/"
-    print(f"MEIDNet Studio {'(public mode) ' if public else ''}running at {url}  (Ctrl+C to stop)", flush=True)
+    studio_url = url + ("studio/" if docs_dir else "")
+    print(f"MEIDNet Studio {'(public mode) ' if public else ''}running at {studio_url}" + (f"  (home page {url}, docs {url}docs/)" if docs_dir else "") + "  (Ctrl+C to stop)", flush=True)
     if open_browser and not public:
-        threading.Timer(0.8, lambda: webbrowser.open(url)).start()
+        threading.Timer(0.8, lambda: webbrowser.open(studio_url)).start()
     try:
         httpd.serve_forever()
     except KeyboardInterrupt:

@@ -4,6 +4,8 @@ Generate the parts of the documentation that come from the code, so they never g
     docs/reference/config.md       every meidnet.yaml setting with its description and default
     docs/reference/rules.md        built-in constraints and search terms with their explanations
     docs/studio.html               the static "try it in your browser" Studio (published model)
+    docs/explore/capabilities.md   what works today, from the registries (Supported / Planned)
+    docs/benchmarks/**             the benchmark pages, from benchmarks/*.json (scripts/benchmarks.py)
 
 Run before `mkdocs build` (the docs workflow does).
 """
@@ -17,7 +19,17 @@ DOCS = os.path.join(ROOT, "docs")
 
 from meidnet.config import MEIDNetConfig  # noqa: E402
 from meidnet.constraints import CONSTRAINTS, EXPLAIN  # noqa: E402
+from meidnet.family import list_families, load_family  # noqa: E402
 from meidnet.terms import LOGIT_TRANSFORMS, SEARCH_TERMS  # noqa: E402
+
+# Modalities MEIDNet is designed for but does not implement yet (docs/understand/limits.md keeps the same list).
+PLANNED_MODALITIES = [("Vector modalities: binned XRD, DOS", "an encoder per vector modality into the shared latent space"),
+                      ("Spectra (Raman, UV-Vis)", "as vector modalities"),
+                      ("Text (descriptions, synthesis)", "a text encoder into the shared latent space"),
+                      ("Images (microscopy)", "an image encoder into the shared latent space")]
+UPLOAD_FORMATS = [("CSV", "any delimiter pandas reads"), ("Excel (.xlsx, .xls)", "first sheet"), ("JSON table", "records"),
+                  ("Parquet", "needs the optional pyarrow"), ("CIF text in a column", "one structure per row"),
+                  ("CIF files (.cif, or a .zip of them)", "named <id>.cif")]
 
 
 def config_reference() -> str:
@@ -83,6 +95,47 @@ def rules_reference() -> str:
     return "\n".join(out)
 
 
+def capabilities_reference(verified_modalities=()) -> str:
+    """Supported / Community-tested / Planned, read from the code. Community-tested is given only to a modality or
+    property named by a benchmark row that has been reproduced here (scripts/benchmarks.py)."""
+    def status(name, planned=False):
+        if planned:
+            return "Planned"
+        return "Community-tested" if name in verified_modalities else "Supported"
+    out = ["# Capabilities: what works today", "",
+           "Generated from the code, so it cannot promise more than the code does. **Supported** = in this release; "
+           "**Community-tested** = a benchmark result reproduced here names it; **Planned** = designed for, not implemented "
+           "([roadmap](../understand/limits.md)).", "",
+           "## Modalities", "", "| modality | status | how |", "|---|---|---|",
+           f"| Crystal structure (CIF, up to `max_sites` atoms, default 20) | {status('structure')} | an equivariant graph encoder; structures are aligned to the family prototype |",
+           f"| Scalar properties (any number of numeric columns) | {status('property')} | one property encoder; every column becomes a target you can set |",
+           f"| Published properties: direct band gap (`dir_gap`), formation enthalpy (`heat_all`) | {status('property:dir_gap')} | the shipped Perov-5 checkpoint |"]
+    for name, how in PLANNED_MODALITIES:
+        out.append(f"| {name} | {status(name, planned=True)} | {how} |")
+    out += ["", "## Fusion", "", "One scheme: **early fusion** - the structure latent and the property latent of a material are averaged into the "
+            "joint latent (`meidnet/model.py`), after a contrastive alignment whose weight ramps up over `training.contrastive_warmup_epochs` "
+            "(the curriculum of the paper). There is no late-fusion option; a selector would be a fiction.", "",
+            "## Input formats", "", "| format | note |", "|---|---|"]
+    for name, note in UPLOAD_FORMATS:
+        out.append(f"| {name} | {note} |")
+    out += ["", "## Material families", "", "| family | variants | site groups |", "|---|---|---|"]
+    for name in list_families():
+        fam = load_family(name, default_variant=True)
+        variants = ", ".join(f"`{v}`" for v in (fam.variants or {})) or "-"
+        out.append(f"| `{name}` - {fam.title} | {variants} | {', '.join(fam.groups)} |")
+    out += ["", "Any other prototype family can be described in a [family file](../reference/families.md).", "",
+            "## Rules (hard constraints)", ""]
+    for name in CONSTRAINTS.names():
+        title, _ = EXPLAIN.get(name, (name, ""))
+        out.append(f"- `{name}` - {title}")
+    out += ["", "## Search terms (soft)", ""]
+    for name in SEARCH_TERMS.names():
+        out.append(f"- `{name}` - {SEARCH_TERMS.doc(name)}")
+    out += ["", "## After generation", "", "- `meidnet screen`: MACE-MP-0 relaxation and the stable / unique / novel (SUN) counts "
+            "(optional `pip install meidnet[stability]`). DFT and experiments are yours: the [benchmark evidence ladder](../benchmarks/index.md) records them.", ""]
+    return "\n".join(out)
+
+
 def main():
     os.makedirs(os.path.join(DOCS, "reference"), exist_ok=True)
     with open(os.path.join(DOCS, "reference", "config.md"), "w", encoding="utf-8") as f:
@@ -90,6 +143,19 @@ def main():
     with open(os.path.join(DOCS, "reference", "rules.md"), "w", encoding="utf-8") as f:
         f.write(rules_reference())
     print("wrote docs/reference/config.md and rules.md")
+    sys.path.insert(0, os.path.dirname(__file__))
+    import benchmarks as bench
+    verified = set()
+    for _, sub in bench.submissions():
+        if sub.status == "meidnet_verified":
+            verified.update(sub.modalities); verified.add("property" if any(m.startswith("property:") for m in sub.modalities) else "")
+    os.makedirs(os.path.join(DOCS, "explore"), exist_ok=True)
+    with open(os.path.join(DOCS, "explore", "capabilities.md"), "w", encoding="utf-8") as f:
+        f.write(capabilities_reference(verified))
+    bench.write_schema()
+    for w in bench.render():
+        pass
+    print("wrote docs/explore/capabilities.md, docs/benchmarks/**, docs/community/index.md")
     if "--no-studio" not in sys.argv:
         from meidnet.cli import published_checkpoint
         from meidnet.studio.server import export_static

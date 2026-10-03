@@ -76,6 +76,8 @@ h2{font-size:21px;margin:0 0 4px;letter-spacing:-.01em}h3{font-size:15px;margin:
 .io .arr{display:flex;align-items:center;color:var(--accent);font-size:20px;background:none;border:none;padding:0}
 @media(max-width:700px){.io{grid-template-columns:1fr}.io .arr{display:none}}
 body:not(.beginner) .beginner-only{display:none}
+body.beginner .researcher-only{display:none}   /* the YAML drawer and the Python behind each block: Researcher mode */
+.home{text-decoration:none;font-size:20px;color:var(--c-candidates);font-weight:800;padding:0 4px}
 .help{border-left:3px solid var(--accent);background:var(--accent-soft);padding:6px 10px;margin:8px 0;color:var(--muted);font-size:13px;border-radius:0 8px 8px 0}
 .plain{border:1px dashed var(--accent);border-radius:10px;padding:8px 12px;margin:0 0 10px;font-size:13.5px}
 .muted{color:var(--muted)}.small{font-size:12.5px}.flag{color:#8a5a00}:root[data-theme="dark"] .flag{color:var(--warn)}
@@ -161,12 +163,12 @@ body>div:empty:not([id]):not([class]){position:absolute;top:0;left:0;width:0;hei
 </head>
 <body class="beginner">
 <header>
-  <span class="brand">MEIDNet Studio</span><span class="sub" id="hdr-sub">loading…</span>
+  <a class="home" id="home-link" href="/" hidden title="MEIDNet Prism home">◇</a><span class="brand">MEIDNet Studio</span><span class="sub" id="hdr-sub">loading…</span>
   <span class="tools">
     <button onclick="tourOpen(true)" id="tour-btn" title="A one-minute animation of the whole workflow">▶ How it works</button>
-    <label class="switch on" id="beg-switch" onclick="setBeginner(!document.body.classList.contains('beginner'))"><i></i>Beginner mode</label>
+    <label class="switch" id="beg-switch" onclick="setBeginner(!document.body.classList.contains('beginner'))" title="Researcher mode shows the configuration as text and the Python behind each block"><i></i>Researcher mode</label>
     <button onclick="toggleTheme()" id="theme-btn" title="light / dark">🌙</button>
-    <button onclick="openYaml()">✎ Edit as text</button>
+    <button onclick="openYaml()" class="researcher-only">✎ Edit as text</button>
     <span class="pill" id="mode"></span>
   </span>
 </header>
@@ -291,7 +293,7 @@ function initPrefs(){
   $('theme-btn').textContent = document.documentElement.dataset.theme==='dark' ? '☀️' : '🌙';
 }
 function toggleTheme(){ const d=document.documentElement.dataset.theme==='dark'; document.documentElement.dataset.theme = d?'light':'dark'; try{localStorage.setItem('meidnet_theme', d?'light':'dark');}catch(e){} $('theme-btn').textContent = d?'🌙':'☀️'; mountAll3d(); }
-function setBeginner(on, silent){ document.body.classList.toggle('beginner', on); $('beg-switch').classList.toggle('on', on); try{localStorage.setItem('meidnet_beginner', on?'1':'0');}catch(e){} if(!silent){ renderLegend(); } }
+function setBeginner(on, silent){ document.body.classList.toggle('beginner', on); $('beg-switch').classList.toggle('on', !on); try{localStorage.setItem('meidnet_beginner', on?'1':'0');}catch(e){} if(!silent){ renderLegend(); } }
 function midRange(p){ const r=S.state.ranges[p]; return r ? +((r[0]+r[1])/2).toFixed(2) : 0; }
 function uiFromConfig(g, props){
   g = g || {};
@@ -342,6 +344,7 @@ function renderHeader(){
   const links=[S.state.docs_url?`<a href="${S.state.docs_url}" target="_blank">Docs</a>`:'', '<a href="https://github.com/ABnano/MEIDNet" target="_blank">Code</a>', '<a href="https://www.nature.com/articles/s41524-026-02153-3" target="_blank">Paper</a>'].filter(Boolean).join(' · ');
   const which = S.state.model.own ? 'your model' : (S.state.model.legacy ? 'published Perov-5 model' : S.state.model.path);
   $('hdr-sub').innerHTML = esc(which + ' · ' + props.map(p=>p.label).join(', ')) + ' &nbsp;·&nbsp; ' + links;
+  $('home-link').hidden = !(S.state.home_url && !STATIC);
 }
 
 /* Load the family (or install one already fetched). Its rules always start from the family's own definition -
@@ -665,7 +668,7 @@ function ioStrip(block){
 }
 function behind(block){
   const y=behindYaml(block), p=behindPython(block);
-  return `<details class="behind"><summary>Behind the scenes: the YAML and Python of this block</summary><div class="tabs"><button class="on" onclick="behindTab(this,'y')">meidnet.yaml</button><button onclick="behindTab(this,'p')">Python</button><button onclick="openYaml()">✎ edit all of it as text</button></div><pre data-tab="y">${esc(y)}</pre><pre data-tab="p" hidden>${esc(p)}</pre></details>`;
+  return `<details class="behind researcher-only"><summary>Behind the scenes: the YAML and Python of this block</summary><div class="tabs"><button class="on" onclick="behindTab(this,'y')">meidnet.yaml</button><button onclick="behindTab(this,'p')">Python</button><button onclick="openYaml()">✎ edit all of it as text</button></div><pre data-tab="y">${esc(y)}</pre><pre data-tab="p" hidden>${esc(p)}</pre></details>`;
 }
 function behindTab(btn, which){ const d=btn.closest('.behind'); d.querySelectorAll('.tabs button').forEach(b=>b.classList.toggle('on', b===btn)); d.querySelectorAll('pre').forEach(p=>p.hidden = p.dataset.tab!==which); }
 function behindYaml(block){
@@ -959,7 +962,7 @@ function renderLive(){
   L.innerHTML=b;
 }
 function renderLegend(){ const beg=document.body.classList.contains('beginner');
-  $('legend').innerHTML = beg ? `<h4>Glossary</h4><dl class="gloss"><dt>Composition</dt><dd>one element per site of the prototype, e.g. CsPbBr₃.</dd><dt>Rule</dt><dd>a hard check with a measured value and an allowed window.</dd><dt>Target</dt><dd>a property value you want; the model predicts how close each composition gets.</dd><dt>Latent space</dt><dd>the hidden coordinates where structures and properties meet; the search moves through it.</dd><dt>Extrapolation</dt><dd>a target outside the training range — predictions there are guesses.</dd></dl><p class="small muted">Switch off Beginner mode in the header for a denser view.</p>`
+  $('legend').innerHTML = beg ? `<h4>Glossary</h4><dl class="gloss"><dt>Composition</dt><dd>one element per site of the prototype, e.g. CsPbBr₃.</dd><dt>Rule</dt><dd>a hard check with a measured value and an allowed window.</dd><dt>Target</dt><dd>a property value you want; the model predicts how close each composition gets.</dd><dt>Latent space</dt><dd>the hidden coordinates where structures and properties meet; the search moves through it.</dd><dt>Extrapolation</dt><dd>a target outside the training range — predictions there are guesses.</dd></dl><p class="small muted">Switch on Researcher mode in the header for the configuration as text and the Python behind each block.</p>`
     : `<h4>How to use</h4><ol class="small" style="padding-left:18px;margin:4px 0"><li><b>Family</b>: pick the crystal type; exclude elements.</li><li><b>Rules</b>: move limits; counts update live.</li><li><b>Targets</b>: set values; see the closest compositions.</li><li><b>Search</b> runs the latent optimisation; <b>Candidates</b> explains each result.</li><li><b>Data/Model</b>: upload your table, train, and design with your own properties.</li></ol>`; }
 
 /* ═══════════════════════════ actions ═══════════════════════════ */
@@ -1242,8 +1245,9 @@ function tourFrame(ms){ const {i,t}=tourAt(ms), sc=TOUR_SCENES[i]; let body;
   try{ body=sc.draw(t, tourLive()); }catch(e){ body=twText(480, 250, 'scene error: '+e.message, {anchor:'middle', fill:'var(--bad)'}); console.error(e); }
   return tourMiniStrip(i, t) + '<g>' + body + '</g>'; }
 /* ── player ── */
-function tourDraw(){ const {i}=tourAt(TOUR.ms), sc=TOUR_SCENES[i], L=tourLive();
-  $('tour-stage').innerHTML=tourFrame(TOUR.ms);
+function tourDraw(){ const {i}=tourAt(TOUR.ms), sc=TOUR_SCENES[i], L=tourLive(); const stage=$('tour-stage');
+  stage.classList.toggle('tw-narrow', stage.clientWidth>0 && stage.clientWidth<520);   // phone: the strip keeps its colours, the caption has the words
+  stage.innerHTML=tourFrame(TOUR.ms);
   $('tour-prog').firstElementChild.style.width=(100*TOUR.ms/TOUR.total).toFixed(2)+'%';
   if(i!==TOUR.i){ TOUR.i=i; const col=twC(sc.block);
     $('tour').style.setProperty('--tour-c', col);

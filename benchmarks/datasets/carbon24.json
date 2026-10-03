@@ -1,0 +1,11 @@
+{
+ "id": "carbon24",
+ "name": "Carbon-24",
+ "description": "About 10,000 carbon structures with up to 24 atoms per cell (CDVAE split). In the MEIDNet paper it is the second structure-representation generalization test; no property modality and no checkpoint here.",
+ "rows": 10153,
+ "split": "CDVAE: 6,091 train / 2,031 val / 2,031 test",
+ "properties": [],
+ "source": "https://github.com/txie-93/cdvae/tree/main/data/carbon_24",
+ "citation": "Pickard, Carbon-24 (2020); Xie et al., ICLR 2022 (CDVAE)",
+ "role": "published: structure-representation generalization (not a multimodal benchmark)"
+}

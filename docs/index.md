@@ -1,4 +1,6 @@
-# MEIDNet
+# MEIDNet Prism
+
+[← MEIDNet Prism home](https://babu09-meidnet.hf.space/studio/) · the documentation of the MEIDNet framework and its platform.
 
 **Design crystalline materials from target properties — with your own data, your own rules, and no code to edit.**
 
@@ -7,13 +9,22 @@ materials that hit property targets while obeying the chemical and structural ru
 The published cubic-perovskite model (band gap + formation enthalpy) is one application of it; the framework
 accepts any table of structures and scalar properties and any prototype family you describe.
 
+<figure class="tour-video">
+  <video controls muted playsinline preload="metadata" poster="assets/meidnet_tour_poster.png" style="width:100%;max-width:960px;border-radius:12px">
+    <source src="assets/meidnet_tour.webm" type="video/webm">
+    Your browser cannot play this video: <a href="assets/meidnet_tour.webm">download it</a>.
+  </video>
+  <figcaption>MEIDNet in one minute: data, model, family, rules, targets, search and candidates. The same tour opens
+  on a first visit to the <a href="https://babu09-meidnet.hf.space/">live Studio</a> (the “▶ How it works” button replays it).</figcaption>
+</figure>
+
 <div class="grid cards" markdown>
 
 -   :material-play-circle:{ .lg .middle } **Try MEIDNet**
 
     ---
 
-    See what it does in 30 seconds: the [live Studio](https://babu09-meidnet.hf.space/) needs nothing installed;
+    See what it does in 30 seconds: the [live Studio](https://babu09-meidnet.hf.space/studio/) needs nothing installed;
     `meidnet demo` runs on any laptop.
 
     [:octicons-arrow-right-24: 5-minute quickstart](start/quickstart.md)

@@ -1,0 +1,295 @@
+{
+ "$defs": {
+  "Metric": {
+   "additionalProperties": false,
+   "properties": {
+    "value": {
+     "title": "Value",
+     "type": "number"
+    },
+    "unit": {
+     "default": "",
+     "title": "Unit",
+     "type": "string"
+    },
+    "split": {
+     "default": "",
+     "title": "Split",
+     "type": "string"
+    },
+    "note": {
+     "default": "",
+     "title": "Note",
+     "type": "string"
+    }
+   },
+   "required": [
+    "value"
+   ],
+   "title": "Metric",
+   "type": "object"
+  },
+  "ModelInfo": {
+   "additionalProperties": false,
+   "properties": {
+    "name": {
+     "title": "Name",
+     "type": "string"
+    },
+    "meidnet_version": {
+     "title": "Meidnet Version",
+     "type": "string"
+    },
+    "family": {
+     "default": "",
+     "title": "Family",
+     "type": "string"
+    },
+    "variant": {
+     "default": "",
+     "title": "Variant",
+     "type": "string"
+    },
+    "config": {
+     "default": "",
+     "description": "path to the meidnet.yaml used, relative to the repository, or a URL",
+     "title": "Config",
+     "type": "string"
+    },
+    "checkpoint_url": {
+     "default": "",
+     "title": "Checkpoint Url",
+     "type": "string"
+    },
+    "checkpoint_sha256": {
+     "default": "",
+     "pattern": "^([0-9a-f]{64})?$",
+     "title": "Checkpoint Sha256",
+     "type": "string"
+    },
+    "notes": {
+     "default": "",
+     "title": "Notes",
+     "type": "string"
+    }
+   },
+   "required": [
+    "name",
+    "meidnet_version"
+   ],
+   "title": "ModelInfo",
+   "type": "object"
+  },
+  "Reproduce": {
+   "additionalProperties": false,
+   "properties": {
+    "config": {
+     "default": "",
+     "title": "Config",
+     "type": "string"
+    },
+    "seed": {
+     "anyOf": [
+      {
+       "type": "integer"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Seed"
+    },
+    "command": {
+     "default": "",
+     "title": "Command",
+     "type": "string"
+    },
+    "split": {
+     "default": "",
+     "title": "Split",
+     "type": "string"
+    }
+   },
+   "title": "Reproduce",
+   "type": "object"
+  },
+  "Resources": {
+   "additionalProperties": false,
+   "properties": {
+    "hardware": {
+     "default": "",
+     "title": "Hardware",
+     "type": "string"
+    },
+    "wall_time_s": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Wall Time S"
+    }
+   },
+   "title": "Resources",
+   "type": "object"
+  },
+  "Submitter": {
+   "additionalProperties": false,
+   "properties": {
+    "name": {
+     "title": "Name",
+     "type": "string"
+    },
+    "affiliation": {
+     "default": "",
+     "title": "Affiliation",
+     "type": "string"
+    },
+    "github": {
+     "default": "",
+     "title": "Github",
+     "type": "string"
+    }
+   },
+   "required": [
+    "name"
+   ],
+   "title": "Submitter",
+   "type": "object"
+  }
+ },
+ "additionalProperties": false,
+ "properties": {
+  "id": {
+   "pattern": "^[a-z0-9][a-z0-9-]{2,60}$",
+   "title": "Id",
+   "type": "string"
+  },
+  "dataset": {
+   "pattern": "^[a-z0-9][a-z0-9_-]{1,40}$",
+   "title": "Dataset",
+   "type": "string"
+  },
+  "title": {
+   "title": "Title",
+   "type": "string"
+  },
+  "submitter": {
+   "$ref": "#/$defs/Submitter"
+  },
+  "date": {
+   "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+   "title": "Date",
+   "type": "string"
+  },
+  "modalities": {
+   "items": {
+    "type": "string"
+   },
+   "minItems": 1,
+   "title": "Modalities",
+   "type": "array"
+  },
+  "model": {
+   "$ref": "#/$defs/ModelInfo"
+  },
+  "category": {
+   "enum": [
+    "representation_quality",
+    "conditional_design",
+    "efficiency",
+    "validation"
+   ],
+   "title": "Category",
+   "type": "string"
+  },
+  "results": {
+   "additionalProperties": {
+    "$ref": "#/$defs/Metric"
+   },
+   "minProperties": 1,
+   "title": "Results",
+   "type": "object"
+  },
+  "validation_level": {
+   "default": "generated",
+   "enum": [
+    "generated",
+    "ml_filtered",
+    "mlip_validated",
+    "dft_validated",
+    "experimentally_validated"
+   ],
+   "title": "Validation Level",
+   "type": "string"
+  },
+  "evidence": {
+   "default": [],
+   "items": {
+    "type": "string"
+   },
+   "title": "Evidence",
+   "type": "array"
+  },
+  "resources": {
+   "$ref": "#/$defs/Resources",
+   "default": {
+    "hardware": "",
+    "wall_time_s": null
+   }
+  },
+  "reproduce": {
+   "$ref": "#/$defs/Reproduce",
+   "default": {
+    "config": "",
+    "seed": null,
+    "command": "",
+    "split": ""
+   }
+  },
+  "status": {
+   "default": "community_submitted",
+   "enum": [
+    "community_submitted",
+    "published",
+    "meidnet_verified"
+   ],
+   "title": "Status",
+   "type": "string"
+  },
+  "verified_by": {
+   "default": "",
+   "title": "Verified By",
+   "type": "string"
+  },
+  "verified_on": {
+   "default": "",
+   "title": "Verified On",
+   "type": "string"
+  },
+  "notes": {
+   "default": "",
+   "title": "Notes",
+   "type": "string"
+  }
+ },
+ "required": [
+  "id",
+  "dataset",
+  "title",
+  "submitter",
+  "date",
+  "modalities",
+  "model",
+  "category",
+  "results"
+ ],
+ "title": "Submission",
+ "type": "object",
+ "$comment": "Allowed metric names per category: {\"representation_quality\": [\"mae_<prop>\", \"r2_<prop>\", \"retrieval_top1\", \"retrieval_top5\", \"cosine_matched\", \"l2_matched\", \"structure_match_rate\", \"n_evaluated\"], \"conditional_design\": [\"n_generated\", \"n_pass_rules\", \"n_sun\", \"sun_rate\", \"target_hit_rate\", \"mae_to_target_<prop>\", \"validity\", \"uniqueness\", \"novelty\"], \"efficiency\": [\"training_epochs\", \"training_time_s\", \"gpu_hours\", \"parameters\", \"seconds_per_candidate\"], \"validation\": [\"n_screened\", \"n_stable\", \"n_unique\", \"n_novel\", \"n_sun\", \"n_dft\", \"n_experimental\"]}"
+}

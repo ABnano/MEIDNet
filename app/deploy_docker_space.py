@@ -20,7 +20,7 @@ STAGE = os.path.join(ROOT, "build", "space_docker")
 CKPT = "dual_autoencoder_clip_earlyfusion_propertyaware_2k.pth"
 
 README = """---
-title: MEIDNet Studio
+title: MEIDNet Prism
 emoji: 🔮
 colorFrom: indigo
 colorTo: purple
@@ -28,7 +28,7 @@ sdk: docker
 app_port: 7860
 pinned: true
 license: mit
-short_description: Inverse design of crystals - live workbench and docs
+short_description: Multimodal materials representation and inverse design
 tags: [materials, inverse-design, generative, crystal, perovskite]
 ---
 

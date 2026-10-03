@@ -1,0 +1,22 @@
+{
+ "id": "paper-representation",
+ "dataset": "perov5",
+ "title": "MEIDNet (paper): alignment of structure and property latents on Perov-5",
+ "submitter": {"name": "Anand Babu", "affiliation": "UCLouvain", "github": "ABnano"},
+ "date": "2026-05-29",
+ "modalities": ["structure", "property:heat_all", "property:dir_gap"],
+ "model": {"name": "MEIDNet early fusion + curriculum (production model)", "meidnet_version": "1.0 (paper)",
+           "family": "perovskite_abx3", "config": "examples/perov5/meidnet.yaml",
+           "checkpoint_url": "checkpoints/dual_autoencoder_clip_earlyfusion_propertyaware_2k.pth",
+           "notes": "128-dimensional shared latent space; 2000 epochs, contrastive warm-up over the first 1200"},
+ "category": "representation_quality",
+ "results": {
+  "cosine_matched": {"value": 0.97, "unit": "", "split": "validation", "note": "mean cosine similarity between the structure and property latents of the same material, as reported in the paper"},
+  "l2_matched": {"value": 0.24, "unit": "", "split": "validation", "note": "mean L2 distance between the two latents of the same material, as reported in the paper"}
+ },
+ "validation_level": "generated",
+ "evidence": ["https://doi.org/10.1038/s41524-026-02153-3"],
+ "reproduce": {"config": "examples/perov5/meidnet.yaml", "split": "val", "command": "python scripts/benchmarks.py reproduce paper-representation"},
+ "status": "published",
+ "notes": "Numbers quoted from the paper (npj Computational Materials, 2026). `reproduce` re-evaluates the shipped checkpoint on the CDVAE validation split and adds MAE, R2 and retrieval metrics; cosine_matched is compared with the quoted value."
+}

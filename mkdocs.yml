@@ -1,4 +1,4 @@
-site_name: MEIDNet
+site_name: MEIDNet Prism
 site_description: Multimodal inverse design of crystalline materials — with your own data, rules and families.
 site_url: https://babu09-meidnet.hf.space/docs/
 use_directory_urls: false
@@ -8,8 +8,8 @@ copyright: MIT licence · Anand Babu
 
 theme:
   name: material
-  logo: assets/logo.png
-  favicon: assets/logo.png
+  logo: assets/prism-mark.svg
+  favicon: assets/prism-mark.svg
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
@@ -33,34 +33,48 @@ markdown_extensions:
   - pymdownx.superfences
   - pymdownx.tabbed: {alternate_style: true}
   - pymdownx.arithmatex: {generic: true}
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+extra_css:
+  - assets/extra.css
 
 extra_javascript:
   - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
 
 nav:
   - Home: index.md
-  - Start:
-      - 5-minute quickstart: start/quickstart.md
-      - What data do I need?: start/what-data.md
-      - Run in Colab: start/colab.md
-  - Use your data:
-      - Bring your own dataset: use/your-data.md
-      - The configuration file: use/config.md
+  - Explore:
+      - Datasets: explore/datasets.md
+      - Capabilities (what works today): explore/capabilities.md
+  - Studio:
       - MEIDNet Studio (live workbench): use/studio.md
       - Explore in 3D: use/explore-3d.md
       - Reading the reports: use/reports.md
-  - Recipes:
+  - Benchmarks:
+      - MEIDNet Benchmarks: benchmarks/index.md
+      - Perov-5: benchmarks/perov5.md
+      - MP-20: benchmarks/mp20.md
+      - Carbon-24: benchmarks/carbon24.md
+  - Community:
+      - Contribute a result: community/contribute.md
+      - Community results: community/index.md
+  - Guides:
+      - 5-minute quickstart: start/quickstart.md
+      - What data do I need?: start/what-data.md
+      - Run in Colab: start/colab.md
+      - Bring your own dataset: use/your-data.md
+      - The configuration file: use/config.md
       - Change the target properties: recipes/change-targets.md
       - Add a property: recipes/add-property.md
       - Exclude or restrict elements: recipes/elements.md
       - Change the material family: recipes/change-family.md
       - Add a rule (constraint): recipes/add-constraint.md
       - Screen stability with MACE: recipes/screen.md
-  - Understand:
       - How MEIDNet works: understand/how-it-works.md
       - Why you can trust (or not) a candidate: understand/interpretability.md
       - Scope and roadmap: understand/limits.md
-  - Examples:
       - Perov-5 (the paper): examples/perov5.md
       - Double perovskites: examples/double-perovskite.md
   - Reference:
@@ -69,4 +83,5 @@ nav:
       - Family files: reference/families.md
       - Rules and search terms: reference/rules.md
       - Python API: reference/api.md
-  - Research: research/paper.md
+  - About:
+      - Paper and citation: research/paper.md

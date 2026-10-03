@@ -3,7 +3,7 @@ name: docs
 on:
   push:
     branches: [main]
-    paths: ["docs/**", "mkdocs.yml", "meidnet/**", "scripts/build_docs.py"]
+    paths: ["docs/**", "mkdocs.yml", "meidnet/**", "scripts/build_docs.py", "scripts/benchmarks.py", "benchmarks/**"]
   workflow_dispatch:
 
 permissions:

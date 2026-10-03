@@ -98,6 +98,62 @@ def trained(studio, checked):
 
 
 # ───────────────────────── 1. upload ─────────────────────────
+def test_http_routes_landing_and_studio(studio, tmp_path):
+    """Platform mode (a docs folder is served): / is the landing page, /studio/ the workbench, deep links redirect.
+    Without a docs folder, / is the workbench itself."""
+    import http.client
+    import threading
+    from meidnet.studio.server import Handler, _Server
+    docs = tmp_path / "site"
+    docs.mkdir()
+    (docs / "index.html").write_text("<h1>docs</h1>", encoding="utf-8")
+
+    def serve(st):
+        Handler.studio = st
+        srv = _Server(("127.0.0.1", 0), Handler)
+        th = threading.Thread(target=srv.serve_forever, daemon=True)
+        th.start()
+        return srv
+
+    def get(srv, path):
+        c = http.client.HTTPConnection("127.0.0.1", srv.server_address[1], timeout=30)
+        c.request("GET", path)
+        r = c.getresponse()
+        body = r.read().decode("utf-8", "replace")
+        c.close()
+        return r.status, dict(r.getheaders()), body
+
+    old = Handler.studio
+    try:
+        studio.docs_dir = str(docs)
+        srv = serve(studio)
+        try:
+            st, _, body = get(srv, "/")
+            assert st == 200 and "MEIDNet Prism" in body and "Launch Studio" in body
+            st, _, body = get(srv, "/studio/")
+            assert st == 200 and "MEIDNet Studio" in body and "Researcher mode" in body
+            st, h, _ = get(srv, "/?panel=rules&session=tab-route")
+            assert st == 302 and h["Location"] == "/studio/?panel=rules&session=tab-route"
+            st, _, body = get(srv, "/docs/")
+            assert st == 200 and "<h1>docs</h1>" in body
+            st, _, body = get(srv, "/api/state?session=tab-route")
+            assert st == 200 and json.loads(body)["home_url"] == "/"
+        finally:
+            srv.shutdown()
+            srv.server_close()
+        studio.docs_dir = None
+        srv = serve(studio)
+        try:
+            st, _, body = get(srv, "/")
+            assert st == 200 and "MEIDNet Studio" in body          # no docs folder: the workbench is the front page
+            assert json.loads(get(srv, "/api/state?session=tab-route")[2])["home_url"] is None
+        finally:
+            srv.shutdown()
+            srv.server_close()
+    finally:
+        Handler.studio = old
+
+
 def test_doped_cif_is_skipped_not_fatal(studio):
     """A partially occupied (doped) structure is reported as a skip reason; the rest of the table is still checked."""
     df = pd.read_csv(MINI).head(6)

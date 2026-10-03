@@ -99,16 +99,16 @@ the encoder considers best, and whether the predictions agree.
 
 Crystals are drawn by a small built-in viewer: drag to rotate, double-click to spin.
 
-## Beginner mode
+## Beginner view and Researcher mode
 
-The **Beginner mode** switch in the header is on by default. It adds, in every block:
+The page opens in the **beginner view**: every block has an **Input ➜ Logic ➜ Output** strip with live numbers
+("924 compositions ➜ 5 hard rules, applied in order ➜ 27 pass every rule") and the name of the Python function that
+does the work, a short **In plain words** explanation, and a **glossary** in the side panel (composition, rule,
+target, latent space, extrapolation).
 
-- an **Input ➜ Logic ➜ Output** strip with live numbers ("924 compositions ➜ 5 hard rules, applied in order ➜
-  27 pass every rule") and the name of the Python function that does the work;
-- a short **In plain words** explanation;
-- a **glossary** in the side panel (composition, rule, target, latent space, extrapolation).
-
-Switch it off for a compact page. The choice is remembered by your browser.
+The **Researcher mode** switch in the header trades these for the technical view: the **✎ Edit as text** YAML
+drawer, and a **Behind the scenes** panel in every block with the `meidnet.yaml` and the Python of that block.
+The choice is remembered by your browser.
 
 ## Behind the scenes
 

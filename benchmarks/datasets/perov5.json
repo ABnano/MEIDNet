@@ -1,0 +1,11 @@
+{
+ "id": "perov5",
+ "name": "Perov-5",
+ "description": "18,928 cubic ABX3 perovskites with relaxed structures, formation enthalpy (heat_all, eV/atom) and direct band gap (dir_gap, eV). The CDVAE split of the Castelli et al. (2012) perovskite set; the dataset behind the published MEIDNet model and the live Studio.",
+ "rows": 18928,
+ "split": "CDVAE: 11,356 train / 3,785 val / 3,787 test",
+ "properties": ["heat_all", "dir_gap"],
+ "source": "https://github.com/txie-93/cdvae/tree/main/data/perov_5",
+ "citation": "Castelli et al., Energy Environ. Sci. 5, 5814 (2012); Xie et al., ICLR 2022 (CDVAE)",
+ "role": "the published multimodal benchmark: alignment, property reconstruction and inverse design"
+}

@@ -1,0 +1,7 @@
+/* MEIDNet docs: benchmark badges and dataset cards */
+.ladder{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:1px;color:#4a3aa7}
+.bstatus{display:inline-block;border-radius:999px;padding:1px 9px;font-size:.78em;font-weight:700;border:1px solid}
+.bstatus.sub{color:#52514e;border-color:#c3c2b7}.bstatus.pub{color:#1c5cab;border-color:#86b6ef}.bstatus.ver{color:#0a7d0a;border-color:#6fcf6f}
+[data-md-color-scheme="slate"] .bstatus.sub{color:#c3c2b7}
+.md-typeset .grid.cards>ul>li{border-top:4px solid #4f46e5}
+.tour-video video{border:1px solid var(--md-default-fg-color--lightest)}

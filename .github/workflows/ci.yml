@@ -23,6 +23,8 @@ jobs:
           pip install -e ".[dev]"
       - name: Fast tests (featurisation, forward pass, training step, families, rules, pipeline)
         run: pytest -m "not slow" -q
+      - name: Benchmark files
+        run: python scripts/benchmarks.py validate
       - name: Slow regression (full v1-vs-v2 generation)
         if: matrix.python-version == '3.12'
         run: pytest -m slow -q

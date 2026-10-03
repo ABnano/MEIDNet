@@ -1,0 +1,11 @@
+{
+ "id": "mp20",
+ "name": "MP-20",
+ "description": "About 45,000 Materials Project structures with at most 20 atoms per cell (CDVAE split). In the MEIDNet paper it tests how the crystal encoder and decoder generalise beyond perovskites; no property modality was aligned on it and no MP-20 checkpoint is shipped in this repository.",
+ "rows": 45231,
+ "split": "CDVAE: 27,136 train / 9,047 val / 9,046 test",
+ "properties": [],
+ "source": "https://github.com/txie-93/cdvae/tree/main/data/mp_20",
+ "citation": "Jain et al., APL Mater. 1, 011002 (2013); Xie et al., ICLR 2022 (CDVAE)",
+ "role": "published: structure-representation generalization (not a multimodal benchmark)"
+}

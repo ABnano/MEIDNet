@@ -27,7 +27,7 @@ defaults: `normalize: false` for both properties and `align_to_prototype: false`
 
 ## The paper's generated structures
 
-`examples/perov5/paper_results/` holds the 27 CIFs (halide, oxide, chalcogenide) reported in the paper.
+`examples/perov5/paper_results/` holds the 26 CIFs (halide, oxide, chalcogenide) reported in the paper.
 `meidnet screen examples/perov5/paper_results --train-csv data/perov5/train.csv` recomputes their MACE
 stability.
 

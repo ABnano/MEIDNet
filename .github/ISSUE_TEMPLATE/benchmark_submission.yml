@@ -1,0 +1,35 @@
+name: Benchmark submission
+description: Submit a MEIDNet result without opening a pull request (the maintainer converts it)
+title: "[benchmark] <dataset>: <what was measured>"
+labels: [benchmark]
+body:
+  - type: input
+    id: dataset
+    attributes: {label: Dataset, description: "An id from benchmarks/datasets/ or a new dataset (name, source, size, split)"}
+    validations: {required: true}
+  - type: input
+    id: modalities
+    attributes: {label: Modalities, placeholder: "structure, property:dir_gap, property:heat_all"}
+    validations: {required: true}
+  - type: dropdown
+    id: category
+    attributes: {label: Category, options: [representation_quality, conditional_design, efficiency, validation]}
+    validations: {required: true}
+  - type: textarea
+    id: results
+    attributes: {label: Results, description: "metric = value (unit), one per line; only the metric names listed in benchmarks/schema.json"}
+    validations: {required: true}
+  - type: dropdown
+    id: level
+    attributes: {label: Validation level, options: [generated, ml_filtered, mlip_validated, dft_validated, experimentally_validated]}
+    validations: {required: true}
+  - type: textarea
+    id: evidence
+    attributes: {label: Evidence links, description: "CIF archive, stability.csv, DFT outputs, paper DOI - public links only"}
+  - type: textarea
+    id: reproduce
+    attributes: {label: How to reproduce, description: "configuration (meidnet.yaml), seed, exact command, split"}
+    validations: {required: true}
+  - type: input
+    id: model
+    attributes: {label: Model, placeholder: "MEIDNet 2.0.0, family perovskite_abx3 / halide, checkpoint URL + sha256"}

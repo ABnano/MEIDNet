@@ -2,13 +2,19 @@
   <img src="MEIDNet_logo.png" alt="MEIDNet — Multimodal Equivariant Inverse Design Network" width="480"/>
 </p>
 
-<p align="center"><em>Design crystalline materials from target properties — with your own data, your own rules, and no code to edit.</em></p>
+<p align="center"><em>Design crystalline materials from target properties — with your own data, your own rules, and no code to edit.</em><br/>
+<b>MEIDNet Prism</b> is the interactive platform around the framework: <a href="https://babu09-meidnet.hf.space/">home</a> · <a href="https://babu09-meidnet.hf.space/studio/">Studio</a> · <a href="https://babu09-meidnet.hf.space/docs/explore/datasets.html">datasets</a> · <a href="https://babu09-meidnet.hf.space/docs/benchmarks/index.html">benchmarks</a> · <a href="https://babu09-meidnet.hf.space/docs/community/contribute.html">contribute</a></p>
 
 <p align="center">
   <a href="https://babu09-meidnet.hf.space/docs/"><b>Documentation</b></a> ·
-  <a href="https://babu09-meidnet.hf.space/"><b>Try it in your browser</b></a> ·
+  <a href="https://babu09-meidnet.hf.space/studio/"><b>Try it in your browser</b></a> ·
   <a href="https://www.nature.com/articles/s41524-026-02153-3">Paper</a> ·
   <a href="https://github.com/ABnano/MEIDNet/releases/tag/v1.0.0-paper">v1.0 code as published</a>
+</p>
+
+<p align="center">
+  <a href="https://babu09-meidnet.hf.space/"><img src="docs/assets/meidnet_tour_poster.png" alt="MEIDNet in one minute: from the properties you want to candidate crystals" width="720"/></a><br/>
+  <sub><a href="docs/assets/meidnet_tour.webm"><b>▶ MEIDNet in one minute</b></a> (video) — the same tour plays when you open the <a href="https://babu09-meidnet.hf.space/">live Studio</a></sub>
 </p>
 
 ---
@@ -22,7 +28,7 @@ MEIDNet 2.0 turns the published perovskite code into a framework:
 
 | You want to… | You do… |
 |---|---|
-| see what it does in 30 seconds | `meidnet demo` or the [browser demo](https://babu09-meidnet.hf.space/) |
+| see what it does in 30 seconds | `meidnet demo` or the [browser demo](https://babu09-meidnet.hf.space/studio/) |
 | use **your** structures + properties | put them in a table, run `meidnet init / check / train / generate` |
 | change targets, elements, rules | edit `meidnet.yaml` — or move sliders in **MEIDNet Studio** and export it |
 | a different material family | copy a family `.yaml` (prototype + site groups + rules) |
@@ -91,7 +97,7 @@ scenes* shows the YAML and Python that do the same thing.
   checklist and a rotatable cell. Export `meidnet.yaml` to repeat the run from the command line.
 
 No installation needed to try it: the [hosted Studio](https://huggingface.co/spaces/Babu09/MEIDNet)
-runs on Hugging Face ([direct link](https://babu09-meidnet.hf.space/)).
+runs on Hugging Face ([direct link](https://babu09-meidnet.hf.space/studio/)).
 
 ## What is in the box
 

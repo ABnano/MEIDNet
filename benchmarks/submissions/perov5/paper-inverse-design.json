@@ -1,0 +1,22 @@
+{
+ "id": "paper-inverse-design",
+ "dataset": "perov5",
+ "title": "MEIDNet (paper): inverse design of perovskites from property targets",
+ "submitter": {"name": "Anand Babu", "affiliation": "UCLouvain", "github": "ABnano"},
+ "date": "2026-05-29",
+ "modalities": ["structure", "property:heat_all", "property:dir_gap"],
+ "model": {"name": "MEIDNet early fusion + curriculum (production model)", "meidnet_version": "1.0 (paper)",
+           "family": "perovskite_abx3", "config": "examples/perov5/meidnet.yaml",
+           "checkpoint_url": "checkpoints/dual_autoencoder_clip_earlyfusion_propertyaware_2k.pth"},
+ "category": "conditional_design",
+ "results": {
+  "n_generated": {"value": 140, "unit": "structures", "note": "candidates generated from property targets in the campaign reported in the paper"},
+  "n_sun": {"value": 19, "unit": "structures", "note": "stable, unique and novel after screening"},
+  "sun_rate": {"value": 0.136, "unit": "", "note": "19 of 140"}
+ },
+ "validation_level": "dft_validated",
+ "evidence": ["https://doi.org/10.1038/s41524-026-02153-3", "examples/perov5/paper_results/"],
+ "reproduce": {"config": "examples/perov5/meidnet.yaml", "command": ""},
+ "status": "published",
+ "notes": "Numbers quoted from the paper. The 26 CIFs in examples/perov5/paper_results/ are the candidates shipped with the paper; the MLIP screening row re-runs `meidnet screen` on them."
+}

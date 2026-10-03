@@ -1,0 +1,17 @@
+{
+ "id": "my-dataset-my-result",
+ "dataset": "perov5",
+ "title": "One line: what was measured",
+ "submitter": {"name": "Your name", "affiliation": "", "github": ""},
+ "date": "2026-01-01",
+ "modalities": ["structure", "property:dir_gap"],
+ "model": {"name": "MEIDNet", "meidnet_version": "2.0.0", "family": "perovskite_abx3", "variant": "halide",
+           "config": "https://... your meidnet.yaml", "checkpoint_url": "", "checkpoint_sha256": ""},
+ "category": "representation_quality",
+ "results": {"mae_dir_gap": {"value": 0.0, "unit": "eV", "split": "val"}},
+ "validation_level": "generated",
+ "evidence": [],
+ "resources": {"hardware": "", "wall_time_s": null},
+ "reproduce": {"config": "", "seed": 937, "command": "", "split": "val"},
+ "status": "community_submitted"
+}

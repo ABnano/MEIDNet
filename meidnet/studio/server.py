@@ -1094,7 +1094,8 @@ class Handler(BaseHTTPRequestHandler):
                              "sandbox allow-popups allow-popups-to-escape-sandbox; default-src 'none'; "
                              "style-src 'unsafe-inline'; img-src data:")
         self.end_headers()
-        self.wfile.write(body)
+        if self.command != "HEAD":          # HEAD: the same headers, no body (link checkers, players probing the video)
+            self.wfile.write(body)
 
     def _json(self, limit=1_000_000):
         raw = self.headers.get("Content-Length") or "0"
@@ -1114,6 +1115,9 @@ class Handler(BaseHTTPRequestHandler):
             ctype = "text/plain"
         with open(full, "rb") as f:
             return self._send(200, f.read(), ctype, sandbox=not rel.startswith("docs/"))
+
+    def do_HEAD(self):
+        self.do_GET()
 
     def do_GET(self):
         u = urlparse(self.path)

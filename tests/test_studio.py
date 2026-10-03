@@ -136,6 +136,11 @@ def test_http_routes_landing_and_studio(studio, tmp_path):
             assert st == 302 and h["Location"] == "/studio/?panel=rules&session=tab-route"
             st, _, body = get(srv, "/docs/")
             assert st == 200 and "<h1>docs</h1>" in body
+            c = http.client.HTTPConnection("127.0.0.1", srv.server_address[1], timeout=30)
+            c.request("HEAD", "/studio/")
+            r = c.getresponse()
+            assert r.status == 200 and int(r.getheader("Content-Length")) > 1000 and r.read() == b""   # HEAD: headers only
+            c.close()
             st, _, body = get(srv, "/api/state?session=tab-route")
             assert st == 200 and json.loads(body)["home_url"] == "/"
         finally:

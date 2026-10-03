@@ -29,32 +29,39 @@ app_port: 7860
 pinned: true
 license: mit
 short_description: Multimodal materials representation and inverse design
-tags: [materials, inverse-design, generative, crystal, perovskite]
+tags: [materials, inverse-design, generative, crystal, perovskite, multimodal, chemistry]
+models: [Babu09/MEIDNet]
 ---
 
-# MEIDNet Studio
+# MEIDNet Prism
 
-**Design crystalline materials from target properties - with your own data, rules and
-families.** This Space runs the live MEIDNet Studio with the published cubic-ABX₃ perovskite
-model (band gap + formation enthalpy, Perov-5):
+**Design crystalline materials from the properties you want.** MEIDNet learns one shared latent space
+for crystal structures and their properties, enumerates a prototype-family design space checked by
+chemistry rules, and searches the latent space for candidates. **MEIDNet Prism** is the interactive
+platform around it:
 
-* the workflow as a strip of colour-coded blocks *Data → Model → Family → Rules → Targets →
-  Search → Candidates*; change a rule's limit, exclude an element or move a target and watch
-  the change flow through every later block, explained in plain words;
-* bring your own data: upload a table (CSV / Excel / JSON) with CIF structures, map the
-  columns, check it and train a small model in the browser - then design with your own
-  properties;
-* explore the design space, your data or the candidates in 3D: a property map linked to a
-  crystal viewer (chemiscope);
-* edit the configuration as YAML, run the paper's latent search, read each candidate's
-  checklist and export the `meidnet.yaml` that reproduces the run on your own computer.
+* **[Home](https://babu09-meidnet.hf.space/)** — what MEIDNet does, in one minute (animated tour).
+* **[Studio](https://babu09-meidnet.hf.space/studio/)** — the live workbench: seven colour-coded blocks
+  *Data → Model → Family → Rules → Targets → Search → Candidates*. Change a rule, exclude an element or
+  move a target and watch the effect flow through the later blocks. Bring your own table (CSV / Excel /
+  JSON + CIFs), train a model in the browser, run the search, inspect every candidate in 3D, export the
+  `meidnet.yaml` that reproduces it on your machine.
+* **[Explore](https://babu09-meidnet.hf.space/docs/explore/datasets.html)** — datasets, properties and
+  modalities that work today, and what is planned.
+* **[Benchmarks](https://babu09-meidnet.hf.space/docs/benchmarks/index.html)** — reproducible results
+  per dataset with an evidence ladder (generated → ML filtered → MLIP → DFT → experiment);
+  [contribute yours](https://babu09-meidnet.hf.space/docs/community/contribute.html) through GitHub.
+* **[Documentation](https://babu09-meidnet.hf.space/docs/)** — quickstart, your own data, recipes,
+  how it works, reference, Colab notebooks.
 
-The documentation lives at **/docs/** on this Space. Code: https://github.com/ABnano/MEIDNet ·
-Paper: https://www.nature.com/articles/s41524-026-02153-3
+**Model:** [Babu09/MEIDNet](https://huggingface.co/Babu09/MEIDNet) (the pretrained Perov-5 checkpoints) ·
+**Code:** [github.com/ABnano/MEIDNet](https://github.com/ABnano/MEIDNet) (MIT) ·
+**Paper:** A. Babu, R. A. Gouvêa, P. Vandergheynst, G.-M. Rignanese, *npj Computational Materials* (2026),
+[doi:10.1038/s41524-026-02153-3](https://doi.org/10.1038/s41524-026-02153-3).
 
-Each browser tab has a private session (deleted after an hour without activity). Budgets on this
-shared server are capped (1,500 rows, 30 training epochs, two jobs at a time);
-`pip install meidnet` for full control.
+This public Space is shared: uploads are capped (8 MB, 1,500 rows, 30 epochs), one training at a time,
+sessions are private per browser tab and removed after an hour. Predicted properties are the model's
+estimates — confirm candidates by DFT or experiment.
 """
 
 REQUIREMENTS = """--extra-index-url https://download.pytorch.org/whl/cpu

@@ -1,0 +1,16 @@
+{
+  "title": "MEIDNet: Multimodal Equivariant Inverse Design Network (software, pretrained Perov-5 models and the MEIDNet Prism platform)",
+  "description": "<p>MEIDNet designs crystalline materials from target properties. It learns one latent space shared by crystal structures and their properties, enumerates a prototype-family design space checked by chemistry rules, and searches the latent space for candidates. The release contains the Python package (CLI and API), the three pretrained Perov-5 checkpoints, the family files, the documentation and MEIDNet Prism, the interactive platform (live workbench, datasets, benchmarks).</p><p>Paper: A. Babu, R. A. Gouv&ecirc;a, P. Vandergheynst, G.-M. Rignanese, npj Computational Materials (2026), doi:10.1038/s41524-026-02153-3.</p>",
+  "creators": [
+    {"name": "Babu, Anand", "affiliation": "Université catholique de Louvain (UCLouvain)"}
+  ],
+  "keywords": ["materials science", "inverse design", "generative models", "multimodal learning", "crystal structures", "perovskites", "machine learning"],
+  "license": "MIT",
+  "upload_type": "software",
+  "access_right": "open",
+  "related_identifiers": [
+    {"identifier": "10.1038/s41524-026-02153-3", "relation": "isSupplementTo", "resource_type": "publication-article", "scheme": "doi"},
+    {"identifier": "https://github.com/ABnano/MEIDNet", "relation": "isSupplementTo", "scheme": "url"},
+    {"identifier": "https://babu09-meidnet.hf.space/", "relation": "isDocumentedBy", "scheme": "url"}
+  ]
+}

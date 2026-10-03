@@ -1,0 +1,15 @@
+{
+  "title": "MEIDNet: pretrained Perov-5 models for inverse materials design",
+  "id": "anandbabu/meidnet-perov5-models",
+  "licenses": [{"name": "MIT"}],
+  "subtitle": "Multimodal structure-property latent space for cubic ABX3 perovskites (npj Comput. Mater. 2026)",
+  "description": "Three pretrained MEIDNet checkpoints (PyTorch, 2.8 MB each), the configuration and the family file that reproduce the Perov-5 experiment of the paper, and 26 candidate CIFs. Use them with the open-source package: pip install git+https://github.com/ABnano/MEIDNet.git. Live platform: https://babu09-meidnet.hf.space/. Paper: https://doi.org/10.1038/s41524-026-02153-3",
+  "keywords": ["materials science", "chemistry", "deep learning", "generative models", "inverse design", "crystal structures"],
+  "resources": [
+    {"path": "dual_autoencoder_clip_earlyfusion_propertyaware_2k.pth", "description": "production model of the paper (early fusion, property-aware decoding, 2000 epochs)"},
+    {"path": "dual_autoencoder_clip_earlyfusion_propertyaware.pth", "description": "same architecture, shorter training"},
+    {"path": "dual_autoencoder_clip_earlyfusion.pth", "description": "earliest ablation"},
+    {"path": "meidnet.yaml", "description": "configuration reproducing the Perov-5 experiment"},
+    {"path": "perovskite_abx3.yaml", "description": "the cubic ABX3 family file"}
+  ]
+}

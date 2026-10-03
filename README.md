@@ -6,6 +6,14 @@
 <b>MEIDNet Prism</b> is the interactive platform around the framework: <a href="https://babu09-meidnet.hf.space/">home</a> · <a href="https://babu09-meidnet.hf.space/studio/">Studio</a> · <a href="https://babu09-meidnet.hf.space/docs/explore/datasets.html">datasets</a> · <a href="https://babu09-meidnet.hf.space/docs/benchmarks/index.html">benchmarks</a> · <a href="https://babu09-meidnet.hf.space/docs/community/contribute.html">contribute</a></p>
 
 <p align="center">
+  <a href="https://doi.org/10.1038/s41524-026-02153-3"><img alt="Paper" src="https://img.shields.io/badge/npj%20Comput.%20Mater.-2026-1c5cab"></a>
+  <a href="https://babu09-meidnet.hf.space/"><img alt="MEIDNet Prism" src="https://img.shields.io/badge/MEIDNet%20Prism-live-4f46e5"></a>
+  <a href="https://huggingface.co/Babu09/MEIDNet"><img alt="Model on Hugging Face" src="https://img.shields.io/badge/%F0%9F%A4%97%20model-Babu09%2FMEIDNet-ffcc4d"></a>
+  <a href="https://github.com/ABnano/MEIDNet/actions"><img alt="CI" src="https://github.com/ABnano/MEIDNet/actions/workflows/ci.yml/badge.svg"></a>
+  <a href="LICENSE"><img alt="MIT" src="https://img.shields.io/badge/licence-MIT-0a7d0a"></a>
+</p>
+
+<p align="center">
   <a href="https://babu09-meidnet.hf.space/docs/"><b>Documentation</b></a> ·
   <a href="https://babu09-meidnet.hf.space/studio/"><b>Try it in your browser</b></a> ·
   <a href="https://www.nature.com/articles/s41524-026-02153-3">Paper</a> ·

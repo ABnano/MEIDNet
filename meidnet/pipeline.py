@@ -46,22 +46,42 @@ def load_plugins(paths: list[str], base_resolve) -> None:
 
 
 def family_for(cfg: MEIDNetConfig, need_variant=False):
-    """The configured family with the user's variant, filters and overrides applied."""
-    name = cfg.family_name
+    """
+    The configured family with the user's variant, filters, overrides and extra constraints applied.
+    For generation (``need_variant=True``) the family named in ``generation`` wins; the top-level
+    ``family`` only says which prototype the training data were aligned to.
+    """
+    from meidnet.constraints import assign_rule_ids, check_rule_spec
+    g = cfg.generation
+    name = (g.family if (need_variant and g and g.family) else None) or cfg.family_name
     if not name:
         return None
-    g = cfg.generation
+    extras = [dict(c) for c in (g.extra_constraints if g else [])]   # rules added on top of the family's own
     try:
-        return load_family(cfg.resolve(name) if name.endswith((".yaml", ".yml")) else name,
-                           variant=g.variant if g else None,
-                           exclude=g.exclude_elements if g else None, only=g.only_elements if g else None,
-                           overrides=g.overrides if g else None, default_variant=not need_variant)
+        fam = load_family(cfg.resolve(name) if name.endswith((".yaml", ".yml")) else name,
+                          variant=g.variant if g else None,
+                          exclude=g.exclude_elements if g else None, only=g.only_elements if g else None,
+                          overrides=g.overrides if g else None, default_variant=not need_variant)
+        for spec in extras:
+            check_rule_spec(spec)
     except ValueError as e:
         raise SystemExit(str(e)) from None
+    if extras:
+        fam.constraints = assign_rule_ids(list(fam.constraints) + extras)
+    off = set(g.disabled_rules) if g else set()
+    if off:                                           # rules the user switched off for this run
+        from meidnet.constraints import rule_key
+        known = {rule_key(c) for c in fam.constraints} | {c["name"] for c in fam.constraints}
+        unknown = sorted(off - known)
+        if unknown:
+            raise SystemExit(f"disabled_rules: {', '.join(unknown)} is not a rule of {fam.name}. "
+                             f"Its rules: {', '.join(rule_key(c) for c in fam.constraints)}")
+        fam.constraints = [c for c in fam.constraints if rule_key(c) not in off and c["name"] not in off]
+    return fam
 
 
 # ───────────────────────── check ─────────────────────────
-def check(cfg: MEIDNetConfig, write_report: bool = True) -> dict:
+def check(cfg: MEIDNetConfig, write_report: bool = True, keep_structures: bool = False) -> dict:
     """Read the data exactly as training would and report what is usable."""
     from meidnet.report import check_report
     if cfg.data is None:
@@ -70,7 +90,8 @@ def check(cfg: MEIDNetConfig, write_report: bool = True) -> dict:
     family = family_for(cfg)
     d = cfg.data
     df = read_table(cfg.resolve(d.table))
-    records, rep = load_records(df, d, cfg.resolve, family, source=os.path.basename(d.table))
+    records, rep = load_records(df, d, cfg.resolve, family, source=os.path.basename(d.table),
+                                keep_structures=keep_structures)
     val_records = []
     if d.val_table:
         val_records, rep_val = load_records(read_table(cfg.resolve(d.val_table)), d, cfg.resolve, family,

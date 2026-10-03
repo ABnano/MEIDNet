@@ -88,3 +88,47 @@ def test_design_space_counts_and_predictions():
     assert all(row["ok"].values())
     assert set(row["p"]) == {"heat_all", "dir_gap"}
     assert 0.5 < row["d"]["tolerance_factor"] < 1.5
+
+
+def _published():
+    from meidnet.checkpoint import load_checkpoint
+    return load_checkpoint(os.path.join(ROOT, "checkpoints", "dual_autoencoder_clip_earlyfusion_propertyaware_2k.pth"))
+
+
+def test_rules_sharing_a_name_get_their_own_ids():
+    from meidnet.constraints import assign_rule_ids, rule_key
+    fam = halide()
+    assert [rule_key(c) for c in fam.constraints] == [c["name"] for c in fam.constraints]   # unique: unchanged
+    rules = assign_rule_ids(fam.constraints + [{"name": "property_window", "property": "dir_gap", "min": 1.0},
+                                               {"name": "property_window", "property": "heat_all", "max": 0.0}])
+    assert [rule_key(c) for c in rules][-2:] == ["property_window_dir_gap", "property_window_heat_all"]
+    cand = build_candidate(fam, {"A": "Rb", "B": "Mn", "X": "I"})
+    cand.predictions = {"dir_gap": 0.5, "heat_all": -0.2}
+    names = {r.name: r.passed for r in evaluate(cand, rules).results}
+    assert names["property_window_dir_gap"] is False and names["property_window_heat_all"] is True
+    title, _ = explain("property_window_dir_gap", rules[-2])          # the id still finds the rule's text
+    assert title == "Predicted dir_gap window"
+
+
+def test_design_space_applies_property_windows():
+    from meidnet.constraints import assign_rule_ids
+    fam = halide()
+    fam.constraints = assign_rule_ids(fam.constraints + [{"name": "property_window", "property": "dir_gap",
+                                                          "min": 2.0, "max": 3.0}])
+    space = enumerate_space(fam, _published())
+    passing = [r for r in space["rows"] if all(r["ok"].values())]
+    assert passing and all(2.0 <= r["p"]["dir_gap"] <= 3.0 for r in passing)      # the window is enforced
+    assert all(r["d"]["property_window"] is not None for r in space["rows"])
+    assert [r["name"] for r in space["rules"]][-1] == "property_window"
+
+
+def test_family_overrides_select_a_rule_by_id(tmp_path):
+    import yaml
+    src = yaml.safe_load(open(os.path.join(ROOT, "meidnet", "families", "double_perovskite_a2bbx6.yaml"),
+                              encoding="utf-8"))
+    src["constraints"].append({"name": "bond_window", "from": "X", "to": "B2", "low": 0.75, "high": 1.35, "cutoff": 5.0})
+    path = tmp_path / "two_windows.yaml"
+    path.write_text(yaml.safe_dump(src), encoding="utf-8")
+    fam = load_family(str(path), variant="halide", overrides={"bond_window_X_B2": {"high": 1.2}})
+    windows = {c["id"]: c["high"] for c in fam.constraints if c["name"] == "bond_window"}
+    assert windows == {"bond_window_X_B1": 1.35, "bond_window_X_B2": 1.2}

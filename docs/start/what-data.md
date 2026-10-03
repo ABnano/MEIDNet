@@ -19,7 +19,8 @@ _cell_length_a 5.87 ..."
 mat_002,2.16,11.7,"..."
 ```
 
-CSV, Excel (`.xlsx`), JSON and Parquet tables are read.
+CSV, Excel (`.xlsx`) and JSON tables are read; Parquet too once `pyarrow` is installed
+(`pip install "meidnet[parquet]"`).
 
 ## How much data?
 

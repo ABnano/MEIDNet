@@ -14,11 +14,12 @@ from __future__ import annotations
 
 import json
 import os
+import re
 from pathlib import Path
 from typing import Literal, Optional
 
 import yaml
-from pydantic import BaseModel, ConfigDict, Field, ValidationError, model_validator
+from pydantic import BaseModel, ConfigDict, Field, ValidationError, field_validator, model_validator
 
 
 class _Section(BaseModel):
@@ -175,6 +176,16 @@ class GenerationSection(_Section):
         default_factory=dict,
         description="Change parameters of the family's search terms or constraints, e.g. {tolerance_factor: {max: 1.0}}.",
     )
+    extra_constraints: list[dict] = Field(
+        default_factory=list,
+        description="Additional rules appended to the family's constraints, e.g. "
+                    "[{name: property_window, property: dir_gap, min: 1.0, max: 3.0}].",
+    )
+    disabled_rules: list[str] = Field(
+        default_factory=list,
+        description="Rules to switch off for this run, by name (or id when two rules share a name), "
+                    "e.g. [charge_neutrality]. The generation report lists them.",
+    )
     seed: int = Field(937, description="Random seed of the search.")
     amp: bool = Field(True, description="Use mixed precision on GPUs.")
     output_prefix: Optional[str] = Field(None, description="File-name prefix of saved CIFs (default: family variant).")
@@ -187,6 +198,22 @@ class GenerationSection(_Section):
             if missing:
                 raise ValueError(f"target #{i + 1} {t} has no value for {missing}")
         return self
+
+    @field_validator("extra_constraints")
+    @classmethod
+    def _rules_have_names(cls, v):
+        for i, c in enumerate(v):
+            if not isinstance(c.get("name"), str) or not c["name"]:
+                raise ValueError(f"rule #{i + 1} {c} needs a 'name', e.g. {{name: property_window, property: ..., "
+                                 "min: ..., max: ...}")
+        return v
+
+    @field_validator("output_prefix")
+    @classmethod
+    def _plain_file_name(cls, v):
+        if v is not None and not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_.-]{0,59}", v):
+            raise ValueError("use a plain file-name prefix: letters, digits, '-', '_' and '.' (no folders)")
+        return v
 
 
 class MEIDNetConfig(_Section):
@@ -207,6 +234,13 @@ class MEIDNetConfig(_Section):
     model: ModelSection = Field(default_factory=ModelSection)
     training: TrainingSection = Field(default_factory=TrainingSection)
     generation: Optional[GenerationSection] = None
+
+    @model_validator(mode="after")
+    def _generation_uses_the_family(self):
+        # a config that names only the top-level family generates in that family, not in the default one
+        if self.generation is not None and self.family and "family" not in self.generation.model_fields_set:
+            self.generation.family = self.family
+        return self
 
     # ── paths ────────────────────────────────────────────────────────────────
     _base_dir: str = "."
@@ -258,7 +292,10 @@ def config_from_dict(raw: dict, base_dir: str = ".") -> MEIDNetConfig:
 
 
 def dump_config(cfg: MEIDNetConfig) -> str:
-    return yaml.safe_dump(cfg.model_dump(mode="json", exclude_none=True), sort_keys=False)
+    doc = cfg.model_dump(mode="json", exclude_none=True)
+    if cfg.data is not None and cfg.data.cif_column is None:
+        doc["data"]["cif_column"] = None   # "no CIF column" must survive: leaving it out would mean the default 'cif'
+    return yaml.safe_dump(doc, sort_keys=False)
 
 
 def json_schema() -> str:

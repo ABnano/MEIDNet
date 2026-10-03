@@ -38,16 +38,23 @@ tags: [materials, inverse-design, generative, crystal, perovskite]
 families.** This Space runs the live MEIDNet Studio with the published cubic-ABX₃ perovskite
 model (band gap + formation enthalpy, Perov-5):
 
-* the workflow as a graph *Data → Model → Family → Rules → Targets → Search → Candidates*;
-* change a rule's limit, exclude an element or move a target and see immediately which
-  compositions still pass and which are predicted closest;
-* run the paper's latent search and read each candidate's checklist;
-* export the `meidnet.yaml` that reproduces the run on your own computer.
+* the workflow as a strip of colour-coded blocks *Data → Model → Family → Rules → Targets →
+  Search → Candidates*; change a rule's limit, exclude an element or move a target and watch
+  the change flow through every later block, explained in plain words;
+* bring your own data: upload a table (CSV / Excel / JSON) with CIF structures, map the
+  columns, check it and train a small model in the browser - then design with your own
+  properties;
+* explore the design space, your data or the candidates in 3D: a property map linked to a
+  crystal viewer (chemiscope);
+* edit the configuration as YAML, run the paper's latent search, read each candidate's
+  checklist and export the `meidnet.yaml` that reproduces the run on your own computer.
 
 The documentation lives at **/docs/** on this Space. Code: https://github.com/ABnano/MEIDNet ·
 Paper: https://www.nature.com/articles/s41524-026-02153-3
 
-Budgets on this shared server are capped; `pip install meidnet` for full control and your own data.
+Each browser tab has a private session (deleted after an hour without activity). Budgets on this
+shared server are capped (1,500 rows, 30 training epochs, two jobs at a time);
+`pip install meidnet` for full control.
 """
 
 REQUIREMENTS = """--extra-index-url https://download.pytorch.org/whl/cpu
@@ -59,6 +66,7 @@ scikit-learn>=1.3
 matplotlib>=3.7
 pyyaml>=6.0
 pydantic>=2.5
+openpyxl>=3.1
 """
 
 

@@ -75,12 +75,23 @@ Everything you can change is in `meidnet.yaml`, with a one-line explanation per 
 meidnet studio meidnet.yaml
 ```
 
-A local web page shows the workflow as a graph **Data → Model → Family → Rules → Targets →
-Search → Candidates**. Move a rule's limit or a target and, immediately: how many
-compositions still pass, which are predicted closest, which of your earlier candidates
-would now be rejected. "Run search" runs the paper's latent optimisation live; every
-candidate comes with its checklist. Export `meidnet.yaml` to repeat the run from the
-command line.
+A local web page shows the workflow as a strip of colour-coded blocks **Data → Model →
+Family → Rules → Targets → Search → Candidates**. Move a rule's limit or a target and watch
+the change flow through every later block, explained in plain words: how many compositions
+still pass, which are predicted closest, which of your earlier candidates would now be
+rejected. Beginner mode shows the input, logic and output of each block, and *Behind the
+scenes* shows the YAML and Python that do the same thing.
+
+- **Your data in the browser:** upload a table (CSV / Excel / JSON) with CIF structures, map
+  the columns, check it and train a model — every block then uses your properties.
+- **Edit as text:** the configuration as YAML; errors name the exact setting.
+- **Explore in 3D:** the design space, your data or the candidates as a property map linked
+  to a crystal viewer ([chemiscope](https://chemiscope.org)).
+- "Run search" runs the paper's latent optimisation live; every candidate comes with its
+  checklist and a rotatable cell. Export `meidnet.yaml` to repeat the run from the command line.
+
+No installation needed to try it: the [hosted Studio](https://huggingface.co/spaces/Babu09/MEIDNet)
+runs on Hugging Face ([direct link](https://babu09-meidnet.hf.space/)).
 
 ## What is in the box
 

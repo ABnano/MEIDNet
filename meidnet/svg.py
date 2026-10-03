@@ -208,5 +208,6 @@ def target_bar(label, value, target, lo, hi, kind="l2", w=300, unit=""):
     body = (f'<rect class="track" x="{a:.1f}" y="13" width="{max(1, b - a):.1f}" height="8" rx="4"/>'
             f'<line class="mark" x1="{f.x(target):.1f}" y1="6" x2="{f.x(target):.1f}" y2="28"/>'
             f'<circle class="dot" cx="{f.x(value):.1f}" cy="17" r="5.5"/>')
+    unit = _esc(unit)
     return (f'<svg class="gauge" viewBox="0 0 {w} 34" role="img"><title>{_esc(label)}: predicted {value:.3g}{unit}, '
             f'target {target:.3g}{unit}, training range {lo:.3g}–{hi:.3g}</title>{body}</svg>')

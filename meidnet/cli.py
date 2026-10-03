@@ -275,7 +275,13 @@ def cmd_space(a):
     out = a.output or os.path.join(cfg.out_dir, "design_space.csv")
     space_to_csv(space, out)
     n_ok = sum(all(r["ok"].values()) for r in space["rows"])
-    print(f"{len(space['rows'])} compositions ({n_ok} pass every rule) → {out}")
+    print(f"{len(space['rows'])} compositions ({n_ok} pass every rule) -> {out}")
+    if a.chemiscope:
+        import json
+        from meidnet.studio.chemiscope import space_dataset
+        with open(a.chemiscope, "w", encoding="utf-8") as f:
+            json.dump(space_dataset(fam, space, lm), f)
+        print(f"chemiscope dataset -> {a.chemiscope}  (open it at https://chemiscope.org)")
 
 
 def cmd_screen(a):
@@ -338,6 +344,8 @@ def main(argv=None):
     s.add_argument("--model", default=None)
     s.add_argument("-o", "--output", default=None)
     s.add_argument("--max", type=int, default=60000)
+    s.add_argument("--chemiscope", metavar="FILE.json", default=None,
+                   help="also write a chemiscope.org dataset (property map + 3D structures)")
     s.set_defaults(fn=cmd_space)
 
     s = sub.add_parser("demo", help="generate perovskites with the published model")

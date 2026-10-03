@@ -93,3 +93,39 @@ groups: {A: {elements: [Xx]}}
     with pytest.raises(FamilyError) as e:
         load_family(str(bad))
     assert "Xx" in str(e.value)
+
+
+def test_top_level_family_is_used_for_generation():
+    from meidnet.pipeline import family_for
+    g = {k: v for k, v in gen().items() if k != "family"}           # generation names no family
+    cfg = config_from_dict({"family": "double_perovskite_a2bbx6", "generation": g})
+    assert cfg.generation.family == "double_perovskite_a2bbx6"
+    assert family_for(cfg, need_variant=True).name == "double_perovskite_a2bbx6"
+    both = config_from_dict({"family": "perovskite_abx3", "generation": gen(family="double_perovskite_a2bbx6")})
+    assert both.generation.family == "double_perovskite_a2bbx6"     # written explicitly: it wins
+    again = config_from_dict(MEIDNetConfig.model_validate(cfg.model_dump()).model_dump())
+    assert again.generation.family == "double_perovskite_a2bbx6"    # stable through a save and reload
+
+
+def test_output_prefix_must_be_a_file_name():
+    assert config_from_dict({"generation": gen(output_prefix="halide-run_1")}).generation.output_prefix
+    for bad in ("../../site/x", "/tmp/x", "a\\b", ".hidden", ""):
+        with pytest.raises(Exception) as e:
+            config_from_dict({"generation": gen(output_prefix=bad)})
+        assert "output_prefix" in str(e.value), bad
+
+
+def test_extra_rules_are_checked_early():
+    from meidnet.pipeline import family_for
+    with pytest.raises(Exception) as e:
+        config_from_dict({"generation": gen(extra_constraints=[{"property": "dir_gap"}])})
+    assert "name" in str(e.value)
+    for rule, words in (({"name": "nope"}, "unknown rule"), ({"name": "tolerance_factor", "maxi": 1.0}, "maxi")):
+        with pytest.raises(SystemExit) as e:
+            family_for(config_from_dict({"generation": gen(extra_constraints=[rule])}), need_variant=True)
+        assert words in str(e.value), rule
+    two = config_from_dict({"generation": gen(extra_constraints=[
+        {"name": "property_window", "property": "dir_gap", "min": 1.0},
+        {"name": "property_window", "property": "heat_all", "max": 0.0}])})
+    keys = [c.get("id", c["name"]) for c in family_for(two, need_variant=True).constraints]
+    assert keys[-2:] == ["property_window_dir_gap", "property_window_heat_all"]

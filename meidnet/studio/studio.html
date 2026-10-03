@@ -5,67 +5,154 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>MEIDNet Studio</title>
 <style>
-:root{--bg:#f4f5f3;--card:#fff;--ink:#1d2327;--muted:#5d6670;--line:#dcdfe3;--accent:#2457c5;--accent2:#d9822b;
---good:#1f8a4c;--warn:#b7791f;--bad:#c0392b;--goodbg:#e8f5ee;--warnbg:#fdf3e1;--badbg:#fbeaea;--track:#e4e8ee;--win:#2457c518;
---node:#fff;--nodesel:#eaf0fc;--pulse:#d9822b}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14171b;--card:#1d2126;--ink:#e6e9ec;--muted:#9aa4ae;
---line:#30363d;--accent:#7aa2ff;--accent2:#f0a35e;--good:#4cc38a;--warn:#e0b252;--bad:#ff7b72;--goodbg:#173326;--warnbg:#3a2f17;
---badbg:#3d1f1f;--track:#2b3138;--win:#7aa2ff22;--node:#1d2126;--nodesel:#26304a}}
-:root[data-theme="dark"]{--bg:#14171b;--card:#1d2126;--ink:#e6e9ec;--muted:#9aa4ae;--line:#30363d;--accent:#7aa2ff;--accent2:#f0a35e;
---good:#4cc38a;--warn:#e0b252;--bad:#ff7b72;--goodbg:#173326;--warnbg:#3a2f17;--badbg:#3d1f1f;--track:#2b3138;--win:#7aa2ff22;--node:#1d2126;--nodesel:#26304a}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
-header{display:flex;align-items:center;gap:14px;padding:10px 16px;border-bottom:1px solid var(--line);background:var(--card);flex-wrap:wrap}
-header .brand{font-weight:800;letter-spacing:.06em;color:var(--accent)}header .sub{color:var(--muted);font-size:13px}
-header .mode{margin-left:auto;font-size:12px;border:1px solid var(--line);border-radius:999px;padding:2px 10px;color:var(--muted)}
-.wrap{max-width:1280px;margin:auto;padding:12px 16px 40px}
-.strip{overflow-x:auto;padding:6px 0}.strip svg{min-width:860px;width:100%;height:auto;display:block}
-.node rect{fill:var(--node);stroke:var(--line);stroke-width:1.2;rx:10}.node.sel rect{fill:var(--nodesel);stroke:var(--accent);stroke-width:2}
-.node text.t{font-weight:700;fill:var(--ink);font-size:13px}.node text.s{fill:var(--muted);font-size:11px}.node{cursor:pointer}
-.node.changed rect{stroke:var(--pulse);stroke-width:2.5}
-.edge{stroke:var(--line);stroke-width:2;fill:none}.edge.pulse{stroke:var(--pulse);stroke-dasharray:6 5;animation:flow .9s linear infinite}
+/* ───────── design tokens: one hue per block (order is fixed), semantic colours, surfaces ───────── */
+:root{
+  --c-data:#2a78d6;--c-model:#eb6834;--c-family:#1baf7a;--c-rules:#eda100;--c-targets:#e87ba4;--c-search:#008300;--c-candidates:#4a3aa7;
+  --good:#0ca30c;--warn:#fab219;--serious:#ec835a;--bad:#d03b3b;
+  --bg:#f6f7f5;--card:#ffffff;--ink:#0b0b0b;--muted:#52514e;--faint:#898781;--line:#e1e0d9;--axis:#c3c2b7;
+  --seq-250:#86b6ef;--seq-350:#5598e7;--seq-450:#2a78d6;--seq-550:#1c5cab;--seq-600:#184f95;
+  --accent:var(--c-family);
+  --accent-soft:color-mix(in oklab,var(--accent) 12%,var(--card));--accent-text:color-mix(in oklab,var(--accent) 68%,var(--ink));
+  --good-soft:color-mix(in oklab,var(--good) 14%,var(--card));--warn-soft:color-mix(in oklab,var(--warn) 18%,var(--card));--bad-soft:color-mix(in oklab,var(--bad) 14%,var(--card));
+  --win:color-mix(in oklab,var(--accent) 14%,transparent);
+}
+:root[data-theme="dark"]{
+  --c-data:#3987e5;--c-model:#d95926;--c-family:#199e70;--c-rules:#c98500;--c-targets:#d55181;--c-search:#1a9a1a;--c-candidates:#9085e9;
+  --bg:#111417;--card:#1b1f24;--ink:#ffffff;--muted:#c3c2b7;--faint:#898781;--line:#2c2c2a;--axis:#383835;
+}
+@supports not (color: color-mix(in oklab, red, blue)){
+  :root{--accent-soft:var(--line);--accent-text:var(--accent);--good-soft:#e8f5ee;--warn-soft:#fdf3e1;--bad-soft:#fbeaea;--win:rgba(42,120,214,.14)}
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}  /* class display rules (grid/flex) must not override the hidden attribute */
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+a{color:var(--accent-text)}
+header{display:flex;align-items:center;gap:14px;padding:10px 18px;border-bottom:1px solid var(--line);background:var(--card);flex-wrap:wrap;position:sticky;top:0;z-index:5}
+.brand{font-weight:800;font-size:19px;letter-spacing:.02em;background:linear-gradient(90deg,var(--c-data),var(--c-family),var(--c-candidates));-webkit-background-clip:text;background-clip:text;color:transparent}
+header .sub{color:var(--muted);font-size:13px}
+header .tools{margin-left:auto;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.pill{font-size:12px;border:1px solid var(--line);border-radius:999px;padding:3px 10px;color:var(--muted);background:var(--bg)}
+.switch{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;cursor:pointer;user-select:none}
+.switch i{width:34px;height:18px;border-radius:999px;background:var(--line);position:relative;transition:background .2s}
+.switch i::after{content:"";position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:var(--card);transition:left .2s}
+.switch.on i{background:var(--c-family)}.switch.on i::after{left:18px}
+.wrap{max-width:1300px;margin:auto;padding:12px 16px 48px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin:0 0 12px;box-shadow:0 1px 2px rgba(11,11,11,.05),0 8px 24px -18px rgba(11,11,11,.25)}
+.strip{padding:8px 10px}.strip svg{min-width:1040px;width:100%;height:auto;display:block}
+.strip-scroll{overflow-x:auto}
+/* workflow strip */
+.node{cursor:pointer}.node .box{fill:var(--card);stroke:var(--line);stroke-width:1.2;transition:fill .2s,stroke .2s}
+.node:hover .box{stroke:var(--axis)}.node.sel .box{stroke:var(--nc);stroke-width:2.2;fill:color-mix(in oklab,var(--nc) 9%,var(--card))}
+.node.changed .box{stroke:var(--nc);stroke-width:2.5;filter:drop-shadow(0 0 6px color-mix(in oklab,var(--nc) 55%,transparent))}
+.node .band{fill:var(--nc)}.node .t{font-weight:800;font-size:13.5px;fill:var(--ink)}.node .s{fill:var(--muted);font-size:11px}
+.node .icon{stroke:var(--nc);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.node .badge{stroke:var(--card);stroke-width:1.5;fill:var(--axis)}.node .badge.ok{fill:var(--good)}.node .badge.changed{fill:var(--c-rules)}.node .badge.warn{fill:var(--warn)}.node .badge.error{fill:var(--bad)}
+.node .badge.running{fill:var(--serious);animation:breathe 1s ease-in-out infinite}
+@keyframes breathe{0%,100%{opacity:1}50%{opacity:.35}}
+.edge{stroke:var(--axis);stroke-width:2.2;fill:none;transition:stroke .3s}.edge.pulse{stroke-width:3;stroke-dasharray:6 5;animation:flow .8s linear infinite}
 @keyframes flow{to{stroke-dashoffset:-22}}
-.ribbon{border:1px solid var(--line);border-left:4px solid var(--accent2);background:var(--card);border-radius:8px;padding:8px 12px;margin:8px 0;font-size:13.5px;min-height:38px}
-.ribbon b{color:var(--accent2)}.ribbon.quiet{color:var(--muted);border-left-color:var(--line)}
-.cols{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:14px}@media(max-width:980px){.cols{grid-template-columns:1fr}}
-.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;margin:0 0 12px}
-h2{font-size:18px;margin:0 0 8px}h3{font-size:15px;margin:12px 0 6px}h4{font-size:13px;margin:8px 0 4px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
-.muted{color:var(--muted)}.small{font-size:12.5px}.flag{color:var(--warn)}.pass{color:var(--good);font-weight:700}.fail{color:var(--bad);font-weight:700}
-table{border-collapse:collapse;width:100%;font-size:13px}td,th{padding:4px 6px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{color:var(--muted);font-weight:600}
-tr.clk{cursor:pointer}tr.clk:hover{background:var(--nodesel)}
-button{font:inherit;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:6px 12px;cursor:pointer}
-button.primary{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}button.danger{border-color:var(--bad);color:var(--bad)}
-button:disabled{opacity:.5;cursor:not-allowed}
-input[type=number],select,input[type=text]{font:inherit;border:1px solid var(--line);border-radius:6px;padding:4px 6px;background:var(--card);color:var(--ink);width:100px}
-input[type=range]{width:100%;accent-color:var(--accent)}
-.chip{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:1px 9px;margin:2px;font-size:12.5px;cursor:pointer;user-select:none}
-.chip.off{opacity:.38;text-decoration:line-through}.chip.pin{border-color:var(--accent);color:var(--accent);cursor:default}
-.rule{border:1px solid var(--line);border-radius:8px;padding:10px;margin:8px 0}.rule.off{opacity:.55}
+.edge-label{fill:var(--muted);font-size:11px;font-weight:600}.particle{filter:drop-shadow(0 0 3px rgba(0,0,0,.25))}
+/* chain + log */
+.chain{display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:var(--card);margin:0 0 10px;min-height:44px;font-size:13.5px}
+.chain .lead{color:var(--muted)}.chain .step{display:inline-flex;align-items:center;gap:6px;border:1px solid color-mix(in oklab,var(--sc) 45%,var(--line));background:color-mix(in oklab,var(--sc) 10%,var(--card));color:color-mix(in oklab,var(--sc) 70%,var(--ink));border-radius:999px;padding:3px 10px;font-weight:600}
+.chain .step i{width:9px;height:9px;border-radius:50%;background:var(--sc)}.chain .arrow{color:var(--faint)}.chain .quiet{color:var(--faint);font-weight:400}
+#flowlog{margin:0 0 12px;font-size:13px}#flowlog summary{cursor:pointer;color:var(--muted)}#flowlog ol{margin:6px 0 0;padding-left:20px}#flowlog li{cursor:pointer;margin:2px 0}#flowlog li:hover{color:var(--accent-text)}
+.cols{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:14px}@media(max-width:1000px){.cols{grid-template-columns:1fr}}
+/* panel */
+#panel{--accent:var(--c-family)}
+/* derived tints must be declared where --accent changes, or they keep the page-level colour */
+#panel,#modal-body,#explore{--accent-soft:color-mix(in oklab,var(--accent) 12%,var(--card));--accent-text:color-mix(in oklab,var(--accent) 68%,var(--ink));--win:color-mix(in oklab,var(--accent) 16%,transparent)}
+#modal-body{--accent:var(--c-targets)}
+#panel[data-block="data"]{--accent:var(--c-data)}#panel[data-block="model"]{--accent:var(--c-model)}#panel[data-block="family"]{--accent:var(--c-family)}
+#panel[data-block="rules"]{--accent:var(--c-rules)}#panel[data-block="targets"]{--accent:var(--c-targets)}#panel[data-block="search"]{--accent:var(--c-search)}#panel[data-block="candidates"]{--accent:var(--c-candidates)}
+#panel>.card{border-top:4px solid var(--accent)}
+.eyebrow{font:700 11px/1 system-ui;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-text);margin:0 0 6px}
+h2{font-size:21px;margin:0 0 4px;letter-spacing:-.01em}h3{font-size:15px;margin:14px 0 6px;color:var(--accent-text)}h4{font-size:12px;margin:10px 0 4px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.purpose{color:var(--muted);margin:0 0 10px}
+.io{display:grid;grid-template-columns:1fr auto 1.4fr auto 1fr;gap:8px;align-items:stretch;margin:10px 0 14px}
+.io>div{border:1px solid var(--line);border-radius:10px;padding:8px 10px;background:var(--accent-soft);font-size:12.5px}
+.io>div b{display:block;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-text);margin-bottom:3px}
+.io .arr{display:flex;align-items:center;color:var(--accent);font-size:20px;background:none;border:none;padding:0}
+@media(max-width:700px){.io{grid-template-columns:1fr}.io .arr{display:none}}
+body:not(.beginner) .beginner-only{display:none}
+.help{border-left:3px solid var(--accent);background:var(--accent-soft);padding:6px 10px;margin:8px 0;color:var(--muted);font-size:13px;border-radius:0 8px 8px 0}
+.plain{border:1px dashed var(--accent);border-radius:10px;padding:8px 12px;margin:0 0 10px;font-size:13.5px}
+.muted{color:var(--muted)}.small{font-size:12.5px}.flag{color:#8a5a00}:root[data-theme="dark"] .flag{color:var(--warn)}
+.pass{color:var(--good);font-weight:700}.fail{color:var(--bad);font-weight:700}
+table{border-collapse:collapse;width:100%;font-size:13px}td,th{padding:5px 7px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{color:var(--muted);font-weight:600}
+tr.clk{cursor:pointer}tr.clk:hover{background:var(--accent-soft)}
+button{font:inherit;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:9px;padding:6px 13px;cursor:pointer;transition:transform .08s,box-shadow .2s}
+button:hover{box-shadow:0 2px 8px -4px rgba(0,0,0,.4)}button:active{transform:translateY(1px)}button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+button.primary{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:700}button.danger{border-color:var(--bad);color:var(--bad)}button.ghost{border-style:dashed}
+button:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+input[type=number],select,input[type=text]{font:inherit;border:1px solid var(--line);border-radius:7px;padding:5px 7px;background:var(--card);color:var(--ink);width:110px}
+select{width:auto;max-width:100%}
+.kpi.side{grid-template-columns:repeat(3,1fr)}.kpi.side b{font-size:19px}.kpi.side div{padding:6px 8px}
+input[type=range]{width:100%;accent-color:var(--accent)}input[type=checkbox],input[type=radio]{accent-color:var(--accent)}
+textarea{font:12.5px/1.45 ui-monospace,SFMono-Regular,Consolas,monospace;width:100%;min-height:260px;border:1px solid var(--line);border-radius:9px;padding:10px;background:var(--bg);color:var(--ink)}
+.chip{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:2px 10px;margin:2px;font-size:12.5px;cursor:pointer;user-select:none;background:var(--card)}
+.chip:hover{border-color:var(--accent)}.chip.off{opacity:.38;text-decoration:line-through}.chip.pin{border-color:var(--accent);background:var(--accent-soft);color:var(--accent-text);cursor:default;font-weight:600}
+.rule{border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:8px 0;border-left:4px solid var(--accent)}.rule.off{opacity:.55;border-left-color:var(--line)}
 .rule .hd{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.rule .hd b{flex:1}
-.params{display:flex;gap:12px;flex-wrap:wrap;margin:6px 0}.param label{display:block;font-size:12px;color:var(--muted)}
-.chart{width:100%;max-width:520px;height:auto;display:block}.mini{width:100%;max-width:300px;height:auto}
-.ax{stroke:var(--muted);stroke-width:1}.grid{stroke:var(--line);stroke-width:.6}.tick,.val{fill:var(--muted);font-size:10.5px}
-.lab{fill:var(--ink);font-size:11.5px}.bar{fill:var(--accent);opacity:.85}.barx{fill:var(--muted);opacity:.35}.ok{fill:var(--good)}.win{fill:var(--win)}
-.mark{stroke:var(--accent2);stroke-width:2;stroke-dasharray:4 3}.pt{fill:var(--accent);opacity:.55}.ptx{fill:var(--muted);opacity:.22}.star{fill:var(--good);stroke:var(--card)}
-.track{fill:var(--track)}.dot{fill:var(--accent)}.gauge{width:100%;max-width:300px;height:30px;display:block}
-.prog{height:8px;background:var(--track);border-radius:4px;overflow:hidden;margin:4px 0}.prog i{display:block;height:100%;background:var(--accent);width:0;transition:width .3s}
-pre{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px;overflow:auto;font-size:12.5px;max-height:320px}
-.cand{border:1px solid var(--line);border-radius:8px;padding:10px;margin:8px 0}.cand h3{margin:0 0 4px}
+.params{display:flex;gap:14px;flex-wrap:wrap;margin:6px 0}.param label{display:block;font-size:12px;color:var(--muted)}
+.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;margin:6px 0 10px}.kpi div{border:1px solid var(--line);border-radius:10px;padding:7px 10px}
+.kpi b{display:block;font-size:22px;font-variant-numeric:tabular-nums;color:var(--ink)}.kpi span{font-size:12px;color:var(--muted)}.kpi i{display:inline-block;width:9px;height:9px;border-radius:2px;background:var(--accent);margin-right:6px}
+.verdict{border-radius:10px;padding:9px 12px;margin:6px 0;border:1px solid var(--line);font-size:14px}.verdict.good{background:var(--good-soft);border-color:var(--good)}
+.verdict.warn{background:var(--warn-soft);border-color:var(--warn)}.verdict.bad{background:var(--bad-soft);border-color:var(--bad)}
+details{margin:6px 0}summary{cursor:pointer;color:var(--accent-text)}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+pre{background:var(--bg);border:1px solid var(--line);border-radius:9px;padding:10px;overflow:auto;font-size:12.5px;max-height:320px}
+code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:12.5px;background:var(--bg);padding:1px 4px;border-radius:4px}
+.behind{margin-top:12px}.behind .tabs{display:flex;gap:6px;margin:6px 0}.behind .tabs button.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.prog{height:9px;background:var(--line);border-radius:5px;overflow:hidden;margin:6px 0}.prog i{display:block;height:100%;background:var(--accent);width:0;transition:width .3s}
+.cand{border:1px solid var(--line);border-radius:12px;padding:12px;margin:8px 0;display:grid;grid-template-columns:150px 1fr;gap:12px}
+.cand h3{margin:0 0 4px;color:var(--ink);font-size:18px}.cand .meta{grid-column:1/-1}@media(max-width:600px){.cand{grid-template-columns:1fr}}
 ul.chk{list-style:none;margin:6px 0;padding:0}ul.chk li{padding:1px 0;font-size:13px}
-.modal{position:fixed;inset:0;background:#0006;display:none;align-items:center;justify-content:center;padding:16px;z-index:10}
-.modal.open{display:flex}.modal .card{max-width:620px;width:100%;max-height:90vh;overflow:auto}
-.verdict{border-radius:8px;padding:8px 12px;margin:6px 0;border:1px solid var(--line)}.verdict.good{background:var(--goodbg);border-color:var(--good)}
-.verdict.warn{background:var(--warnbg);border-color:var(--warn)}.verdict.bad{background:var(--badbg);border-color:var(--bad)}
-details{margin:6px 0}summary{cursor:pointer;color:var(--accent)}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:8px;margin:6px 0}.kpi div{border:1px solid var(--line);border-radius:8px;padding:6px 8px}
-.kpi b{display:block;font-size:20px}.kpi span{font-size:12px;color:var(--muted)}
-.help{border-left:3px solid var(--accent);padding:4px 10px;margin:8px 0;color:var(--muted);font-size:13px}
+.cell3d{width:150px;height:150px;border:1px solid var(--line);border-radius:10px;background:var(--bg);cursor:grab;touch-action:none;overflow:hidden}
+.cell3d.big{width:100%;height:320px}.cell3d svg{width:100%;height:100%;display:block}.cell3d:active{cursor:grabbing}
+/* charts */
+.chart{width:100%;max-width:520px;height:auto;display:block}.mini{width:100%;max-width:320px;height:auto}
+.ax{stroke:var(--axis);stroke-width:1}.grid{stroke:var(--line);stroke-width:.6}.tick,.val,.leg{fill:var(--muted);font-size:10.5px}.lab{fill:var(--ink);font-size:11.5px}
+.bar{fill:var(--accent);opacity:.9}.barx{fill:var(--faint);opacity:.3}.ok{fill:var(--good)}.win{fill:var(--win)}
+.ord-0{fill:var(--seq-250)}.ord-1{fill:var(--seq-350)}.ord-2{fill:var(--seq-450)}.ord-3{fill:var(--seq-550)}.ord-4{fill:var(--seq-600)}
+.mark{stroke:var(--c-targets);stroke-width:2;stroke-dasharray:4 3}.marklab{fill:var(--c-targets);font-size:11px}
+.pt{fill:var(--accent);opacity:.6}.ptx{fill:var(--faint);opacity:.25}.pt2{fill:var(--c-model);opacity:.6}.pt3{fill:var(--faint);opacity:.35}
+.star{fill:var(--c-candidates);stroke:var(--card);stroke-width:1}
+.track{fill:var(--line)}.dot{fill:var(--accent)}.gauge{width:100%;max-width:300px;height:30px;display:block}
+.s0{stroke:var(--accent);stroke-width:2;fill:none}.s1{stroke:var(--c-model);stroke-width:2;fill:none}.s2{stroke:var(--good);stroke-width:2;fill:none}.s3{stroke:var(--bad);stroke-width:2;fill:none}.s4{stroke:var(--faint);stroke-width:2;fill:none}
+.s0t{fill:var(--accent)}.s1t{fill:var(--c-model)}.s2t{fill:var(--good)}.s3t{fill:var(--bad)}.s4t{fill:var(--faint)}
+/* explore (chemiscope) */
+#explore{margin-top:4px}#explore[hidden]{display:none}
+.cs-wrap{display:grid;grid-template-columns:1fr 1fr;gap:12px;color-scheme:light;background:#fff;color:#111;border-radius:10px;padding:8px;border:1px solid var(--line)}
+#cs-meta,#cs-info{grid-column:1/-1}#cs-map,#cs-structure{min-height:430px}@media(max-width:900px){.cs-wrap{grid-template-columns:1fr}}
+/* chemiscope appends empty host <div>s for its settings dialogs to <body>; they would add blank scroll space.
+   Their dialogs are position:fixed, so collapsing the hosts does not hide them. */
+body>div:empty:not([id]):not([class]){position:absolute;top:0;left:0;width:0;height:0;overflow:visible}
+.fb-wrap{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media(max-width:900px){.fb-wrap{grid-template-columns:1fr}}
+/* drawer + modal */
+.drawer{position:fixed;top:0;right:-560px;width:min(560px,100vw);height:100vh;background:var(--card);border-left:1px solid var(--line);box-shadow:-10px 0 30px -20px rgba(0,0,0,.5);padding:14px 16px;z-index:20;transition:right .25s;overflow:auto}
+.drawer.open{right:0}.drawer-head{display:flex;align-items:center;gap:10px;margin-bottom:8px}.drawer-head button{margin-left:auto}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.45);backdrop-filter:blur(2px);display:none;align-items:center;justify-content:center;padding:16px;z-index:30}
+.modal.open{display:flex}.modal .card{max-width:680px;width:100%;max-height:92vh;overflow:auto;border-radius:16px}
+.gloss dt{font-weight:700;margin-top:6px}.gloss dd{margin:0 0 4px;color:var(--muted);font-size:13px}
+.byod{border-left:4px solid var(--c-data)}.map-form .pr{display:flex;gap:8px;align-items:center;margin:4px 0;flex-wrap:wrap}
+.loss{display:grid;grid-template-columns:1fr 1fr;gap:10px}@media(max-width:700px){.loss{grid-template-columns:1fr}}
+.cands{display:block}
 </style>
 </head>
-<body>
-<header><span class="brand">MEIDNet Studio</span><span class="sub" id="hdr-sub">loading…</span><span class="mode" id="mode"></span></header>
+<body class="beginner">
+<header>
+  <span class="brand">MEIDNet Studio</span><span class="sub" id="hdr-sub">loading…</span>
+  <span class="tools">
+    <label class="switch on" id="beg-switch" onclick="setBeginner(!document.body.classList.contains('beginner'))"><i></i>Beginner mode</label>
+    <button onclick="toggleTheme()" id="theme-btn" title="light / dark">🌙</button>
+    <button onclick="openYaml()">✎ Edit as text</button>
+    <span class="pill" id="mode"></span>
+  </span>
+</header>
 <div class="wrap">
-  <div class="strip"><svg id="pipe" viewBox="0 0 980 92" aria-label="MEIDNet workflow"></svg></div>
-  <div class="ribbon quiet" id="ribbon">Change anything — the effect appears here and in the nodes above.</div>
+  <div class="card strip"><div class="strip-scroll"><svg id="pipe" viewBox="0 0 1270 150" aria-label="MEIDNet workflow"></svg></div></div>
+  <div class="chain" id="chain"><span class="lead">Change anything above or in a block — what it does to the blocks after it appears here.</span></div>
+  <details id="flowlog"><summary>Flow log (0)</summary><ol id="flowlog-list"></ol></details>
   <div class="cols">
     <div id="panel"></div>
     <aside>
@@ -73,163 +160,319 @@ details{margin:6px 0}summary{cursor:pointer;color:var(--accent)}.row{display:fle
       <div class="card small" id="legend"></div>
     </aside>
   </div>
+  <section id="explore" class="card" hidden>
+    <div class="row"><h2 id="ex-title" style="margin:0">Explore in 3D</h2><span class="muted small" id="ex-note"></span>
+      <span style="margin-left:auto" class="row"><button onclick="downloadDataset()">⬇ dataset JSON</button><button onclick="closeExplore()">✕ close</button></span></div>
+    <p class="small muted beginner-only">Each point is one structure. Click a point: its crystal appears on the right (drag to rotate). Colour = passes every rule. Axes can be changed in the map's menu. Viewer: <a href="https://chemiscope.org" target="_blank" rel="noopener">chemiscope</a>.</p>
+    <div class="cs-wrap" id="cs-wrap"><div id="cs-meta"></div><div id="cs-map"></div><div id="cs-structure"></div><div id="cs-info"></div></div>
+    <div id="ex-fallback" hidden></div>
+  </section>
+</div>
+<div id="yaml-drawer" class="drawer">
+  <div class="drawer-head"><b>Edit the configuration as text</b><span class="muted small">generation section of meidnet.yaml</span><button onclick="closeYaml()">✕</button></div>
+  <p class="small muted beginner-only">This is the same information as the blocks, written as YAML — the file <code>meidnet generate</code> reads. Change it and press Apply: the blocks update and the flow shows what changed. Errors name the exact setting.</p>
+  <textarea id="yaml-src" spellcheck="false"></textarea>
+  <div class="row" style="margin-top:8px"><button class="primary" onclick="applyYaml()">Apply</button><button onclick="validateYaml()">Validate only</button><button onclick="downloadYaml()">⬇ Download meidnet.yaml</button><button onclick="openYaml()">Reset</button></div>
+  <div id="yaml-msg"></div>
 </div>
 <div class="modal" id="modal" onclick="if(event.target===this)closeModal()"><div class="card" id="modal-body"></div></div>
 <script>
-/* ───────────────────────── state ───────────────────────── */
+/* ═══════════════════════════ state & constants ═══════════════════════════ */
 const STATIC = window.MEIDNET_STATIC || null;
-const S = {state:null, fam:null, data:null, ui:null, prev:null, panel:'family', search:{running:false, poll:null, status:null}};
-// each browser tab gets its own search session on shared (public) servers
-const SID = (()=>{ try{ let s=sessionStorage.getItem('meidnet_sid'); if(!s){ s=(crypto.randomUUID?crypto.randomUUID():Math.random().toString(36).slice(2)+Math.random().toString(36).slice(2)).replace(/-/g,'').slice(0,32); sessionStorage.setItem('meidnet_sid', s);} return s; }catch(e){ return 'local'; } })();
-const NODES = [['data','Data'],['model','Model'],['family','Family'],['rules','Rules'],['targets','Targets'],['search','Search'],['candidates','Candidates']];
-const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const fmt = v => (v===null||v===undefined||Number.isNaN(v)) ? '–' : (Math.abs(v)>=1000||(Math.abs(v)<0.01&&v!==0)) ? v.toPrecision(2) : (+v).toPrecision(3).replace(/\.?0+$/,'');
+const NS = 'http://www.w3.org/2000/svg';
+const S = {state:null, fam:null, data:null, dataOwn:false, ui:null, prev:null, panel:'family', ev:null, log:[],
+           search:{running:false, status:null}, train:null, upload:null, map:null, cells:{}, view3d:{}, cs:null, csData:null, csWhat:null};
+/* one private session per tab: kept in sessionStorage when the browser allows it, otherwise for this page load */
+const SID = (()=>{ const fresh=()=>{ try{ const b=new Uint8Array(16); crypto.getRandomValues(b); return [...b].map(x=>x.toString(16).padStart(2,'0')).join(''); }catch(e){ return (Math.random().toString(36).slice(2)+Math.random().toString(36).slice(2)+Date.now().toString(36)).slice(0,32); } };
+  try{ let s=sessionStorage.getItem('meidnet_sid'); if(!s){ s=fresh(); sessionStorage.setItem('meidnet_sid', s); } return s; }catch(e){ return fresh(); } })();
+const ICONS = {
+  data:'<rect x="1" y="2.5" width="14" height="11" rx="2"/><path d="M1 6.5h14M6 2.5v11"/>',
+  model:'<circle cx="3" cy="8" r="2"/><circle cx="13" cy="3.5" r="2"/><circle cx="13" cy="12.5" r="2"/><path d="M5 7.2l6-3M5 8.8l6 3"/>',
+  family:'<path d="M8 1.5l6 3.2v6.6l-6 3.2-6-3.2V4.7z"/><path d="M8 8l6-3.3M8 8L2 4.7M8 8v6.5"/>',
+  rules:'<path d="M2 4.5l1.5 1.5L6 3.5M2 9.5l1.5 1.5L6 8.5M8 4.5h6M8 9.5h6"/>',
+  targets:'<circle cx="8" cy="8" r="6.5"/><circle cx="8" cy="8" r="3.5"/><circle cx="8" cy="8" r=".8" fill="currentColor"/>',
+  search:'<circle cx="6.5" cy="6.5" r="4.5"/><path d="M10 10l4.5 4.5"/>',
+  candidates:'<path d="M8 1.5l2 4.2 4.6.6-3.4 3.2.9 4.6L8 11.8l-4.1 2.3.9-4.6L1.4 6.3 6 5.7z"/>',
+};
+const BLOCKS = [
+  {id:'data', name:'Data', purpose:'What MEIDNet learns from: a table of materials with their structures and properties.',
+   plain:'Think of a spreadsheet: one row per material, columns for the numbers you care about, and the crystal structure of each row. MEIDNet reads it, checks every row and tells you which ones it could use.'},
+  {id:'model', name:'Model', purpose:'One shared latent space where structures and properties meet.',
+   plain:'The model is two translators trained together: one turns a crystal into a point in a hidden space, the other turns properties into a point in the same space. After training, a property target points to a region where fitting crystals live.'},
+  {id:'family', name:'Family', purpose:'The crystal type: where atoms sit and which elements may occupy each site.',
+   plain:'A family file describes a prototype crystal (for example cubic perovskite ABX₃) and lists, for each site, the elements allowed there with their charges. Everything MEIDNet can generate is a filling of those sites.'},
+  {id:'rules', name:'Rules', purpose:'Hard checks that every candidate must pass, in order.',
+   plain:'Rules are simple chemistry: charges must balance, ions must fit, atoms must not overlap. Each rule has a measured number and an allowed window. Move a window and watch how many compositions survive.'},
+  {id:'targets', name:'Targets', purpose:'What the material should have, and how much each goal matters.',
+   plain:'A target is a property value you want, e.g. a band gap of 2 eV. The model scores every allowed composition; the closest ones are listed. Targets far outside the training data are extrapolations.'},
+  {id:'search', name:'Search', purpose:'The latent optimisation of the paper: from targets back to structures.',
+   plain:'Instead of trying every composition, the search starts at the point your targets map to and slides through the hidden space, decoding crystals as it goes and keeping those that obey the rules.'},
+  {id:'candidates', name:'Candidates', purpose:'What came out, and why each one passed.',
+   plain:'Each candidate shows its elements, its cell, every rule with the measured value, and the predicted properties next to your targets. Predictions are the model’s estimates — confirm them with calculations or experiments.'},
+];
+const NODES = BLOCKS;
+const CPK = {H:'#ffffff',Li:'#cc80ff',Be:'#c2ff00',B:'#ffb5b5',C:'#909090',N:'#3050f8',O:'#ff0d0d',F:'#90e050',Na:'#ab5cf2',Mg:'#8aff00',Al:'#bfa6a6',Si:'#f0c8a0',P:'#ff8000',S:'#ffff30',Cl:'#1ff01f',K:'#8f40d4',Ca:'#3dff00',Sc:'#e6e6e6',Ti:'#bfc2c7',V:'#a6a6ab',Cr:'#8a99c7',Mn:'#9c7ac7',Fe:'#e06633',Co:'#f090a0',Ni:'#50d050',Cu:'#c88033',Zn:'#7d80b0',Ga:'#c28f8f',Ge:'#668f8f',As:'#bd80e3',Se:'#ffa100',Br:'#a62929',Rb:'#702eb0',Sr:'#00ff00',Y:'#94ffff',Zr:'#94e0e0',Nb:'#73c2c9',Mo:'#54b5b5',Tc:'#3b9e9e',Ru:'#248f8f',Rh:'#0a7d8c',Pd:'#006985',Ag:'#c0c0c0',Cd:'#ffd98f',In:'#a67573',Sn:'#668080',Sb:'#9e63b5',Te:'#d47a00',I:'#940094',Cs:'#57178f',Ba:'#00c900',La:'#70d4ff',Ce:'#ffffc7',Pr:'#d9ffc7',Nd:'#c7ffc7',Sm:'#8fffc7',Eu:'#61ffc7',Gd:'#45ffc7',Tb:'#30ffc7',Dy:'#1fffc7',Ho:'#00ff9c',Er:'#00e675',Tm:'#00d452',Yb:'#00bf38',Lu:'#00ab24',Hf:'#4dc2ff',Ta:'#4da6ff',W:'#2194d6',Re:'#267dab',Os:'#266696',Ir:'#175487',Pt:'#d0d0e0',Au:'#ffd123',Hg:'#b8b8d0',Tl:'#a6544d',Pb:'#575961',Bi:'#9e4fb5'};
+const RADII = {H:.31,Li:1.28,Be:.96,B:.84,C:.76,N:.71,O:.66,F:.57,Na:1.66,Mg:1.41,Al:1.21,Si:1.11,P:1.07,S:1.05,Cl:1.02,K:2.03,Ca:1.76,Sc:1.7,Ti:1.6,V:1.53,Cr:1.39,Mn:1.39,Fe:1.32,Co:1.26,Ni:1.24,Cu:1.32,Zn:1.22,Ga:1.22,Ge:1.2,As:1.19,Se:1.2,Br:1.2,Rb:2.2,Sr:1.95,Y:1.9,Zr:1.75,Nb:1.64,Mo:1.54,Tc:1.47,Ru:1.46,Rh:1.42,Pd:1.39,Ag:1.45,Cd:1.44,In:1.42,Sn:1.39,Sb:1.39,Te:1.38,I:1.39,Cs:2.44,Ba:2.15,La:2.07,Ce:2.04,Pr:2.03,Nd:2.01,Sm:1.98,Eu:1.98,Gd:1.96,Tb:1.94,Dy:1.92,Ho:1.92,Er:1.89,Tm:1.9,Yb:1.87,Lu:1.87,Hf:1.75,Ta:1.7,W:1.62,Re:1.51,Os:1.44,Ir:1.41,Pt:1.36,Au:1.36,Hg:1.32,Tl:1.45,Pb:1.46,Bi:1.48};
+const esc = s => String(s??'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+/* a value as a JS string literal inside an onclick="…" attribute: safe for names such as "Young's modulus" */
+const jsq = s => esc(JSON.stringify(String(s??'')));
+const fmt = v => { if(v===null||v===undefined||Number.isNaN(+v)) return '–'; const x=+v;
+  if(Math.abs(x)>=1000||(Math.abs(x)<0.01&&x!==0)) return x.toPrecision(2);
+  let s=x.toPrecision(3); if(s.includes('.')&&!/e/i.test(s)) s=s.replace(/0+$/,'').replace(/\.$/,'');   // 1.50→1.5, 100 stays 100
+  return s; };
 const $ = id => document.getElementById(id);
+const nfmt = n => (n??0).toLocaleString();
 
+/* ═══════════════════════════ API (session-aware) ═══════════════════════════ */
 async function api(path, body){
+  const [p, q] = path.split('?');
   if(STATIC){
-    if(path==='/api/state') return STATIC.state;
-    if(path==='/api/data') return STATIC.data || {available:false, note:'Static demo: training data not included.'};
-    if(path==='/api/family'){ const k=(body.family||'')+'|'+(body.variant||''); const p=STATIC.families[k]; if(!p) throw new Error('This family/variant is not in the static demo; run MEIDNet Studio locally.'); return p; }
-    if(path==='/api/export') return exportYamlLocal();
-    throw new Error('Searching needs the local Studio: pip install meidnet && meidnet studio');
+    if(p==='/api/state') return STATIC.state;
+    if(p==='/api/data') return STATIC.data || {available:false, note:'Static demo: the training data is not included.'};
+    if(p==='/api/family'){ const k=(body.family||'')+'|'+(body.variant||''); const d=STATIC.families[k]; if(!d) throw new Error('This family/variant is not in the static demo. Run MEIDNet Studio locally or use the hosted Studio.'); return d; }
+    if(p==='/api/export') return yamlDump({name:'studio', model_path:'<path to model.pt>', generation: body.generation||{}});
+    throw new Error('This needs the live Studio: pip install meidnet && meidnet studio — or the hosted Studio.');
   }
-  const r = await fetch(path, body ? {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body)} : {});
+  const url = p + '?' + (q ? q + '&' : '') + 'session=' + encodeURIComponent(SID);
+  const opts = body ? {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(Object.assign({session:SID}, body))} : {};
+  const r = await fetch(url, opts);
   const t = await r.text();
-  if(path==='/api/export') return t;
-  const j = JSON.parse(t); if(j && j.error && r.status>=400) throw new Error(j.error); return j;
+  if(p==='/api/export'){ if(r.status>=400) throw new Error(t.slice(0,300)); return t; }
+  let j; try{ j = JSON.parse(t); }catch(e){ throw new Error('server error: '+t.slice(0,200)); }
+  if(r.status>=400) throw new Error(j.error || t.slice(0,200));
+  return j;
 }
+async function refreshState(){ S.state = await api('/api/state'); renderHeader(); }
 
-/* ───────────────────────── boot ───────────────────────── */
-async function boot(){
-  S.state = await api('/api/state');
-  const g = S.state.config.generation || {};
-  const props = S.state.model.properties;
-  S.ui = {
-    family: g.family || S.state.current_family, variant: g.variant || null, exclude: new Set(g.exclude_elements||[]),
-    rules: {}, extraRules: [],
-    objectives: (g.objectives||[]).map(o=>({property:o.property, loss:o.loss||'l2', weight:o.weight??1e4, select_weight:o.select_weight??1, select_loss:o.select_loss||o.loss||'l2'})),
-    target: Object.assign({}, (g.targets||[{}])[0]),
-    search: {per_target:g.per_target??3, population:g.population??24, rounds:g.rounds??3, steps:g.steps??300, seed:g.seed??937},
-    overrides: Object.assign({}, g.overrides||{}),
-  };
-  if(!S.ui.objectives.length){ S.ui.objectives=[{property:props[0].column, loss:'l2', weight:1e4, select_weight:1, select_loss:'l2'}]; }
-  for(const o of S.ui.objectives) if(S.ui.target[o.property]===undefined) S.ui.target[o.property] = midRange(o.property);
-  $('mode').textContent = STATIC ? 'static demo · published model' : (S.state.public ? 'live · public server' : 'live · local server');
-  const links = [S.state.docs_url ? `<a href="${S.state.docs_url}" target="_blank">Docs</a>` : '',
-                 '<a href="https://github.com/ABnano/MEIDNet" target="_blank">Code</a>',
-                 '<a href="https://www.nature.com/articles/s41524-026-02153-3" target="_blank">Paper</a>'].filter(Boolean).join(' · ');
-  $('hdr-sub').innerHTML = esc((S.state.model.legacy ? 'published Perov-5 model' : S.state.model.path) + ' · ' + props.map(p=>p.label).join(', ')) + ' &nbsp;·&nbsp; ' + links;
-  drawPipe();
-  await loadFamily();
-  api('/api/data').then(d=>{S.data=d; status('data', dataStatus()); if(S.panel==='data') render();}).catch(()=>{});
-  render();
+/* ═══════════════════════════ boot ═══════════════════════════ */
+function initPrefs(){
+  try{ const th=localStorage.getItem('meidnet_theme'); if(th) document.documentElement.dataset.theme=th; }catch(e){}
+  try{ const b=localStorage.getItem('meidnet_beginner'); setBeginner(b===null ? true : b==='1', true); }catch(e){}
+  $('theme-btn').textContent = document.documentElement.dataset.theme==='dark' ? '☀️' : '🌙';
 }
+function toggleTheme(){ const d=document.documentElement.dataset.theme==='dark'; document.documentElement.dataset.theme = d?'light':'dark'; try{localStorage.setItem('meidnet_theme', d?'light':'dark');}catch(e){} $('theme-btn').textContent = d?'🌙':'☀️'; mountAll3d(); }
+function setBeginner(on, silent){ document.body.classList.toggle('beginner', on); $('beg-switch').classList.toggle('on', on); try{localStorage.setItem('meidnet_beginner', on?'1':'0');}catch(e){} if(!silent){ renderLegend(); } }
 function midRange(p){ const r=S.state.ranges[p]; return r ? +((r[0]+r[1])/2).toFixed(2) : 0; }
-
-async function loadFamily(){
-  $('ribbon').textContent = 'Enumerating the design space of '+S.ui.family+(S.ui.variant?' / '+S.ui.variant:'')+' …';
-  S.fam = await api('/api/family', {family:S.ui.family, variant:S.ui.variant});
-  S.ui.variant = S.fam.variant;
-  // rule state from the family (keep user edits for rules that still exist)
-  const keep = S.ui.rules; S.ui.rules = {};
-  for(const c of S.fam.constraints){ const old = keep[c.name]; S.ui.rules[c.name] = old ? old : {enabled:true, params:Object.assign({}, c, {name:undefined})};
-    delete S.ui.rules[c.name].params.name; }
-  for(const [k,v] of Object.entries(S.ui.overrides)) if(S.ui.rules[k]) Object.assign(S.ui.rules[k].params, v);
-  S.prev = null;
+function uiFromConfig(g, props){
+  g = g || {};
+  const ui = {
+    family: g.family || S.state.current_family, variant: g.variant || null, exclude: new Set(g.exclude_elements||[]), rules: {},
+    extraRules: (g.extra_constraints||[]).filter(c=>c.name==='property_window').map(c=>({enabled:true, params:{property:c.property, min:c.min??null, max:c.max??null}})),
+    objectives: (g.objectives||[]).map(o=>({property:o.property, loss:o.loss||'l2', weight:o.weight??1e4, select_weight:o.select_weight??1, select_loss:o.select_loss||o.loss||'l2'})),
+    target: Object.assign({}, (g.targets||[{}])[0]), extraTargets: (g.targets||[]).slice(1),
+    search: {per_target:g.per_target??3, population:g.population??24, rounds:g.rounds??3, steps:g.steps??300, seed:g.seed??937},
+    overrides: Object.assign({}, g.overrides||{}),           // the user's changes to rule parameters, by rule key
+    disabled: new Set(g.disabled_rules||[]),                  // rules switched off (sent as disabled_rules)
+    only: Object.assign({}, g.only_elements||{}),             // groups restricted to some elements
+  };
+  const known = new Set(props.map(p=>p.column));
+  ui.objectives = ui.objectives.filter(o=>known.has(o.property));
+  if(!ui.objectives.length && props.length) ui.objectives=[{property:props[0].column, loss:'l2', weight:1e4, select_weight:1, select_loss:'l2'}];
+  for(const o of ui.objectives) if(ui.target[o.property]===undefined) ui.target[o.property]=midRange(o.property);
+  return ui;
+}
+async function boot(){
+  initPrefs();
+  S.state = await api('/api/state');
+  S.ui = uiFromConfig(S.state.config.generation, S.state.model.properties);
+  S.genBase = S.state.config.generation || {};   // settings the blocks do not show are kept from here
+  $('mode').textContent = STATIC ? 'static demo' : (S.state.public ? 'live · public server' : 'live · local');
+  drawPipe(); renderHeader();
+  const qs = new URLSearchParams(location.search);            // deep links: ?panel=rules  ?explore=space
+  if(BLOCKS.some(b=>b.id===qs.get('panel'))) S.panel = qs.get('panel');
+  await loadFamily();
+  render();
+  chainText(`Ready: ${nfmt(S.ev.rows.length)} compositions, ${nfmt(S.ev.alive.length)} pass every rule. Change anything — its effect on every later block appears here.`);
+  if(!STATIC) await resumeJobs();
+  if(['space','candidates','data'].includes(qs.get('explore'))) openExplore(qs.get('explore'));
+  api('/api/data').then(d=>{ S.data=d; S.dataOwn = !!(S.state.session && S.state.session.checked); statusAll(); updateEdges(); render(); }).catch(()=>{});
+}
+/* after a reload the tab keeps its session: pick up a search or training that runs or has finished */
+async function resumeJobs(){
+  try{ const [ss, ts] = await Promise.all([api('/api/search/status'), api('/api/train/status')]);
+    if(ss.kind){ S.search.status=ss; S.search.running=ss.running; const f=ss.family;
+      if(f && (f[0]!==S.ui.family || (f[1]||null)!==(S.fam.variant||null))){ try{ S.search.fam=await api('/api/family',{family:f[0], variant:f[1]}); }catch(e){} }
+      if(ss.running) poll(); }
+    if(ts.kind){ S.train=ts; if(ts.running){ nodeState('model','running'); pollTrain(); } }
+    statusAll(); updateEdges(); renderLive();
+  }catch(e){ /* nothing to resume */ }
+}
+function renderHeader(){
+  const props=S.state.model.properties;
+  const links=[S.state.docs_url?`<a href="${S.state.docs_url}" target="_blank">Docs</a>`:'', '<a href="https://github.com/ABnano/MEIDNet" target="_blank">Code</a>', '<a href="https://www.nature.com/articles/s41524-026-02153-3" target="_blank">Paper</a>'].filter(Boolean).join(' · ');
+  const which = S.state.model.own ? 'your model' : (S.state.model.legacy ? 'published Perov-5 model' : S.state.model.path);
+  $('hdr-sub').innerHTML = esc(which + ' · ' + props.map(p=>p.label).join(', ')) + ' &nbsp;·&nbsp; ' + links;
 }
 
-/* ───────────────────────── live evaluation (same descriptors as meidnet generate) ───────────────────────── */
-function rulePass(rule, params, row){
-  const d = row.d[rule], ok = row.ok[rule];
+/* Load the family (or install one already fetched). Its rules always start from the family's own definition -
+   a new variant brings its own windows - and only the user's explicit changes (S.ui.overrides, for parameters
+   the rule has) and switched-off rules (S.ui.disabled) are applied on top. S.prev is kept, so the flow chain can
+   compare the old space with the new one. */
+async function loadFamily(fam){
+  if(!fam){ chainText('Enumerating the design space of '+S.ui.family+(S.ui.variant?' / '+S.ui.variant:'')+' …');
+    fam = await api('/api/family', {family:S.ui.family, variant:S.ui.variant}); }
+  S.fam = fam; S.ui.variant = fam.variant; if(!S.ui.family) S.ui.family = fam.name;   // keep a path as given
+  S.ui.rules = {};
+  for(const c of fam.constraints){ const k=ruleKey(c); const params = Object.assign({}, c); delete params.name; delete params.id;
+    for(const [p,v] of Object.entries(S.ui.overrides[k]||{})) if(p in params) params[p]=v;
+    S.ui.rules[k] = {enabled: !S.ui.disabled.has(k), params, rule:c.name}; }
+}
+function famMeta(name){ return S.state.families[name] || (S.fam && (S.fam.name===name || S.ui.family===name) ?
+  {title:S.fam.title, description:'', variants:S.fam.variants||{}} : {title:name, description:'', variants:{}}); }
+/* a rule's key: its id when two rules share a name (e.g. bond_window_X_B2), else its name - as in the reports */
+function ruleKey(c){ return c.id || c.name; }
+function ruleSpec(k){ return S.fam.constraints.find(c=>ruleKey(c)===k) || {}; }
+
+/* ═══════════════════════════ live evaluation (same descriptors as meidnet generate) ═══════════════════════════ */
+function rulePass(rule, params, row, key){
+  const d = row.d[key||rule], ok = row.ok[key||rule];
   switch(rule){
     case 'min_distance': return d>=+params.min;
     case 'bond_window': return d>=+params.low && d<=+params.high;
     case 'tolerance_factor': case 'octahedral_factor': return d>=+params.min && d<=+params.max;
     case 'charge_neutrality': case 'symmetry_refinement': return !!ok;
-    case 'property_window': { const v=row.p[params.property]; if(v===undefined) return true; return (params.min===''||params.min===null||v>=+params.min) && (params.max===''||params.max===null||v<=+params.max); }
+    case 'property_window': { const v=row.p[params.property]; if(v===undefined) return true; return (params.min===''||params.min===null||params.min===undefined||v>=+params.min) && (params.max===''||params.max===null||params.max===undefined||v<=+params.max); }
     default: return ok!==false;
   }
 }
+/* name = the rule type (decides how it passes), key = where its values live and how it is counted */
+function activeRules(){ const out=[]; for(const [n,r] of Object.entries(S.ui.rules)) if(r.enabled) out.push({name:r.rule||n, params:r.params, key:n});
+  S.ui.extraRules.forEach((r,i)=>{ if(r.enabled) out.push({name:'property_window', params:r.params, key:'extra'+i, extra:true}); }); return out; }
 function evaluateSpace(){
-  const rows = S.fam.space.rows.filter(r => !Object.values(r.e).some(el => S.ui.exclude.has(el)));
+  const rows = [];                       // compositions without excluded elements (or outside only_elements)
+  const only = S.ui.only||{};
+  const allowed = r => !Object.values(r.e).some(el => S.ui.exclude.has(el)) && Object.entries(only).every(([g,els]) => !els || !els.length || !(g in r.e) || els.includes(r.e[g]));
+  for(const r of S.fam.space.rows){ if(allowed(r)) rows.push(r); else r._ok = false; }
   const rules = activeRules();
-  const perRule = {}; rules.forEach(r=>perRule[r.name]=0);
-  const alive = []; const funnel=[['compositions', rows.length]];
-  const lost = {}; rules.forEach(r=>lost[r.name]=0);
-  for(const row of rows){
-    let ok = true;
-    for(const r of rules){ const p = rulePass(r.name, r.params, row); if(p) perRule[r.name]++; else if(ok){ok=false; lost[r.name]++;} }
-    row._ok = ok; if(ok) alive.push(row);
-  }
-  let left = rows.length; for(const r of rules){ left -= lost[r.name]; funnel.push([ruleTitle(r.name), left]); }
-  const ranked = rankByTarget(alive);
-  return {rows, alive, perRule, funnel, ranked, lost};
+  const perRule = {}; rules.forEach(r=>perRule[r.key]=0);
+  const alive = []; const lost = {}; rules.forEach(r=>lost[r.key]=0);
+  for(const row of rows){ let ok = true;
+    for(const r of rules){ const p = rulePass(r.name, r.params, row, r.extra?null:r.key); if(p) perRule[r.key]++; else if(ok){ok=false; lost[r.key]++;} }
+    row._ok = ok; if(ok) alive.push(row); }
+  const funnel=[['compositions', rows.length]]; let left=rows.length;
+  for(const r of rules){ left -= lost[r.key]; funnel.push([ruleTitle(r.extra?'property_window':r.key, r.params), left]); }
+  return {rows, alive, perRule, funnel, ranked: rankByTarget(alive), lost};
 }
-function activeRules(){ const out=[]; for(const [n,r] of Object.entries(S.ui.rules)) if(r.enabled) out.push({name:n, params:r.params});
-  S.ui.extraRules.forEach((r,i)=>{ if(r.enabled) out.push({name:'property_window', params:r.params, key:'extra'+i}); }); return out; }
 function dist(pred, t, kind){ const e=pred-t; return kind==='l2'?e*e : kind==='l1'?Math.abs(e) : kind==='at_most'?Math.max(0,e) : Math.max(0,-e); }
 function rankByTarget(alive){
   if(!S.fam.space.columns.length) return [];
-  return alive.map(r=>{ let s=0; for(const o of S.ui.objectives){ const v=r.p[o.property]; if(v===undefined) continue; s += o.select_weight*dist(v, +S.ui.target[o.property], o.select_loss); } return [s,r]; })
-              .sort((a,b)=>a[0]-b[0]).slice(0,12);
+  return alive.map(r=>{ let s=0; for(const o of S.ui.objectives){ const v=r.p[o.property]; if(v===undefined) continue; s += o.select_weight*dist(v, +S.ui.target[o.property], o.select_loss); } return [s,r]; }).sort((a,b)=>a[0]-b[0]).slice(0,12);
 }
-function ruleTitle(n){ const r=(S.fam.space.rules||[]).find(x=>x.name===n); return r? r.title : n; }
-function ruleText(n){ const r=(S.fam.space.rules||[]).find(x=>x.name===n); return r? r.text : ''; }
-
-/* ───────────────────────── change tracking ───────────────────────── */
-function recompute(changedNode, what){
-  const ev = evaluateSpace(); S.ev = ev;
-  const msgs = [];
-  if(S.prev){
-    const p=S.prev;
-    if(ev.alive.length!==p.alive){ const d=ev.alive.length-p.alive; msgs.push(`compositions passing all rules <b>${p.alive} → ${ev.alive.length}</b> (${d>0?'+':''}${d})`); }
-    const t0 = p.top, t1 = ev.ranked[0] ? ev.ranked[0][1].f : null;
-    if(t0!==t1) msgs.push(`best predicted match <b>${esc(t0||'–')} → ${esc(t1||'–')}</b>`);
-    if(S.search.status && S.search.status.candidates && S.search.status.candidates.length){
-      const bad = S.search.status.candidates.filter(c => !candStillPasses(c)).length;
-      if(bad) msgs.push(`<span class="flag">${bad} of your found candidates would now be rejected</span>`);
-    }
-  }
-  S.prev = {alive:ev.alive.length, top: ev.ranked[0] ? ev.ranked[0][1].f : null};
-  const rib = $('ribbon');
-  if(what){ rib.className='ribbon'; rib.innerHTML = `<b>${esc(what)}</b>` + (msgs.length? ' → '+msgs.join(' · ') : ' → no change in what passes'); }
-  status('family', `${S.fam.variant||S.fam.name} · ${ev.rows.length.toLocaleString()} compositions`);
-  status('rules', `${activeRules().length} rules · ${ev.alive.length.toLocaleString()} pass`);
-  status('targets', S.ui.objectives.map(o=>`${label(o.property)} ${fmt(+S.ui.target[o.property])}`).join(', '));
-  if(changedNode) pulseFrom(changedNode);
-  renderLive();
-}
-function candStillPasses(c){ // re-check a found candidate against the current rule windows using its stored descriptor values
-  const row = {d:{}, ok:{}, p:c.predictions||{}}; for(const r of c.constraint_results){ row.d[r.name]=r.value; row.ok[r.name]=r.passed; }
-  return activeRules().every(r=>rulePass(r.name, r.params, row));
-}
+function ruleTitle(n, params){ if(n==='property_window') return 'Predicted '+label((params||{}).property)+' window'; const r=(S.fam.space.rules||[]).find(x=>x.name===n); return r? r.title : n; }
+function ruleText(n){ if(n==='property_window') return 'The predicted value must lie inside the window.'; const r=(S.fam.space.rules||[]).find(x=>x.name===n); return r? r.text : ''; }
 function label(p){ const m=S.state.model.properties.find(x=>x.column===p); return m? m.label : p; }
 function unit(p){ const m=S.state.model.properties.find(x=>x.column===p); return m&&m.unit ? ' '+m.unit : ''; }
+/* a search result's rule, in words: property windows name their property (the result says "predicted dir_gap = …") */
+function resultTitle(r){ if(/^property_window/.test(r.name)){ const m=/predicted (.+?) =/.exec(r.detail||''); return 'Predicted '+(m?label(m[1]):'property')+' window'; }
+  return sameFamilyAsSearch() ? ruleTitle(r.name) : r.name; }
+function sameFamilyAsSearch(){ const F=S.search.fam; return !F || (F.name===S.fam.name && (F.variant||null)===(S.fam.variant||null)); }
+function candStillPasses(c){ if(!sameFamilyAsSearch()) return true;   // other family: its rules do not apply
+  const row = {d:{}, ok:{}, p:c.predictions||{}}; for(const r of c.constraint_results){ row.d[r.name]=r.value; row.ok[r.name]=r.passed; } return activeRules().every(r=>rulePass(r.name, r.params, row, r.extra?null:r.key)); }
+function foundCands(){ return (S.search.status && S.search.status.candidates) || []; }
 
-/* ───────────────────────── pipeline strip ───────────────────────── */
-function drawPipe(){
-  const svg=$('pipe'); let s=''; const w=126, gap=14, x0=8;
-  NODES.forEach(([id,name],i)=>{ const x=x0+i*(w+gap);
-    if(i<NODES.length-1) s+=`<path class="edge" id="edge-${id}" d="M${x+w},46 L${x+w+gap},46"/>`;
-    s+=`<g class="node" id="node-${id}" onclick="show('${id}')"><rect x="${x}" y="12" width="${w}" height="68"/>
-        <text class="t" x="${x+10}" y="36">${name}</text><text class="s" id="st-${id}" x="${x+10}" y="56">…</text><text class="s" id="st2-${id}" x="${x+10}" y="70"></text></g>`; });
-  svg.innerHTML=s;
+/* ═══════════════════════════ change tracking: chain, log, statuses, edges ═══════════════════════════ */
+function recompute(changedNode, what){
+  const ev = evaluateSpace(); S.ev = ev;
+  const steps = [];
+  if(what) steps.push({block: changedNode||'family', text: what, head:true});
+  if(S.prev){ const p=S.prev;
+    if(ev.rows.length!==p.rows) steps.push({block:'family', text:`compositions ${nfmt(p.rows)} → ${nfmt(ev.rows.length)}`});
+    if(ev.alive.length!==p.alive){ const d=ev.alive.length-p.alive; steps.push({block:'rules', text:`pass all rules ${nfmt(p.alive)} → ${nfmt(ev.alive.length)} (${d>0?'+':''}${d})`}); }
+    const t1 = ev.ranked[0] ? ev.ranked[0][1].f : null;
+    if(p.top!==t1) steps.push({block:'targets', text:`best match ${p.top||'–'} → ${t1||'–'}`});
+    const fc=foundCands(); if(fc.length){ const bad=fc.filter(c=>!candStillPasses(c)).length; if(bad!==p.bad) steps.push({block:'candidates', text: bad? `${bad} of ${fc.length} found candidates would now be rejected` : 'all found candidates still pass', warn: bad>0}); }
+  }
+  S.prev = {rows:ev.rows.length, alive:ev.alive.length, top: ev.ranked[0] ? ev.ranked[0][1].f : null, bad: foundCands().filter(c=>!candStillPasses(c)).length};
+  if(what){ renderChain(steps); logFlow(steps); }
+  statusAll(); updateEdges();
+  if(changedNode) flowFrom(changedNode);
+  renderLive();
 }
-function status(id, a, b){ const e=$('st-'+id); if(e) e.textContent=a.length>22?a.slice(0,21)+'…':a; const e2=$('st2-'+id); if(e2) e2.textContent=b||''; if(e&&a.length>22) e.innerHTML=`<title>${esc(a)}</title>`+esc(e.textContent); }
-function pulseFrom(id){ const i=NODES.findIndex(n=>n[0]===id); NODES.forEach(([n],j)=>{ const ed=$('edge-'+n); if(ed) ed.classList.toggle('pulse', j>=i && j<NODES.length-1); const nd=$('node-'+n); if(nd) nd.classList.toggle('changed', j===i); });
-  setTimeout(()=>{ document.querySelectorAll('.edge.pulse').forEach(e=>e.classList.remove('pulse')); document.querySelectorAll('.node.changed').forEach(e=>e.classList.remove('changed')); }, 1600); }
-function show(id){ S.panel=id; document.querySelectorAll('.node').forEach(n=>n.classList.toggle('sel', n.id==='node-'+id)); render(); }
+function chainText(t){ const c=$('chain'); c.innerHTML=`<span class="lead">${esc(t)}</span>`; }
+function renderChain(steps){
+  const c=$('chain'); if(!steps.length){ c.innerHTML='<span class="lead">No change.</span>'; return; }
+  let h=''; steps.forEach((s,i)=>{ if(i) h+='<span class="arrow">➜</span>'; h+=`<span class="step" style="--sc:var(--c-${s.block})" onclick="show('${s.block}')" data-show="${s.block}" role="button" tabindex="0"><i></i>${esc(blockName(s.block))}: ${esc(s.text)}</span>`; });
+  if(steps.length===1) h+='<span class="arrow">➜</span><span class="quiet">nothing downstream changed</span>';
+  c.innerHTML=h;
+}
+function blockName(id){ const b=BLOCKS.find(x=>x.id===id); return b?b.name:id; }
+function logFlow(steps){ S.log.unshift({t:new Date(), steps}); if(S.log.length>60) S.log.length=60; renderFlowLog(); }
+function renderFlowLog(){ const ol=$('flowlog-list'); $('flowlog').querySelector('summary').textContent=`Flow log (${S.log.length})`;
+  ol.innerHTML = S.log.map((e,i)=>`<li onclick="replay(${i})"><span class="muted">${e.t.toLocaleTimeString()}</span> — ${e.steps.map(s=>`<b style="color:var(--c-${s.block})">${esc(blockName(s.block))}</b>: ${esc(s.text)}`).join(' ➜ ')}</li>`).join(''); }
+function replay(i){ const e=S.log[i]; if(e){ renderChain(e.steps); flowFrom(e.steps[0].block); } }
+function outOfRange(){ return S.ui.objectives.filter(o=>{ const r=S.state.ranges[o.property]; const t=+S.ui.target[o.property]; return r && (t<r[0]||t>r[1]); }); }
+function statusAll(){
+  const ev=S.ev; const m=S.state.model; const d=S.data;
+  status('data', dataStatus(), d&&d.available&&S.dataOwn ? 'your data' : '');
+  nodeState('data', !d ? 'idle' : !d.available ? 'idle' : (S.dataOwn && d.kept<200 ? 'warn' : 'ok'));
+  const v=m.validation; const mae = v&&v.mae ? Object.entries(v.mae).map(([k,x])=>`${k} ${fmt(x)}`).join(' · ') : '';
+  if(!(S.train&&S.train.running)){ status('model', (m.own?'your model':'published model'), mae ? 'MAE '+mae : `${m.properties.length} properties`); nodeState('model','ok'); }
+  if(S.fam) status('family', `${S.fam.variant||S.fam.name}`, `${nfmt(ev?ev.rows.length:S.fam.space.rows.length)} compositions`);
+  nodeState('family', ev&&ev.rows.length ? 'ok' : 'warn');
+  if(ev){ status('rules', `${activeRules().length} rules`, `${nfmt(ev.alive.length)} pass all`); nodeState('rules', ev.alive.length ? 'ok' : 'warn'); }
+  status('targets', S.ui.objectives.map(o=>`${o.property} ${fmt(+S.ui.target[o.property])}`).join(', '), ev&&ev.ranked[0]?`best: ${ev.ranked[0][1].f}`:'no match');
+  nodeState('targets', outOfRange().length ? 'warn' : (ev&&ev.ranked.length ? 'ok' : 'warn'));
+  const st=S.search.status; if(!st) { status('search','idle',''); nodeState('search','idle'); }
+  else if(!st.running){ status('search', st.error?'failed':'finished', ''); nodeState('search', st.error?'error':'ok'); }
+  status('candidates', `${foundCands().length} found`, foundCands().length? `${foundCands().filter(candStillPasses).length} still pass`:'');
+  nodeState('candidates', foundCands().length ? (foundCands().every(candStillPasses)?'ok':'warn') : 'idle');
+}
+function dataStatus(){ const d=S.data; if(!d) return '…'; if(!d.available) return 'not loaded'; const skipped=Object.values(d.skipped||{}).reduce((a,c)=>a+c,0); return (S.dataOwn?'yours · ':'Perov-5 · ') + (skipped? `${nfmt(d.kept)}/${nfmt(d.rows)} usable` : `${nfmt(d.rows)} rows`); }
+function edgeText(){
+  const ev=S.ev, d=S.data, m=S.state.model;
+  return {
+    data: d&&d.available ? `${nfmt(d.kept)} materials · ${m.properties.length} prop.` : 'table + CIFs',
+    model: `predicts ${m.properties.length} propert${m.properties.length>1?'ies':'y'}`,
+    family: ev ? `${nfmt(ev.rows.length)} compositions` : '…',
+    rules: ev ? `${nfmt(ev.alive.length)} pass all rules` : '…',
+    targets: `${S.ui.objectives.length} objective${S.ui.objectives.length>1?'s':''}` + (ev&&ev.ranked.length? ` · ${ev.ranked.length} ranked`:''),
+    search: S.search.running ? 'running…' : `${foundCands().length} found`,
+  };
+}
+function updateEdges(){ const t=edgeText(); for(const [k,v] of Object.entries(t)){ const el=$('el-'+k); if(el) el.textContent=v; } }
 
-/* ───────────────────────── charts (JS twins of meidnet/svg.py) ───────────────────────── */
+/* ═══════════════════════════ workflow strip ═══════════════════════════ */
+function drawPipe(){
+  const w=130, gap=58, x0=12, y=16, h=92; let s='<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--axis)"/></marker></defs>';
+  NODES.forEach((n,i)=>{ const x=x0+i*(w+gap);
+    if(i<NODES.length-1){ const x1=x+w, x2=x+w+gap; s+=`<path class="edge" id="edge-${n.id}" d="M${x1+2},${y+46} L${x2-3},${y+46}" marker-end="url(#arrow)"/><text class="edge-label" id="el-${n.id}" x="${(x1+x2)/2}" y="${y+h+24}" text-anchor="middle">…</text>`; }
+    s+=`<g class="node" id="node-${n.id}" style="--nc:var(--c-${n.id})" onclick="show('${n.id}')" data-show="${n.id}" tabindex="0" role="button"><title>${esc(n.name+' — '+n.purpose)}</title>
+      <rect class="box" x="${x}" y="${y}" width="${w}" height="${h}" rx="12"/>
+      <clipPath id="clip-${n.id}"><rect x="${x}" y="${y}" width="${w}" height="${h}" rx="12"/></clipPath>
+      <rect class="band" x="${x}" y="${y}" width="${w}" height="7" clip-path="url(#clip-${n.id})"/>
+      <g class="icon" transform="translate(${x+12},${y+18})">${ICONS[n.id]}</g>
+      <text class="t" x="${x+36}" y="${y+31}">${n.name}</text>
+      <circle class="badge" id="bd-${n.id}" cx="${x+w-14}" cy="${y+22}" r="5"/>
+      <text class="s" id="st-${n.id}" x="${x+12}" y="${y+56}">…</text><text class="s" id="st2-${n.id}" x="${x+12}" y="${y+73}"></text></g>`; });
+  $('pipe').innerHTML=s;
+}
+function status(id, a, b){ const fit=s=>{ s=String(s||''); return s.length>21 ? s.slice(0,20)+'…' : s; };   // ~21 characters fit a 130-px node at 11 px
+  const e=$('st-'+id); if(!e) return; e.textContent=fit(a); e.parentNode.querySelector('title').textContent = blockName(id)+' — '+String(a||'')+(b?' · '+b:'');
+  const e2=$('st2-'+id); if(e2) e2.textContent=fit(b); }
+function nodeState(id, st){ const b=$('bd-'+id); if(b) b.setAttribute('class','badge '+(st||'idle')); }
+function flowFrom(id){
+  const i = NODES.findIndex(n=>n.id===id); const svg=$('pipe');
+  NODES.forEach((n,j)=>{ const ed=$('edge-'+n.id); const on = !!ed && j>=i && j<NODES.length-1;
+    if(ed){ ed.classList.toggle('pulse', on); ed.style.stroke = on ? `var(--c-${n.id})` : ''; }
+    if(on){ for(let k=0;k<3;k++){ const c=document.createElementNS(NS,'circle'); c.setAttribute('r','3.6'); c.setAttribute('class','particle'); c.setAttribute('fill',`var(--c-${n.id})`);
+      const am=document.createElementNS(NS,'animateMotion'); am.setAttribute('dur','0.9s'); am.setAttribute('begin',(k*0.22)+'s'); am.setAttribute('repeatCount','1'); am.setAttribute('fill','freeze');
+      const mp=document.createElementNS(NS,'mpath'); mp.setAttribute('href','#edge-'+n.id); mp.setAttributeNS('http://www.w3.org/1999/xlink','xlink:href','#edge-'+n.id); am.appendChild(mp); c.appendChild(am); svg.appendChild(c); setTimeout(()=>c.remove(), 1900); } }
+    const nd=$('node-'+n.id); if(nd) nd.classList.toggle('changed', j>=i);
+  });
+  setTimeout(()=>{ document.querySelectorAll('.edge.pulse').forEach(e=>{e.classList.remove('pulse'); e.style.stroke='';}); document.querySelectorAll('.node.changed').forEach(e=>e.classList.remove('changed')); }, 1800);
+}
+const pulseFrom = flowFrom;
+function show(id){ S.panel=id; render(); }
+
+/* ═══════════════════════════ charts (JS twins of meidnet/svg.py) ═══════════════════════════ */
 function ticks(lo,hi,n=5){ const span=hi-lo; if(!(span>0)) return [lo]; let step=Math.pow(10,Math.floor(Math.log10(span/n))); for(const m of [1,2,2.5,5,10]){ if(span/(step*m)<=n){step*=m;break;} } const out=[]; for(let v=Math.ceil(lo/step)*step; v<=hi+1e-12; v+=step) out.push(+v.toFixed(10)); return out; }
 function hist(values, title, xlabel, opts={}){
   const v=values.filter(Number.isFinite); if(!v.length) return '<p class="muted small">no values</p>';
   let lo=Math.min(...v), hi=Math.max(...v); if(opts.marks) for(const m of Object.values(opts.marks)) {lo=Math.min(lo,m);hi=Math.max(hi,m);}
   if(hi-lo<1e-9){lo-=.5;hi+=.5;} const pad=.04*(hi-lo); lo-=pad; hi+=pad;
   const bins=opts.bins||28, counts=new Array(bins).fill(0), countsX=new Array(bins).fill(0);
-  v.forEach((x,i)=>{ let b=Math.floor((x-lo)/(hi-lo)*bins); b=Math.max(0,Math.min(bins-1,b)); if(opts.okMask && !opts.okMask[i]) countsX[b]++; else counts[b]++; });
-  const W=opts.w||300,H=opts.h||150,ml=38,mr=8,mt=10,mb=30, cmax=Math.max(1,...counts.map((c,i)=>c+countsX[i]));
+  values.forEach((x,i)=>{ if(!Number.isFinite(x)) return; let b=Math.floor((x-lo)/(hi-lo)*bins); b=Math.max(0,Math.min(bins-1,b)); if(opts.okMask && !opts.okMask[i]) countsX[b]++; else counts[b]++; });
+  const W=opts.w||320,H=opts.h||150,ml=38,mr=8,mt=10,mb=30, cmax=Math.max(1,...counts.map((c,i)=>c+countsX[i]));
   const X=x=>ml+(x-lo)/(hi-lo)*(W-ml-mr), Y=c=>H-mb-c/(cmax*1.08)*(H-mt-mb);
   let s=''; if(opts.window){ const a=X(Math.max(lo,opts.window[0]??lo)), b=X(Math.min(hi,opts.window[1]??hi)); s+=`<rect class="win" x="${a}" y="${mt}" width="${Math.max(0,b-a)}" height="${H-mt-mb}"/>`; }
   s+=`<line class="ax" x1="${ml}" y1="${H-mb}" x2="${W-mr}" y2="${H-mb}"/>`;
@@ -237,7 +480,7 @@ function hist(values, title, xlabel, opts={}){
   const bw=(W-ml-mr)/bins; for(let i=0;i<bins;i++){ const a=lo+i*(hi-lo)/bins;
     if(countsX[i]) s+=`<rect class="barx" x="${X(a)+.5}" y="${Y(counts[i]+countsX[i])}" width="${Math.max(.5,bw-1)}" height="${Y(0)-Y(counts[i]+countsX[i])}"/>`;
     if(counts[i]) s+=`<rect class="bar" x="${X(a)+.5}" y="${Y(counts[i])}" width="${Math.max(.5,bw-1)}" height="${Y(0)-Y(counts[i])}"><title>${fmt(a)}–${fmt(a+(hi-lo)/bins)}: ${counts[i]}</title></rect>`; }
-  for(const [lab,m] of Object.entries(opts.marks||{})) s+=`<line class="mark" x1="${X(m)}" y1="${mt}" x2="${X(m)}" y2="${H-mb}"/><text class="tick" x="${X(m)+3}" y="${mt+10}">${esc(lab)}</text>`;
+  for(const [lab,m] of Object.entries(opts.marks||{})) s+=`<line class="mark" x1="${X(m)}" y1="${mt}" x2="${X(m)}" y2="${H-mb}"/><text class="marklab" x="${X(m)+3}" y="${mt+10}">${esc(lab)}</text>`;
   s+=`<text class="lab" x="${(ml+W-mr)/2}" y="${H-3}" text-anchor="middle">${esc(xlabel)}</text>`;
   return `<svg class="${opts.cls||'mini'}" viewBox="0 0 ${W} ${H}" role="img"><title>${esc(title)}</title>${s}</svg>`;
 }
@@ -247,15 +490,15 @@ function scatter(rows, px, py, target, highlight){
   let xl=Math.min(...pts.map(p=>p[0]), target[px]), xh=Math.max(...pts.map(p=>p[0]), target[px]);
   let yl=Math.min(...pts.map(p=>p[1]), target[py]), yh=Math.max(...pts.map(p=>p[1]), target[py]);
   const padx=.05*(xh-xl||1), pady=.05*(yh-yl||1); xl-=padx;xh+=padx;yl-=pady;yh+=pady;
-  const W=420,H=300,ml=48,mr=10,mt=10,mb=36; const X=x=>ml+(x-xl)/(xh-xl)*(W-ml-mr), Y=y=>H-mb-(y-yl)/(yh-yl)*(H-mt-mb);
+  const W=440,H=310,ml=48,mr=10,mt=10,mb=36; const X=x=>ml+(x-xl)/(xh-xl)*(W-ml-mr), Y=y=>H-mb-(y-yl)/(yh-yl)*(H-mt-mb);
   let s=`<line class="ax" x1="${ml}" y1="${H-mb}" x2="${W-mr}" y2="${H-mb}"/><line class="ax" x1="${ml}" y1="${mt}" x2="${ml}" y2="${H-mb}"/>`;
-  for(const t of ticks(xl,xh)) s+=`<text class="tick" x="${X(t)}" y="${H-mb+13}" text-anchor="middle">${fmt(t)}</text>`;
-  for(const t of ticks(yl,yh)) s+=`<text class="tick" x="${ml-5}" y="${Y(t)+4}" text-anchor="end">${fmt(t)}</text>`;
+  for(const t of ticks(xl,xh)) s+=`<line class="grid" x1="${X(t)}" y1="${mt}" x2="${X(t)}" y2="${H-mb}"/><text class="tick" x="${X(t)}" y="${H-mb+13}" text-anchor="middle">${fmt(t)}</text>`;
+  for(const t of ticks(yl,yh)) s+=`<line class="grid" x1="${ml}" y1="${Y(t)}" x2="${W-mr}" y2="${Y(t)}"/><text class="tick" x="${ml-5}" y="${Y(t)+4}" text-anchor="end">${fmt(t)}</text>`;
   s+=`<line class="mark" x1="${X(target[px])}" y1="${mt}" x2="${X(target[px])}" y2="${H-mb}"/><line class="mark" x1="${ml}" y1="${Y(target[py])}" x2="${W-mr}" y2="${Y(target[py])}"/>`;
-  const hs=new Set((highlight||[]).map(f=>f));
+  const hs=new Set(highlight||[]);
   for(const [x,y,r] of pts){ if(!r._ok) s+=`<circle class="ptx" cx="${X(x)}" cy="${Y(y)}" r="2.4"><title>${esc(r.f)} (rejected)</title></circle>`; }
-  for(const [x,y,r] of pts){ if(r._ok&&!hs.has(r.f)) s+=`<circle class="pt" cx="${X(x)}" cy="${Y(y)}" r="2.8" onclick="inspect('${esc(r.f)}')" style="cursor:pointer"><title>${esc(r.f)}: ${fmt(x)}, ${fmt(y)}</title></circle>`; }
-  for(const [x,y,r] of pts){ if(hs.has(r.f)) s+=`<path class="star" d="M${X(x)},${Y(y)-7} l2,5 5,0 -4,3 2,5 -5,-3 -5,3 2,-5 -4,-3 5,0z" onclick="inspect('${esc(r.f)}')" style="cursor:pointer"><title>${esc(r.f)} (found by search)</title></path>`; }
+  for(const [x,y,r] of pts){ if(r._ok&&!hs.has(r.f)) s+=`<circle class="pt" cx="${X(x)}" cy="${Y(y)}" r="3" onclick="inspect(${jsq(r.f)})" style="cursor:pointer"><title>${esc(r.f)}: ${fmt(x)}, ${fmt(y)}</title></circle>`; }
+  for(const [x,y,r] of pts){ if(hs.has(r.f)) s+=`<path class="star" d="M${X(x)},${Y(y)-8} l2.3,5.5 5.7,0 -4.6,3.5 2,5.5 -5.4,-3.4 -5.4,3.4 2,-5.5 -4.6,-3.5 5.7,0z" onclick="inspect(${jsq(r.f)})" style="cursor:pointer"><title>${esc(r.f)} (found by search)</title></path>`; }
   s+=`<text class="lab" x="${(ml+W-mr)/2}" y="${H-4}" text-anchor="middle">predicted ${esc(label(px))}${esc(unit(px))}</text><text class="lab" transform="translate(12,${(mt+H-mb)/2}) rotate(-90)" text-anchor="middle">predicted ${esc(label(py))}${esc(unit(py))}</text>`;
   return `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img"><title>Predicted properties of every composition; dashed lines = target</title>${s}</svg>`;
 }
@@ -264,169 +507,614 @@ function gauge(p, value, target){
   const W=300, X=x=>6+(x-lo)/(hi-lo)*(W-12);
   return `<svg class="gauge" viewBox="0 0 ${W} 30"><title>${esc(label(p))}: predicted ${fmt(value)} target ${fmt(target)}; training range ${fmt(r[0])}–${fmt(r[1])}</title><rect class="track" x="${X(r[0])}" y="11" width="${Math.max(1,X(r[1])-X(r[0]))}" height="8" rx="4"/><line class="mark" x1="${X(target)}" y1="4" x2="${X(target)}" y2="26"/><circle class="dot" cx="${X(value)}" cy="15" r="5.5"/></svg>`;
 }
-function funnelSvg(stages){ const W=520,row=26,H=6+row*stages.length, top=Math.max(1,stages[0][1]); let s='';
-  stages.forEach(([lab,c],i)=>{ const w=Math.max(2,(W-250)*c/top), y=4+i*row; s+=`<text class="tick" x="4" y="${y+16}">${esc(lab.slice(0,30))}</text><rect class="${i===stages.length-1?'ok':'bar'}" x="200" y="${y+5}" width="${w}" height="${row-10}"/><text class="val" x="${200+w+5}" y="${y+16}">${c.toLocaleString()}</text>`; });
-  return `<svg class="chart" viewBox="0 0 ${W} ${H}" style="max-width:560px"><title>Compositions left after each rule</title>${s}</svg>`; }
-
-/* ───────────────────────── panels ───────────────────────── */
-function render(){
-  const P=$('panel'); const f={data:panelData, model:panelModel, family:panelFamily, rules:panelRules, targets:panelTargets, search:panelSearch, candidates:panelCandidates}[S.panel];
-  P.innerHTML = f ? f() : ''; document.querySelectorAll('.node').forEach(n=>n.classList.toggle('sel', n.id==='node-'+S.panel));
-  if(!S.ev) recompute(null, null); else renderLive();
-  renderLegend();
+function funnelSvg(stages){ const W=540,row=26,H=6+row*stages.length, top=Math.max(1,stages[0][1]); let s='';
+  stages.forEach(([lab,c],i)=>{ const w=Math.max(2,(W-250)*c/top), y=4+i*row; const cls = i===stages.length-1 ? 'ok' : 'ord-'+Math.min(4, Math.floor(i*5/Math.max(1,stages.length-1)));
+    s+=`<text class="tick" x="4" y="${y+16}">${esc(String(lab).slice(0,32))}</text><rect class="${cls}" x="205" y="${y+5}" width="${w}" height="${row-10}" rx="3"/><text class="val" x="${205+w+5}" y="${y+16}">${nfmt(c)}</text>`; });
+  return `<svg class="chart" viewBox="0 0 ${W} ${H}" style="max-width:580px"><title>Compositions left after each rule</title>${s}</svg>`; }
+function lineChart(series, opts={}){
+  const names=Object.keys(series); const all=names.flatMap(n=>series[n]); if(!all.length) return '<p class="muted small">no data yet</p>';
+  const tr = opts.log ? (v=>Math.log10(Math.max(v,1e-9))) : (v=>v);
+  const xs=all.map(p=>p[0]), ys=all.map(p=>tr(p[1])).filter(Number.isFinite);
+  let xl=Math.min(...xs), xh=Math.max(...xs), yl=Math.min(...ys), yh=Math.max(...ys); if(xh-xl<1e-9){xl-=.5;xh+=.5;} if(yh-yl<1e-9){yl-=.5;yh+=.5;}
+  const W=opts.w||320,H=opts.h||170,ml=44,mr=8,mt=10,mb=30; const X=x=>ml+(x-xl)/(xh-xl)*(W-ml-mr), Y=y=>H-mb-(y-yl)/(yh-yl)*(H-mt-mb);
+  let s=`<line class="ax" x1="${ml}" y1="${H-mb}" x2="${W-mr}" y2="${H-mb}"/><line class="ax" x1="${ml}" y1="${mt}" x2="${ml}" y2="${H-mb}"/>`;
+  for(const t of ticks(xl,xh,4)) s+=`<text class="tick" x="${X(t)}" y="${H-mb+13}" text-anchor="middle">${fmt(t)}</text>`;
+  for(const t of ticks(yl,yh,4)) s+=`<line class="grid" x1="${ml}" y1="${Y(t)}" x2="${W-mr}" y2="${Y(t)}"/><text class="tick" x="${ml-5}" y="${Y(t)+4}" text-anchor="end">${opts.log?fmt(Math.pow(10,t)):fmt(t)}</text>`;
+  names.forEach((n,k)=>{ const pts=series[n].filter(p=>Number.isFinite(tr(p[1]))).map(p=>`${X(p[0]).toFixed(1)},${Y(tr(p[1])).toFixed(1)}`).join(' '); s+=`<polyline class="s${k%5}" points="${pts}"/><text class="leg s${k%5}t" x="${ml+8}" y="${mt+12+13*k}">${esc(n)}</text>`; });
+  s+=`<text class="lab" x="${(ml+W-mr)/2}" y="${H-3}" text-anchor="middle">${esc(opts.xlabel||'')}</text>`;
+  return `<svg class="mini" viewBox="0 0 ${W} ${H}" role="img"><title>${esc(opts.title||'')}</title>${s}</svg>`;
 }
-function dataStatus(){ const d=S.data; if(!d) return '…'; if(!d.available) return 'not loaded'; return d.skipped&&Object.keys(d.skipped).length ? `${d.kept} of ${d.rows} usable` : `${d.rows.toLocaleString()} materials`; }
+
+/* ═══════════════════════════ built-in 3D cell viewer (no dependency) ═══════════════════════════ */
+function fromParameters(a,b,c,al,be,ga){ const d=Math.PI/180, ca=Math.cos(al*d), cb=Math.cos(be*d), cg=Math.cos(ga*d), sg=Math.sin(ga*d);
+  const cx=c*cb, cy=c*(ca-cb*cg)/sg, cz=Math.sqrt(Math.max(0,c*c-cx*cx-cy*cy)); return [[a,0,0],[b*cg,b*sg,0],[cx,cy,cz]]; }
+function latticeMatrix(spec, a){ const kind=(spec&&spec.lattice)||'cubic';
+  if(kind==='cubic') return [[a,0,0],[0,a,0],[0,0,a]];
+  if(kind==='fcc_primitive'){ const e=a/Math.SQRT2; return fromParameters(e,e,e,60,60,60); }
+  if(kind==='bcc_primitive'){ const e=a*Math.sqrt(3)/2; return fromParameters(e,e,e,109.4712206,109.4712206,109.4712206); }
+  const sc=a/(+spec.a||a); return fromParameters(+spec.a*sc,+spec.b*sc,+spec.c*sc,+spec.alpha,+spec.beta,+spec.gamma); }
+function fracToCart(f,M){ return [f[0]*M[0][0]+f[1]*M[1][0]+f[2]*M[2][0], f[0]*M[0][1]+f[1]*M[1][1]+f[2]*M[2][1], f[0]*M[0][2]+f[1]*M[1][2]+f[2]*M[2][2]]; }
+function buildStruct(names, fracs, M, groups){ return {names, frac:fracs, M, groups: groups||names.map(()=>null)}; }
+function rowStructure(row){ const sites=S.fam.sites; const M=latticeMatrix(S.fam.lattice, row.a); return buildStruct(sites.map(s=>row.e[s.group]), sites.map(s=>s.frac), M, sites.map(s=>s.group)); }
+/* candidates are drawn on the prototype of the family the search ran in, even after the page moved to another */
+function candStructure(c){ const F=S.search.fam||S.fam; const sites=F.sites; const M=latticeMatrix(F.lattice, c.lattice_a); return buildStruct(sites.map(s=>c.elements[s.group]), sites.map(s=>s.frac), M, sites.map(s=>s.group)); }
+function protoStructure(){ const sites=S.fam.sites; const el={}; for(const [g,grp] of Object.entries(S.fam.groups)) el[g]=grp.sample.find(e=>!S.ui.exclude.has(e))||grp.sample[0]; const a=(S.fam.lattice&&S.fam.lattice.reference_a)||4; const M=latticeMatrix(S.fam.lattice, a); return buildStruct(sites.map(s=>el[s.group]), sites.map(s=>s.frac), M, sites.map(s=>s.group)); }
+function fromChemiscope(ds, i){ const st=ds.structures[i]; const M=[st.cell.slice(0,3), st.cell.slice(3,6), st.cell.slice(6,9)]; const cart=st.names.map((_,k)=>[st.x[k],st.y[k],st.z[k]]); return {names:st.names, cart, M, groups:st.names.map(()=>null)}; }
+function expandCell(st){ const eps=1e-3, atoms=[];
+  const cart = st.cart ? st.cart : st.frac.map(f=>fracToCart(f, st.M));
+  const frac = st.frac ? st.frac : null;
+  st.names.forEach((n,i)=>{ const f = frac ? frac[i] : null; const shifts=[[0,0,0]];
+    if(f){ const opts=f.map(x=>{ const o=[0]; if(Math.abs(x)<eps) o.push(1); if(Math.abs(x-1)<eps) o.push(-1); return o; });
+      shifts.length=0; for(const a of opts[0]) for(const b of opts[1]) for(const c of opts[2]) shifts.push([a,b,c]); }
+    for(const sh of shifts){ const d=fracToCart(sh, st.M); atoms.push({n, g:st.groups[i], i, p:[cart[i][0]+d[0], cart[i][1]+d[1], cart[i][2]+d[2]]}); } });
+  return atoms; }
+function bondsFor(atoms){ const out=[]; let dmin=Infinity; const D=[];
+  for(let i=0;i<atoms.length;i++) for(let j=i+1;j<atoms.length;j++){ const a=atoms[i].p,b=atoms[j].p; const d=Math.hypot(a[0]-b[0],a[1]-b[1],a[2]-b[2]); if(atoms[i].n!==atoms[j].n || atoms[i].g!==atoms[j].g){ D.push([i,j,d]); if(d<dmin) dmin=d; } }
+  for(const [i,j,d] of D) if(d<=1.3*dmin+1e-6) out.push([i,j]); return out; }
+function project3d(p, yaw, pitch){ const cy=Math.cos(yaw), sy=Math.sin(yaw), cp=Math.cos(pitch), sp=Math.sin(pitch);
+  const x1=p[0]*cy+p[2]*sy, z1=-p[0]*sy+p[2]*cy; const y2=p[1]*cp-z1*sp, z2=p[1]*sp+z1*cp; return [x1,y2,z2]; }
+function miniCell(st, o={}){
+  const size=o.size||150, yaw=o.yaw??-0.55, pitch=o.pitch??0.35; const atoms=expandCell(st); const bonds=bondsFor(atoms);
+  const corners=[]; for(const a of [0,1]) for(const b of [0,1]) for(const c of [0,1]) corners.push(fracToCart([a,b,c], st.M));
+  const edges=[]; for(let i=0;i<8;i++) for(let j=i+1;j<8;j++){ let diff=0; for(const k of [0,1,2]) if(((i>>(2-k))&1)!==((j>>(2-k))&1)) diff++; if(diff===1) edges.push([i,j]); }
+  const centre=[0,1,2].map(k=>corners.reduce((s,c)=>s+c[k],0)/8);
+  const P=p=>project3d([p[0]-centre[0],p[1]-centre[1],p[2]-centre[2]], yaw, pitch);
+  const pc=corners.map(P), pa=atoms.map(a=>Object.assign({q:P(a.p)}, a));
+  // ball-and-stick: compressed radius scale (Å) so large cations do not swamp the anions
+  const radA=n=>0.18+0.16*(RADII[n]||1.4);
+  const ext=Math.max(...pc.flatMap(q=>[Math.abs(q[0]),Math.abs(q[1])]), ...pa.flatMap(a=>[Math.abs(a.q[0])+radA(a.n),Math.abs(a.q[1])+radA(a.n)]))*1.08||1;
+  const sc=size/2/ext, cx=size/2, cy=size/2; const X=q=>cx+q[0]*sc, Y=q=>cy-q[1]*sc;
+  let s=`<svg viewBox="0 0 ${size} ${size}"><title>unit cell of ${esc(o.title||'')}</title>`;
+  for(const [i,j] of edges) s+=`<line x1="${X(pc[i])}" y1="${Y(pc[i])}" x2="${X(pc[j])}" y2="${Y(pc[j])}" stroke="var(--axis)" stroke-width="1"/>`;
+  const col=n=>CPK[n]||'#999999'; const rad=n=>radA(n)*sc;
+  const items=[]; for(const [i,j] of bonds){ const a=pa[i],b=pa[j]; const m=[(a.q[0]+b.q[0])/2,(a.q[1]+b.q[1])/2,(a.q[2]+b.q[2])/2];
+    items.push({z:(a.q[2]+m[2])/2, h:`<line x1="${X(a.q)}" y1="${Y(a.q)}" x2="${X(m)}" y2="${Y(m)}" stroke="${col(a.n)}" stroke-width="2.2" stroke-linecap="round"/>`});
+    items.push({z:(b.q[2]+m[2])/2, h:`<line x1="${X(b.q)}" y1="${Y(b.q)}" x2="${X(m)}" y2="${Y(m)}" stroke="${col(b.n)}" stroke-width="2.2" stroke-linecap="round"/>`}); }
+  for(const a of pa){ const r=rad(a.n); items.push({z:a.q[2], h:`<circle cx="${X(a.q)}" cy="${Y(a.q)}" r="${r}" fill="${col(a.n)}" stroke="rgba(0,0,0,.35)" stroke-width="1"><title>${esc(a.n)}${a.g?' (site '+esc(a.g)+')':''}</title></circle>`+
+    `<circle cx="${X(a.q)-r*.35}" cy="${Y(a.q)-r*.35}" r="${r*.32}" fill="#fff" opacity=".45" style="pointer-events:none"/>`+
+    (o.labels && r>=9 ? `<text x="${X(a.q)}" y="${Y(a.q)+3.5}" text-anchor="middle" font-size="10" font-weight="700" fill="#111" stroke="#fff" stroke-width="2.5" paint-order="stroke" style="pointer-events:none">${esc(a.n)}</text>` : '')}); }
+  items.sort((p,q)=>p.z-q.z); s+=items.map(i=>i.h).join('')+'</svg>'; return s;
+}
+function mountCell(el, st, opts={}){ if(!el) return; const key=el.id; const v=S.view3d[key]||{yaw:-0.55,pitch:0.35}; v.st=st; v.opts=opts; S.view3d[key]=v;
+  const draw=()=>{ el.innerHTML=miniCell(st, Object.assign({size: el.clientWidth||150, yaw:v.yaw, pitch:v.pitch}, opts)); };
+  draw(); if(el.dataset.bound) return; el.dataset.bound='1';
+  let drag=null; el.addEventListener('pointerdown', e=>{ drag=[e.clientX,e.clientY,v.yaw,v.pitch]; el.setPointerCapture(e.pointerId); });
+  el.addEventListener('pointermove', e=>{ if(!drag) return; v.yaw=drag[2]+(e.clientX-drag[0])*0.012; v.pitch=Math.max(-1.4,Math.min(1.4,drag[3]+(e.clientY-drag[1])*0.012)); S.view3d[key].st && (el.innerHTML=miniCell(S.view3d[key].st, Object.assign({size: el.clientWidth||150, yaw:v.yaw, pitch:v.pitch}, S.view3d[key].opts))); });
+  el.addEventListener('pointerup', ()=>drag=null); el.addEventListener('pointercancel', ()=>drag=null);
+  el.addEventListener('dblclick', ()=>{ v.spin=!v.spin; const step=()=>{ if(!v.spin||!document.body.contains(el)) return; v.yaw+=0.02; el.innerHTML=miniCell(S.view3d[key].st, Object.assign({size: el.clientWidth||150, yaw:v.yaw, pitch:v.pitch}, S.view3d[key].opts)); requestAnimationFrame(step); }; if(v.spin) requestAnimationFrame(step); });
+}
+function mountAll3d(){ document.querySelectorAll('.cell3d[data-key]').forEach(el=>{ const st=S.cells[el.dataset.key]; if(st) mountCell(el, st, {title: el.dataset.title||'', labels: el.classList.contains('big')}); }); }
+
+/* ═══════════════════════════ panels ═══════════════════════════ */
+function render(){
+  if(S.fam && !S.ev){ S.ev = evaluateSpace(); S.prev = {rows:S.ev.rows.length, alive:S.ev.alive.length, top:S.ev.ranked[0]?S.ev.ranked[0][1].f:null, bad:0}; }
+  const P=$('panel'); const f={data:panelData, model:panelModel, family:panelFamily, rules:panelRules, targets:panelTargets, search:panelSearch, candidates:panelCandidates}[S.panel];
+  const b=BLOCKS.find(x=>x.id===S.panel); const n=BLOCKS.indexOf(b)+1;
+  P.dataset.block=S.panel;
+  P.innerHTML = `<div class="card"><div class="eyebrow">Block ${n} of 7 · ${esc(b.name)}</div><h2>${esc(b.name)}</h2><p class="purpose">${esc(b.purpose)}</p>
+    <div class="plain beginner-only"><b>In plain words.</b> ${esc(b.plain)}</div>${ioStrip(S.panel)}${f?f():''}${behind(S.panel)}</div>`;
+  document.querySelectorAll('.node').forEach(nd=>nd.classList.toggle('sel', nd.id==='node-'+S.panel));
+  if(!S.ev && S.fam) recompute(null, null); else { statusAll(); updateEdges(); renderLive(); }
+  renderLegend(); mountAll3d();
+}
+function ioStrip(block){
+  const d=S.data, m=S.state.model, ev=S.ev, props=m.properties, fc=foundCands();
+  const IO = {
+    data: ()=>[ S.dataOwn&&d ? `your table · ${nfmt(d.rows)} rows` : (d&&d.available ? `Perov-5 table · ${nfmt(d.rows)} rows` : 'a table + CIF structures'),
+                'read the table → parse each CIF → re-order atoms onto the family prototype → turn each crystal into a feature vector  (meidnet.data.load_records)',
+                d&&d.available ? `${nfmt(d.kept)} usable materials · ${props.length} properties` : 'usable materials + properties' ],
+    model: ()=>[ `${nfmt(d&&d.kept)} materials with ${props.length} properties`, 'dual autoencoder: crystal ⇄ shared latent space ⇄ properties, pulled together by contrastive alignment  (meidnet.train.fit)',
+                 `a model that predicts ${props.map(p=>label(p.column)).join(', ')}` ],
+    family: ()=>[ `${S.fam?S.fam.name:'family'}.yaml` + (S.fam&&S.fam.variant?` · variant ${S.fam.variant}`:''), 'prototype sites × allowed elements per site − excluded elements  (meidnet.family.load_family)', ev?`${nfmt(ev.rows.length)} possible compositions`:'possible compositions' ],
+    rules: ()=>[ ev?`${nfmt(ev.rows.length)} compositions`:'compositions', `${activeRules().length} hard rules, applied in order; each has a measured value and an allowed window  (meidnet.constraints.evaluate)`, ev?`${nfmt(ev.alive.length)} pass every rule`:'passing compositions' ],
+    targets: ()=>[ ev?`${nfmt(ev.alive.length)} passing compositions + the model's predictions`:'passing compositions', 'score = Σ weight × distance(predicted, target) per objective; lowest first', ev?`top ${ev.ranked.length} ranked compositions`:'ranked list' ],
+    search: ()=>[ 'targets + family + rules + model', 'start at the latent point of the targets → gradient descent with soft terms → decode elements → apply the rules → rank, dedupe, save  (meidnet.generate.Designer)', `${fc.length} candidates found` ],
+    candidates: ()=>[ `${fc.length} saved candidates`, 're-check each one against the rules as they are now; compare predicted values with the targets and the training range', fc.length?`${fc.filter(candStillPasses).length} still valid under the current rules`:'—' ],
+  };
+  const [i,l,o]=IO[block](); return `<div class="io beginner-only"><div><b>Input</b>${esc(i)}</div><div class="arr">➜</div><div><b>Logic</b>${esc(l)}</div><div class="arr">➜</div><div><b>Output</b>${esc(o)}</div></div>`;
+}
+function behind(block){
+  const y=behindYaml(block), p=behindPython(block);
+  return `<details class="behind"><summary>Behind the scenes: the YAML and Python of this block</summary><div class="tabs"><button class="on" onclick="behindTab(this,'y')">meidnet.yaml</button><button onclick="behindTab(this,'p')">Python</button><button onclick="openYaml()">✎ edit all of it as text</button></div><pre data-tab="y">${esc(y)}</pre><pre data-tab="p" hidden>${esc(p)}</pre></details>`;
+}
+function behindTab(btn, which){ const d=btn.closest('.behind'); d.querySelectorAll('.tabs button').forEach(b=>b.classList.toggle('on', b===btn)); d.querySelectorAll('pre').forEach(p=>p.hidden = p.dataset.tab!==which); }
+function behindYaml(block){
+  const g=generationPayload(); const m=S.state.model;
+  switch(block){
+    case 'data': return S.dataOwn&&S.map ? yamlDump({data:{table:(S.state.session&&S.state.session.source)||'materials.csv', id_column:S.map.id_column, cif_column:S.map.source==='column'?S.map.cif_column:null, structures_dir:S.map.source==='files'?'structures':undefined, properties:S.map.properties.map(p=>({column:p.column, unit:p.unit||''})), max_sites:S.map.max_sites, align_to_prototype:S.map.align, prototype_tolerance:S.map.tol}}) : yamlDump({data:{table:'data/perov5/train.csv', id_column:'material_id', cif_column:'cif', properties:m.properties.map(p=>({column:p.column, label:p.label, unit:p.unit})), align_to_prototype:false}});
+    case 'model': return yamlDump({model:{latent_dim:128}, training:{epochs: S.train&&S.train.progress.epochs||200, batch_size:16, contrastive_weight:5.0, device:'auto'}});
+    case 'family': return yamlDump({generation:{family:g.family, variant:g.variant, exclude_elements:g.exclude_elements}});
+    case 'rules': return yamlDump({generation:{overrides:g.overrides, extra_constraints:g.extra_constraints}});
+    case 'targets': return yamlDump({generation:{objectives:g.objectives, targets:g.targets}});
+    case 'search': return yamlDump({generation:{per_target:g.per_target, population:g.population, rounds:g.rounds, steps:g.steps, seed:g.seed}});
+    default: return '# candidates are written by `meidnet generate` to runs/<name>/generation/ (CIFs + candidates.csv + generation.json)';
+  }
+}
+function behindPython(block){
+  const g=generationPayload(); const tv=g.targets[0]||{};
+  switch(block){
+    case 'data': return `from meidnet.config import load_config\nfrom meidnet.pipeline import check\ncfg = load_config("meidnet.yaml")\ninfo = check(cfg)              # → check_report.html, info["records"]`;
+    case 'model': return `from meidnet.pipeline import train\nfrom meidnet.checkpoint import load_checkpoint\ntrain(cfg, epochs=${S.train&&S.train.progress.epochs||200})          # → model.pt, training_report.html\nlm = load_checkpoint("runs/${S.state.config.name||'my_run'}/model.pt")`;
+    case 'family': return `from meidnet.family import load_family\nfam = load_family("${g.family}", variant=${g.variant?'"'+g.variant+'"':'None'},\n                  exclude=${pyLiteral(g.exclude_elements)})\nprint(fam.describe())`;
+    case 'rules': return `from meidnet.constraints import build_candidate, evaluate\nfam = load_family("${g.family}", variant=${g.variant?'"'+g.variant+'"':'None'},\n                  overrides=${pyLiteral(g.overrides)})\ncand = evaluate(build_candidate(fam, ${pyLiteral(exampleElements())}), fam.constraints)\nprint(cand.passed, [r.to_dict() for r in cand.results])`;
+    case 'targets': return `from meidnet.designspace import enumerate_space\nspace = enumerate_space(fam, lm)     # every composition: rule values + predictions\n# rank by distance to ${pyLiteral(tv)} using the objectives' select_weight`;
+    case 'search': return `from meidnet.config import GenerationSection\nfrom meidnet.generate import Designer\ng = GenerationSection(\n${Object.entries({family:g.family, variant:g.variant, objectives:g.objectives, targets:g.targets, per_target:g.per_target, population:g.population, rounds:g.rounds, steps:g.steps}).map(([k,v])=>`    ${k}=${pyLiteral(v)},`).join('\n')}\n)\nres = Designer(lm, fam, g).run("runs/out")`;
+    default: return `for c in res.saved:\n    print(c.formula, c.predictions, [r["name"] for r in c.constraint_results if r["passed"]])`;
+  }
+}
+function exampleElements(){ const r=S.ev&&S.ev.alive[0]||S.fam.space.rows[0]; return r?r.e:{}; }
+/* a JS value written as a Python literal (None/True/False, dicts, lists) for the "behind the scenes" snippets */
+function pyLiteral(v){ if(v===null||v===undefined) return 'None'; if(v===true) return 'True'; if(v===false) return 'False';
+  if(typeof v==='number') return Number.isFinite(v)?String(v):'None'; if(typeof v==='string') return JSON.stringify(v);
+  if(Array.isArray(v)) return '['+v.map(pyLiteral).join(', ')+']';
+  return '{'+Object.entries(v).map(([k,x])=>JSON.stringify(k)+': '+pyLiteral(x)).join(', ')+'}'; }
+
+/* ── Data ── */
 function panelData(){
-  const d=S.data; let b=`<div class="card"><h2>Data</h2>`;
+  const d=S.data; let b='';
+  b+=`<div class="card" style="border-top:none"><h3>${S.dataOwn?'Your data':'Data behind the current model'}</h3>`;
   if(!d) b+=`<p class="muted">reading the data…</p>`;
   else if(!d.available) b+=`<p>${esc(d.note)}</p>`;
-  else { b+=`<div class="kpi"><div><b>${d.rows.toLocaleString()}</b><span>rows</span></div><div><b>${d.kept.toLocaleString()}</b><span>usable</span></div><div><b>${Object.values(d.skipped||{}).reduce((a,c)=>a+c,0)}</b><span>skipped</span></div></div>`;
-    if(d.skipped && Object.keys(d.skipped).length){ b+='<table><tr><th>Skipped because</th><th>rows</th><th>e.g.</th></tr>'; for(const [k,v] of Object.entries(d.skipped)) b+=`<tr><td>${esc(k)}</td><td>${v}</td><td class="muted">${esc((d.examples&&d.examples[k]||[]).join(', '))}</td></tr>`; b+='</table>'; }
-    for(const [col,svg] of Object.entries(d.charts||{})) b+=`<h3>${esc(label(col))}</h3>${svg}`; }
-  b+=`<div class="help">MEIDNet can only design for property values it has seen. The dashed targets you set later are drawn on these distributions so you can tell interpolation from extrapolation.</div></div>`;
+  else { const skipped=Object.values(d.skipped||{}).reduce((a,c)=>a+c,0);
+    b+=`<p class="small muted">${esc(d.source||'')}</p><div class="kpi"><div><b>${nfmt(d.rows)}</b><span><i></i>rows</span></div><div><b>${nfmt(d.kept)}</b><span><i></i>usable</span></div><div><b>${nfmt(skipped)}</b><span><i></i>skipped</span></div>${d.aligned!==undefined?`<div><b>${nfmt(d.aligned)}</b><span><i></i>aligned to prototype</span></div>`:''}</div>`;
+    if(d.skipped && Object.keys(d.skipped).length){ b+='<table><tr><th>Skipped because</th><th>rows</th><th>e.g.</th></tr>'; for(const [k,v] of Object.entries(d.skipped)) b+=`<tr><td>${esc(k)}</td><td>${v}</td><td class="muted">${esc((d.examples&&d.examples[k]||[]).join(', '))}</td></tr>`; b+='</table>';
+      b+=`<div class="help">“does not match the prototype” = atoms sit too far from the ideal sites (distorted cell). Raise the tolerance in the mapping form, or untick “align to prototype” to train on atoms in file order.</div>`; }
+    const charts=Object.entries(d.charts||{}).filter(([k])=>!['elements','skipped'].includes(k));
+    if(charts.length){ b+='<div class="loss">'; for(const [col,svg] of charts) b+=`<div><h4>${esc(label(col)||col)}</h4>${svg}${d.stats&&d.stats[col]?`<p class="small muted">min ${fmt(d.stats[col].min)} · median ${fmt(d.stats[col].median)} · max ${fmt(d.stats[col].max)}</p>`:''}</div>`; b+='</div>'; }
+    if(d.charts&&d.charts.elements) b+=`<h4>Elements present</h4>${d.charts.elements}`;
+    if(!STATIC) b+=`<p><button onclick="openExplore('data')">🧊 See these structures in 3D</button></p>`; }
+  b+=`<div class="help">MEIDNet can only design for property values it has seen. Targets you set later are drawn on these distributions, so you can tell interpolation from extrapolation.</div></div>`;
+  b+=byodCard();
   return b;
 }
+function byodCard(){
+  if(STATIC) return `<div class="card byod"><h3>Bring your own data</h3><p class="muted">Uploading and training need the live Studio: <code>pip install meidnet</code> then <code>meidnet studio</code> — or the hosted Studio.</p></div>`;
+  const lim=S.state.limits||{}; const ses=S.state.session||{};
+  let b=`<div class="card byod"><h3>Bring your own data (adapter)</h3>
+  <p class="small">A <b>table</b> (CSV / Excel / JSON) with one row per material — an id column, numeric property columns — and the <b>structures</b> either as a column of CIF text or as a zip of <code>&lt;id&gt;.cif</code> files.${lim.rows?` On this shared server: up to ${nfmt(lim.rows)} rows and ${lim.upload_mb} MB.`:''}</p>
+  <div class="row"><input type="file" id="upl" multiple accept=".csv,.xlsx,.xls,.json,.parquet,.zip,.cif"><button class="primary" onclick="uploadFiles()">1 · Upload</button><span id="upl-note" class="small muted">${ses.has_upload?`uploaded: ${esc(ses.source)} (${nfmt(ses.n_rows)} rows${ses.n_cifs?', '+ses.n_cifs+' CIF files':''})`:''}</span></div>`;
+  if(S.upload) b+=mappingForm();
+  else if(ses.has_upload && !S.upload) b+=`<p class="small muted">Re-upload to change the column mapping.</p>`;
+  if(S.dataOwn && ses.checked) b+=`<div class="verdict good">✅ Your data is checked and mapped. Next: <button class="primary" onclick="show('model')">train a model on it → Model</button> <button class="ghost" onclick="resetSession()">start over</button></div>`;
+  b+=`<div class="help beginner-only">An <b>adapter</b> is just the mapping between your column names and what MEIDNet expects (id, structure, properties). Nothing in your files is changed.</div></div>`;
+  return b;
+}
+function firstVariant(fam){ const f=S.state.families[fam]; return f&&f.variants ? (Object.keys(f.variants)[0]||null) : null; }
+function mappingForm(){
+  const u=S.upload, m=S.map, fams=S.state.families, lim=S.state.limits||{};
+  const sel=(id,opts,val,extra='')=>`<select onchange="${id}" ${extra}>${opts.map(o=>`<option value="${esc(o)}" ${o===val?'selected':''}>${esc(o||'—')}</option>`).join('')}</select>`;
+  let b=`<div class="map-form"><h4>2 · Map the columns</h4><p class="small muted">${nfmt(u.rows)} rows · columns: ${u.columns.map(c=>`<code>${esc(c)}</code>`).join(' ')}${u.truncated?' <span class="flag">(truncated to the server limit)</span>':''}</p>
+  <div class="params"><div class="param"><label>id column</label>${sel("S.map.id_column=this.value", u.columns, m.id_column)}</div>
+  <div class="param"><label>structures come from</label><label class="small"><input type="radio" name="src" ${m.source==='column'?'checked':''} onchange="S.map.source='column';render()"> a column of CIF text</label><br><label class="small"><input type="radio" name="src" ${m.source==='files'?'checked':''} onchange="S.map.source='files';render()" ${u.n_cifs?'':'disabled'}> uploaded CIF files (${u.n_cifs})</label></div>
+  ${m.source==='column'?`<div class="param"><label>CIF column</label>${sel("S.map.cif_column=this.value", u.columns, m.cif_column)}</div>`:''}
+  <div class="param"><label>family</label>${sel("S.map.family=this.value;S.map.variant=firstVariant(this.value);render()", Object.keys(fams), m.family)}</div>
+  ${Object.keys((fams[m.family]||{}).variants||{}).length?`<div class="param"><label>variant</label>${sel("S.map.variant=this.value", Object.keys(fams[m.family].variants), m.variant||Object.keys(fams[m.family].variants)[0])}</div>`:''}
+  <div class="param"><label>max atoms per cell</label><input type="number" min="1" max="${lim.max_sites||200}" value="${m.max_sites}" onchange="S.map.max_sites=+this.value"></div>
+  <div class="param"><label>align to prototype</label><input type="checkbox" ${m.align?'checked':''} onchange="S.map.align=this.checked"> <span class="small muted">needed for generation</span></div>
+  <div class="param"><label>prototype tolerance</label><input type="number" step="0.01" min="0.02" max="0.5" value="${m.tol}" onchange="S.map.tol=+this.value"></div></div>
+  <h4>Property columns</h4>`;
+  m.properties.forEach((p,i)=>{ b+=`<div class="pr">${sel(`S.map.properties[${i}].column=this.value`, u.columns, p.column)}<input type="text" placeholder="unit (eV, eV/atom…)" value="${esc(p.unit||'')}" onchange="S.map.properties[${i}].unit=this.value" style="width:130px"><input type="text" placeholder="label (optional)" value="${esc(p.label||'')}" onchange="S.map.properties[${i}].label=this.value" style="width:160px"><button onclick="S.map.properties.splice(${i},1);render()">remove</button></div>`; });
+  b+=`<p><button onclick="S.map.properties.push({column:S.upload.columns[0],unit:'',label:''});render()">+ add a property</button> <button class="primary" onclick="checkData()">3 · Check my data</button> <span id="chk-note" class="small muted"></span></p></div>`;
+  return b;
+}
+async function uploadFiles(){
+  const inp=$('upl'); const files=[...(inp.files||[])]; if(!files.length){ $('upl-note').textContent='choose a table (and optionally a zip of CIFs) first'; return; }
+  const lim=(S.state.limits&&S.state.limits.upload_mb)||4096; const total=files.reduce((a,f)=>a+f.size,0);
+  if(total>lim*1024*1024){ $('upl-note').innerHTML=`<span class="fail">too large: ${(total/1e6).toFixed(1)} MB (limit ${lim} MB)</span>`; return; }
+  $('upl-note').textContent='uploading…';
+  try{
+    const payload=[]; for(const f of files){ const b64=await new Promise((res,rej)=>{ const r=new FileReader(); r.onload=()=>res(String(r.result).split(',')[1]||''); r.onerror=rej; r.readAsDataURL(f); }); payload.push({name:f.name, b64}); }
+    const hadOwn=S.state.model.own;
+    const resp=await api('/api/data/upload', {files:payload}); S.upload=resp;
+    const fam0=S.state.families[S.ui.family] ? S.ui.family : Object.keys(S.state.families)[0];   // a built-in family to align to
+    S.map={id_column:resp.suggest.id_column, source: resp.suggest.cif_column?'column':(resp.n_cifs?'files':'column'), cif_column:resp.suggest.cif_column||resp.columns[0], properties:(resp.suggest.properties.slice(0,2).length?resp.suggest.properties.slice(0,2):[resp.columns[0]]).map(c=>({column:c,unit:'',label:''})), family:fam0, variant:(fam0===S.ui.family&&S.ui.variant)||firstVariant(fam0), max_sites:20, align:true, tol:0.15};
+    await refreshState(); await afterDataChange(hadOwn);
+    renderChain([{block:'data', text:`uploaded ${files.map(f=>f.name).join(', ')} — ${nfmt(resp.rows)} rows, ${resp.columns.length} columns`}]); logFlow([{block:'data', text:`uploaded ${nfmt(resp.rows)} rows`}]); nodeState('data','changed'); render();
+  }catch(e){ $('upl-note').innerHTML=`<span class="fail">${esc(e.message)}</span>`; }
+}
+/* new data replaces the tab's trained model on the server: bring the blocks back to the published model */
+async function afterDataChange(hadOwn){ S.train=null; if(hadOwn && !S.state.model.own) await afterModelChange('New data: the blocks use the published model until you train again'); }
+async function checkData(){
+  const m=S.map; $('chk-note').textContent='checking every row… (parsing CIFs takes a moment)';
+  try{
+    const hadOwn=S.state.model.own;
+    const resp=await api('/api/data/check', {id_column:m.id_column, cif_column:m.source==='column'?m.cif_column:null, properties:m.properties, family:m.family, variant:m.variant||null, max_sites:m.max_sites, align_to_prototype:m.align, prototype_tolerance:m.tol});
+    S.data=resp; S.dataOwn=true; await refreshState(); await afterDataChange(hadOwn);
+    const skipped=Object.values(resp.skipped||{}).reduce((a,c)=>a+c,0);
+    renderChain([{block:'data', text:`checked: ${nfmt(resp.kept)} of ${nfmt(resp.rows)} rows usable${skipped?' ('+nfmt(skipped)+' skipped)':''}`},{block:'model', text:'ready to train on your data'}]); logFlow([{block:'data', text:`checked ${nfmt(resp.kept)}/${nfmt(resp.rows)}`}]);
+    status('data', dataStatus()); nodeState('data', resp.kept? (resp.kept<200?'warn':'ok') : 'error'); flowFrom('data'); updateEdges(); render();
+  }catch(e){ $('chk-note').innerHTML=`<span class="fail">${esc(e.message)}</span>`; }
+}
+async function resetSession(){ if(!confirm('Remove your uploaded data and trained model from this session?')) return;
+  try{ const r=await api('/api/session/reset',{}); if(r && r.ok===false){ renderChain([{block:'data', text:r.error}]); return; } }catch(e){ renderChain([{block:'data', text:e.message}]); return; }
+  location.reload(); }
+
+/* ── Model ── */
 function panelModel(){
-  const m=S.state.model; let b=`<div class="card"><h2>Model</h2><pre>${esc(m.description)}</pre>`;
-  if(m.note) b+=`<p class="muted">${esc(m.note)}</p>`;
+  const m=S.state.model, ses=S.state.session||{}; let b=`<div class="card" style="border-top:none"><h3>${m.own?'Your model':'The published model'}</h3><pre>${esc(m.description)}</pre>`;
+  if(m.note) b+=`<p class="muted small">${esc(m.note)}</p>`;
   b+=`<table><tr><th>Property</th><th>unit</th><th>training range</th>${m.validation?'<th>validation MAE</th>':''}</tr>`;
   for(const p of m.properties){ const r=S.state.ranges[p.column]; b+=`<tr><td>${esc(p.label)}</td><td>${esc(p.unit)}</td><td>${r?fmt(r[0])+' – '+fmt(r[1]):'–'}</td>${m.validation?`<td>${fmt((m.validation.mae||{})[p.column])}</td>`:''}</tr>`; }
-  b+=`</table><div class="help">Two directions are used in this Studio. <b>Structure → property</b> (the encoder) scores every composition of the family instantly: that is what the live tables use. <b>Property → structure</b> (the latent search of the paper) is what the Search node runs. Both are the same network; numbers are predictions, not measurements.</div></div>`;
+  b+='</table>';
+  if(m.history&&m.history.train&&m.history.train.length>1){ const tr=m.history.train; b+=`<div class="loss"><div>${lineChart({'total loss':tr.map(r=>[r.epoch,r.total])},{log:true,xlabel:'epoch',title:'training loss'})}</div><div>${lineChart({'alignment cos(z_c,z_p)':tr.map(r=>[r.epoch,r.cosine])},{xlabel:'epoch',title:'alignment'})}</div></div>`; }
+  if(ses.has_model && !STATIC) b+=`<p class="row"><span class="small muted">use:</span><label class="small"><input type="radio" name="mdl" ${m.own?'checked':''} onclick="selectModel('own')"> your model</label><label class="small"><input type="radio" name="mdl" ${!m.own?'checked':''} onclick="selectModel('published')"> published model</label>${S.train&&S.train.report?`<a class="small" href="/files/${esc(S.train.report)}" target="_blank">training report</a>`:''}</p>`;
+  b+=`<div class="help beginner-only"><b>Two directions.</b> Structure → property (the encoder) scores every composition instantly — that is what the live tables use. Property → structure (the latent search) is what the Search block runs. Same network, numbers are predictions.</div></div>`;
+  b+=trainCard();
   return b;
 }
+function trainCard(){
+  if(STATIC) return '';
+  const ses=S.state.session||{}; const lim=S.state.limits||{};
+  if(!ses.checked) return `<div class="card byod" style="border-left-color:var(--c-model)"><h3>Train your own model</h3><p class="muted">First bring your data in the <a href="#" onclick="show('data');return false">Data block</a> (upload → map → check). Then train here.</p></div>`;
+  return `<div class="card byod" style="border-left-color:var(--c-model)"><h3>Train your own model</h3><div id="train-box">${trainBox()}</div></div>`;
+}
+function trainBox(){
+  const lim=S.state.limits||{}; const st=S.train; const d=S.data||{}; const n=d.kept||0;
+  if(S.trainOpts===undefined) S.trainOpts={epochs: Math.min(10, lim.epochs||200), batch:16};
+  const est = n*21/11356*10*S.trainOpts.epochs + 5;
+  let b=`<div class="params"><div class="param"><label>epochs</label><input type="number" min="1" max="${lim.epochs||5000}" value="${S.trainOpts.epochs}" onchange="S.trainOpts.epochs=Math.max(1,Math.min(${lim.epochs||5000},+this.value));$('train-box').innerHTML=trainBox()"></div><div class="param"><label>batch size</label><input type="number" min="2" max="64" value="${S.trainOpts.batch}" onchange="S.trainOpts.batch=+this.value"></div><div class="param"><label>rough CPU time</label><span>${est<90?est.toFixed(0)+' s':(est/60).toFixed(0)+' min'}</span></div></div>
+  <p class="small muted">${nfmt(n)} usable materials${lim.epochs?` · this server allows up to ${lim.epochs} epochs`:''}. Few epochs give a rough model quickly; 100–200 epochs are typical for real work (run locally with a GPU).</p>
+  <div class="row"><button class="primary" ${st&&st.running?'disabled':''} onclick="startTrain()">▶ Train</button><button class="danger" ${st&&st.running?'':'disabled'} onclick="stopSearch()">■ Stop</button></div>`;
+  if(st){ const p=st.progress; const frac=p.epochs?p.epoch/p.epochs:0;
+    b+=`<h4>${st.running?'Training':(st.error?'Failed':'Finished')}</h4><p class="small">epoch ${p.epoch}/${p.epochs}${p.loss!=null?' · loss '+fmt(p.loss):''} · ${st.seconds.toFixed(0)} s</p><div class="prog"><i style="width:${(100*frac).toFixed(1)}%"></i></div>`;
+    if(st.error) b+=`<div class="verdict bad">${esc(st.error)}</div>`;
+    if(p.curve&&p.curve.length>1) b+=`<div class="loss"><div>${lineChart({'total loss':p.curve.map(c=>[c[0],c[1]])},{log:true,xlabel:'epoch',title:'loss'})}</div><div>${lineChart({'alignment cos(z_c,z_p)':p.curve.map(c=>[c[0],c[2]])},{xlabel:'epoch',title:'alignment'})}</div></div>`;
+    if(p.val&&p.val.mae){ b+=`<table><tr><th>validation (epoch ${p.val.epoch})</th>${Object.keys(p.val.mae).map(k=>`<th>${esc(k)}</th>`).join('')}<th>retrieval@1</th></tr><tr><td>MAE</td>${Object.values(p.val.mae).map(v=>`<td>${fmt(v)}</td>`).join('')}<td>${(100*p.val.retrieval_top1).toFixed(0)}%</td></tr></table>`; }
+    if(st.done&&!st.error) b+=`<div class="verdict good">✅ Model ready — the blocks below now use <b>your</b> model and properties.${st.report?` <a href="/files/${esc(st.report)}" target="_blank">training report</a> · <a href="/files/${esc(st.report.replace('training_report.html','model.pt'))}" download="model.pt">download model.pt</a>`:''}</div>`; }
+  return b;
+}
+async function startTrain(){
+  try{ const r=await api('/api/train/start', {epochs:S.trainOpts.epochs, batch_size:S.trainOpts.batch}); if(!r.ok){ renderChain([{block:'model', text:(r.busy?'server busy: ':'')+r.error}]); return; }
+    S.train={running:true, progress:{epoch:0,epochs:r.epochs,curve:[]}, seconds:0, log:[]}; nodeState('model','running'); status('model','training…'); flowFrom('data'); $('train-box').innerHTML=trainBox(); pollTrain();
+  }catch(e){ renderChain([{block:'model', text:e.message}]); }
+}
+async function pollTrain(){ let st;
+  try{ st=await api('/api/train/status'); S.trainFails=0; }
+  catch(e){ S.trainFails=(S.trainFails||0)+1; status('model','reconnecting…'); setTimeout(pollTrain, Math.min(15000, 1000*2**S.trainFails)); return; }
+  S.train=st; const p=st.progress;
+  status('model', st.running?`training ${p.epoch}/${p.epochs}`:(st.error?'training failed':'your model'), st.running&&p.loss!=null?'loss '+fmt(p.loss):'');
+  nodeState('model', st.running?'running':(st.error?'error':'ok'));
+  const box=$('train-box'); if(box && !(typing() && box.contains(document.activeElement))) box.innerHTML=trainBox();
+  if(st.running) setTimeout(pollTrain, 1000);
+  else if(st.done && !st.error) await afterModelChange(`Trained your model on ${nfmt((S.data||{}).kept)} materials`);
+  else if(st.error){ renderChain([{block:'model', text:'training failed: '+lastLine(st.error)}]); }
+}
+async function afterModelChange(text){
+  await refreshState();
+  S.ui = uiFromConfig(S.state.config.generation, S.state.model.properties);
+  S.genBase = S.state.config.generation || {};
+  S.search.status=null; S.fam=null; S.ev=null; S.prev=null; S.cells={};
+  await loadFamily();
+  const v=S.state.model.validation; const mae=v&&v.mae? ' (validation MAE '+Object.entries(v.mae).map(([k,x])=>`${label(k)} ${fmt(x)}`).join(', ')+')' : '';
+  const ev=evaluateSpace(); S.ev=ev;
+  renderChain([{block:'model', text:text+mae},{block:'family', text:`${nfmt(ev.rows.length)} compositions re-scored`},{block:'rules', text:`${nfmt(ev.alive.length)} pass`},{block:'targets', text:`targets now: ${S.ui.objectives.map(o=>label(o.property)).join(', ')}`}]);
+  logFlow([{block:'model', text:text}]); S.prev={rows:ev.rows.length, alive:ev.alive.length, top:ev.ranked[0]?ev.ranked[0][1].f:null, bad:0};
+  statusAll(); updateEdges(); flowFrom('model'); render();
+}
+async function selectModel(which){ try{ await api('/api/model/select',{which}); await afterModelChange(which==='own'?'Switched to your model':'Switched to the published model'); }catch(e){ renderChain([{block:'model', text:e.message}]); } }
+
+/* ── Family ── */
 function panelFamily(){
-  const f=S.fam, fams=S.state.families; let b=`<div class="card"><h2>Family</h2><div class="row"><label>Family <select onchange="setFamily(this.value)">${Object.entries(fams).map(([k,v])=>`<option value="${k}" ${k===S.ui.family?'selected':''}>${esc(v.title)}</option>`).join('')}</select></label>`;
-  const vs=fams[S.ui.family].variants||{}; if(Object.keys(vs).length) b+=`<label>Variant <select onchange="setVariant(this.value)">${Object.entries(vs).map(([k,v])=>`<option value="${k}" ${k===S.ui.variant?'selected':''}>${esc(k)} – ${esc(v)}</option>`).join('')}</select></label>`;
-  b+=`</div><p class="muted">${esc(fams[S.ui.family].description||'')}</p>`;
-  b+=`<h3>Prototype: ${f.sites.length} sites</h3><table><tr><th>#</th><th>group</th><th>position (fractional)</th></tr>${f.sites.map((s,i)=>`<tr><td>${i+1}</td><td>${esc(s.group)}</td><td>${s.frac.map(x=>x.toFixed(2)).join(', ')}</td></tr>`).join('')}</table>`;
-  const lr=f.lattice_rule; b+=`<p class="small muted">Cell size: ${lr.rule==='bond_sum'?`a = ${lr.factor} × (${lr.groups.map(g=>'r<sub>'+esc(g)+'</sub>').join(' + ')}) from ionic radii, kept within ${lr.min}–${lr.max} Å`:'fixed'}.</p>`;
+  const f=S.fam; const inStatic=(n,v)=>!STATIC || Object.keys(STATIC.families).some(k=>k===n+'|'+(v??'') || (v===undefined && k.startsWith(n+'|')));
+  const fams=Object.assign({}, S.state.families); if(!fams[S.ui.family]) fams[S.ui.family]=famMeta(S.ui.family);   // your own family file
+  const meta=famMeta(S.ui.family);
+  let b=`<div class="row"><label>Family <select onchange="setFamily(this.value)">${Object.entries(fams).filter(([k])=>inStatic(k)).map(([k,v])=>`<option value="${esc(k)}" ${k===S.ui.family?'selected':''}>${esc(v.title)}</option>`).join('')}</select></label>`;
+  const vs=Object.entries(meta.variants||{}).filter(([k])=>inStatic(S.ui.family,k));
+  if(vs.length) b+=`<label>Variant <select onchange="setVariant(this.value)">${vs.map(([k,v])=>`<option value="${esc(k)}" ${k===S.ui.variant?'selected':''}>${esc(k)} – ${esc(v)}</option>`).join('')}</select></label>`;
+  b+=`</div><p class="muted">${esc(meta.description||'')}</p>`;
+  if(STATIC) b+=`<p class="small muted">This static demo includes the families and variants listed here; the live Studio has them all.</p>`;
+  if(S.state.model.family && S.state.model.family!==f.name) b+=`<p class="flag small">⚠ the current model was trained for the family “${esc(S.state.model.family)}”; predictions for ${esc(f.name)} are outside what it saw.</p>`;
+  S.cells['proto']=protoStructure();
+  b+=`<div class="cand" style="grid-template-columns:260px 1fr"><div class="cell3d big" data-key="proto" data-title="prototype" id="c3d-proto" style="height:260px"></div><div><h3>Prototype: ${f.sites.length} sites</h3><p class="small muted beginner-only">Drag to rotate · double-click to spin. Atoms are coloured by element (CPK colours); the box is one unit cell. Example elements shown: first allowed element of each group.</p><table><tr><th>#</th><th>site group</th><th>position (fractional)</th></tr>${f.sites.map((s,i)=>`<tr><td>${i+1}</td><td style="color:var(--accent-text)"><b>${esc(s.group)}</b></td><td>${s.frac.map(x=>x.toFixed(2)).join(', ')}</td></tr>`).join('')}</table>
+    <p class="small muted">Cell size: ${f.lattice_rule.rule==='bond_sum'?`a = ${f.lattice_rule.factor} × (${f.lattice_rule.groups.map(g=>'r<sub>'+esc(g)+'</sub>').join(' + ')}) from ionic radii, kept within ${f.lattice_rule.min}–${f.lattice_rule.max} Å`:'fixed'}.</p>
+    <p><button onclick="openExplore('space')">🧊 Explore all compositions in 3D</button></p></div></div>`;
   b+=`<h3>Elements per site group <span class="muted small">(click to exclude / include)</span></h3>`;
   for(const [g,grp] of Object.entries(f.groups)){ b+=`<h4>${esc(g)} — ${esc(grp.description)} · ${grp.slots.length} site${grp.slots.length>1?'s':''}</h4><div>`;
-    for(const el of grp.sample){ const off=S.ui.exclude.has(el); const ox=(grp.oxidation_states[el]||[]).map(q=>(q>0?'+':'')+q).join('/'); b+=`<span class="chip ${off?'off':''}" onclick="toggleEl('${el}')" title="charges ${ox}">${el}<small class="muted"> ${ox}</small></span>`; } b+='</div>'; }
-  b+=`<div class="help">The family file describes the crystal type, which elements may sit on which site, and their charges. Excluding an element here removes every composition containing it. Everything shown is read from <code>${esc(S.ui.family)}.yaml</code>; copy that file to define your own family.</div></div>`;
+    for(const el of grp.sample){ const off=S.ui.exclude.has(el); const ox=(grp.oxidation_states[el]||[]).map(q=>(q>0?'+':'')+q).join('/'); b+=`<span class="chip ${off?'off':''}" onclick="toggleEl(${jsq(el)})" title="charges ${esc(ox)}"><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:${CPK[el]||'#999'};border:1px solid var(--line);margin-right:5px;vertical-align:-1px"></span>${esc(el)}<small class="muted"> ${esc(ox)}</small></span>`; } b+='</div>'; }
+  b+=`<div class="help beginner-only">Excluding an element removes every composition containing it — watch the Family → Rules numbers change. To change which elements a family allows at all, copy <code>${esc(S.ui.family)}.yaml</code> and edit its <code>groups:</code>.</div>`;
   return b;
 }
+
+/* ── Rules ── */
 function panelRules(){
-  const ev=S.ev||evaluateSpace(); let b=`<div class="card"><h2>Rules</h2><p class="muted small">Hard rules every candidate must pass. Move a limit and watch the count change — the search uses exactly these windows.</p>`;
-  for(const c of S.fam.constraints){ const r=S.ui.rules[c.name]; const d=S.fam.space.rows.map(x=>x.d[c.name]).filter(Number.isFinite);
-    b+=`<div class="rule ${r.enabled?'':'off'}"><div class="hd"><input type="checkbox" ${r.enabled?'checked':''} onchange="toggleRule('${c.name}',this.checked)"><b>${esc(ruleTitle(c.name))}</b><span class="muted small">${(ev.perRule[c.name]??'–').toLocaleString()} of ${ev.rows.length.toLocaleString()} pass</span></div><p class="small muted">${esc(ruleText(c.name))}</p>`;
+  const ev=S.ev||evaluateSpace(); let b=`<p class="muted small">Move a limit and watch the count change — the search enforces exactly these windows.</p>`;
+  for(const c of S.fam.constraints){ const key=ruleKey(c); const r=S.ui.rules[key]; const d=S.fam.space.rows.map(x=>x.d[key]).filter(Number.isFinite);
+    b+=`<div class="rule ${r.enabled?'':'off'}"><div class="hd"><input type="checkbox" ${r.enabled?'checked':''} onchange="toggleRule(${jsq(key)},this.checked)"><b>${esc(ruleTitle(key))}</b><span class="muted small"><b style="color:var(--accent-text)">${nfmt(ev.perRule[key]??0)}</b> of ${nfmt(ev.rows.length)} pass</span></div><p class="small muted">${esc(ruleText(key))}</p>`;
     const num=Object.entries(r.params).filter(([k,v])=>typeof v==='number' && !['cutoff'].includes(k));
     if(num.length){ b+='<div class="params">'; for(const [k,v] of num){ const lo=d.length?Math.min(...d):0, hi=d.length?Math.max(...d):1; const span=(hi-lo)||1;
-      b+=`<div class="param"><label>${k}</label><input type="number" step="0.01" value="${v}" onchange="setParam('${c.name}','${k}',this.value)"><br><input type="range" min="${(lo-.2*span).toFixed(3)}" max="${(hi+.2*span).toFixed(3)}" step="0.005" value="${v}" oninput="setParam('${c.name}','${k}',this.value,true)" style="width:150px"></div>`; } b+='</div>'; }
+      b+=`<div class="param"><label>${esc(k)}</label><input type="number" step="0.01" value="${v}" onchange="setParam(${jsq(key)},${jsq(k)},this.value)"><br><input type="range" min="${(lo-.2*span).toFixed(3)}" max="${(hi+.2*span).toFixed(3)}" step="0.005" value="${v}" oninput="setParam(${jsq(key)},${jsq(k)},this.value,true)" onchange="render()" style="width:160px"></div>`; } b+='</div>'; }
     if(d.length>1 && ['tolerance_factor','octahedral_factor','bond_window','min_distance'].includes(c.name)){ const w = c.name==='bond_window'?[+r.params.low,+r.params.high] : c.name==='min_distance'?[+r.params.min,null] : [+r.params.min,+r.params.max];
-      b+=hist(d, ruleTitle(c.name), 'value over all compositions', {window:w, bins:30}); }
+      b+=hist(d, ruleTitle(key), 'value over all compositions (shaded = allowed)', {window:w, bins:30}); }
     b+='</div>'; }
-  S.ui.extraRules.forEach((r,i)=>{ b+=`<div class="rule ${r.enabled?'':'off'}"><div class="hd"><input type="checkbox" ${r.enabled?'checked':''} onchange="S.ui.extraRules[${i}].enabled=this.checked;recompute('rules','Property window ${r.enabled?'disabled':'enabled'}');render()"><b>Predicted ${esc(label(r.params.property))} window</b><button onclick="S.ui.extraRules.splice(${i},1);recompute('rules','Property window removed');render()">remove</button></div>
-    <div class="params"><div class="param"><label>property</label><select onchange="S.ui.extraRules[${i}].params.property=this.value;recompute('rules','Property window changed');render()">${S.state.model.properties.map(p=>`<option value="${p.column}" ${p.column===r.params.property?'selected':''}>${esc(p.label)}</option>`).join('')}</select></div>
+  S.ui.extraRules.forEach((r,i)=>{ b+=`<div class="rule ${r.enabled?'':'off'}"><div class="hd"><input type="checkbox" ${r.enabled?'checked':''} onchange="S.ui.extraRules[${i}].enabled=this.checked;recompute('rules','Property window ${r.enabled?'disabled':'enabled'}');render()"><b>Predicted ${esc(label(r.params.property))} window</b><span class="muted small"><b style="color:var(--accent-text)">${nfmt(ev.perRule['extra'+i]??0)}</b> pass</span><button onclick="S.ui.extraRules.splice(${i},1);recompute('rules','Property window removed');render()">remove</button></div>
+    <div class="params"><div class="param"><label>property</label><select onchange="S.ui.extraRules[${i}].params.property=this.value;recompute('rules','Property window changed');render()">${S.state.model.properties.map(p=>`<option value="${esc(p.column)}" ${p.column===r.params.property?'selected':''}>${esc(p.label)}</option>`).join('')}</select></div>
     <div class="param"><label>min</label><input type="number" step="0.01" value="${r.params.min??''}" onchange="S.ui.extraRules[${i}].params.min=this.value===''?null:+this.value;recompute('rules','Property window min');render()"></div><div class="param"><label>max</label><input type="number" step="0.01" value="${r.params.max??''}" onchange="S.ui.extraRules[${i}].params.max=this.value===''?null:+this.value;recompute('rules','Property window max');render()"></div></div></div>`; });
-  if(S.state.model.properties.length) b+=`<button onclick="S.ui.extraRules.push({enabled:true,params:{property:'${S.state.model.properties[0].column}',min:null,max:null}});recompute('rules','Added a predicted-property window');render()">+ add a predicted-property window</button>`;
-  b+=`<h3>Funnel</h3>${funnelSvg(ev.funnel)}<div class="help">Rules are evaluated in this order; each bar is how many compositions survive. The largest drop is the rule that limits this family most.</div></div>`;
+  if(S.state.model.properties.length) b+=`<button class="ghost" onclick="S.ui.extraRules.push({enabled:true,params:{property:${jsq(S.state.model.properties[0].column)},min:null,max:null}});recompute('rules','Added a predicted-property window');render()">+ add a predicted-property window</button>`;
+  b+=`<h3>Funnel</h3>${funnelSvg(ev.funnel)}<div class="help beginner-only">Rules run in this order; each bar is how many compositions survive. The biggest drop is the rule that limits this family most — relax it only if the chemistry justifies it.</div>`;
   return b;
 }
+
+/* ── Targets ── */
 function panelTargets(){
-  const ev=S.ev||evaluateSpace(); const props=S.state.model.properties; let b=`<div class="card"><h2>Targets</h2><p class="muted small">What should the material have? Each objective pulls the search; weights say how much.</p>`;
+  const ev=S.ev||evaluateSpace(); const props=S.state.model.properties; let b=`<p class="muted small">Each objective pulls the search; weights say how much. The chart and table update as you drag.</p>`;
   S.ui.objectives.forEach((o,i)=>{ const r=S.state.ranges[o.property]||[0,1]; const span=(r[1]-r[0])||1; const t=+S.ui.target[o.property];
     const vals=ev.rows.map(x=>x.p[o.property]); const okm=ev.rows.map(x=>x._ok);
     b+=`<div class="rule"><div class="hd"><b>${esc(label(o.property))}${esc(unit(o.property))}</b>${S.ui.objectives.length>1?`<button onclick="removeObjective(${i})">remove</button>`:''}</div>
-      <div class="params"><div class="param"><label>target</label><input type="number" step="0.01" value="${t}" onchange="setTarget('${o.property}',this.value)"><br><input type="range" min="${(r[0]-.2*span).toFixed(3)}" max="${(r[1]+.2*span).toFixed(3)}" step="${(span/200).toFixed(4)}" value="${t}" oninput="setTarget('${o.property}',this.value,true)" style="width:220px"></div>
-      <div class="param"><label>how to compare</label><select onchange="S.ui.objectives[${i}].loss=this.value;S.ui.objectives[${i}].select_loss=this.value;recompute('targets','Comparison for ${esc(label(o.property))}: '+this.value);render()">${['l2','l1','at_most','at_least'].map(k=>`<option value="${k}" ${k===o.loss?'selected':''}>${{l2:'as close as possible (squared)',l1:'as close as possible (absolute)',at_most:'at most the target',at_least:'at least the target'}[k]}</option>`).join('')}</select></div>
+      <div class="params"><div class="param"><label>target</label><input type="number" step="0.01" value="${t}" onchange="setTarget(${jsq(o.property)},this.value)"><br><input type="range" min="${(r[0]-.2*span).toFixed(3)}" max="${(r[1]+.2*span).toFixed(3)}" step="${(span/200).toFixed(4)}" value="${t}" oninput="setTarget(${jsq(o.property)},this.value,true)" onchange="render()" style="width:230px"></div>
+      <div class="param"><label>how to compare</label><select onchange="S.ui.objectives[${i}].loss=this.value;S.ui.objectives[${i}].select_loss=this.value;recompute('targets',${jsq('Comparison for '+label(o.property)+': ')}+this.value);render()">${['l2','l1','at_most','at_least'].map(k=>`<option value="${k}" ${k===o.loss?'selected':''}>${{l2:'as close as possible (squared)',l1:'as close as possible (absolute)',at_most:'at most the target',at_least:'at least the target'}[k]}</option>`).join('')}</select></div>
       <div class="param"><label>weight in search</label><input type="number" step="100" value="${o.weight}" onchange="S.ui.objectives[${i}].weight=+this.value"></div><div class="param"><label>weight in ranking</label><input type="number" step="0.1" value="${o.select_weight}" onchange="S.ui.objectives[${i}].select_weight=+this.value;recompute('targets','Ranking weight changed');render()"></div></div>
-      ${hist(vals, 'predicted '+label(o.property), 'predicted '+label(o.property)+unit(o.property), {marks:{target:t}, okMask:okm, bins:30})}
+      ${hist(vals, 'predicted '+label(o.property), 'predicted '+label(o.property)+unit(o.property)+' (grey = rejected by rules)', {marks:{target:t}, okMask:okm, bins:30})}
       ${(t<r[0]||t>r[1])?`<p class="flag small">⚠ ${fmt(t)} is outside the training range ${fmt(r[0])}–${fmt(r[1])}: the model would be extrapolating.</p>`:''}</div>`; });
+  const more=(S.ui.extraTargets||[]).length;
+  if(more) b+=`<p class="small muted">The search also runs ${more} more target${more>1?'s':''} (${S.ui.extraTargets.map(t=>esc(Object.entries(t).map(([k,v])=>label(k)+' '+fmt(v)).join(', '))).join(' · ')}); change ${more>1?'them':'it'} in <a href="#" onclick="openYaml();return false">✎ Edit as text</a>.</p>`;
   const unused=props.filter(p=>!S.ui.objectives.some(o=>o.property===p.column));
-  if(unused.length) b+=`<button onclick="addObjective('${unused[0].column}')">+ add objective: ${esc(unused[0].label)}</button>`;
-  if(S.ui.objectives.length>=2){ const [a,c]=S.ui.objectives; const found=(S.search.status&&S.search.status.candidates||[]).map(x=>x.formula); b+=`<h3>Where the compositions sit</h3>${scatter(ev.rows, a.property, c.property, S.ui.target, found)}<p class="small muted">blue = passes all rules, grey = rejected, ★ = found by the search. Click a point for its full checklist.</p>`; }
-  b+=`<div class="help">Grey bars/points are compositions rejected by the current rules. A target in a region with few blue compositions is hard to reach; a target outside the training range asks the model to extrapolate.</div></div>`;
+  if(unused.length) b+=`<button class="ghost" onclick="addObjective(${jsq(unused[0].column)})">+ add objective: ${esc(unused[0].label)}</button> `;
+  b+=`<button onclick="openExplore('space')">🧊 Map + 3D of all compositions</button>`;
+  if(S.ui.objectives.length>=2){ const [a,c]=S.ui.objectives; b+=`<h3>Where the compositions sit</h3>${scatter(ev.rows, a.property, c.property, S.ui.target, foundCands().map(x=>x.formula))}<p class="small muted">coloured = passes all rules, grey = rejected, ★ = found by the search, dashed = target. Click a point for its checklist and 3D cell.</p>`; }
   return b;
 }
+
+/* ── Search ── */
+function estimateSeconds(){ const s=S.ui.search; return 3 + s.rounds*(s.steps*0.0022*s.population + 0.04*s.population); }
 function panelSearch(){
-  const s=S.ui.search, st=S.search.status; const est=estimateSeconds(); let b=`<div class="card"><h2>Search (the paper's latent optimisation)</h2>`;
-  const lim=S.state.limits||{}; const cap=(k,hi)=>lim[k]?Math.min(hi,lim[k]):hi;
+  const s=S.ui.search, st=S.search.status; const lim=S.state.limits||{}; const cap=(k,hi)=>lim[k]?Math.min(hi,lim[k]):hi;
   for(const k of ['per_target','population','rounds','steps']) if(lim[k]&&s[k]>lim[k]) s[k]=lim[k];
+  const est=estimateSeconds(); let b='';
   b+=`<div class="params">${[['per_target','candidates to find',1,cap('per_target',20),1],['population','latents per round',4,cap('population',128),4],['rounds','max rounds',1,cap('rounds',50),1],['steps','steps per round',20,cap('steps',2000),20],['seed','random seed',0,99999,1]].map(([k,l,lo,hi,step])=>`<div class="param"><label>${l}</label><input type="number" min="${lo}" max="${hi}" step="${step}" value="${s[k]}" onchange="S.ui.search['${k}']=Math.max(${lo},Math.min(${hi},+this.value));render()"></div>`).join('')}</div>
-    <p class="small muted">Rough time on a laptop CPU: ≈ ${est<90?est.toFixed(0)+' s':(est/60).toFixed(0)+' min'} (GPU: several times faster). More rounds and latents find more, and more diverse, candidates.</p>`;
-  if(S.state.public) b+=`<p class="small flag">Public server: budgets are capped (≤ ${lim.rounds} rounds, ≤ ${lim.steps} steps, ≤ ${lim.population} latents) and a few searches run at a time. Install MEIDNet locally for full control and your own data.</p>`;
-  if(STATIC) b+=`<div class="verdict warn">The static demo cannot run a search. Locally: <code>pip install meidnet</code> then <code>meidnet studio</code> — the same page with this button enabled.</div>`;
+    <p class="small muted">Rough time on a CPU: ≈ ${est<90?est.toFixed(0)+' s':(est/60).toFixed(0)+' min'}. More rounds and latents find more, and more diverse, candidates.</p>`;
+  if(S.state.public) b+=`<p class="small flag">Shared server: budgets are capped (≤ ${lim.rounds} rounds, ≤ ${lim.steps} steps, ≤ ${lim.population} latents) and a few jobs run at a time. Install MEIDNet locally for full control.</p>`;
+  if(STATIC) b+=`<div class="verdict warn">The static demo cannot run a search. Use the hosted Studio, or <code>pip install meidnet</code> then <code>meidnet studio</code>.</div>`;
   b+=`<div class="row"><button class="primary" ${S.search.running||STATIC?'disabled':''} onclick="startSearch()">▶ Run search</button><button class="danger" ${S.search.running?'':'disabled'} onclick="stopSearch()">■ Stop</button><button onclick="downloadYaml()">⬇ Export meidnet.yaml</button></div>`;
   if(st){ const p=st.progress; const frac=p.steps?((p.step+1)/p.steps):0;
     b+=`<h3>${st.running?'Running':(st.error?'Failed':'Finished')}</h3><p class="small">target ${p.target}/${p.targets} · round ${p.round}/${p.rounds} · step ${p.step}/${p.steps}${p.loss!==null&&p.loss!==undefined?' · loss '+fmt(p.loss):''} · ${st.seconds.toFixed(0)} s</p><div class="prog"><i style="width:${(100*frac).toFixed(1)}%"></i></div>`;
     if(st.error) b+=`<pre>${esc(st.error)}</pre>`;
-    b+=`<details ${st.running?'open':''}><summary>log</summary><pre id="log">${esc(st.log.join('\n'))}</pre></details>`;
+    b+=`<details ${(S.logOpen??st.running)?'open':''} ontoggle="S.logOpen=this.open"><summary>log</summary><pre id="log">${esc(st.log.join('\n'))}</pre></details>`;
     if(st.report) b+=`<p><a href="/files/${esc(st.report)}" target="_blank">open the full generation report</a></p>`; }
-  b+=`<div class="help">What runs: start latents near the latent of your targets, optimise them so the decoder's output hits the targets while obeying the family's soft terms, decode compositions, keep those that pass every rule. The live tables on the right use the encoder instead (structure → property); the search can only return compositions that exist in that table, so compare the two.</div></div>`;
+  b+=`<div class="help beginner-only">What runs: start latents near the latent of your targets, optimise them so the decoded properties hit the targets while obeying the family's soft terms, decode compositions, keep those that pass every rule. The live tables on the right score compositions with the encoder instead; comparing the two is a good sanity check.</div>`;
   return b;
 }
-function estimateSeconds(){ const s=S.ui.search; return 3 + s.rounds*(s.steps*0.0022*s.population + 0.04*s.population); }
+
+/* ── Candidates ── */
 function panelCandidates(){
-  const st=S.search.status; const c=(st&&st.candidates)||[]; let b=`<div class="card"><h2>Candidates found by the search</h2>`;
-  if(!c.length) b+=`<p class="muted">None yet. Run a search from the Search node.</p>`;
-  for(const x of c){ const still=candStillPasses(x);
-    b+=`<div class="cand"><h3>${esc(x.formula)} <span class="muted small">target ${x.target_index} · round ${x.round}</span></h3><div>${Object.entries(x.elements).map(([g,e])=>`<span class="chip pin">${esc(g)} = ${esc(e)}</span>`).join('')} <span class="muted small">a = ${x.lattice_a.toFixed(3)} Å</span></div>`;
+  const st=S.search.status; const c=foundCands(); let b='';
+  if(!c.length) b+=`<p class="muted">None yet. Run a search from the Search block.</p>`;
+  else b+=`<p><button onclick="openExplore('candidates')">🧊 All candidates in 3D (map + structure)</button></p>`;
+  if(c.length && !sameFamilyAsSearch()) b+=`<p class="flag small">These candidates were found in ${esc(S.search.fam.title)}${S.search.fam.variant?' / '+esc(S.search.fam.variant):''}; the Family block now shows another family, so they are not re-checked against its rules.</p>`;
+  c.forEach((x,i)=>{ const still=candStillPasses(x); const key='cand-'+i; S.cells[key]=candStructure(x);
+    b+=`<div class="cand"><div class="cell3d" data-key="${key}" data-title="${esc(x.formula)}" id="c3d-${i}"></div><div><h3>${esc(x.formula)} <span class="muted small">target ${x.target_index} · round ${x.round}</span></h3><div>${Object.entries(x.elements).map(([g,e])=>`<span class="chip pin">${esc(g)} = ${esc(e)}</span>`).join('')} <span class="muted small">a = ${x.lattice_a.toFixed(3)} Å</span></div>`;
     for(const o of S.ui.objectives) b+=`<div class="small">${esc(label(o.property))}: predicted <b>${fmt(x.predictions[o.property])}</b> vs target ${fmt(x.target_values[o.property])}${esc(unit(o.property))}${gauge(o.property,x.predictions[o.property],x.target_values[o.property])}</div>`;
-    b+=`<ul class="chk">${x.constraint_results.map(r=>`<li><span class="${r.passed?'pass':'fail'}">${r.passed?'✓':'✗'}</span> ${esc(ruleTitle(r.name))}${r.value!==null&&r.name!=='charge_neutrality'?' = '+fmt(r.value):''}${r.name==='charge_neutrality'?' — '+esc(r.detail):''}</li>`).join('')}</ul>`;
+    b+=`<ul class="chk">${x.constraint_results.map(r=>`<li><span class="${r.passed?'pass':'fail'}">${r.passed?'✓':'✗'}</span> ${esc(resultTitle(r))}${r.value!==null&&r.name!=='charge_neutrality'?' = '+fmt(r.value):''}${r.name==='charge_neutrality'?' — '+esc(r.detail):''}</li>`).join('')}</ul>`;
     if(!still) b+=`<p class="flag small">⚠ would be rejected by the rules as you have them now</p>`;
     (x.flags||[]).forEach(f=>b+=`<p class="flag small">⚠ ${esc(f)}</p>`);
-    if(!STATIC && st.report) b+=`<p class="small"><a href="/files/${esc(st.report.replace('generation_report.html','generation/'+x.file).replace(/\\/g,'/'))}" target="_blank">CIF</a></p>`;
-    b+='</div>'; }
-  b+=`<div class="help">Each card repeats the checklist the search applied. "Predicted" values are the model's; confirm them with DFT or experiment before trusting a candidate.</div></div>`;
+    if(!STATIC && st&&st.report) b+=`<p class="small"><a href="/files/${esc(st.report.replace('generation_report.html','generation/'+x.file).replace(/\\/g,'/'))}" target="_blank">CIF file</a></p>`;
+    b+='</div></div>'; });
+  b+=`<div class="help beginner-only">Each card repeats the checklist the search applied. “Predicted” values are the model's; confirm them with DFT or experiment before trusting a candidate.</div>`;
   return b;
 }
+
+/* ── sidebar ── */
 function renderLive(){
-  const ev=S.ev; if(!ev) return; const L=$('live'); const top=ev.ranked;
-  let b=`<h2>Live effects</h2><div class="kpi"><div><b>${ev.rows.length.toLocaleString()}</b><span>compositions</span></div><div><b>${ev.alive.length.toLocaleString()}</b><span>pass all rules</span></div><div><b>${(S.search.status&&S.search.status.candidates||[]).length}</b><span>found by search</span></div></div>`;
-  if(top.length){ b+=`<h4>Predicted closest to target</h4><table><tr><th>#</th><th>composition</th>${S.ui.objectives.map(o=>`<th>${esc(label(o.property))}</th>`).join('')}</tr>`;
-    top.slice(0,8).forEach(([s,r],i)=>{ b+=`<tr class="clk" onclick="inspect('${esc(r.f)}')"><td>${i+1}</td><td>${esc(r.f)}</td>${S.ui.objectives.map(o=>`<td>${fmt(r.p[o.property])}</td>`).join('')}</tr>`; }); b+='</table><p class="small muted">encoder prediction on the ideal prototype · click a row for the full checklist</p>'; }
+  const ev=S.ev; const L=$('live'); if(!ev){ L.innerHTML='<h2 style="font-size:17px">Live effects</h2><p class="muted small">…</p>'; return; } const top=ev.ranked;
+  let b=`<h2 style="font-size:17px">Live effects</h2><div class="kpi side"><div><b>${nfmt(ev.rows.length)}</b><span><i style="background:var(--c-family)"></i>compositions</span></div><div><b>${nfmt(ev.alive.length)}</b><span><i style="background:var(--c-rules)"></i>pass all rules</span></div><div><b>${foundCands().length}</b><span><i style="background:var(--c-candidates)"></i>found by search</span></div></div>`;
+  if(top.length){ b+=`<h4 style="color:var(--c-targets)">Predicted closest to target</h4><table><tr><th>#</th><th>composition</th>${S.ui.objectives.map(o=>`<th>${esc(label(o.property))}${esc(unit(o.property))}</th>`).join('')}</tr>`;
+    top.slice(0,8).forEach(([s,r],i)=>{ b+=`<tr class="clk" onclick="inspect(${jsq(r.f)})"><td>${i+1}</td><td><b>${esc(r.f)}</b></td>${S.ui.objectives.map(o=>`<td>${fmt(r.p[o.property])}</td>`).join('')}</tr>`; }); b+='</table><p class="small muted">encoder prediction on the ideal prototype · click a row for the checklist and 3D cell</p>'; }
   else if(S.fam.space.columns.length) b+=`<p class="muted small">No composition passes all rules.</p>`;
-  if(S.fam.space.sampled) b+=`<p class="flag small">⚠ family too large to enumerate fully; a random sample of ${S.fam.space.rows.length.toLocaleString()} of ${S.fam.space.total.toLocaleString()} compositions is shown.</p>`;
+  if(S.fam.space.sampled) b+=`<p class="flag small">⚠ family too large to enumerate fully; a random sample of ${nfmt(S.fam.space.rows.length)} of ${nfmt(S.fam.space.total)} compositions is shown.</p>`;
   L.innerHTML=b;
 }
-function renderLegend(){ $('legend').innerHTML=`<h4>How to use</h4><ol class="small" style="padding-left:18px;margin:4px 0"><li>Pick a <b>Family</b> and variant; exclude elements you cannot use.</li><li>Adjust <b>Rules</b> — counts update as you move limits.</li><li>Set <b>Targets</b>; the table shows the compositions predicted closest.</li><li><b>Search</b> runs the paper's latent optimisation; <b>Candidates</b> explains each result.</li><li>Export <code>meidnet.yaml</code> to repeat the run from the command line.</li></ol>`; }
+function renderLegend(){ const beg=document.body.classList.contains('beginner');
+  $('legend').innerHTML = beg ? `<h4>Glossary</h4><dl class="gloss"><dt>Composition</dt><dd>one element per site of the prototype, e.g. CsPbBr₃.</dd><dt>Rule</dt><dd>a hard check with a measured value and an allowed window.</dd><dt>Target</dt><dd>a property value you want; the model predicts how close each composition gets.</dd><dt>Latent space</dt><dd>the hidden coordinates where structures and properties meet; the search moves through it.</dd><dt>Extrapolation</dt><dd>a target outside the training range — predictions there are guesses.</dd></dl><p class="small muted">Switch off Beginner mode in the header for a denser view.</p>`
+    : `<h4>How to use</h4><ol class="small" style="padding-left:18px;margin:4px 0"><li><b>Family</b>: pick the crystal type; exclude elements.</li><li><b>Rules</b>: move limits; counts update live.</li><li><b>Targets</b>: set values; see the closest compositions.</li><li><b>Search</b> runs the latent optimisation; <b>Candidates</b> explains each result.</li><li><b>Data/Model</b>: upload your table, train, and design with your own properties.</li></ol>`; }
 
-/* ───────────────────────── actions ───────────────────────── */
-async function setFamily(v){ S.ui.family=v; S.ui.variant=null; S.ui.exclude=new Set(); S.ui.extraRules=[]; await loadFamily(); recompute('family','Family: '+S.fam.title); render(); }
-async function setVariant(v){ S.ui.variant=v; await loadFamily(); recompute('family','Variant: '+v); render(); }
+/* ═══════════════════════════ actions ═══════════════════════════ */
+/* a family switch first fetches the new family: if that fails, nothing on the page changes */
+async function setFamily(v){
+  let fam; try{ chainText('Enumerating the design space of '+v+' …'); fam = await api('/api/family', {family:v, variant:null}); }
+  catch(e){ renderChain([{block:'family', text:e.message}]); render(); return; }
+  S.ui.family=v; S.ui.exclude=new Set(); S.ui.extraRules=[]; S.ui.overrides={}; S.ui.disabled=new Set(); S.ui.only={}; S.cells={};
+  await loadFamily(fam); recompute('family','Family: '+S.fam.title); render(); }
+async function setVariant(v){
+  let fam; try{ chainText('Enumerating the design space of '+S.ui.family+' / '+v+' …'); fam = await api('/api/family', {family:S.ui.family, variant:v}); }
+  catch(e){ renderChain([{block:'family', text:e.message}]); render(); return; }
+  S.cells={}; await loadFamily(fam); recompute('family','Variant: '+v); render(); }
 function toggleEl(el){ if(S.ui.exclude.has(el)) S.ui.exclude.delete(el); else S.ui.exclude.add(el); recompute('family', (S.ui.exclude.has(el)?'Excluded ':'Included ')+el); render(); }
-function toggleRule(n,on){ S.ui.rules[n].enabled=on; recompute('rules', ruleTitle(n)+(on?' enabled':' disabled')); render(); }
-let _slideTimer=null;
+function toggleRule(n,on){ S.ui.rules[n].enabled=on; if(on) S.ui.disabled.delete(n); else S.ui.disabled.add(n); recompute('rules', ruleTitle(n)+(on?' enabled':' switched off')); render(); }
+/* while a slider is dragged only the counts, the chain and the side panel update; the block redraws on release */
 function setParam(n,k,v,live){ const old=S.ui.rules[n].params[k]; S.ui.rules[n].params[k]=+v; S.ui.overrides[n]=Object.assign(S.ui.overrides[n]||{}, {[k]:+v});
-  recompute('rules', `${ruleTitle(n)} ${k} ${fmt(old)} → ${fmt(+v)}`); if(live){ clearTimeout(_slideTimer); _slideTimer=setTimeout(render,250);} else render(); }
-function setTarget(p,v,live){ const old=S.ui.target[p]; S.ui.target[p]=+v; recompute('targets', `${label(p)} target ${fmt(old)} → ${fmt(+v)}`); if(live){ clearTimeout(_slideTimer); _slideTimer=setTimeout(render,250);} else render(); }
-function addObjective(p){ S.ui.objectives.push({property:p, loss:'l2', weight:1e4, select_weight:1, select_loss:'l2'}); if(S.ui.target[p]===undefined) S.ui.target[p]=midRange(p); recompute('targets','Added objective '+label(p)); render(); }
+  recompute('rules', `${ruleTitle(n)} ${k} ${fmt(old)} → ${fmt(+v)}`); if(!live) render(); }
+function setTarget(p,v,live){ const old=S.ui.target[p]; S.ui.target[p]=+v; recompute('targets', `${label(p)} target ${fmt(old)} → ${fmt(+v)}`); if(!live) render(); }
+function addObjective(p){ S.ui.objectives.push({property:p, loss:'l2', weight:1e4, select_weight:1, select_loss:'l2'}); if(S.ui.target[p]===undefined) S.ui.target[p]=midRange(p);
+  for(const t of S.ui.extraTargets||[]) if(t[p]===undefined) t[p]=S.ui.target[p];   // every target needs a value for every objective
+  recompute('targets','Added objective '+label(p)); render(); }
 function removeObjective(i){ const p=S.ui.objectives[i].property; S.ui.objectives.splice(i,1); recompute('targets','Removed objective '+label(p)); render(); }
+/* the generation section: the blocks' settings on top of everything else the configuration says (S.genBase) */
+const BLOCK_KEYS=['family','variant','exclude_elements','only_elements','overrides','extra_constraints','disabled_rules','objectives','targets','per_target','population','rounds','steps','seed'];
 function generationPayload(){
-  const overrides={}; for(const [n,r] of Object.entries(S.ui.rules)){ const base=S.fam.constraints.find(c=>c.name===n); const diff={}; for(const [k,v] of Object.entries(r.params)) if(base[k]!==v) diff[k]=v; if(Object.keys(diff).length) overrides[n]=diff; }
-  // disabled rules and property windows are expressed through overrides/extra constraints: disabled → widest window
-  for(const [n,r] of Object.entries(S.ui.rules)) if(!r.enabled){ if(n==='tolerance_factor'||n==='octahedral_factor') overrides[n]={min:-1e9,max:1e9}; else if(n==='bond_window') overrides[n]={low:0,high:1e9}; else if(n==='min_distance') overrides[n]={min:0}; }
-  return {family:S.ui.family, variant:S.ui.variant, exclude_elements:[...S.ui.exclude], overrides,
+  const base=S.genBase||{}; const sameFam = base.family===S.ui.family;
+  const ruleKeys=new Set(S.fam.constraints.map(ruleKey));
+  const overrides={};
+  if(sameFam) for(const [k,v] of Object.entries(base.overrides||{})) if(!ruleKeys.has(k)) overrides[k]=v;   // search terms, transforms
+  for(const [n,r] of Object.entries(S.ui.rules)){ const spec=ruleSpec(n); const diff={}; for(const [k,v] of Object.entries(r.params)) if(JSON.stringify(spec[k])!==JSON.stringify(v)) diff[k]=v; if(Object.keys(diff).length) overrides[n]=diff; }
+  const extra=(sameFam?(base.extra_constraints||[]).filter(c=>c.name!=='property_window'):[])
+    .concat(S.ui.extraRules.filter(r=>r.enabled).map(r=>({name:'property_window', property:r.params.property, min:r.params.min??null, max:r.params.max??null})));
+  const t0=Object.fromEntries(S.ui.objectives.map(o=>[o.property,+S.ui.target[o.property]]));
+  return Object.assign({}, base, {family:S.ui.family, variant:S.ui.variant, exclude_elements:[...S.ui.exclude], only_elements:Object.assign({}, S.ui.only||{}),
+    overrides, extra_constraints:extra, disabled_rules:Object.entries(S.ui.rules).filter(([,r])=>!r.enabled).map(([k])=>k),
     objectives:S.ui.objectives.map(o=>({property:o.property, loss:o.loss, weight:o.weight, select_weight:o.select_weight, select_loss:o.select_loss})),
-    targets:[Object.fromEntries(S.ui.objectives.map(o=>[o.property,+S.ui.target[o.property]]))],
-    per_target:S.ui.search.per_target, population:S.ui.search.population, rounds:S.ui.search.rounds, steps:S.ui.search.steps, seed:S.ui.search.seed};
+    targets:[t0, ...(S.ui.extraTargets||[])],
+    per_target:S.ui.search.per_target, population:S.ui.search.population, rounds:S.ui.search.rounds, steps:S.ui.search.steps, seed:S.ui.search.seed});
 }
-async function startSearch(){ try{ const r=await api('/api/search/start',{session:SID, generation:generationPayload()});
-    if(!r.ok){ $('ribbon').className='ribbon'; $('ribbon').innerHTML=(r.busy?'<b>Server busy</b> → ':'<b>Could not start</b> → ')+esc(r.error); return; }
-    S.search.running=true; status('search','running'); pulseFrom('search'); poll(); render(); }catch(e){ $('ribbon').className='ribbon'; $('ribbon').innerHTML='<b>Could not start</b> → '+esc(e.message); } }
-async function stopSearch(){ await api('/api/search/stop',{session:SID}); }
-async function poll(){ try{ const st=await api('/api/search/status?session='+encodeURIComponent(SID)); S.search.status=st; S.search.running=st.running;
-    status('search', st.running?`running ${st.progress.target}/${st.progress.targets} r${st.progress.round}`:(st.error?'failed':'finished'), st.running?`step ${st.progress.step}/${st.progress.steps}`:'');
-    status('candidates', `${st.candidates.length} found`);
-    if(S.panel==='search'||S.panel==='candidates') render(); else renderLive();
-    if(st.running) S.search.poll=setTimeout(poll,700); else { pulseFrom('candidates'); if(S.panel==='search'){ render(); } $('ribbon').className='ribbon'; $('ribbon').innerHTML=`<b>Search finished</b> → ${st.candidates.length} candidate(s)${st.report?` · <a href="/files/${esc(st.report)}" target="_blank">report</a>`:''}`; }
-  }catch(e){ console.error(e); } }
-async function downloadYaml(){ const y=await api('/api/export',{generation:generationPayload()}); const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([y],{type:'text/yaml'})); a.download='meidnet.yaml'; a.click(); }
-function exportYamlLocal(){ const g=generationPayload(); const lines=['# exported from MEIDNet Studio (static demo)','name: studio','model_path: <path to model.pt>','generation:']; const y=(o,ind)=>{ for(const [k,v] of Object.entries(o)){ if(Array.isArray(v)) { lines.push(`${ind}${k}:`); for(const x of v) lines.push(`${ind}  - ${typeof x==='object'?JSON.stringify(x):x}`); } else if(v&&typeof v==='object'){ lines.push(`${ind}${k}: ${JSON.stringify(v)}`);} else lines.push(`${ind}${k}: ${v}`);} }; y(g,'  '); return lines.join('\n'); }
+/* what the text editor shows: the blocks' settings, plus any other setting that differs from the configuration */
+function drawerGeneration(){ const p=generationPayload(); const base=S.state.config.generation||{}; const out={};
+  for(const k of BLOCK_KEYS) if(p[k]!==undefined) out[k]=p[k];
+  for(const [k,v] of Object.entries(p)) if(!BLOCK_KEYS.includes(k) && JSON.stringify(v)!==JSON.stringify(base[k])) out[k]=v;
+  return out; }
+async function startSearch(){ try{ const fam=S.fam; const r=await api('/api/search/start',{generation:generationPayload()});
+    if(!r.ok){ renderChain([{block:'search', text:(r.busy?'server busy — ':'')+r.error}]); return; }
+    S.search.fam=fam; S.search.running=true; S.logOpen=undefined; status('search','running'); nodeState('search','running'); flowFrom('targets'); poll(); render(); }catch(e){ renderChain([{block:'search', text:e.message}]); } }
+async function stopSearch(){ try{ await api('/api/search/stop',{}); }catch(e){} }
+function typing(){ const a=document.activeElement; return !!a && $('panel').contains(a) && /^(INPUT|SELECT|TEXTAREA)$/.test(a.tagName); }
+function lastLine(err){ return String(err||'').trim().split('\n').pop(); }
+/* polling survives a dropped request (proxies, Wi-Fi): it retries with growing pauses instead of stopping */
+async function poll(){ let st;
+  try{ st=await api('/api/search/status'); S.pollFails=0; }
+  catch(e){ S.pollFails=(S.pollFails||0)+1; status('search','reconnecting…'); setTimeout(poll, Math.min(15000, 1000*2**S.pollFails)); return; }
+  S.search.status=st; S.search.running=st.running;
+  status('search', st.running?`running ${st.progress.target}/${st.progress.targets} r${st.progress.round}`:(st.error?'failed':'finished'), st.running?`step ${st.progress.step}/${st.progress.steps}`:'');
+  nodeState('search', st.running?'running':(st.error?'error':'ok'));
+  status('candidates', `${st.candidates.length} found`); updateEdges();
+  if((S.panel==='search'||S.panel==='candidates') && !typing()) render(); else renderLive();   // never wipe what is being typed
+  if(st.running){ setTimeout(poll,700); return; }
+  flowFrom('search'); S.prev && (S.prev.bad=foundCands().filter(c=>!candStillPasses(c)).length);
+  if(st.error){ renderChain([{block:'search', text:'failed: '+lastLine(st.error)}]); logFlow([{block:'search', text:'failed'}]); }
+  else { renderChain([{block:'search', text:`finished in ${st.seconds.toFixed(0)} s`},{block:'candidates', text:`${st.candidates.length} candidate(s) found`}]); logFlow([{block:'search', text:`${st.candidates.length} candidates`}]); }
+  statusAll(); }
+async function downloadYaml(){ try{ const y=await api('/api/export',{generation:generationPayload()}); const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([y],{type:'text/yaml'})); a.download='meidnet.yaml'; a.click(); }catch(e){ renderChain([{block:'search', text:e.message}]); } }
 
-/* ───────────────────────── inspector ───────────────────────── */
-function inspect(formula){ const r=S.fam.space.rows.find(x=>x.f===formula); if(!r) return; const rules=activeRules();
-  let b=`<h2>${esc(r.f)}</h2><div>${Object.entries(r.e).map(([g,e])=>`<span class="chip pin">${esc(g)} = ${esc(e)}</span>`).join('')} <span class="muted small">cell edge a = ${r.a.toFixed(3)} Å</span></div>`;
-  if(Object.keys(r.p).length){ b+='<h4>Predicted properties (encoder)</h4>'; for(const o of S.ui.objectives) b+=`<div class="small">${esc(label(o.property))}: <b>${fmt(r.p[o.property])}</b> vs target ${fmt(+S.ui.target[o.property])}${esc(unit(o.property))}${gauge(o.property,r.p[o.property],+S.ui.target[o.property])}</div>`; }
-  b+='<h4>Rules</h4><ul class="chk">'; for(const ru of rules){ const ok=rulePass(ru.name, ru.params, r); const v=r.d[ru.name]; let w='';
-    if(ru.name==='bond_window') w=`allowed ${ru.params.low}–${ru.params.high}`; else if(ru.params.min!==undefined||ru.params.max!==undefined) w=`allowed ${ru.params.min??'…'}–${ru.params.max??'…'}`;
-    b+=`<li><span class="${ok?'pass':'fail'}">${ok?'✓':'✗'}</span> ${esc(ru.name==='property_window'?('Predicted '+label(ru.params.property)+' window'):ruleTitle(ru.name))}${v!==undefined&&v!==null&&ru.name!=='charge_neutrality'?' = <b>'+fmt(v)+'</b>':''}${ru.name==='property_window'?' = <b>'+fmt(r.p[ru.params.property])+'</b>':''} <span class="muted small">${w}</span><div class="small muted">${esc(ru.name==='property_window'?'The predicted value must lie inside the window.':ruleText(ru.name))}</div></li>`; }
+/* ═══════════════════════════ YAML editor ═══════════════════════════ */
+function yamlScalar(v){ if(v===null||v===undefined) return 'null'; if(typeof v==='number') return Number.isFinite(v)?String(v):'null'; if(typeof v==='boolean') return v?'true':'false'; const s=String(v); return (/^[A-Za-z_][A-Za-z0-9_./-]*$/.test(s) && !/^(true|false|null|yes|no|on|off)$/i.test(s)) ? s : JSON.stringify(s); }
+/* keys such as "Band gap (eV, PBE)" or "yes" are quoted, so the text reads back exactly */
+function yamlKey(k){ k=String(k); return (/^[A-Za-z_][A-Za-z0-9_]*$/.test(k) && !/^(true|false|null|yes|no|on|off|y|n)$/i.test(k)) ? k : JSON.stringify(k); }
+function yamlFlow(v){ if(Array.isArray(v)) return '['+v.map(yamlFlow).join(', ')+']'; if(v&&typeof v==='object') return '{'+Object.entries(v).filter(([,x])=>x!==undefined).map(([k,x])=>yamlKey(k)+': '+yamlFlow(x)).join(', ')+'}'; return yamlScalar(v); }
+function yamlDump(obj, ind=''){ let out=''; for(const [k,v] of Object.entries(obj)){ if(v===undefined) continue; const kk=yamlKey(k);
+  if(Array.isArray(v)){ if(!v.length){ out+=`${ind}${kk}: []\n`; continue; } out+=`${ind}${kk}:\n`; for(const x of v) out+=`${ind}  - ${yamlFlow(x)}\n`; }
+  else if(v&&typeof v==='object'){ const keys=Object.keys(v).filter(x=>v[x]!==undefined); if(!keys.length){ out+=`${ind}${kk}: {}\n`; continue; } const flat=keys.every(x=>v[x]===null||typeof v[x]!=='object'||Array.isArray(v[x])); if(flat && keys.length<=4 && ind!=='') out+=`${ind}${kk}: ${yamlFlow(v)}\n`; else out+=`${ind}${kk}:\n`+yamlDump(v, ind+'  '); }
+  else out+=`${ind}${kk}: ${yamlScalar(v)}\n`; } return out; }
+function openYaml(){ $('yaml-src').value = '# generation section of meidnet.yaml — edit and Apply\n' + yamlDump({generation: drawerGeneration()}); $('yaml-msg').innerHTML=''; $('yaml-drawer').classList.add('open'); }
+function closeYaml(){ $('yaml-drawer').classList.remove('open'); }
+function notesHtml(notes){ return (notes||[]).length ? `<ul class="small">${notes.map(n=>`<li>${esc(n)}</li>`).join('')}</ul>` : ''; }
+async function validateYaml(){
+  if(STATIC){ $('yaml-msg').innerHTML='<div class="verdict warn">Validation and Apply need the live Studio.</div>'; return null; }
+  try{ const r=await api('/api/validate',{yaml:$('yaml-src').value});
+    if(!r.ok){ $('yaml-msg').innerHTML=`<div class="verdict bad"><b>Not applied.</b><ul>${r.errors.map(e=>`<li>${esc(e)}</li>`).join('')}</ul></div>`; return null; }
+    $('yaml-msg').innerHTML=`<div class="verdict ${(r.notes||[]).length?'warn':'good'}">✅ Valid.${notesHtml(r.notes)}</div>`; return r;
+  }catch(e){ $('yaml-msg').innerHTML=`<div class="verdict bad">${esc(e.message)}</div>`; return null; }
+}
+/* "applied" is said only once the page really changed; with notes (e.g. capped budgets) the drawer stays open */
+async function applyYaml(){ const r=await validateYaml(); if(!r) return;
+  try{ await applyGeneration(r.generation); }
+  catch(e){ $('yaml-msg').innerHTML=`<div class="verdict bad"><b>Not applied.</b> ${esc(e.message)}</div>`; return; }
+  if((r.notes||[]).length) $('yaml-msg').innerHTML=`<div class="verdict warn">✅ Applied, with these changes on this server:${notesHtml(r.notes)}</div>`; else closeYaml(); }
+async function applyGeneration(n){
+  const famChange = n.family!==S.ui.family || (n.variant||null)!==(S.ui.variant||null);
+  const fam = famChange ? await api('/api/family', {family:n.family, variant:n.variant||null}) : S.fam;   // may throw: nothing changed yet
+  S.genBase = n;
+  if(famChange){ S.ui.family=n.family; S.cells={}; }
+  S.ui.exclude=new Set(n.exclude_elements||[]); S.ui.only=Object.assign({}, n.only_elements||{});
+  S.ui.overrides=Object.assign({}, n.overrides||{}); S.ui.disabled=new Set(n.disabled_rules||[]);
+  await loadFamily(fam);
+  for(const [k,r] of Object.entries(S.ui.rules)){ const t=r.rule||k, p=r.params;   // files exported before disabled_rules
+    if((t==='tolerance_factor'||t==='octahedral_factor') && p.max>=1e8 || t==='bond_window' && p.high>=1e8 || t==='min_distance' && p.min===0){ r.enabled=false; S.ui.disabled.add(k); } }
+  S.ui.extraRules=(n.extra_constraints||[]).filter(c=>c.name==='property_window').map(c=>({enabled:true, params:{property:c.property, min:c.min??null, max:c.max??null}}));
+  S.ui.objectives=(n.objectives||[]).map(o=>({property:o.property, loss:o.loss||'l2', weight:o.weight??1e4, select_weight:o.select_weight??1, select_loss:o.select_loss||o.loss||'l2'}));
+  S.ui.target=Object.assign({}, (n.targets||[{}])[0]); S.ui.extraTargets=(n.targets||[]).slice(1).map(t=>Object.assign({}, t));
+  for(const o of S.ui.objectives){ if(S.ui.target[o.property]===undefined) S.ui.target[o.property]=midRange(o.property);
+    for(const t of S.ui.extraTargets) if(t[o.property]===undefined) t[o.property]=S.ui.target[o.property]; }
+  S.ui.search={per_target:n.per_target, population:n.population, rounds:n.rounds, steps:n.steps, seed:n.seed};
+  recompute('family', 'Applied the edited YAML'); render();
+}
+
+/* ═══════════════════════════ 3D explorer (chemiscope + fallback) ═══════════════════════════ */
+function csDataset(what){
+  const idx={}; const structures=[], P={};
+  const push=(k,v)=>{ (P[k]=P[k]||[]).push(v); };
+  if(what==='space'){
+    const ev=S.ev||evaluateSpace();      // the compositions the page currently allows (excluded elements left out)
+    const rows=ev.rows.slice().sort((a,b)=>(b._ok?1:0)-(a._ok?1:0)).slice(0,2000);
+    rows.forEach((r,i)=>{ const st=rowStructure(r); const cart=st.frac.map(f=>fracToCart(f, st.M)); idx[r.f]=i;
+      structures.push({size:st.names.length, names:st.names, x:cart.map(c=>c[0]), y:cart.map(c=>c[1]), z:cart.map(c=>c[2]), cell:st.M.flat()});
+      push('formula', r.f); for(const g of Object.keys(S.fam.groups)) push('site_'+g, r.e[g]); push('lattice_a', r.a);
+      for(const c of S.fam.space.columns) push('pred_'+c, Number.isFinite(r.p[c])?r.p[c]:0);
+      for(const ru of S.fam.space.rules) push('rule_'+ru.name, Number.isFinite(r.d[ru.name])?r.d[ru.name]:0);
+      push('passes_all', r._ok?1:0); push('verdict', r._ok?'pass':'rejected'); });
+    const cols=S.fam.space.columns; const props={}; for(const [k,v] of Object.entries(P)) props[k]={target:'structure', values:v, units: k.startsWith('pred_')?(unit(k.slice(5)).trim()):'' , description: k.startsWith('pred_')?'predicted '+label(k.slice(5))+' (structure encoder)':k};
+    const x=cols[0]?'pred_'+cols[0]:'lattice_a', y=cols[1]?'pred_'+cols[1]:'lattice_a';
+    return {dataset:{meta:{name:`${S.fam.title}${S.fam.variant?' / '+S.fam.variant:''} — design space`, description:`${structures.length} of ${ev.rows.length} compositions on the ideal prototype (passing first). Predictions from the MEIDNet structure encoder.`, authors:['Anand Babu']}, structures, properties:props,
+      settings:{map:{x:{property:x}, y:{property:y}, color:{property:'passes_all', palette:'viridis'}, symbol:'verdict'}, structure:[{bonds:true, unitCell:true, supercell:[1,1,1], keepOrientation:true}]}}, index:idx};
+  }
+  if(what==='candidates'){
+    const cands=foundCands(); cands.forEach((c,i)=>{ const st=candStructure(c); const cart=st.frac.map(f=>fracToCart(f, st.M)); idx[c.formula]=i;
+      structures.push({size:st.names.length, names:st.names, x:cart.map(q=>q[0]), y:cart.map(q=>q[1]), z:cart.map(q=>q[2]), cell:st.M.flat()});
+      push('formula', c.formula); push('score', c.score); push('round', c.round); push('still_passes', candStillPasses(c)?1:0);
+      for(const [k,v] of Object.entries(c.predictions||{})) push('pred_'+k, v); for(const [k,v] of Object.entries(c.target_values||{})) push('target_'+k, v);
+      for(const r of c.constraint_results) if(r.value!==null) push('rule_'+r.name, r.value); });
+    const props={}; for(const [k,v] of Object.entries(P)) if(v.length===structures.length) props[k]={target:'structure', values:v, units:'', description:k};
+    const pk=Object.keys(props).filter(k=>k.startsWith('pred_'));
+    return {dataset:{meta:{name:'Candidates found by the search', description:`${structures.length} candidate(s) that passed every rule`, authors:['Anand Babu']}, structures, properties:props,
+      settings:{map:{x:{property:pk[0]||'score'}, y:{property:pk[1]||'score'}, color:{property:'score', palette:'viridis'}}, structure:[{bonds:true, unitCell:true, supercell:[1,1,1], keepOrientation:true}]}}, index:idx};
+  }
+  return null;
+}
+let _csLoader=null;
+function loadChemiscope(){
+  if(window.Chemiscope) return Promise.resolve();
+  if(_csLoader) return _csLoader;
+  _csLoader = new Promise((resolve, reject)=>{
+    if(!navigator.onLine){ reject(new Error('offline')); return; }
+    const urls=['https://cdn.jsdelivr.net/npm/chemiscope@1.1.0/dist/chemiscope.min.js','https://unpkg.com/chemiscope@1.1.0/dist/chemiscope.min.js'];
+    const timer=setTimeout(()=>reject(new Error('timeout loading chemiscope')), 25000);
+    const tryUrl=(i)=>{ if(i>=urls.length){ clearTimeout(timer); reject(new Error('could not load chemiscope')); return; } const sc=document.createElement('script'); sc.src=urls[i]; sc.onload=()=>{ clearTimeout(timer); window.Chemiscope?resolve():reject(new Error('chemiscope did not initialise')); }; sc.onerror=()=>tryUrl(i+1); document.head.appendChild(sc); };
+    tryUrl(0);
+  }).catch(e=>{ _csLoader=null; throw e; });
+  return _csLoader;
+}
+async function openExplore(what, selectFormula){
+  const tok = S.csSeq = (S.csSeq||0) + 1;           // only the latest click may fill the explorer
+  const sec=$('explore'); sec.hidden=false; $('ex-title').textContent = what==='space'?'Explore the design space in 3D' : what==='candidates'?'Candidates in 3D' : 'Training structures in 3D';
+  $('ex-note').textContent='preparing the dataset…'; $('ex-fallback').hidden=true; $('cs-wrap').hidden=false; S.csWhat=what;
+  let ds, index={};
+  try{
+    if(what==='data'){ if(STATIC) throw new Error('not available in the static demo'); const r=await api('/api/chemiscope?what=data'); if(r.available===false) throw new Error(r.note||'no data'); if(!(r.structures||[]).length) throw new Error('no usable structures in this table'); ds=r; }
+    else { const b=csDataset(what); if(!b||!b.dataset.structures.length) throw new Error(what==='candidates'?'run a search first':'no compositions'); ds=b.dataset; index=b.index; }
+  }catch(e){ if(tok!==S.csSeq) return; $('ex-note').textContent=e.message; $('cs-wrap').hidden=true; sec.scrollIntoView({behavior:'smooth'}); return; }
+  if(tok!==S.csSeq) return;
+  S.csData=ds; S.csIndex=index; sec.scrollIntoView({behavior:'smooth'});
+  $('ex-note').textContent=`${ds.structures.length} structures · loading the 3D explorer (3 MB, from a CDN)…`;
+  try{ await loadChemiscope(); if(tok!==S.csSeq) return; await mountChemiscope(ds); if(tok!==S.csSeq) return;
+    $('ex-note').textContent=`${ds.structures.length} structures · click a point to see its crystal`; if(selectFormula!==undefined && index[selectFormula]!==undefined && S.cs && S.cs.select) S.cs.select({structure:index[selectFormula]}); }
+  catch(e){ if(tok!==S.csSeq) return; console.warn('chemiscope unavailable:', e); fallbackExplore(ds, index[selectFormula]); }
+}
+async function mountChemiscope(ds){
+  if(S.cs){ try{ S.cs.remove(); }catch(e){} S.cs=null; }
+  for(const id of ['cs-meta','cs-map','cs-structure','cs-info']) $(id).innerHTML='';
+  // chemiscope edits the dataset it is given (it removes settings.map): give it a copy so "dataset JSON" stays complete
+  S.cs = await Chemiscope.DefaultVisualizer.load({meta:'cs-meta', map:'cs-map', info:'cs-info', structure:'cs-structure', maxStructureViewers:1}, JSON.parse(JSON.stringify(ds)));
+}
+function fallbackExplore(ds, sel){
+  $('cs-wrap').hidden=true; const fb=$('ex-fallback'); fb.hidden=false;
+  $('ex-note').textContent=`${ds.structures.length} structures · built-in viewer`;
+  const cols=Object.keys(ds.properties).filter(k=>typeof ds.properties[k].values[0]==='number');
+  const px=(ds.settings&&ds.settings.map&&ds.settings.map.x.property)||cols[0], py=(ds.settings&&ds.settings.map&&ds.settings.map.y.property)||cols[1]||cols[0];
+  const rows=ds.structures.map((st,i)=>({f:(ds.properties.formula?ds.properties.formula.values[i]:'#'+i), p:{[px]:ds.properties[px].values[i], [py]:ds.properties[py].values[i]}, _ok: ds.properties.passes_all? ds.properties.passes_all.values[i]===1 : true, i}));
+  const W=440,H=310,ml=48,mr=10,mt=10,mb=36; const xs=rows.map(r=>r.p[px]), ys=rows.map(r=>r.p[py]); let xl=Math.min(...xs),xh=Math.max(...xs),yl=Math.min(...ys),yh=Math.max(...ys); if(xh-xl<1e-9){xl-=.5;xh+=.5;} if(yh-yl<1e-9){yl-=.5;yh+=.5;}
+  const X=x=>ml+(x-xl)/(xh-xl)*(W-ml-mr), Y=y=>H-mb-(y-yl)/(yh-yl)*(H-mt-mb);
+  let s=`<svg class="chart" viewBox="0 0 ${W} ${H}"><line class="ax" x1="${ml}" y1="${H-mb}" x2="${W-mr}" y2="${H-mb}"/><line class="ax" x1="${ml}" y1="${mt}" x2="${ml}" y2="${H-mb}"/>`;
+  for(const t of ticks(xl,xh)) s+=`<text class="tick" x="${X(t)}" y="${H-mb+13}" text-anchor="middle">${fmt(t)}</text>`; for(const t of ticks(yl,yh)) s+=`<text class="tick" x="${ml-5}" y="${Y(t)+4}" text-anchor="end">${fmt(t)}</text>`;
+  for(const r of rows) s+=`<circle class="${r._ok?'pt':'ptx'}" cx="${X(r.p[px])}" cy="${Y(r.p[py])}" r="3.2" style="cursor:pointer" onclick="fbSelect(${r.i})"><title>${esc(r.f)}</title></circle>`;
+  s+=`<text class="lab" x="${(ml+W-mr)/2}" y="${H-4}" text-anchor="middle">${esc(px)}</text><text class="lab" transform="translate(12,${(mt+H-mb)/2}) rotate(-90)" text-anchor="middle">${esc(py)}</text></svg>`;
+  fb.innerHTML=`<p class="small flag">The chemiscope viewer could not be loaded (offline?). Showing the built-in viewer: click a point, drag the cell to rotate.</p><div class="fb-wrap"><div>${s}</div><div><div class="cell3d big" id="c3d-fb"></div><div id="fb-info" class="small muted" style="margin-top:6px"></div></div></div>`;
+  fbSelect(sel!==undefined?sel:0);
+}
+function fbSelect(i){ const ds=S.csData; if(!ds||!ds.structures[i]) return; const st=fromChemiscope(ds,i); S.cells['fb']=st; mountCell($('c3d-fb'), st, {title: ds.properties.formula?ds.properties.formula.values[i]:'', labels:true});
+  $('fb-info').innerHTML = Object.entries(ds.properties).map(([k,p])=>`<b>${esc(k)}</b>: ${typeof p.values[i]==='number'?fmt(p.values[i]):esc(p.values[i])}${p.units?' '+esc(p.units):''}`).join(' · '); }
+function closeExplore(){ $('explore').hidden=true; if(S.cs){ try{ S.cs.remove(); }catch(e){} S.cs=null; } }
+function downloadDataset(){ if(!S.csData) return; const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([JSON.stringify(S.csData)],{type:'application/json'})); a.download=`meidnet_${S.csWhat||'dataset'}_chemiscope.json`; a.click(); }
+
+/* ═══════════════════════════ inspector ═══════════════════════════ */
+function inspect(formula){ const r=S.fam.space.rows.find(x=>x.f===formula); if(!r) return; const rules=activeRules(); S.cells['inspect']=rowStructure(r);
+  let b=`<div class="cand" style="grid-template-columns:200px 1fr"><div class="cell3d big" data-key="inspect" data-title="${esc(r.f)}" id="c3d-inspect" style="height:200px"></div><div><h2>${esc(r.f)}</h2><div>${Object.entries(r.e).map(([g,e])=>`<span class="chip pin">${esc(g)} = ${esc(e)}</span>`).join('')} <span class="muted small">cell edge a = ${r.a.toFixed(3)} Å</span></div><p class="small muted beginner-only">drag to rotate · double-click to spin</p><p><button onclick="closeModal();openExplore('space',${jsq(r.f)})">🧊 show in the 3D explorer</button></p></div></div>`;
+  if(Object.keys(r.p).length){ b+='<h4 style="color:var(--c-targets)">Predicted properties (encoder)</h4>'; for(const o of S.ui.objectives) b+=`<div class="small">${esc(label(o.property))}: <b>${fmt(r.p[o.property])}</b> vs target ${fmt(+S.ui.target[o.property])}${esc(unit(o.property))}${gauge(o.property,r.p[o.property],+S.ui.target[o.property])}</div>`; }
+  b+='<h4 style="color:var(--c-rules)">Rules</h4><ul class="chk">'; for(const ru of rules){ const k=ru.extra?null:ru.key; const ok=rulePass(ru.name, ru.params, r, k); const v=k?r.d[k]:undefined; let w='';
+    if(ru.name==='bond_window') w=`allowed ${esc(ru.params.low)}–${esc(ru.params.high)}`; else if(ru.params.min!==undefined||ru.params.max!==undefined) w=`allowed ${esc(ru.params.min??'…')}–${esc(ru.params.max??'…')}`;
+    b+=`<li><span class="${ok?'pass':'fail'}">${ok?'✓':'✗'}</span> ${esc(ruleTitle(k||ru.name, ru.params))}${v!==undefined&&v!==null&&ru.name!=='charge_neutrality'?' = <b>'+fmt(v)+'</b>':''}${ru.name==='property_window'?' = <b>'+fmt(r.p[ru.params.property])+'</b>':''} <span class="muted small">${w}</span><div class="small muted beginner-only">${esc(ruleText(k||ru.name))}</div></li>`; }
   b+='</ul><p class="small muted">Descriptor values are computed by the same Python functions the search uses.</p><button onclick="closeModal()">close</button>';
-  $('modal-body').innerHTML=b; $('modal').classList.add('open'); }
+  $('modal-body').innerHTML=b; $('modal').classList.add('open'); mountAll3d(); }
 function closeModal(){ $('modal').classList.remove('open'); }
-document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeModal(); });
-boot().catch(e=>{ $('ribbon').className='ribbon'; $('ribbon').innerHTML='<b>Could not start:</b> '+esc(e.message); console.error(e); });
+document.addEventListener('keydown', e=>{ if(e.key==='Escape'){ closeModal(); closeYaml(); }
+  const t=e.target.closest && e.target.closest('[data-show]');   // blocks and chain steps work from the keyboard too
+  if(t && (e.key==='Enter'||e.key===' ')){ e.preventDefault(); show(t.dataset.show); } });
+window.addEventListener('resize', ()=>{ clearTimeout(window._rz); window._rz=setTimeout(mountAll3d, 200); });
+boot().catch(e=>{ renderChain([{block:'data', text:'Could not start: '+e.message}]); console.error(e); });
 </script>
 </body>
 </html>

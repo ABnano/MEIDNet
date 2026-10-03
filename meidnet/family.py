@@ -19,6 +19,7 @@ import numpy as np
 import yaml
 
 from meidnet.chem import ELEMENT_INDEX
+from meidnet.constraints import assign_rule_ids, rule_key
 
 FAMILY_DIR = Path(__file__).parent / "families"
 
@@ -75,6 +76,10 @@ class Family:
         return self.sites[slot][0]
 
     def constraint_params(self, name: str) -> dict | None:
+        """The spec of a rule, found by its id (see ``constraints.rule_key``) or, failing that, its name."""
+        for c in self.constraints:
+            if rule_key(c) == name:
+                return c
         for c in self.constraints:
             if c["name"] == name:
                 return c
@@ -198,17 +203,16 @@ def load_family(name_or_path: str, variant: str | None = None, exclude: list[str
 
     search_terms = [dict(t) for t in raw.get("search_terms") or []]
     logit_transforms = [dict(t) for t in raw.get("logit_transforms") or []]
-    constraints = [dict(c) for c in raw.get("constraints") or []]
+    constraints = assign_rule_ids([dict(c) for c in raw.get("constraints") or []])
 
     def apply_params(params: dict):
         for key, upd in (params or {}).items():
-            hit = False
-            for lst in (search_terms, logit_transforms, constraints):
-                for item in lst:
-                    if item["name"] == key:
-                        item.update(upd or {})
-                        hit = True
-            if not hit:
+            # a rule id (e.g. bond_window_X_B2) selects one rule; a plain name every rule of that name
+            rules = [c for c in constraints if rule_key(c) == key] or [c for c in constraints if c["name"] == key]
+            hits = [t for t in search_terms + logit_transforms if t["name"] == key] + rules
+            for item in hits:
+                item.update({k: v for k, v in (upd or {}).items() if k not in ("name", "id")})
+            if not hits:
                 raise FamilyError(f"Override for '{key}' does not match any search term, transform or constraint of {name}")
 
     apply_params(vspec.get("params"))

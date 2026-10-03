@@ -25,7 +25,6 @@ import csv
 import hashlib
 import json
 import os
-import random
 from collections import Counter
 from dataclasses import dataclass, field
 
@@ -159,7 +158,8 @@ class Designer:
         """
         on_saved(candidate, target_log)  – called whenever a candidate is written (live views)
         on_step(step, steps, loss)       – called every 10 optimisation steps
-        should_stop()                    – checked before every round; True ends the run early
+        should_stop()                    – checked every 10 optimisation steps and between rounds;
+                                           True ends the run early (candidates saved so far are kept)
         """
         self.lm = loaded
         self.model = loaded.model
@@ -174,6 +174,10 @@ class Designer:
             j = self.stats.index(o.property)
             self.objectives.append(dict(property=o.property, j=j, loss=o.loss, weight=o.weight,
                                         select_weight=o.select_weight, select_loss=o.select_loss or o.loss))
+        for c in family.constraints:   # a window on a property the model does not predict would never reject
+            if c["name"] == "property_window" and c.get("property") not in self.stats.columns:
+                raise ValueError(f"property_window on '{c.get('property')}': this model predicts "
+                                 f"{', '.join(self.stats.columns)}")
         self.terms = build_terms(family)
         self.transforms = build_transforms(family)
         self.mask = self._species_mask()
@@ -214,9 +218,14 @@ class Designer:
         return self.stats.denormalize_tensor(prop_norm).detach().cpu().numpy()
 
     # ── latent initialisation ────────────────────────────────────────────────
+    def _randn(self, like: torch.Tensor) -> torch.Tensor:
+        """Normal noise from this run's own generator: the same numbers as torch.manual_seed + randn_like,
+        but untouched by other searches or trainings running in the same process (MEIDNet Studio)."""
+        return torch.randn(like.shape, generator=self._gen, device=like.device, dtype=like.dtype)
+
     def make_population(self, pop, target, tvals, seed):
         g = self.g
-        torch.manual_seed(seed); np.random.seed(seed); random.seed(seed)
+        self._gen = torch.Generator(device=self.device).manual_seed(seed)
         dim = self.model.proj_crystal[-1].out_features
         x = torch.tensor([self._anchor_vector(target)], device=self.device, dtype=torch.float32)
         zs = []
@@ -225,12 +234,15 @@ class Designer:
                 z_seeded = self.model.encode_properties(x)
                 rff_seed = seed_from_target(seed + i, tvals) % (2 ** 16)
                 rff = rff_target_offset(tvals, dim, nfreq=g.rff_frequencies, seed=rff_seed).to(self.device).unsqueeze(0)
-                z_noise = torch.randn_like(z_seeded)
+                z_noise = self._randn(z_seeded)
                 z = F.normalize(g.init_anchor_mix * z_seeded + g.init_rff_mix * rff + g.init_noise_mix * z_noise, dim=1)
-                z.add_(g.init_sigma * torch.randn_like(z))
+                z.add_(g.init_sigma * self._randn(z))
             zs.append(z)
         Z0 = torch.cat(zs, dim=0)
         return Z0, nn.Parameter(Z0.clone())
+
+    def _stop_requested(self) -> bool:
+        return bool(self.should_stop and self.should_stop())
 
     # ── latent optimisation ──────────────────────────────────────────────────
     def optimise(self, pop, target, tvals, seed, hist):
@@ -249,6 +261,8 @@ class Designer:
         coords_in, center_in = self._decoder_in(pop)
         mask = self.mask.to(dev)
         for step in range(g.steps):
+            if step and step % 10 == 0 and self._stop_requested():
+                break
             alpha = step / max(1, g.steps - 1)
             temp = g.temperature_start * (g.temperature_end / max(g.temperature_start, 1e-6)) ** alpha
             opt.zero_grad(set_to_none=True)
@@ -290,7 +304,7 @@ class Designer:
                 need = since >= g.restart_patience
                 if need.any():
                     idx = need.nonzero(as_tuple=False).view(-1)
-                    Z[idx] = F.normalize(Z[idx] + g.restart_noise * torch.randn_like(Z[idx]), dim=1)
+                    Z[idx] = F.normalize(Z[idx] + g.restart_noise * self._randn(Z[idx]), dim=1)
                     since[idx] = 0
         return Z0.detach(), Z.detach()
 
@@ -403,11 +417,12 @@ class Designer:
             rng = np.random.RandomState(seed_from_target(g.seed, tvals))
             counts_local = Counter()
             for rnd in range(1, g.rounds + 1):
-                if self.should_stop and self.should_stop():
-                    self.log("  stopped by user")
+                if self._stop_requested():
                     break
                 seed_i = seed_from_target(g.seed + 9973 * idx + 31 * rnd, tvals)
                 Z0, Zf = self.optimise(g.population, target, tvals, seed_i, hist)
+                if self._stop_requested():   # the round was cut short: do not decode a half-optimised population
+                    break
                 tlog.rounds_used = rnd
                 tlog.latent_start.append(Z0.cpu().numpy())
                 tlog.latent_final.append(Zf.cpu().numpy())
@@ -468,6 +483,9 @@ class Designer:
                     self.log(f"  reached {g.per_target} candidates in {rnd} round(s)")
                     break
                 self.log(f"  round {rnd}: +{added} saved, {len(tlog.saved)}/{g.per_target} so far")
+            if self._stop_requested():
+                self.log("  stopped by user")
+                break
             if not tlog.saved:
                 self.log("  no candidate passed every constraint for this target")
         res = GenerationResult(out_dir, targets, ranges, fam.name, fam.variant, self.g.model_dump())

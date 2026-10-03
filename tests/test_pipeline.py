@@ -12,8 +12,10 @@ MINI = os.path.join(ROOT, "tests", "data", "perov5_mini.csv")
 
 
 def run(args, cwd):
-    env = dict(os.environ, PYTHONPATH=ROOT, OMP_NUM_THREADS="2")
-    r = subprocess.run([sys.executable, "-m", "meidnet.cli", *args], cwd=cwd, capture_output=True, text=True, env=env)
+    # UTF-8 both ways, whatever the console code page: the CLI prints ≤, Å, Cs⁺ ...
+    env = dict(os.environ, PYTHONPATH=ROOT, OMP_NUM_THREADS="2", PYTHONIOENCODING="utf-8")
+    r = subprocess.run([sys.executable, "-m", "meidnet.cli", *args], cwd=cwd, capture_output=True, text=True, env=env,
+                       encoding="utf-8", errors="replace")
     assert r.returncode == 0, r.stdout[-2000:] + r.stderr[-3000:]
     return r.stdout
 

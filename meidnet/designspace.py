@@ -22,7 +22,7 @@ import math
 import numpy as np
 import torch
 
-from meidnet.constraints import build_candidate, evaluate
+from meidnet.constraints import build_candidate, evaluate, explain, rule_key
 from meidnet.data import featurize
 
 
@@ -55,21 +55,18 @@ def enumerate_space(family, loaded=None, max_compositions=60000, batch=256, prog
         idx = rng.choice(len(all_combos), max_compositions, replace=False)
         combos = (all_combos[i] for i in sorted(idx))
         sampled = True
-    rows, cands = [], []
+    cands = []
     n_done = 0
     for combo in combos:
         n_done += 1
         if len(set(combo)) < len(combo):
             continue
-        cand = build_candidate(fam, dict(zip(groups, combo)))
-        evaluate(cand, fam.constraints)
-        rows.append({"e": cand.elements, "f": cand.formula(), "a": round(float(cand.lattice_a), 4),
-                     "d": {r.name: (None if r.value is None else round(float(r.value), 5)) for r in cand.results},
-                     "ok": {r.name: bool(r.passed) for r in cand.results}, "p": {}})
-        cands.append(cand)
+        cands.append(build_candidate(fam, dict(zip(groups, combo))))
         if progress and n_done % 500 == 0:
             progress(n_done, min(total, max_compositions))
-    if loaded is not None and rows:
+    # predictions first: rules such as property_window judge the predicted values, exactly as in generate
+    preds = [{} for _ in cands]
+    if loaded is not None and cands:
         model = loaded.model
         dev = next(model.parameters()).device
         model.eval()
@@ -79,16 +76,23 @@ def enumerate_space(family, loaded=None, max_compositions=60000, batch=256, prog
                 X = torch.from_numpy(np.stack([featurize(c.raw, model.max_sites) for c in chunk])).float().to(dev)
                 zc, _ = model.encode_crystal(X)
                 P = loaded.stats.denormalize_tensor(model.property_decoder(zc)).cpu().numpy()
-                for r, p in zip(rows[i:i + batch], P):
-                    r["p"] = {c: round(float(v), 5) for c, v in zip(loaded.stats.columns, p)}
+                for j, p in enumerate(P):
+                    preds[i + j] = {c: float(v) for c, v in zip(loaded.stats.columns, p)}
                 if progress:
                     progress(min(i + batch, len(cands)), len(cands), "predicting")
+    rows = []
+    for cand, p in zip(cands, preds):
+        cand.predictions = p
+        evaluate(cand, fam.constraints)
+        rows.append({"e": cand.elements, "f": cand.formula(), "a": round(float(cand.lattice_a), 4),
+                     "d": {r.name: (None if r.value is None else round(float(r.value), 5)) for r in cand.results},
+                     "ok": {r.name: bool(r.passed) for r in cand.results},
+                     "p": {c: round(v, 5) for c, v in p.items()}})
     rules = []
     for c in family.constraints:
-        from meidnet.constraints import explain
         title, text = explain(c["name"], c)
-        rules.append({"name": c["name"], "title": title, "text": text,
-                      "params": {k: v for k, v in c.items() if k != "name"}})
+        rules.append({"name": rule_key(c), "rule": c["name"], "title": title, "text": text,
+                      "params": {k: v for k, v in c.items() if k not in ("name", "id")}})
     return {"groups": groups, "rules": rules, "columns": list(loaded.stats.columns) if loaded else [],
             "rows": rows, "total": total, "sampled": sampled}
 

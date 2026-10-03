@@ -15,6 +15,7 @@ generate` enforces.
 from __future__ import annotations
 
 import math
+from collections import Counter
 from dataclasses import dataclass, field
 from itertools import product
 
@@ -51,12 +52,20 @@ EXPLAIN = {
 
 
 def explain(name: str, params: dict) -> tuple[str, str]:
+    """Plain-language title and sentence of a rule. ``params`` is the rule's spec; its "name" (the registered
+    rule) is used when ``name`` is a rule id such as property_window_dir_gap."""
+    name = (params or {}).get("name") or name
     title, text = EXPLAIN.get(name, (name, CONSTRAINTS.doc(name) if name in CONSTRAINTS else ""))
-    safe = {k: v for k, v in params.items()}
+    safe = _Blank({k: ("…" if v is None else v) for k, v in (params or {}).items()})   # an unset limit reads "…"
     try:
-        return title.format(**safe), text.format(**safe)
-    except (KeyError, IndexError):
+        return title.format_map(safe), text.format_map(safe)
+    except (IndexError, ValueError):
         return title, text
+
+
+class _Blank(dict):
+    def __missing__(self, key):
+        return "…"
 
 
 @dataclass
@@ -180,7 +189,7 @@ def evaluate(cand: Candidate, constraints: list[dict], stop_at_first: bool = Fal
         results.append(ref)
     if not ref.passed:
         for spec in post:
-            results.append(ConstraintResult(spec["name"], False, detail="not evaluated (symmetry refinement failed)"))
+            results.append(ConstraintResult(rule_key(spec), False, detail="not evaluated (symmetry refinement failed)"))
         cand.results = results
         return cand
     for spec in post:
@@ -192,8 +201,60 @@ def evaluate(cand: Candidate, constraints: list[dict], stop_at_first: bool = Fal
 
 
 def _run(cand, spec) -> ConstraintResult:
-    params = {k: v for k, v in spec.items() if k != "name"}
-    return CONSTRAINTS.get(spec["name"])(cand, **params)
+    params = {k: v for k, v in spec.items() if k not in ("name", "id")}
+    res = CONSTRAINTS.get(spec["name"])(cand, **params)
+    if spec.get("id"):
+        res.name = str(spec["id"])
+    return res
+
+
+def rule_key(spec: dict) -> str:
+    """The name a rule's results are reported under: its ``id`` when it has one, else the rule name."""
+    return str(spec.get("id") or spec["name"])
+
+
+def check_rule_spec(spec: dict) -> None:
+    """Raise ValueError (with the fix) when a rule is unknown or its parameters do not fit the rule."""
+    import inspect
+    name = spec.get("name")
+    if name not in CONSTRAINTS:
+        raise ValueError(f"unknown rule '{name}'. Available rules: {', '.join(CONSTRAINTS.names())}"
+                         " (or register your own in a plugin file)")
+    params = {k: v for k, v in spec.items() if k not in ("name", "id")}
+    try:
+        inspect.signature(CONSTRAINTS.get(name)).bind(None, **params)
+    except TypeError as e:
+        raise ValueError(f"rule '{name}': {e}") from None
+
+
+def _derived_key(spec: dict) -> str:
+    name = spec["name"]
+    part = lambda v: "+".join(map(str, v)) if isinstance(v, (list, tuple)) else str(v)   # noqa: E731
+    if name == "property_window" and spec.get("property"):
+        return f"{name}_{spec['property']}"
+    if name == "bond_window" and spec.get("from") and spec.get("to"):
+        return f"{name}_{part(spec['from'])}_{part(spec['to'])}"
+    return name
+
+
+def assign_rule_ids(constraints: list[dict]) -> list[dict]:
+    """
+    Give rules that share a name a distinct ``id`` (property_window_dir_gap, bond_window_X_B2, ...) so their
+    results, report rows, CSV columns and Studio controls do not collide.  Rules with a unique name keep it.
+    """
+    counts = Counter(c["name"] for c in constraints if not c.get("id"))
+    out, used = [], set()
+    for spec in constraints:
+        spec = dict(spec)
+        key = _derived_key(spec) if (not spec.get("id") and counts[spec["name"]] > 1) else rule_key(spec)
+        k, n = key, 2
+        while k in used:
+            k, n = f"{key}_{n}", n + 1
+        if k != spec["name"]:
+            spec["id"] = k
+        used.add(k)
+        out.append(spec)
+    return out
 
 
 # ───────────────────────── built-in constraints ─────────────────────────

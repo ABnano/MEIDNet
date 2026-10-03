@@ -47,6 +47,7 @@ nav:
       - Bring your own dataset: use/your-data.md
       - The configuration file: use/config.md
       - MEIDNet Studio (live workbench): use/studio.md
+      - Explore in 3D: use/explore-3d.md
       - Reading the reports: use/reports.md
   - Recipes:
       - Change the target properties: recipes/change-targets.md

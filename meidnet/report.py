@@ -18,7 +18,7 @@ from torch.utils.data import DataLoader
 
 from meidnet import __version__
 from meidnet import svg
-from meidnet.constraints import explain
+from meidnet.constraints import explain, rule_key
 
 CSS = """
 :root{--bg:#f7f7f5;--card:#ffffff;--ink:#1d2327;--muted:#5d6670;--line:#dde1e5;--accent:#2457c5;--accent2:#d9822b;
@@ -282,9 +282,9 @@ PRE_STAGES = ["no charge-balancing element", "same element on two sites"]
 
 
 def _funnel_for(t, family):
-    order = PRE_STAGES + [c["name"] for c in family.constraints if c["name"] == "min_distance"] + \
+    order = PRE_STAGES + [rule_key(c) for c in family.constraints if c["name"] == "min_distance"] + \
         (["symmetry_refinement"] if family.refine_symmetry else []) + \
-        [c["name"] for c in family.constraints if c["name"] != "min_distance"]
+        [rule_key(c) for c in family.constraints if c["name"] != "min_distance"]
     stages = [("element choices tried", t.attempts, "")]
     left = t.attempts
     for name in order:
@@ -311,13 +311,14 @@ def _candidate_card(c, objectives, stats, ranges, family, target_values):
     for r in c.constraint_results:
         params = family.constraint_params(r["name"]) or {}
         title, text = explain(r["name"], params)
-        val = f" = {r['value']:.3g}" if r["value"] is not None and r["name"] not in ("charge_neutrality",) else ""
+        rule = params.get("name", r["name"])            # the registered rule (r["name"] may be a rule id)
+        val = f" = {r['value']:.3g}" if r["value"] is not None and rule != "charge_neutrality" else ""
         win = ""
-        if r["window"] and r["name"] != "charge_neutrality":
+        if r["window"] and rule != "charge_neutrality":
             lo, hi = r["window"]
             win = f" (allowed {'' if lo is None else f'{lo:g}'}–{'' if hi is None else f'{hi:g}'})"
         chk.append(f"<li title='{esc(text)}'><span class='pass'>✓</span> {esc(title)}{esc(val)}{esc(win)}"
-                   f"{' — ' + esc(r['detail']) if r['name'] == 'charge_neutrality' else ''}</li>")
+                   f"{' — ' + esc(r['detail']) if rule == 'charge_neutrality' else ''}</li>")
     flags = "".join(f"<p class='flag'>⚠ {esc(f)}</p>" for f in c.flags)
     sites = " ".join(f"<span class='pill'>{esc(g)} = {esc(e)}</span>" for g, e in c.elements.items())
     return (f"<div class='card cand'><h3>{esc(c.formula)}</h3><div>{sites}</div>"
@@ -356,7 +357,7 @@ def generation_report(cfg, lm, family, res, path) -> str:
                     "different variant, or relax that rule in <code>generation.overrides</code>.</p>")
     elif flagged:
         v = verdict("warn", f"{len(saved)} candidate(s) saved; {len(flagged)} rely on extrapolated predictions.",
-                    "<p>All saved candidates obey every rule of the family. Some predicted property values lie outside "
+                    "<p>All saved candidates obey every rule applied in this run. Some predicted property values lie outside "
                     "what the model saw in training — treat those numbers with caution.</p>")
     else:
         v = verdict("good", f"{len(saved)} candidate(s) saved for {len(res.targets)} target(s).",
@@ -365,7 +366,11 @@ def generation_report(cfg, lm, family, res, path) -> str:
              "for ones that decode into chemically sensible crystals, and kept the candidates whose predicted "
              "properties are closest to the target. <b>Predicted values come from the model and must be confirmed by "
              "calculation or experiment.</b></p>")
-    body = v + f"<section><h2>What happened</h2>{intro}<p class='muted'>Family: {esc(family.describe()).replace(chr(10), '<br>')}</p></section>"
+    off = ""
+    if g.disabled_rules:   # say plainly which of the family's rules this run did not apply
+        off = (f"<p class='flag'>⚠ Switched off for this run (<code>disabled_rules</code>): "
+               f"{esc(', '.join(g.disabled_rules))}. Candidates were not checked against these rules.</p>")
+    body = v + f"<section><h2>What happened</h2>{intro}{off}<p class='muted'>Family: {esc(family.describe()).replace(chr(10), '<br>')}</p></section>"
     for t in res.targets:
         tv = ", ".join(f"{stats.labels[stats.index(o.property)]} {t.values[o.property]:g} {stats.units[stats.index(o.property)]}"
                        for o in g.objectives)

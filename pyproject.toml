@@ -28,9 +28,11 @@ dependencies = [
     "matplotlib>=3.7",
     "pyyaml>=6.0",
     "pydantic>=2.5",
+    "openpyxl>=3.1",
 ]
 
 [project.optional-dependencies]
+parquet = ["pyarrow>=14"]
 stability = ["ase>=3.22", "mace-torch>=0.3.6"]
 app = ["gradio>=4.0"]
 docs = ["mkdocs-material>=9.5", "mkdocstrings[python]>=0.24"]

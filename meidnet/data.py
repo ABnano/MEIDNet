@@ -3,7 +3,7 @@ Turning a user's table + structures into something MEIDNet can learn from.
 
 The steps are deliberately small and individually testable:
 
-1. ``read_table``          – CSV / Excel / JSON → DataFrame
+1. ``read_table``          – CSV / Excel / JSON / Parquet → DataFrame
 2. ``parse_structure``     – CIF text or file → pymatgen Structure
 3. ``align_to_prototype``  – re-order atoms so site i matches prototype site i
 4. ``featurize``           – Structure → fixed-length vector (the crystal modality)
@@ -12,7 +12,6 @@ The steps are deliberately small and individually testable:
 """
 from __future__ import annotations
 
-import io
 import os
 import warnings
 from collections import Counter
@@ -33,14 +32,25 @@ warnings.filterwarnings("ignore", message="No\\sPauling\\selectronegativity")
 
 
 # ───────────────────────── 1) tables ─────────────────────────
+# Readers pandas needs an extra package for, and what to tell the user when it is missing.
+_READER_HINTS = {
+    ".xlsx": "Reading .xlsx files needs the 'openpyxl' package: pip install openpyxl",
+    ".xls": "Reading old .xls files needs the 'xlrd' package: pip install xlrd (or save the sheet as .xlsx or CSV)",
+    ".parquet": "Reading Parquet files needs the 'pyarrow' package: pip install pyarrow (or save the table as CSV)",
+}
+
+
 def read_table(path: str) -> pd.DataFrame:
     ext = os.path.splitext(path)[1].lower()
-    if ext in (".xlsx", ".xls"):
-        return pd.read_excel(path)
-    if ext == ".json":
-        return pd.read_json(path)
-    if ext == ".parquet":
-        return pd.read_parquet(path)
+    try:
+        if ext in (".xlsx", ".xls"):
+            return pd.read_excel(path)
+        if ext == ".json":
+            return pd.read_json(path)
+        if ext == ".parquet":
+            return pd.read_parquet(path)
+    except ImportError as e:
+        raise ImportError(_READER_HINTS.get(ext, str(e))) from e
     return pd.read_csv(path)
 
 
@@ -57,7 +67,7 @@ def normalise_id(value) -> str:
 
 # ───────────────────────── 2) structures ─────────────────────────
 def parse_structure(cif_text: str | None = None, path: str | None = None) -> Structure:
-    parser = CifParser(path) if path is not None else CifParser(io.StringIO(cif_text))
+    parser = CifParser(path) if path is not None else CifParser.from_str(cif_text)
     structs = parser.parse_structures(primitive=False)
     if not structs:
         raise ValueError("the CIF contains no structure")
@@ -225,6 +235,7 @@ class Record:
     dense: np.ndarray
     properties: np.ndarray        # raw (physical units)
     formula: str
+    structure: object = None      # pymatgen Structure, kept only with keep_structures=True
 
 
 @dataclass
@@ -276,7 +287,7 @@ def compute_stats(records: list[Record], columns, normalize_flags, labels=None, 
 
 
 def load_records(df: pd.DataFrame, data_cfg, base_resolve, family=None, source: str = "table",
-                 report: DataReport | None = None) -> tuple[list[Record], DataReport]:
+                 report: DataReport | None = None, keep_structures: bool = False) -> tuple[list[Record], DataReport]:
     report = report or DataReport(source=source)
     cols = [p.column for p in data_cfg.properties]
     missing_cols = [c for c in [data_cfg.id_column, *cols] if c not in df.columns]
@@ -305,6 +316,9 @@ def load_records(df: pd.DataFrame, data_cfg, base_resolve, family=None, source: 
             if use_col and isinstance(row[data_cfg.cif_column], str):
                 s = parse_structure(cif_text=row[data_cfg.cif_column])
             elif sdir:
+                if not mid or any(ch in mid for ch in "/\\:") or mid.startswith("."):
+                    report.skip("id is not a valid file name", mid)   # the file must be inside structures_dir
+                    continue
                 path = os.path.join(sdir, f"{mid}.cif")
                 if not os.path.exists(path):
                     report.skip("no CIF file for this id", mid)
@@ -334,7 +348,7 @@ def load_records(df: pd.DataFrame, data_cfg, base_resolve, family=None, source: 
             continue
         for el in s.composition.elements:
             report.elements[str(el)] += 1
-        records.append(Record(mid, dense, props, s.composition.reduced_formula))
+        records.append(Record(mid, dense, props, s.composition.reduced_formula, s if keep_structures else None))
         report.kept += 1
     return records, report
 

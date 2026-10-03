@@ -120,6 +120,8 @@ Unknown keys are rejected with a message naming the key, so typos cannot silentl
 | `exclude_elements` | array |  | Elements never to use, e.g. [Pb, Cd]. |
 | `only_elements` | object |  | Restrict groups to these elements, e.g. {B: [Ti, Zr, Hf]}. |
 | `overrides` | object |  | Change parameters of the family's search terms or constraints, e.g. {tolerance_factor: {max: 1.0}}. |
+| `extra_constraints` | array |  | Additional rules appended to the family's constraints, e.g. [{name: property_window, property: dir_gap, min: 1.0, max: 3.0}]. |
+| `disabled_rules` | array |  | Rules to switch off for this run, by name (or id when two rules share a name), e.g. [charge_neutrality]. The generation report lists them. |
 | `seed` | integer | `937` | Random seed of the search. |
 | `amp` | boolean | `True` | Use mixed precision on GPUs. |
 | `output_prefix` | string/null | `None` | File-name prefix of saved CIFs (default: family variant). |

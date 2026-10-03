@@ -126,11 +126,13 @@ def evaluate(model: DualAutoencoderModel, dataset: MaterialsDataset, stats: Prop
 
 def fit(model: DualAutoencoderModel, train_set: MaterialsDataset, val_set: MaterialsDataset | None, tcfg,
         coord_mode="data", prototype_coords=None, device="cpu", on_epoch=None, checkpoint_fn=None,
-        log=print) -> dict:
+        log=print, should_stop=None) -> dict:
     """
     Train for tcfg.epochs.  Returns the history dict stored in the checkpoint and report.
     Seed the RNGs *before* building the model (see ``seed_everything``) so that weight
     initialisation and batch shuffling are both reproducible.
+    ``should_stop()`` is checked after every epoch; True ends training early with the history so far
+    (``history["stopped"] = True``).
     """
     model.to(device)
     loader = DataLoader(train_set, batch_size=tcfg.batch_size, shuffle=True, drop_last=True)
@@ -171,6 +173,10 @@ def fit(model: DualAutoencoderModel, train_set: MaterialsDataset, val_set: Mater
         if checkpoint_fn and (ep % tcfg.save_every == 0 or ep == tcfg.epochs):
             history["seconds"] = time.time() - t0
             checkpoint_fn(history)
+        if should_stop and should_stop():
+            history["stopped"] = True
+            log(f"stopped after epoch {ep}")
+            break
     history["seconds"] = time.time() - t0
     return history
 

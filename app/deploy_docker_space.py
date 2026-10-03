@@ -33,7 +33,6 @@ pinned: true
 license: mit
 short_description: Learn, build and benchmark multimodal AI for materials
 thumbnail: https://babu09-meidnet.hf.space/docs/assets/meidnet_prism_logo.png
-header: mini
 tags: [materials, inverse-design, generative, crystal, perovskite, multimodal, contrastive-learning, chemistry]
 models: [Babu09/MEIDNet]
 ---

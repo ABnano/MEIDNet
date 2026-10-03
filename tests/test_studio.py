@@ -389,7 +389,7 @@ def test_chemiscope_endpoint_data_and_candidates(studio, checked):
         studio.chemiscope(sid, "bogus")
 
 
-def test_candidates_dataset_reads_cifs_or_rebuilds(tmp_path):
+def test_candidates_dataset_reads_cifs_or_rebuilds(tmp_path, studio):
     from pymatgen.io.cif import CifWriter
     from meidnet.constraints import build_candidate, evaluate
     from meidnet.family import load_family
@@ -408,6 +408,12 @@ def test_candidates_dataset_reads_cifs_or_rebuilds(tmp_path):
     ds = candidates_dataset(cands, fam, run_dir=str(tmp_path))
     assert [s["size"] for s in ds["structures"]] == [10, 5]               # read from disk / rebuilt on the prototype
     props = ds["properties"]
+    assert props["pred_dir_gap"]["description"] == "predicted dir_gap" and props["pred_dir_gap"]["units"] == ""
+    lm = studio.lm                                                        # with the model: units and property names
+    named = candidates_dataset(cands, fam, run_dir=str(tmp_path), lm=lm)["properties"]
+    j = list(lm.stats.columns).index("dir_gap")
+    assert named["pred_dir_gap"]["units"] == lm.stats.units[j] != ""
+    assert named["target_dir_gap"]["description"] == f"target {lm.stats.labels[j]}"
     assert props["formula"]["values"] == ["RbMnI3", "CsPbI3"]
     assert props["pred_dir_gap"]["values"] == [3.0, 4.0] and props["target_dir_gap"]["values"] == [2.0, 2.0]
     assert "rule_tolerance_factor" in props and "rule_symmetry_refinement" not in props   # rules without a value

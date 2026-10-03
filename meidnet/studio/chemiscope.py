@@ -123,8 +123,9 @@ def space_dataset(fam, space: dict, lm=None, max_structures: int = CHEMISCOPE_MA
     return {"meta": _meta(title, desc), "structures": structures, "properties": props, "settings": settings}
 
 
-def candidates_dataset(cands: list[dict], fam, run_dir: str | None = None) -> dict:
-    """Candidates saved by a search (CIF files when available, else rebuilt on the prototype)."""
+def candidates_dataset(cands: list[dict], fam, run_dir: str | None = None, lm=None) -> dict:
+    """Candidates saved by a search (CIF files when available, else rebuilt on the prototype).
+    With the model (``lm``) the predicted and target values carry their units and property names."""
     from pymatgen.core import Structure
     structures = []
     P = {"formula": [], "score": [], "round": [], "target_index": []}
@@ -157,8 +158,19 @@ def candidates_dataset(cands: list[dict], fam, run_dir: str | None = None) -> di
                 if f"rule_{r['name']}" not in rule_keys:
                     rule_keys.append(f"rule_{r['name']}")
     n = len(structures)
-    props = {k: _prop(v) for k, v in P.items() if len(v) == n}
-    props["formula"]["description"] = "composition"
+    units = dict(zip(lm.stats.columns, lm.stats.units)) if lm else {}
+    labels = dict(zip(lm.stats.columns, lm.stats.labels)) if lm else {}
+    words = {"formula": "composition", "score": "distance to the target (lower is closer)", "round": "search round",
+             "target_index": "target number"}
+
+    def describe(k):
+        for pre, word in (("pred_", "predicted"), ("target_", "target")):
+            if k.startswith(pre):
+                c = k[len(pre):]
+                return units.get(c, ""), f"{word} {labels.get(c, c)}"
+        return "", words.get(k, k)
+
+    props = {k: _prop(v, *describe(k)) for k, v in P.items() if len(v) == n}
     x = pred_keys[0] if pred_keys else "score"
     y = pred_keys[1] if len(pred_keys) > 1 else "score"
     settings = {"map": {"x": {"property": x}, "y": {"property": y}, "color": {"property": "score", "palette": "viridis"}},

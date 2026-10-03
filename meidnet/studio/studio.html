@@ -1061,7 +1061,10 @@ function csDataset(what){
       push('formula', c.formula); push('score', c.score); push('round', c.round); push('still_passes', candStillPasses(c)?1:0);
       for(const [k,v] of Object.entries(c.predictions||{})) push('pred_'+k, v); for(const [k,v] of Object.entries(c.target_values||{})) push('target_'+k, v);
       for(const r of c.constraint_results) if(r.value!==null) push('rule_'+r.name, r.value); });
-    const props={}; for(const [k,v] of Object.entries(P)) if(v.length===structures.length) props[k]={target:'structure', values:v, units:'', description:k};
+    const words={formula:'composition', score:'distance to the target (lower is closer)', round:'search round', still_passes:'1 if it passes the rules as they are now'};
+    const describe=k=>{ const m=k.match(/^(pred|target)_(.+)$/);   // the same words as meidnet.studio.chemiscope.candidates_dataset
+      return m ? {units:unit(m[2]).trim(), description:(m[1]==='pred'?'predicted ':'target ')+label(m[2])} : {units:'', description:words[k]||k}; };
+    const props={}; for(const [k,v] of Object.entries(P)) if(v.length===structures.length) props[k]={target:'structure', values:v, ...describe(k)};
     const pk=Object.keys(props).filter(k=>k.startsWith('pred_'));
     return {dataset:{meta:{name:'Candidates found by the search', description:`${structures.length} candidate(s) that passed every rule`, authors:['Anand Babu']}, structures, properties:props,
       settings:{map:{x:{property:pk[0]||'score'}, y:{property:pk[1]||'score'}, color:{property:'score', palette:'viridis'}}, structure:[{bonds:true, unitCell:true, supercell:[1,1,1], keepOrientation:true}]}}, index:idx};
@@ -1114,12 +1117,13 @@ function fallbackExplore(ds, sel){
   let s=`<svg class="chart" viewBox="0 0 ${W} ${H}"><line class="ax" x1="${ml}" y1="${H-mb}" x2="${W-mr}" y2="${H-mb}"/><line class="ax" x1="${ml}" y1="${mt}" x2="${ml}" y2="${H-mb}"/>`;
   for(const t of ticks(xl,xh)) s+=`<text class="tick" x="${X(t)}" y="${H-mb+13}" text-anchor="middle">${fmt(t)}</text>`; for(const t of ticks(yl,yh)) s+=`<text class="tick" x="${ml-5}" y="${Y(t)+4}" text-anchor="end">${fmt(t)}</text>`;
   for(const r of rows) s+=`<circle class="${r._ok?'pt':'ptx'}" cx="${X(r.p[px])}" cy="${Y(r.p[py])}" r="3.2" style="cursor:pointer" onclick="fbSelect(${r.i})"><title>${esc(r.f)}</title></circle>`;
-  s+=`<text class="lab" x="${(ml+W-mr)/2}" y="${H-4}" text-anchor="middle">${esc(px)}</text><text class="lab" transform="translate(12,${(mt+H-mb)/2}) rotate(-90)" text-anchor="middle">${esc(py)}</text></svg>`;
+  const axis=k=>{ const p=ds.properties[k]||{}; return String(p.description||k).replace(/\s*\(structure encoder\)$/,'')+(p.units?' ('+p.units+')':''); };   // words, not column keys
+  s+=`<text class="lab" x="${(ml+W-mr)/2}" y="${H-4}" text-anchor="middle">${esc(axis(px))}</text><text class="lab" transform="translate(12,${(mt+H-mb)/2}) rotate(-90)" text-anchor="middle">${esc(axis(py))}</text></svg>`;
   fb.innerHTML=`<p class="small flag">The chemiscope viewer could not be loaded (offline?). Showing the built-in viewer: click a point, drag the cell to rotate.</p><div class="fb-wrap"><div>${s}</div><div><div class="cell3d big" id="c3d-fb"></div><div id="fb-info" class="small muted" style="margin-top:6px"></div></div></div>`;
   fbSelect(sel!==undefined?sel:0);
 }
 function fbSelect(i){ const ds=S.csData; if(!ds||!ds.structures[i]) return; const st=fromChemiscope(ds,i); S.cells['fb']=st; mountCell($('c3d-fb'), st, {title: ds.properties.formula?ds.properties.formula.values[i]:'', labels:true});
-  $('fb-info').innerHTML = Object.entries(ds.properties).map(([k,p])=>`<b>${esc(k)}</b>: ${typeof p.values[i]==='number'?fmt(p.values[i]):esc(p.values[i])}${p.units?' '+esc(p.units):''}`).join(' · '); }
+  $('fb-info').innerHTML = Object.entries(ds.properties).map(([k,p])=>`<b title="${esc(p.description||k)}">${esc(k)}</b>:${typeof p.values[i]==='number'?fmt(p.values[i]):esc(p.values[i])}${p.units?' '+esc(p.units):''}`).join(' · '); }
 function closeExplore(){ $('explore').hidden=true; if(S.cs){ try{ S.cs.remove(); }catch(e){} S.cs=null; } }
 function downloadDataset(){ if(!S.csData) return; const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([JSON.stringify(S.csData)],{type:'application/json'})); a.download=`meidnet_${S.csWhat||'dataset'}_chemiscope.json`; a.click(); }
 

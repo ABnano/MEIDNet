@@ -999,7 +999,7 @@ class Studio:
                 return {"available": False, "note": "run a search first"}
             name, variant = job.family or (self._base_cfg(s).generation.family, self._base_cfg(s).generation.variant)
             fam = load_family(self._family_src(name), variant=variant, default_variant=True)
-            return cs.candidates_dataset(job.candidates, fam, run_dir=job.run_dir)
+            return cs.candidates_dataset(job.candidates, fam, run_dir=job.run_dir, lm=self._model_for(s))
         if s and s.check_info and s.cfg:
             if not any(getattr(r, "structure", None) is not None for r in s.check_info["records"]):
                 return {"available": False, "note": "no usable structures in this table - see the Data block"}

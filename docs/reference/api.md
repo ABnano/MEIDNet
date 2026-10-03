@@ -67,7 +67,8 @@ from meidnet.studio.chemiscope import (space_dataset, candidates_dataset, record
                                        published_data_dataset, structure_to_chemiscope)
 
 ds = space_dataset(fam, space, lm, max_structures=2000)   # design space: formula, site_*, pred_*, rule_*, passes_all
-ds = candidates_dataset(candidate_dicts, fam, run_dir)    # candidates of a run (reads their CIFs when present)
+ds = candidates_dataset(candidate_dicts, fam, run_dir, lm=lm)   # candidates of a run (reads their CIFs when present;
+                                                                # lm adds units and property names)
 ds = records_dataset(info["records"], cfg.data.properties, source="my data")   # needs check(cfg, keep_structures=True)
 structure_to_chemiscope(structure)                         # one pymatgen Structure → {size, names, x, y, z, cell}
 ```

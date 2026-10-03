@@ -8,8 +8,8 @@ copyright: MIT licence · Anand Babu
 
 theme:
   name: material
-  logo: assets/prism-mark.svg
-  favicon: assets/prism-mark.svg
+  logo: assets/prism-mark.png
+  favicon: assets/favicon-64.png
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default

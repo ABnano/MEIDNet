@@ -41,7 +41,7 @@ model-index:
           url: https://doi.org/10.1038/s41524-026-02153-3
 ---
 
-<p align="center"><a href="https://babu09-meidnet.hf.space/"><img src="https://babu09-meidnet.hf.space/docs/assets/prism.svg" width="520" alt="MEIDNet Prism"></a></p>
+<p align="center"><a href="https://babu09-meidnet.hf.space/"><img src="https://babu09-meidnet.hf.space/docs/assets/meidnet_prism_logo.png" width="640" alt="MEIDNet Prism"></a></p>
 
 # MEIDNet — pretrained Perov-5 models
 

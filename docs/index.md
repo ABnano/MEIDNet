@@ -1,3 +1,5 @@
+<p align="center"><img src="assets/meidnet_prism_logo.png" alt="MEIDNet Prism" width="640" style="background:#fff;border-radius:14px"></p>
+
 # MEIDNet Prism
 
 [← MEIDNet Prism home](https://babu09-meidnet.hf.space/studio/) · the documentation of the MEIDNet framework and its platform.

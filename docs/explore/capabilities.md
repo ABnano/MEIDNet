@@ -6,9 +6,9 @@ Generated from the code, so it cannot promise more than the code does. **Support
 
 | modality | status | how |
 |---|---|---|
-| Crystal structure (CIF, up to `max_sites` atoms, default 20) | Supported | an equivariant graph encoder; structures are aligned to the family prototype |
-| Scalar properties (any number of numeric columns) | Supported | one property encoder; every column becomes a target you can set |
-| Published properties: direct band gap (`dir_gap`), formation enthalpy (`heat_all`) | Supported | the shipped Perov-5 checkpoint |
+| Crystal structure (CIF, up to `max_sites` atoms, default 20) | Community-tested | an equivariant graph encoder; structures are aligned to the family prototype |
+| Scalar properties (any number of numeric columns) | Community-tested | one property encoder; every column becomes a target you can set |
+| Published properties: direct band gap (`dir_gap`), formation enthalpy (`heat_all`) | Community-tested | the shipped Perov-5 checkpoint |
 | Vector modalities: binned XRD, DOS | Planned | an encoder per vector modality into the shared latent space |
 | Spectra (Raman, UV-Vis) | Planned | as vector modalities |
 | Text (descriptions, synthesis) | Planned | a text encoder into the shared latent space |

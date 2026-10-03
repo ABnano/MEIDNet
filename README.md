@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="MEIDNet_logo.png" alt="MEIDNet — Multimodal Equivariant Inverse Design Network" width="480"/>
+  <img src="docs/assets/meidnet_prism_logo.png" alt="MEIDNet Prism — Multimodal materials representation and inverse design" width="640"/>
 </p>
 
 <p align="center"><em>Design crystalline materials from target properties — with your own data, your own rules, and no code to edit.</em><br/>

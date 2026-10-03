@@ -33,6 +33,8 @@ tags: [materials, inverse-design, generative, crystal, perovskite, multimodal, c
 models: [Babu09/MEIDNet]
 ---
 
+<p align="center"><img src="https://babu09-meidnet.hf.space/docs/assets/meidnet_prism_logo.png" width="640" alt="MEIDNet Prism"></p>
+
 # MEIDNet Prism
 
 **Design crystalline materials from the properties you want.** MEIDNet learns one shared latent space

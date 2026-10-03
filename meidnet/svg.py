@@ -42,8 +42,10 @@ def _ticks(lo, hi, n=5):
 
 
 def _fmt(v):
-    if abs(v) >= 1000 or (abs(v) < 0.01 and v != 0):
+    if abs(v) >= 1e6 or (abs(v) < 0.01 and v != 0):
         return f"{v:.2g}"
+    if abs(v) >= 1000:              # axis counts read 1,000 and 1,500 rather than 1e+03 and 1.5e+03
+        return f"{v:,.0f}"
     return f"{v:.3g}"
 
 

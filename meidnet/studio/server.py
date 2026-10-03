@@ -311,7 +311,7 @@ class Studio:
                         "has_model": bool(s and s.lm),
                         "using_own": self._own(s), "columns": s.columns if s else [], "n_rows": s.n_rows if s else 0,
                         "n_cifs": s.n_cifs if s else 0, "checked": bool(s and s.check), "busy": bool(s and s.busy),
-                        "source": os.path.basename(s.table_path) if (s and s.table_path) else None},
+                        "source": (s.table_name or os.path.basename(s.table_path)) if (s and s.table_path) else None},
         }
 
     # ── data: published / project / uploaded ────────────────────────────────
@@ -359,7 +359,8 @@ class Studio:
             vals = np.array([r.properties[i] for r in recs]) if recs else np.array([])
             out["charts"][p.column] = svg.histogram(vals, p.display, p.unit or p.display)
             if len(vals):
-                out["stats"][p.column] = {"min": float(vals.min()), "median": float(np.median(vals)), "max": float(vals.max())}
+                out["stats"][p.column] = {"min": float(vals.min()), "median": float(np.median(vals)), "max": float(vals.max()),
+                                          "std": float(vals.std())}
         if rep.elements:
             out["charts"]["elements"] = svg.hbars(list(rep.elements.items()), "Most common elements", max_items=16)
         if rep.skipped:
@@ -540,7 +541,8 @@ class Studio:
         raw = {"name": "your_data", "output_dir": s.dir, "family": family, "data": data,
                "training": {"epochs": 20, "batch_size": 16, "device": "cpu"}, "generation": gen}
         cfg = config_from_dict(raw, base_dir=s.data_dir)
-        summary, info = self._check_summary(cfg, source=os.path.basename(s.table_path), keep_structures=True)
+        summary, info = self._check_summary(cfg, source=s.table_name or os.path.basename(s.table_path),
+                                            keep_structures=True)
         s.check_info = info
         s.chem_cache = {}
         # targets default to the median of each property so the first search is sensible
@@ -824,7 +826,10 @@ class Studio:
             if self.public:
                 raw["plugins"] = []
             cfg = config_from_dict(raw, base_dir=base._base_dir)
-        except Exception as e:
+            from meidnet.pipeline import family_for
+            # refuse at once (not seconds later from the job) a target or window the model cannot predict
+            self._check_against_model(family_for(cfg, need_variant=True), cfg.generation, self._model_for(s))
+        except (Exception, SystemExit) as e:          # family_for reports family problems as SystemExit
             return {"ok": False, "error": str(e)}
         with self.jobs_lock:
             refused = self._slot_error(s)
@@ -1000,7 +1005,7 @@ class Studio:
                 return {"available": False, "note": "no usable structures in this table - see the Data block"}
             if "data" not in s.chem_cache:
                 s.chem_cache["data"] = cs.records_dataset(s.check_info["records"], s.cfg.data.properties,
-                                                          os.path.basename(s.table_path or "table"), cap)
+                                                          s.table_name or os.path.basename(s.table_path or "table"), cap)
             return s.chem_cache["data"]
         if self.cfg.data is not None:                # the project's own data ...
             if "data" not in self.chem_cache:

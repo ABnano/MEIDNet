@@ -15,8 +15,11 @@ MEIDNet shows its reasoning rather than a score. Where to look:
 - **The checklist** — every rule's measured value and allowed window. These are deterministic chemistry
   (charges, radii, distances), not model outputs.
 - **The gauges** — where the prediction sits relative to the target and to the training range.
-- **Warnings** — *predicted value outside the training range* (extrapolation) and *latent far from training
-  latents* (the search pushed into a region the decoders never saw; predictions there are less reliable).
+- **Warnings** — *predicted value outside the training range* (extrapolation) and *latent hit the search limit*
+  (the search pushed a latent to the `z_clip` bound; predictions there are less reliable). The model is trained
+  on latents of length 1 and every search moves them further out (typically to length 3–5), so the report says
+  this once for the whole run rather than on every card; each candidate's length is the `latent_norm` column of
+  `candidates.csv`.
 - **Encoder vs search** — in the Studio, compare the search's decoded prediction with the structure encoder's
   prediction for the same composition. Large disagreement is a red flag.
 

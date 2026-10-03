@@ -107,7 +107,7 @@ def test_upload_suggests_columns(studio, uploaded):
     assert "Unnamed: 0" not in sug["properties"]        # a saved DataFrame index is not a property
     assert "material_id" not in sug["properties"]
     ses = studio.state(SID)["session"]
-    assert ses["has_upload"] and ses["n_rows"] == 64 and ses["source"] == "table.csv"
+    assert ses["has_upload"] and ses["n_rows"] == 64 and ses["source"] == "materials.csv"
     assert "Unnamed: 0" in ses["columns"]               # ... but it is still listed as a column
     # an unsupported file is refused (in another tab: a failed upload clears that tab's data)
     with pytest.raises(ValueError, match="unsupported file type"):
@@ -152,7 +152,7 @@ def test_upload_zip_of_cifs_feeds_check(studio):
 
 # ───────────────────────── 2. check ─────────────────────────
 def test_check_builds_session_config(studio, checked):
-    assert checked["available"] and checked["rows"] == 64 and checked["source"] == "table.csv"
+    assert checked["available"] and checked["rows"] == 64 and checked["source"] == "materials.csv"
     assert checked["kept"] > 30
     assert checked["rows"] - checked["kept"] == sum(checked["skipped"].values())
     assert checked["aligned"] == checked["kept"]        # every kept structure was aligned to the prototype
@@ -700,10 +700,13 @@ def test_unknown_variant_is_reported_not_silent(studio):
     studio.check_data(dict(CHECK, session=sid, variant=None))   # no variant named: the family's first, so a
     from meidnet.family import load_family                       # later search has one
     assert studio.session(sid).cfg.generation.variant == load_family("perovskite_abx3", default_variant=True).variant
-    # a search started with a wrong variant ends with that error instead of finishing empty
-    assert studio.start_search({"session": "tab-badsearch", "generation": dict(TINY_SEARCH, variant="bogus")})["ok"]
-    snap = wait_done(studio, "tab-badsearch", "search", timeout=60)
-    assert snap["error"] and "bogus" in snap["error"], snap
+    # a search with a wrong variant, or a window on a property the model does not predict, is refused at once
+    r = studio.start_search({"session": "tab-badsearch", "generation": dict(TINY_SEARCH, variant="bogus")})
+    assert r["ok"] is False and "bogus" in r["error"], r
+    window = {"name": "property_window", "property": "no_such_prop", "min": 0.0}
+    r = studio.start_search({"session": "tab-badsearch", "generation": dict(TINY_SEARCH, extra_constraints=[window])})
+    assert r["ok"] is False and "no_such_prop: not predicted by this model" in r["error"], r
+    assert studio.status("tab-badsearch", "search") == EMPTY_STATUS                # no job was started
 
 
 def test_busy_session_refuses_new_data(studio):

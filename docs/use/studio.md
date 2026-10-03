@@ -133,7 +133,10 @@ changed.
    (with examples), the distribution of each property and the elements present.
 4. **Train** in the Model block: choose the number of epochs and press ▶ Train. The loss and alignment curves
    grow while it trains; at the end the validation errors appear and **every block switches to your model and
-   your properties** — the design space is re-scored, the targets are your properties.
+   your properties** — the design space is re-scored, the targets are your properties. Each property's typical
+   error (MAE) is judged in words against the spread (standard deviation) of that property in your data — *good* below a quarter of
+   the spread, *fair* below half, *weak* above — the same rule the training report uses; "matched correctly" is
+   how often a validation structure is matched to its own properties.
 5. Switch between **your model** and the **published model** at any time in the Model block. *Start over*
    removes your upload and model from the session.
 

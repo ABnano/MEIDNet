@@ -502,9 +502,13 @@ class Designer:
             if v < lo - 0.05 * span or v > hi + 0.05 * span:
                 flags.append(f"predicted {prop} {v:.2f} is outside the training range [{lo:.2f}, {hi:.2f}] "
                              "- the model is extrapolating")
+        # The search always lets latents grow past the unit length the model was trained on (typically 3-5), so a
+        # per-candidate warning would fire on every candidate; the reports state it once per run instead
+        # (latent_norm stays in candidates.csv). Only a latent pinned at the clip bound is singled out.
         nz = float(np.linalg.norm(z))
-        if nz > 1.5:
-            flags.append(f"latent length {nz:.1f} (training latents have length 1) - predictions are less reliable")
+        if float(np.abs(z).max()) >= self.g.z_clip - 1e-6:
+            flags.append(f"latent hit the search limit (z_clip {self.g.z_clip:g}, length {nz:.1f}) "
+                         "- predictions are less reliable")
         return flags
 
 

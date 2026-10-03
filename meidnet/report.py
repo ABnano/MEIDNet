@@ -194,7 +194,9 @@ def _predictions(lm, dataset):
 
 
 def quality_word(mae, std):
-    r = mae / std if std > 0 else 0
+    if not std > 1e-12:              # every value the same: an error cannot be compared with a spread
+        return "not judged", None
+    r = mae / std
     if r < 0.25:
         return "good", r
     if r < 0.5:
@@ -218,13 +220,22 @@ def training_report(cfg, lm, history, train_set, val_set, path) -> str:
         word, ratio = quality_word(mae, std)
         words.append(word)
         unit = stats.units[j]
+        u = f" [{unit}]" if unit else ""
+        css = {"good": "pass", "fair": "flag", "weak": "fail"}.get(word, "muted")
+        shown = word if word != "not judged" else f"not judged (all {which.split()[0]} values are equal)"
         rows.append(f"<tr><td>{esc(stats.labels[j])}</td><td>{mae:.3g} {esc(unit)}</td><td>{std:.3g} {esc(unit)}</td>"
-                    f"<td>{r2:.2f}</td><td class='{'pass' if word == 'good' else ('flag' if word == 'fair' else 'fail')}'>{word}</td></tr>")
+                    f"<td>{'–' if r2 != r2 else f'{r2:.2f}'}</td><td class='{css}'>{esc(shown)}</td></tr>")
         parity.append(f"<div><h3>{esc(stats.labels[j])}</h3>" + svg.scatter(
-            Y[:, j], P[:, j], f"Predicted vs true {stats.labels[j]}", f"true [{unit}]", f"predicted [{unit}]",
+            Y[:, j], P[:, j], f"Predicted vs true {stats.labels[j]}", f"true{u}", f"predicted{u}",
             diagonal=True) + "</div>")
     last_val = history["val"][-1] if history.get("val") else None
-    if all(w == "good" for w in words):
+    judged = [w for w in words if w != "not judged"]
+    if len(judged) < len(words):
+        v = verdict("warn", "Some properties cannot be judged on this validation set.",
+                    "<p>Every validation material has the same value for at least one property, so its error cannot "
+                    "be compared with a spread. Use more data (or a larger <code>val_fraction</code>) to judge the "
+                    "model.</p>")
+    elif all(w == "good" for w in words):
         v = verdict("good", "The model predicts every property well from structure alone.",
                     "<p>Typical errors are under a quarter of the natural spread of each property.</p>")
     elif "weak" in words:
@@ -357,8 +368,9 @@ def generation_report(cfg, lm, family, res, path) -> str:
                     "different variant, or relax that rule in <code>generation.overrides</code>.</p>")
     elif flagged:
         v = verdict("warn", f"{len(saved)} candidate(s) saved; {len(flagged)} rely on extrapolated predictions.",
-                    "<p>All saved candidates obey every rule applied in this run. Some predicted property values lie outside "
-                    "what the model saw in training — treat those numbers with caution.</p>")
+                    "<p>All saved candidates obey every rule applied in this run. For the flagged ones (⚠ on the card) a "
+                    "predicted property value lies outside what the model saw in training — treat those numbers with "
+                    "caution.</p>")
     else:
         v = verdict("good", f"{len(saved)} candidate(s) saved for {len(res.targets)} target(s).",
                     f"<p>Each one passed all {n_rules} rules of the {esc(family.title)} family.</p>")
@@ -366,6 +378,12 @@ def generation_report(cfg, lm, family, res, path) -> str:
              "for ones that decode into chemically sensible crystals, and kept the candidates whose predicted "
              "properties are closest to the target. <b>Predicted values come from the model and must be confirmed by "
              "calculation or experiment.</b></p>")
+    if saved:
+        norms = [c.latent_norm for c in saved]
+        span = f"{min(norms):.1f}" if max(norms) - min(norms) < 0.05 else f"{min(norms):.1f}–{max(norms):.1f}"
+        intro += (f"<p class='muted'>The model was trained on latents of length 1; the search moves them further out "
+                  f"(here length {span}), so every predicted value below is the model's extrapolation along that "
+                  f"direction. This is how MEIDNet searches, not a fault of one candidate.</p>")
     off = ""
     if g.disabled_rules:   # say plainly which of the family's rules this run did not apply
         off = (f"<p class='flag'>⚠ Switched off for this run (<code>disabled_rules</code>): "

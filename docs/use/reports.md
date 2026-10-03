@@ -24,7 +24,7 @@ Each command writes a self-contained HTML file in `runs/<name>/`. All three open
 
 ## `generation_report.html`
 
-- **Verdict**: how many candidates, and whether any rely on extrapolated predictions.
+- **Verdict**: how many candidates, and whether any predicted value lies outside the training range.
 - Per target: the **funnel** (compositions alive after each rule — the biggest drop is the rule that limits the
   family most), the **candidate cards**, and **examples of rejected compositions** with the rule and the
   measured value.

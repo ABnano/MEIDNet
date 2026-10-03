@@ -105,6 +105,9 @@ pre{background:var(--bg);border:1px solid var(--line);border-radius:9px;padding:
 code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:12.5px;background:var(--bg);padding:1px 4px;border-radius:4px}
 .behind{margin-top:12px}.behind .tabs{display:flex;gap:6px;margin:6px 0}.behind .tabs button.on{background:var(--accent);border-color:var(--accent);color:#fff}
 .prog{height:9px;background:var(--line);border-radius:5px;overflow:hidden;margin:6px 0}.prog i{display:block;height:100%;background:var(--accent);width:0;transition:width .3s}
+.prog i.indeterminate{width:35%;background:var(--c-family);animation:slide 1.4s ease-in-out infinite}
+@keyframes slide{0%{margin-left:-35%}100%{margin-left:100%}}
+@media (prefers-reduced-motion: reduce){.prog i.indeterminate{animation:none;width:100%;opacity:.5}}
 .cand{border:1px solid var(--line);border-radius:12px;padding:12px;margin:8px 0;display:grid;grid-template-columns:150px 1fr;gap:12px}
 .cand h3{margin:0 0 4px;color:var(--ink);font-size:18px}.cand .meta{grid-column:1/-1}@media(max-width:600px){.cand{grid-template-columns:1fr}}
 ul.chk{list-style:none;margin:6px 0;padding:0}ul.chk li{padding:1px 0;font-size:13px}
@@ -155,7 +158,7 @@ body>div:empty:not([id]):not([class]){position:absolute;top:0;left:0;width:0;hei
   <div class="chain" id="chain"><span class="lead">Change anything above or in a block — what it does to the blocks after it appears here.</span></div>
   <details id="flowlog"><summary>Flow log (0)</summary><ol id="flowlog-list"></ol></details>
   <div class="cols">
-    <div id="panel"></div>
+    <div id="panel"><div class="card loading-card"><h2>Loading MEIDNet Studio…</h2><p class="muted">Fetching the model and every composition of the perovskite family. This takes a few seconds; on the hosted Studio the very first visit can take up to a minute while the server wakes up.</p><div class="prog"><i class="indeterminate"></i></div></div></div>
     <aside>
       <div class="card" id="live"></div>
       <div class="card small" id="legend"></div>
@@ -176,7 +179,7 @@ body>div:empty:not([id]):not([class]){position:absolute;top:0;left:0;width:0;hei
   <div class="row" style="margin-top:8px"><button class="primary" onclick="applyYaml()">Apply</button><button onclick="validateYaml()">Validate only</button><button onclick="downloadYaml()">⬇ Download meidnet.yaml</button><button onclick="openYaml()">Reset</button></div>
   <div id="yaml-msg"></div>
 </div>
-<div class="modal" id="modal" onclick="if(event.target===this)closeModal()"><div class="card" id="modal-body"></div></div>
+<div class="modal" id="modal" onclick="if(event.target===this)closeModal()"><div class="card" id="modal-body" role="dialog" aria-modal="true" aria-label="Composition details"></div></div>
 <script>
 /* ═══════════════════════════ state & constants ═══════════════════════════ */
 const STATIC = window.MEIDNET_STATIC || null;
@@ -218,7 +221,8 @@ const esc = s => String(s??'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;'
 /* a value as a JS string literal inside an onclick="…" attribute: safe for names such as "Young's modulus" */
 const jsq = s => esc(JSON.stringify(String(s??'')));
 const fmt = v => { if(v===null||v===undefined||Number.isNaN(+v)) return '–'; const x=+v;
-  if(Math.abs(x)>=1000||(Math.abs(x)<0.01&&x!==0)) return x.toPrecision(2);
+  if(Math.abs(x)>=1e6||(Math.abs(x)<0.01&&x!==0)) return x.toPrecision(2);
+  if(Math.abs(x)>=1000) return Math.round(x).toLocaleString('en-US');                    // 1,500 rather than 1.5e+3
   let s=x.toPrecision(3); if(s.includes('.')&&!/e/i.test(s)) s=s.replace(/0+$/,'').replace(/\.$/,'');   // 1.50→1.5, 100 stays 100
   return s; };
 const $ = id => document.getElementById(id);
@@ -363,6 +367,12 @@ function ruleTitle(n, params){ if(n==='property_window') return 'Predicted '+lab
 function ruleText(n){ if(n==='property_window') return 'The predicted value must lie inside the window.'; const r=(S.fam.space.rules||[]).find(x=>x.name===n); return r? r.text : ''; }
 function label(p){ const m=S.state.model.properties.find(x=>x.column===p); return m? m.label : p; }
 function unit(p){ const m=S.state.model.properties.find(x=>x.column===p); return m&&m.unit ? ' '+m.unit : ''; }
+/* the unit in brackets after a property name: "Direct band gap (eV)" */
+function unitP(p){ const u=unit(p).trim(); return u ? ' ('+u+')' : ''; }
+/* a validation error in words, as the training report judges it (error / spread of the property in the data) */
+function quality(col, mae){ const st=((S.data||{}).stats||{})[col]; const sd=st&&st.std;
+  if(!(sd>1e-12)) return {word:'—', css:'muted'}; const r=mae/sd;
+  return r<0.25 ? {word:'good', css:'pass'} : r<0.5 ? {word:'fair', css:'flag'} : {word:'weak', css:'fail'}; }
 /* a search result's rule, in words: property windows name their property (the result says "predicted dir_gap = …") */
 function resultTitle(r){ if(r.name==='symmetry_refinement') return 'Symmetry analysis';
   if(/^property_window/.test(r.name)){ const m=/predicted (.+?) =/.exec(r.detail||''); return 'Predicted '+(m?label(m[1]):'property')+' window'; }
@@ -412,7 +422,9 @@ function statusAll(){
   if(S.fam) status('family', `${S.fam.variant||S.fam.name}`, `${nfmt(ev?ev.rows.length:S.fam.space.rows.length)} compositions`);
   nodeState('family', ev&&ev.rows.length ? 'ok' : 'warn');
   if(ev){ status('rules', `${activeRules().length} rules`, `${nfmt(ev.alive.length)} pass all`); nodeState('rules', ev.alive.length ? 'ok' : 'warn'); }
-  status('targets', S.ui.objectives.map(o=>`${o.property} ${fmt(+S.ui.target[o.property])}`).join(', '), ev&&ev.ranked[0]?`best: ${ev.ranked[0][1].f}`:'no match');
+  { const full=S.ui.objectives.map(o=>`${label(o.property)} ${fmt(+S.ui.target[o.property])}${unit(o.property)}`).join(', ');
+    const short=S.ui.objectives.map(o=>`${o.property} ${fmt(+S.ui.target[o.property])}`).join(', ');   // the node fits ~21 characters; the tooltip has the words
+    status('targets', full.length<=21 ? full : short, ev&&ev.ranked[0]?`best: ${ev.ranked[0][1].f}`:'no match', full); }
   nodeState('targets', outOfRange().length ? 'warn' : (ev&&ev.ranked.length ? 'ok' : 'warn'));
   const st=S.search.status; if(!st) { status('search','idle',''); nodeState('search','idle'); }
   else if(!st.running){ status('search', st.error?'failed':'finished', ''); nodeState('search', st.error?'error':'ok'); }
@@ -448,8 +460,8 @@ function drawPipe(){
       <text class="s" id="st-${n.id}" x="${x+12}" y="${y+56}">…</text><text class="s" id="st2-${n.id}" x="${x+12}" y="${y+73}"></text></g>`; });
   $('pipe').innerHTML=s;
 }
-function status(id, a, b){ const fit=s=>{ s=String(s||''); return s.length>21 ? s.slice(0,20)+'…' : s; };   // ~21 characters fit a 130-px node at 11 px
-  const e=$('st-'+id); if(!e) return; e.textContent=fit(a); e.parentNode.querySelector('title').textContent = blockName(id)+' — '+String(a||'')+(b?' · '+b:'');
+function status(id, a, b, tip){ const fit=s=>{ s=String(s||''); return s.length>21 ? s.slice(0,20)+'…' : s; };   // ~21 characters fit a 130-px node at 11 px
+  const e=$('st-'+id); if(!e) return; e.textContent=fit(a); e.parentNode.querySelector('title').textContent = blockName(id)+' — '+String(tip||a||'')+(b?' · '+b:'');
   const e2=$('st2-'+id); if(e2) e2.textContent=fit(b); }
 function nodeState(id, st){ const b=$('bd-'+id); if(b) b.setAttribute('class','badge '+(st||'idle')); }
 function flowFrom(id){
@@ -501,7 +513,7 @@ function scatter(rows, px, py, target, highlight){
   for(const [x,y,r] of pts){ if(!r._ok) s+=`<circle class="ptx" cx="${X(x)}" cy="${Y(y)}" r="2.4"><title>${esc(r.f)} (rejected)</title></circle>`; }
   for(const [x,y,r] of pts){ if(r._ok&&!hs.has(r.f)) s+=`<circle class="pt" cx="${X(x)}" cy="${Y(y)}" r="3" onclick="inspect(${jsq(r.f)})" style="cursor:pointer"><title>${esc(r.f)}: ${fmt(x)}, ${fmt(y)}</title></circle>`; }
   for(const [x,y,r] of pts){ if(hs.has(r.f)) s+=`<path class="star" d="M${X(x)},${Y(y)-8} l2.3,5.5 5.7,0 -4.6,3.5 2,5.5 -5.4,-3.4 -5.4,3.4 2,-5.5 -4.6,-3.5 5.7,0z" onclick="inspect(${jsq(r.f)})" style="cursor:pointer"><title>${esc(r.f)} (found by search)</title></path>`; }
-  s+=`<text class="lab" x="${(ml+W-mr)/2}" y="${H-4}" text-anchor="middle">predicted ${esc(label(px))}${esc(unit(px))}</text><text class="lab" transform="translate(12,${(mt+H-mb)/2}) rotate(-90)" text-anchor="middle">predicted ${esc(label(py))}${esc(unit(py))}</text>`;
+  s+=`<text class="lab" x="${(ml+W-mr)/2}" y="${H-4}" text-anchor="middle">predicted ${esc(label(px))}${esc(unitP(px))}</text><text class="lab" transform="translate(12,${(mt+H-mb)/2}) rotate(-90)" text-anchor="middle">predicted ${esc(label(py))}${esc(unitP(py))}</text>`;
   return `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img"><title>Predicted properties of every composition; dashed lines = target</title>${s}</svg>`;
 }
 function gauge(p, value, target){
@@ -761,8 +773,12 @@ function trainBox(){
   if(st){ const p=st.progress; const frac=p.epochs?p.epoch/p.epochs:0;
     b+=`<h4>${st.running?'Training':(st.error?'Failed':'Finished')}</h4><p class="small">epoch ${p.epoch}/${p.epochs}${p.loss!=null?' · loss '+fmt(p.loss):''} · ${st.seconds.toFixed(0)} s</p><div class="prog"><i style="width:${(100*frac).toFixed(1)}%"></i></div>`;
     if(st.error) b+=`<div class="verdict bad">${esc(st.error)}</div>`;
-    if(p.curve&&p.curve.length>1) b+=`<div class="loss"><div>${lineChart({'total loss':p.curve.map(c=>[c[0],c[1]])},{log:true,xlabel:'epoch',title:'loss'})}</div><div>${lineChart({'alignment cos(z_c,z_p)':p.curve.map(c=>[c[0],c[2]])},{xlabel:'epoch',title:'alignment'})}</div></div>`;
-    if(p.val&&p.val.mae){ b+=`<table><tr><th>validation (epoch ${p.val.epoch})</th>${Object.keys(p.val.mae).map(k=>`<th>${esc(k)}</th>`).join('')}<th>retrieval@1</th></tr><tr><td>MAE</td>${Object.values(p.val.mae).map(v=>`<td>${fmt(v)}</td>`).join('')}<td>${(100*p.val.retrieval_top1).toFixed(0)}%</td></tr></table>`; }
+    if(p.curve&&p.curve.length>1) b+=`<div class="loss"><div>${lineChart({'training loss':p.curve.map(c=>[c[0],c[1]])},{log:true,xlabel:'epoch',title:'training loss (lower is better)'})}</div><div>${lineChart({'structure–property alignment':p.curve.map(c=>[c[0],c[2]])},{xlabel:'epoch',title:'alignment (higher is better)'})}</div></div>`;
+    if(p.val&&p.val.mae){ const q=Object.entries(p.val.mae).map(([k,v])=>quality(k,v));
+      b+=`<table><tr><th>held-out materials (epoch ${p.val.epoch})</th>${Object.keys(p.val.mae).map(k=>`<th>${esc(label(k)||k)}</th>`).join('')}<th title="how often a material's own properties are the closest match to its structure in the latent space">matched correctly</th></tr>
+        <tr><td>typical error (MAE)</td>${Object.entries(p.val.mae).map(([k,v])=>`<td>${fmt(v)}${esc(unit(k))}</td>`).join('')}<td>${(100*p.val.retrieval_top1).toFixed(0)}%</td></tr>
+        <tr><td>quality</td>${q.map(x=>`<td class="${x.css}">${x.word}</td>`).join('')}<td></td></tr></table>
+        <p class="small muted beginner-only">The typical error is compared with how much each property varies in your data: under 25% of that spread is <b>good</b>, under 50% <b>fair</b>, otherwise <b>weak</b>. "Matched correctly" is how often a material's structure and its properties land closest to each other in the model's hidden space (higher is better). A few epochs give a rough model; more epochs or more data usually help.</p>`; }
     if(st.done&&!st.error) b+=`<div class="verdict good">✅ Model ready — the blocks below now use <b>your</b> model and properties.${st.report?` <a href="/files/${esc(st.report)}" target="_blank">training report</a> · <a href="/files/${esc(st.report.replace('training_report.html','model.pt'))}" download="model.pt">download model.pt</a>`:''}</div>`; }
   return b;
 }
@@ -844,11 +860,11 @@ function panelTargets(){
   const ev=S.ev||evaluateSpace(); const props=S.state.model.properties; let b=`<p class="muted small">Each objective pulls the search; weights say how much. The chart and table update as you drag.</p>`;
   S.ui.objectives.forEach((o,i)=>{ const r=S.state.ranges[o.property]||[0,1]; const span=(r[1]-r[0])||1; const t=+S.ui.target[o.property];
     const vals=ev.rows.map(x=>x.p[o.property]); const okm=ev.rows.map(x=>x._ok);
-    b+=`<div class="rule"><div class="hd"><b>${esc(label(o.property))}${esc(unit(o.property))}</b>${S.ui.objectives.length>1?`<button onclick="removeObjective(${i})">remove</button>`:''}</div>
+    b+=`<div class="rule"><div class="hd"><b>${esc(label(o.property))}${esc(unitP(o.property))}</b>${S.ui.objectives.length>1?`<button onclick="removeObjective(${i})">remove</button>`:''}</div>
       <div class="params"><div class="param"><label>target</label><input type="number" step="0.01" value="${t}" onchange="setTarget(${jsq(o.property)},this.value)"><br><input type="range" min="${(r[0]-.2*span).toFixed(3)}" max="${(r[1]+.2*span).toFixed(3)}" step="${(span/200).toFixed(4)}" value="${t}" oninput="setTarget(${jsq(o.property)},this.value,true)" onchange="render()" style="width:230px"></div>
       <div class="param"><label>how to compare</label><select onchange="S.ui.objectives[${i}].loss=this.value;S.ui.objectives[${i}].select_loss=this.value;recompute('targets',${jsq('Comparison for '+label(o.property)+': ')}+this.value);render()">${['l2','l1','at_most','at_least'].map(k=>`<option value="${k}" ${k===o.loss?'selected':''}>${{l2:'as close as possible (squared)',l1:'as close as possible (absolute)',at_most:'at most the target',at_least:'at least the target'}[k]}</option>`).join('')}</select></div>
       <div class="param"><label>weight in search</label><input type="number" step="100" value="${o.weight}" onchange="S.ui.objectives[${i}].weight=+this.value"></div><div class="param"><label>weight in ranking</label><input type="number" step="0.1" value="${o.select_weight}" onchange="S.ui.objectives[${i}].select_weight=+this.value;recompute('targets','Ranking weight changed');render()"></div></div>
-      ${hist(vals, 'predicted '+label(o.property), 'predicted '+label(o.property)+unit(o.property)+' (grey = rejected by rules)', {marks:{target:t}, okMask:okm, bins:30})}
+      ${hist(vals, 'predicted '+label(o.property), 'predicted '+label(o.property)+unitP(o.property)+' · grey = rejected by the rules', {marks:{target:t}, okMask:okm, bins:30})}
       ${(t<r[0]||t>r[1])?`<p class="flag small">⚠ ${fmt(t)} is outside the training range ${fmt(r[0])}–${fmt(r[1])}: the model would be extrapolating.</p>`:''}</div>`; });
   const more=(S.ui.extraTargets||[]).length;
   if(more) b+=`<p class="small muted">The search also runs ${more} more target${more>1?'s':''} (${S.ui.extraTargets.map(t=>esc(Object.entries(t).map(([k,v])=>label(k)+' '+fmt(v)).join(', '))).join(' · ')}); change ${more>1?'them':'it'} in <a href="#" onclick="openYaml();return false">✎ Edit as text</a>.</p>`;
@@ -871,7 +887,7 @@ function panelSearch(){
   if(STATIC) b+=`<div class="verdict warn">The static demo cannot run a search. Use the hosted Studio, or <code>pip install meidnet</code> then <code>meidnet studio</code>.</div>`;
   b+=`<div class="row"><button class="primary" ${S.search.running||STATIC?'disabled':''} onclick="startSearch()">▶ Run search</button><button class="danger" ${S.search.running?'':'disabled'} onclick="stopSearch()">■ Stop</button><button onclick="downloadYaml()">⬇ Export meidnet.yaml</button></div>`;
   if(st){ const p=st.progress; const frac=p.steps?((p.step+1)/p.steps):0;
-    b+=`<h3>${st.running?'Running':(st.error?'Failed':'Finished')}</h3><p class="small">target ${p.target}/${p.targets} · round ${p.round}/${p.rounds} · step ${p.step}/${p.steps}${p.loss!==null&&p.loss!==undefined?' · loss '+fmt(p.loss):''} · ${st.seconds.toFixed(0)} s</p><div class="prog"><i style="width:${(100*frac).toFixed(1)}%"></i></div>`;
+    b+=`<h3>${st.running?'Running':(st.error?'Failed':'Finished')}</h3><p class="small">target ${p.target}/${p.targets} · round ${p.round}/${p.rounds} · step ${p.step}/${p.steps}${p.loss!==null&&p.loss!==undefined?` · <span class="muted" title="the quantity the search minimises: lower is better; its size depends on the weights, so compare it only within one search">loss ${fmt(p.loss)}</span>`:''} · ${st.seconds.toFixed(0)} s</p><div class="prog"><i style="width:${(100*frac).toFixed(1)}%"></i></div>`;
     if(st.error) b+=`<pre>${esc(st.error)}</pre>`;
     b+=`<details ${(S.logOpen??st.running)?'open':''} ontoggle="S.logOpen=this.open"><summary>log</summary><pre id="log">${esc(st.log.join('\n'))}</pre></details>`;
     if(st.report) b+=`<p><a href="/files/${esc(st.report)}" target="_blank">open the full generation report</a></p>`; }
@@ -901,7 +917,7 @@ function panelCandidates(){
 function renderLive(){
   const ev=S.ev; const L=$('live'); if(!ev || !S.fam){ L.innerHTML='<h2 style="font-size:17px">Live effects</h2><p class="muted small">…</p>'; return; } const top=ev.ranked;
   let b=`<h2 style="font-size:17px">Live effects</h2><div class="kpi side"><div><b>${nfmt(ev.rows.length)}</b><span><i style="background:var(--c-family)"></i>compositions</span></div><div><b>${nfmt(ev.alive.length)}</b><span><i style="background:var(--c-rules)"></i>pass all rules</span></div><div><b>${foundCands().length}</b><span><i style="background:var(--c-candidates)"></i>found by search</span></div></div>`;
-  if(top.length){ b+=`<h4 style="color:var(--c-targets)">Predicted closest to target</h4><table><tr><th>#</th><th>composition</th>${S.ui.objectives.map(o=>`<th>${esc(label(o.property))}${esc(unit(o.property))}</th>`).join('')}</tr>`;
+  if(top.length){ b+=`<h4 style="color:var(--c-targets)">Predicted closest to target</h4><table><tr><th>#</th><th>composition</th>${S.ui.objectives.map(o=>`<th>${esc(label(o.property))}${esc(unitP(o.property))}</th>`).join('')}</tr>`;
     top.slice(0,8).forEach(([s,r],i)=>{ b+=`<tr class="clk" onclick="inspect(${jsq(r.f)})"><td>${i+1}</td><td><b>${esc(r.f)}</b></td>${S.ui.objectives.map(o=>`<td>${fmt(r.p[o.property])}</td>`).join('')}</tr>`; }); b+='</table><p class="small muted">encoder prediction on the ideal prototype · click a row for the checklist and 3D cell</p>'; }
   else if(S.fam.space.columns.length) b+=`<p class="muted small">No composition passes all rules.</p>`;
   if(S.fam.space.sampled) b+=`<p class="flag small">⚠ family too large to enumerate fully; a random sample of ${nfmt(S.fam.space.rows.length)} of ${nfmt(S.fam.space.total)} compositions is shown.</p>`;
@@ -956,7 +972,9 @@ function drawerGeneration(){ const p=generationPayload(); const base=S.state.con
   return out; }
 async function startSearch(){ try{ const fam=S.fam; const r=await api('/api/search/start',{generation:generationPayload()});
     if(!r.ok){ renderChain([{block:'search', text:(r.busy?'server busy — ':'')+r.error}]); return; }
-    S.search.fam=fam; S.search.running=true; S.logOpen=undefined; status('search','running'); nodeState('search','running'); flowFrom('targets'); poll(); render(); }catch(e){ renderChain([{block:'search', text:e.message}]); } }
+    S.search.fam=fam; S.search.running=true; S.logOpen=undefined; status('search','running'); nodeState('search','running'); flowFrom('targets');
+    const s=S.ui.search; renderChain([{block:'search', text:`started: up to ${s.rounds} round(s) of ${s.steps} steps with ${s.population} latents per target`},{block:'candidates', text:`each candidate appears here as soon as it is found (aim: ${s.per_target} per target)`}]);
+    poll(); render(); }catch(e){ renderChain([{block:'search', text:e.message}]); } }
 async function stopSearch(){ try{ await api('/api/search/stop',{}); }catch(e){} }
 function typing(){ const a=document.activeElement; return !!a && $('panel').contains(a) && /^(INPUT|SELECT|TEXTAREA)$/.test(a.tagName); }
 function lastLine(err){ return String(err||'').trim().split('\n').pop(); }
@@ -1113,13 +1131,18 @@ function inspect(formula){ const r=S.fam.space.rows.find(x=>x.f===formula); if(!
     if(ru.name==='bond_window') w=`allowed ${esc(ru.params.low)}–${esc(ru.params.high)}`; else if(ru.params.min!==undefined||ru.params.max!==undefined) w=`allowed ${esc(ru.params.min??'…')}–${esc(ru.params.max??'…')}`;
     b+=`<li><span class="${ok?'pass':'fail'}">${ok?'✓':'✗'}</span> ${esc(ruleTitle(k||ru.name, ru.params))}${v!==undefined&&v!==null&&ru.name!=='charge_neutrality'?' = <b>'+fmt(v)+'</b>':''}${ru.name==='property_window'?' = <b>'+fmt(r.p[ru.params.property])+'</b>':''} <span class="muted small">${w}</span><div class="small muted beginner-only">${esc(ruleText(k||ru.name))}</div></li>`; }
   b+='</ul><p class="small muted">Descriptor values are computed by the same Python functions the search uses.</p><button onclick="closeModal()">close</button>';
-  $('modal-body').innerHTML=b; $('modal').classList.add('open'); mountAll3d(); }
-function closeModal(){ $('modal').classList.remove('open'); }
+  $('modal-body').innerHTML=b; S.modalReturn=document.activeElement; $('modal').classList.add('open'); mountAll3d();
+  const first=$('modal-body').querySelector('button'); if(first) first.focus();   // keyboard users land in the window
+}
+function closeModal(){ const was=$('modal').classList.contains('open'); $('modal').classList.remove('open');
+  if(was && S.modalReturn && document.body.contains(S.modalReturn)) S.modalReturn.focus(); }
 document.addEventListener('keydown', e=>{ if(e.key==='Escape'){ closeModal(); closeYaml(); }
   const t=e.target.closest && e.target.closest('[data-show]');   // blocks and chain steps work from the keyboard too
   if(t && (e.key==='Enter'||e.key===' ')){ e.preventDefault(); show(t.dataset.show); } });
 window.addEventListener('resize', ()=>{ clearTimeout(window._rz); window._rz=setTimeout(mountAll3d, 200); });
-boot().catch(e=>{ renderChain([{block:'data', text:'Could not start: '+e.message}]); console.error(e); });
+drawPipe();   // the workflow is visible at once; its numbers arrive with the data
+boot().catch(e=>{ renderChain([{block:'data', text:'Could not start: '+e.message}]); console.error(e);
+  const lc=document.querySelector('.loading-card'); if(lc) lc.innerHTML=`<h2>The Studio could not start</h2><p>${esc(e.message)}</p><p class="muted">Reload the page in a minute. If it keeps failing, the server may be restarting or busy.</p>`; });
 </script>
 </body>
 </html>

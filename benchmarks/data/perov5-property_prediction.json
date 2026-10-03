@@ -1,0 +1,216 @@
+{
+ "dataset": "perov5",
+ "protocol": "perov5-v1",
+ "task": "property_prediction",
+ "headline": "mae_heat_all",
+ "metrics": [
+  {
+   "id": "mae_heat_all",
+   "label": "MAE ΔH",
+   "unit": "eV/atom",
+   "better": "lower",
+   "digits": 3,
+   "show": true,
+   "definition": "mean absolute error of the formation enthalpy (heat_all)"
+  },
+  {
+   "id": "rmse_heat_all",
+   "label": "RMSE ΔH",
+   "unit": "eV/atom",
+   "better": "lower",
+   "digits": 3,
+   "show": true,
+   "definition": "root-mean-square error of the formation enthalpy"
+  },
+  {
+   "id": "r2_heat_all",
+   "label": "R² ΔH",
+   "unit": "",
+   "better": "higher",
+   "digits": 3,
+   "show": true,
+   "definition": "coefficient of determination of the formation enthalpy (0 = no better than the mean)"
+  },
+  {
+   "id": "mae_dir_gap",
+   "label": "MAE gap",
+   "unit": "eV",
+   "better": "lower",
+   "digits": 3,
+   "show": true,
+   "definition": "mean absolute error of the direct band gap over all test materials; 96% of them have a gap of 0 eV"
+  },
+  {
+   "id": "mae_dir_gap_nonzero",
+   "label": "MAE gap > 0",
+   "unit": "eV",
+   "better": "lower",
+   "digits": 3,
+   "show": true,
+   "definition": "mean absolute error of the direct band gap on the test materials with a non-zero gap, the range that inverse design targets"
+  },
+  {
+   "id": "rmse_dir_gap",
+   "label": "RMSE gap",
+   "unit": "eV",
+   "better": "lower",
+   "digits": 3,
+   "show": false,
+   "definition": "root-mean-square error of the direct band gap"
+  },
+  {
+   "id": "r2_dir_gap",
+   "label": "R² gap",
+   "unit": "",
+   "better": "higher",
+   "digits": 3,
+   "show": false,
+   "definition": "coefficient of determination of the direct band gap; not informative here, because the gap is zero for most materials"
+  },
+  {
+   "id": "mae_heat_all_nonzero",
+   "label": "MAE ΔH ≠ 0",
+   "unit": "eV/atom",
+   "better": "lower",
+   "digits": 3,
+   "show": false,
+   "definition": "mean absolute error of the formation enthalpy on materials where it is not zero"
+  },
+  {
+   "id": "n_evaluated",
+   "label": "n",
+   "unit": "",
+   "better": "none",
+   "digits": 0,
+   "show": false,
+   "definition": "test materials evaluated"
+  }
+ ],
+ "rows": [
+  {
+   "rank": 1,
+   "id": "meidnet-2k",
+   "method": "MEIDNet (published model)",
+   "kind": "model",
+   "metrics": {
+    "mae_heat_all": 0.4044762492601906,
+    "rmse_heat_all": 0.5389006858741189,
+    "r2_heat_all": 0.475406073844704,
+    "mae_dir_gap": 2.791789979594544,
+    "mae_dir_gap_nonzero": 1.676130875688515,
+    "rmse_dir_gap": 3.051066034368392,
+    "r2_dir_gap": -31.399695123272913,
+    "mae_heat_all_nonzero": 0.40431394123501807,
+    "n_evaluated": 3785.0
+   },
+   "parameters": 702405,
+   "training_data": "Perov-5 train (11,356)",
+   "date": "2026-10-03",
+   "links": {
+    "paper": "https://doi.org/10.1038/s41524-026-02153-3",
+    "code": "https://github.com/ABnano/MEIDNet",
+    "weights": "https://huggingface.co/Babu09/MEIDNet/blob/main/dual_autoencoder_clip_earlyfusion_propertyaware_2k.pth"
+   }
+  },
+  {
+   "rank": 2,
+   "id": "baseline-composition-knn",
+   "method": "Composition k-NN",
+   "kind": "baseline",
+   "metrics": {
+    "mae_heat_all": 0.5106261558784676,
+    "rmse_heat_all": 0.67409273437046,
+    "r2_heat_all": 0.17918539075266848,
+    "mae_dir_gap": 0.16282166446499338,
+    "mae_dir_gap_nonzero": 2.0438410596026486,
+    "rmse_dir_gap": 0.5677910568862923,
+    "r2_dir_gap": -0.12205670370125676,
+    "mae_heat_all_nonzero": 0.5105317124735729,
+    "n_evaluated": 3785.0
+   },
+   "parameters": null,
+   "training_data": "Perov-5 train (11,356)",
+   "date": "2026-10-03",
+   "links": {
+    "paper": "",
+    "code": "https://github.com/ABnano/MEIDNet",
+    "weights": ""
+   }
+  },
+  {
+   "rank": 3,
+   "id": "meidnet-earlyfusion",
+   "method": "MEIDNet (first early-fusion model)",
+   "kind": "model",
+   "metrics": {
+    "mae_heat_all": 0.5219494936280396,
+    "rmse_heat_all": 0.6984069104329343,
+    "r2_heat_all": 0.11890478842501484,
+    "mae_dir_gap": 13.468713194923955,
+    "mae_dir_gap_nonzero": 11.997500279407628,
+    "rmse_dir_gap": 13.49162868649166,
+    "r2_dir_gap": -632.5289559190309,
+    "mae_heat_all_nonzero": 0.5216916632683787,
+    "n_evaluated": 3785.0
+   },
+   "parameters": 702405,
+   "training_data": "Perov-5 train (11,356)",
+   "date": "2026-10-03",
+   "links": {
+    "paper": "https://doi.org/10.1038/s41524-026-02153-3",
+    "code": "https://github.com/ABnano/MEIDNet",
+    "weights": "https://huggingface.co/Babu09/MEIDNet/blob/main/dual_autoencoder_clip_earlyfusion.pth"
+   }
+  },
+  {
+   "rank": 4,
+   "id": "baseline-train-mean",
+   "method": "Training mean",
+   "kind": "baseline",
+   "metrics": {
+    "mae_heat_all": 0.5661949544069839,
+    "rmse_heat_all": 0.7441009623341133,
+    "r2_heat_all": -0.00016008318594540327,
+    "mae_dir_gap": 0.17263679417138986,
+    "mae_dir_gap_nonzero": 2.135410460730273,
+    "rmse_dir_gap": 0.536024930927169,
+    "r2_dir_gap": -1.770296343450717e-05,
+    "mae_heat_all_nonzero": 0.5659521226170967,
+    "n_evaluated": 3785.0
+   },
+   "parameters": null,
+   "training_data": "Perov-5 train (11,356)",
+   "date": "2026-10-03",
+   "links": {
+    "paper": "",
+    "code": "https://github.com/ABnano/MEIDNet",
+    "weights": ""
+   }
+  },
+  {
+   "rank": 5,
+   "id": "meidnet-propertyaware",
+   "method": "MEIDNet (shorter training)",
+   "kind": "model",
+   "metrics": {
+    "mae_heat_all": 1.0086242795072429,
+    "rmse_heat_all": 1.3909827386551898,
+    "r2_heat_all": -2.4950167913908077,
+    "mae_dir_gap": 3.2924426765982036,
+    "mae_dir_gap_nonzero": 1.9782721372629632,
+    "rmse_dir_gap": 3.391715489047422,
+    "r2_dir_gap": -39.03838382691901,
+    "mae_heat_all_nonzero": 1.0086194461344664,
+    "n_evaluated": 3785.0
+   },
+   "parameters": 702405,
+   "training_data": "Perov-5 train (11,356)",
+   "date": "2026-10-03",
+   "links": {
+    "paper": "https://doi.org/10.1038/s41524-026-02153-3",
+    "code": "https://github.com/ABnano/MEIDNet",
+    "weights": "https://huggingface.co/Babu09/MEIDNet/blob/main/dual_autoencoder_clip_earlyfusion_propertyaware.pth"
+   }
+  }
+ ]
+}

@@ -98,6 +98,21 @@ def trained(studio, checked):
 
 
 # ───────────────────────── 1. upload ─────────────────────────
+def test_doped_cif_is_skipped_not_fatal(studio):
+    """A partially occupied (doped) structure is reported as a skip reason; the rest of the table is still checked."""
+    df = pd.read_csv(MINI).head(6)
+    lines = df.loc[0, "cif"].splitlines()          # the last column of a site line is its occupancy: make one 0.5
+    i = next(k for k, line in enumerate(lines) if line.split()[-1:] == ["1"] and len(line.split()) == 7)
+    lines[i] = lines[i].rsplit(" ", 1)[0] + " 0.5"
+    df.loc[0, "cif"] = "\n".join(lines)
+    sid = "tab-doped"
+    studio.upload({"session": sid, "files": [{"name": "doped.csv", "b64": b64(df.to_csv(index=False).encode())}]})
+    checked = studio.check_data(dict(CHECK, session=sid))
+    assert checked["available"] and checked["rows"] == 6
+    assert any("partially occupied" in reason for reason in checked["skipped"]), checked["skipped"]
+    assert checked["kept"] >= 1
+
+
 def test_upload_suggests_columns(studio, uploaded):
     assert uploaded["rows"] == 64 and uploaded["n_cifs"] == 0 and uploaded["truncated"] is False
     sug = uploaded["suggest"]

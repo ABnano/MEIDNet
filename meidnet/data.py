@@ -334,17 +334,23 @@ def load_records(df: pd.DataFrame, data_cfg, base_resolve, family=None, source: 
         if len(s) > data_cfg.max_sites:
             report.skip(f"more than max_sites={data_cfg.max_sites} atoms", mid)
             continue
-        if align:
-            try:
-                s, _ = align_to_prototype(s, family, tol=data_cfg.prototype_tolerance)
-                report.aligned += 1
-            except AlignmentError:
-                report.skip(f"does not match the {family.name} prototype", mid)
-                continue
+        if not s.is_ordered:        # doped / solid-solution CIFs: one element per site is needed
+            report.skip("partially occupied site (doped or solid solution): one element per site is needed", mid)
+            continue
         try:
+            if align:
+                try:
+                    s, _ = align_to_prototype(s, family, tol=data_cfg.prototype_tolerance)
+                    report.aligned += 1
+                except AlignmentError:
+                    report.skip(f"does not match the {family.name} prototype", mid)
+                    continue
             dense = featurize(s, data_cfg.max_sites, data_cfg.neighbor_cutoff)
         except ValueError:
             report.skip("unsupported species", mid)
+            continue
+        except Exception as e:      # one odd structure must not stop the whole table
+            report.skip(f"structure could not be processed ({type(e).__name__})", mid)
             continue
         for el in s.composition.elements:
             report.elements[str(el)] += 1

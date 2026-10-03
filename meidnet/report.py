@@ -282,7 +282,7 @@ def training_report(cfg, lm, history, train_set, val_set, path) -> str:
     body += (f"<section><h2>Run details</h2><table><tr><th>Training materials</th><td>{len(train_set)}</td></tr>"
              f"<tr><th>Validation materials</th><td>{0 if val_set is None else len(val_set)}</td></tr>"
              f"<tr><th>Epochs</th><td>{cfg.training.epochs}</td></tr><tr><th>Time</th><td>{human_time(history.get('seconds', 0))}</td></tr>"
-             f"<tr><th>Model file</th><td><code>{esc(lm.path)}</code></td></tr></table></section>")
+             f"<tr><th>Model file</th><td><code>{esc(os.path.basename(str(lm.path)))}</code></td></tr></table></section>")
     body += ("<section><h2>Next step</h2><p>Design candidates for your targets:</p><pre>meidnet generate meidnet.yaml</pre>"
              "<p class='muted'>Or explore the design space interactively: <code>meidnet studio meidnet.yaml</code>.</p></section>")
     return write(path, page("Training report", f"How good is the model trained for <b>{esc(cfg.name)}</b>?", body, cfg.name))

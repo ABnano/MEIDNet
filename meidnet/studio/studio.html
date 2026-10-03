@@ -1123,7 +1123,7 @@ function fallbackExplore(ds, sel){
   fbSelect(sel!==undefined?sel:0);
 }
 function fbSelect(i){ const ds=S.csData; if(!ds||!ds.structures[i]) return; const st=fromChemiscope(ds,i); S.cells['fb']=st; mountCell($('c3d-fb'), st, {title: ds.properties.formula?ds.properties.formula.values[i]:'', labels:true});
-  $('fb-info').innerHTML = Object.entries(ds.properties).map(([k,p])=>`<b title="${esc(p.description||k)}">${esc(k)}</b>:${typeof p.values[i]==='number'?fmt(p.values[i]):esc(p.values[i])}${p.units?' '+esc(p.units):''}`).join(' · '); }
+  $('fb-info').innerHTML = Object.entries(ds.properties).map(([k,p])=>`<b title="${esc(p.description||k)}">${esc(k)}</b>: ${typeof p.values[i]==='number'?fmt(p.values[i]):esc(p.values[i])}${p.units?' '+esc(p.units):''}`).join(' · '); }
 function closeExplore(){ $('explore').hidden=true; if(S.cs){ try{ S.cs.remove(); }catch(e){} S.cs=null; } }
 function downloadDataset(){ if(!S.csData) return; const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([JSON.stringify(S.csData)],{type:'application/json'})); a.download=`meidnet_${S.csWhat||'dataset'}_chemiscope.json`; a.click(); }
 

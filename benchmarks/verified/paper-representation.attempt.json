@@ -1,0 +1,32 @@
+{
+ "id": "paper-representation",
+ "submission_sha256": "7350efdcebc9cec1dff88383dad8848c813ef0038382bedc94ab9d00593a55fb",
+ "date": "2026-10-03",
+ "by": "Anand Babu",
+ "hardware": "AMD64 CPU",
+ "meidnet_version": "2.0.0",
+ "agree": false,
+ "obtained": {
+  "mae_heat_all": 0.3917219638824463,
+  "r2_heat_all": 0.4972262382507324,
+  "mae_dir_gap": 2.793560266494751,
+  "r2_dir_gap": -35.82719039916992,
+  "retrieval_top1": 0.025349881500005722,
+  "retrieval_top5": 0.09083707630634308,
+  "cosine_matched": 0.7714881300926208,
+  "n_evaluated": 3787.0,
+  "l2_matched": 0.6757586002349854
+ },
+ "compared": {
+  "cosine_matched": {
+   "submitted": 0.97,
+   "obtained": 0.7714881300926208,
+   "ok": false
+  },
+  "l2_matched": {
+   "submitted": 0.24,
+   "obtained": 0.6757586002349854,
+   "ok": false
+  }
+ }
+}

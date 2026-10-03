@@ -15,9 +15,9 @@
 
 ## Results
 
-| metric | value | split | note |
-|---|---|---|---|
-| `n_screened` | 26 structures |  | the CIFs in examples/perov5/paper_results/ |
+| metric | value | split | meaning | note |
+|---|---|---|---|---|
+| `n_screened` | 26 structures |  | structures relaxed with the MLIP | the CIFs in examples/perov5/paper_results/ |
 
 ## Validation
 

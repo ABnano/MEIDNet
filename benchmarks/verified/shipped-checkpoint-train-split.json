@@ -1,0 +1,67 @@
+{
+ "id": "shipped-checkpoint-train-split",
+ "submission_sha256": "107868c3d1a2f372bffc9c64313a79daf9faf80a5977ab774e63a483a1f495e7",
+ "date": "2026-10-03",
+ "by": "Anand Babu",
+ "hardware": "AMD64 CPU",
+ "meidnet_version": "2.0.0",
+ "agree": true,
+ "obtained": {
+  "mae_heat_all": 0.39736267924308777,
+  "r2_heat_all": 0.4858857989311218,
+  "mae_dir_gap": 2.777456760406494,
+  "r2_dir_gap": -29.834505081176758,
+  "retrieval_top1": 0.010126804932951927,
+  "retrieval_top5": 0.04050721973180771,
+  "cosine_matched": 0.7713066935539246,
+  "n_evaluated": 11356.0,
+  "l2_matched": 0.6758602261543274
+ },
+ "compared": {
+  "cosine_matched": {
+   "submitted": 0.7713,
+   "obtained": 0.7713066935539246,
+   "ok": true
+  },
+  "l2_matched": {
+   "submitted": 0.6759,
+   "obtained": 0.6758602261543274,
+   "ok": true
+  },
+  "retrieval_top1": {
+   "submitted": 0.0101,
+   "obtained": 0.010126804932951927,
+   "ok": true
+  },
+  "retrieval_top5": {
+   "submitted": 0.0405,
+   "obtained": 0.04050721973180771,
+   "ok": true
+  },
+  "mae_heat_all": {
+   "submitted": 0.3974,
+   "obtained": 0.39736267924308777,
+   "ok": true
+  },
+  "r2_heat_all": {
+   "submitted": 0.4859,
+   "obtained": 0.4858857989311218,
+   "ok": true
+  },
+  "mae_dir_gap": {
+   "submitted": 2.7775,
+   "obtained": 2.777456760406494,
+   "ok": true
+  },
+  "r2_dir_gap": {
+   "submitted": -29.83,
+   "obtained": -29.834505081176758,
+   "ok": true
+  },
+  "n_evaluated": {
+   "submitted": 11356.0,
+   "obtained": 11356.0,
+   "ok": true
+  }
+ }
+}

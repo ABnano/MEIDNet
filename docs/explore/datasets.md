@@ -10,7 +10,7 @@ across datasets**: the tasks, sizes and properties differ, so results are only c
 
     ---
 
-    **18,928 cubic ABX₃ perovskites** (CDVAE split: 11,356 train / 3,785 validation / 3,787 test), each with a
+    **18,928 cubic ABX₃ perovskites** (CDVAE split: 11,356 train / 3,787 validation / 3,785 test), each with a
     relaxed structure, formation enthalpy (`heat_all`, eV/atom) and direct band gap (`dir_gap`, eV).
 
     **Modalities used in MEIDNet:** crystal structure · electronic property (band gap) · thermodynamic property

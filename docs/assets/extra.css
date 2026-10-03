@@ -1,7 +1,39 @@
-/* MEIDNet docs: benchmark badges and dataset cards */
+/* MEIDNet docs: benchmark badges, KPI tiles, charts and dataset cards */
 .ladder{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:1px;color:#4a3aa7}
-.bstatus{display:inline-block;border-radius:999px;padding:1px 9px;font-size:.78em;font-weight:700;border:1px solid}
+.bstatus{display:inline-block;border-radius:999px;padding:1px 9px;font-size:.78em;font-weight:700;border:1px solid;white-space:nowrap}
 .bstatus.sub{color:#52514e;border-color:#c3c2b7}.bstatus.pub{color:#1c5cab;border-color:#86b6ef}.bstatus.ver{color:#0a7d0a;border-color:#6fcf6f}
-[data-md-color-scheme="slate"] .bstatus.sub{color:#c3c2b7}
+[data-md-color-scheme="slate"] .bstatus.sub{color:#c3c2b7}[data-md-color-scheme="slate"] .bstatus.pub{color:#86b6ef}[data-md-color-scheme="slate"] .bstatus.ver{color:#6fcf6f}
 .md-typeset .grid.cards>ul>li{border-top:4px solid #4f46e5}
 .tour-video video{border:1px solid var(--md-default-fg-color--lightest)}
+
+/* KPI tiles at the top of a benchmark page */
+.bench-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:0 0 16px}
+.bench-kpis div{border:1px solid var(--md-default-fg-color--lightest);border-radius:10px;padding:8px 12px;background:var(--md-code-bg-color)}
+.bench-kpis b{display:block;font-size:1.5em;line-height:1.2;color:#4f46e5}.bench-kpis span{font-size:.8em;color:var(--md-default-fg-color--light)}
+
+/* dependency-free SVG charts drawn by meidnet.svg (the same classes as the HTML reports) */
+.bench-charts{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px;margin:8px 0 18px}
+.bench-chart{border:1px solid var(--md-default-fg-color--lightest);border-radius:10px;padding:8px;background:var(--md-code-bg-color)}
+.bench-chart svg.chart{width:100%;height:auto;max-width:none;display:block}
+.bench-chart .ax{stroke:var(--md-default-fg-color--light);stroke-width:1}.bench-chart .grid{stroke:var(--md-default-fg-color--lightest);stroke-width:.6}
+.bench-chart .tick,.bench-chart .val,.bench-chart .leg{fill:var(--md-default-fg-color--light);font-size:11px}
+.bench-chart .lab{fill:var(--md-default-fg-color);font-size:12px}
+.bench-chart .bar{fill:#4f46e5;opacity:.85}.bench-chart .ok{fill:#0a7d0a}.bench-chart .win{fill:rgba(79,70,229,.12)}
+.bench-chart .mark{stroke:#e87ba4;stroke-width:2;stroke-dasharray:4 3}.bench-chart .marklab{fill:#e87ba4;font-size:11px}
+.bench-chart .pt{fill:#4f46e5;opacity:.35}.bench-chart .pt2{fill:#eb6834;opacity:.55}.bench-chart .pt3{fill:var(--md-default-fg-color--light);opacity:.35}
+.bench-chart .star{fill:#0a7d0a;stroke:#fff;stroke-width:1}.bench-chart .track{fill:var(--md-default-fg-color--lightest)}.bench-chart .dot{fill:#4f46e5}
+.bench-chart .s0{stroke:#4f46e5;stroke-width:2;fill:none}.bench-chart .s1{stroke:#eb6834;stroke-width:2;fill:none}.bench-chart .s2{stroke:#0a7d0a;stroke-width:2;fill:none}
+.bench-chart .s3{stroke:#d03b3b;stroke-width:2;fill:none}.bench-chart .s4{stroke:var(--md-default-fg-color--light);stroke-width:2;fill:none}
+.bench-chart .s0t{fill:#4f46e5}.bench-chart .s1t{fill:#eb6834}.bench-chart .s2t{fill:#0a7d0a}.bench-chart .s3t{fill:#d03b3b}.bench-chart .s4t{fill:var(--md-default-fg-color--light)}
+
+/* sortable leaderboards */
+th[role="columnheader"]:not(.no-sort){cursor:pointer}
+th[role="columnheader"]:not(.no-sort)::after{content:"";float:right;margin-top:7px;border-width:0 4px 4px;border-style:solid;border-color:currentColor transparent;visibility:hidden;opacity:0}
+th[aria-sort="ascending"]:not(.no-sort)::after{border-bottom:none;border-width:4px 4px 0}
+th[aria-sort]:not(.no-sort)::after{visibility:visible;opacity:.5}
+th[role="columnheader"]:not(.no-sort):hover::after{visibility:visible;opacity:.3}
+
+/* leaderboards: compact, one line per row where possible */
+.bench-table table{font-size:.68rem}
+.bench-table td,.bench-table th{padding:.5em .6em;white-space:nowrap}
+.bench-table td:first-child{white-space:normal;min-width:14em}

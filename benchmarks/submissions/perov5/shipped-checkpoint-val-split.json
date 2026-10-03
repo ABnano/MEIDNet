@@ -1,0 +1,93 @@
+{
+ "id": "shipped-checkpoint-val-split",
+ "dataset": "perov5",
+ "title": "Shipped checkpoint re-evaluated on the held-out validation split (this code)",
+ "submitter": {
+  "name": "Anand Babu",
+  "affiliation": "UCLouvain",
+  "github": "ABnano"
+ },
+ "date": "2026-10-03",
+ "modalities": [
+  "structure",
+  "property:heat_all",
+  "property:dir_gap"
+ ],
+ "model": {
+  "name": "MEIDNet early fusion + curriculum (production model)",
+  "meidnet_version": "2.0.0",
+  "family": "perovskite_abx3",
+  "config": "examples/perov5/meidnet.yaml",
+  "checkpoint_url": "checkpoints/dual_autoencoder_clip_earlyfusion_propertyaware_2k.pth",
+  "notes": "the checkpoint shipped with the repository and used by the live Studio; 128-dimensional shared latent space"
+ },
+ "category": "representation_quality",
+ "results": {
+  "cosine_matched": {
+   "value": 0.7715,
+   "unit": "",
+   "split": "val",
+   "note": "mean over the 3,787 validation materials"
+  },
+  "l2_matched": {
+   "value": 0.6758,
+   "unit": "",
+   "split": "val",
+   "note": "unit latents: sqrt(2 - 2 cos)"
+  },
+  "retrieval_top1": {
+   "value": 0.0253,
+   "unit": "",
+   "split": "val"
+  },
+  "retrieval_top5": {
+   "value": 0.0908,
+   "unit": "",
+   "split": "val"
+  },
+  "mae_heat_all": {
+   "value": 0.3917,
+   "unit": "eV/atom",
+   "split": "val",
+   "note": "predicted from the structure latent alone"
+  },
+  "r2_heat_all": {
+   "value": 0.4972,
+   "unit": "",
+   "split": "val"
+  },
+  "mae_dir_gap": {
+   "value": 2.7936,
+   "unit": "eV",
+   "split": "val",
+   "note": "96% of the rows have a direct gap of 0 eV; the structure-only predictor does not capture that"
+  },
+  "r2_dir_gap": {
+   "value": -35.83,
+   "unit": "",
+   "split": "val"
+  },
+  "n_evaluated": {
+   "value": 3787,
+   "unit": "materials",
+   "split": "val"
+  }
+ },
+ "validation_level": "generated",
+ "evidence": [
+  "checkpoints/dual_autoencoder_clip_earlyfusion_propertyaware_2k.pth",
+  "benchmarks/verified/shipped-checkpoint-val-split.predictions.csv"
+ ],
+ "resources": {
+  "hardware": "laptop CPU (AMD64)"
+ },
+ "reproduce": {
+  "config": "examples/perov5/meidnet.yaml",
+  "split": "val",
+  "command": "python scripts/benchmarks.py reproduce shipped-checkpoint-val-split"
+ },
+ "status": "meidnet_verified",
+ "notes": "What this code measures on the shipped checkpoint, with every prediction saved (parity plots below). The paper's representation row quotes a cosine of about 0.97; this re-run does not reach it, see the comparison on that row's page.",
+ "verified_by": "Anand Babu",
+ "verified_on": "2026-10-03"
+}

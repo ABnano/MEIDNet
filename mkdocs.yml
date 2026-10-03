@@ -42,12 +42,16 @@ extra_css:
 
 extra_javascript:
   - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+  - https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js
+  - https://unpkg.com/tablesort@5.3.0/dist/sorts/tablesort.number.min.js
+  - assets/tablesort.js
 
 nav:
   - Home: index.md
   - Explore:
       - Datasets: explore/datasets.md
       - Capabilities (what works today): explore/capabilities.md
+      - Databases by application: explore/databases.md
   - Studio:
       - MEIDNet Studio (live workbench): use/studio.md
       - Explore in 3D: use/explore-3d.md

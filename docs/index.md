@@ -2,9 +2,16 @@
 
 # MEIDNet Prism
 
-[← MEIDNet Prism home](https://babu09-meidnet.hf.space/studio/) · the documentation of the MEIDNet framework and its platform.
+[← MEIDNet Prism home](https://babu09-meidnet.hf.space/) · the documentation of the MEIDNet framework and its platform.
 
-**Design crystalline materials from target properties — with your own data, your own rules, and no code to edit.**
+**Learn, build and benchmark multimodal AI for materials discovery.** MEIDNet is the reference implementation:
+it designs crystalline materials from target properties, with your own data, your own rules and no code to edit.
+
+```
+   Learn ──► Architectures ──► Build ──► Datasets ──► Benchmarks ──► Community
+   what is   which design      MEIDNet    data that    results with   share and
+   multimodal fits your data   Studio     works        evidence       reproduce
+```
 
 MEIDNet learns one latent space shared by crystal structures and their properties, then searches it for new
 materials that hit property targets while obeying the chemical and structural rules of a *material family*.
@@ -21,6 +28,24 @@ accepts any table of structures and scalar properties and any prototype family y
 </figure>
 
 <div class="grid cards" markdown>
+
+-   :material-school:{ .lg .middle } **Learn multimodality**
+
+    ---
+
+    What a modality is, the five challenges of multimodal learning, contrastive learning with a playground, and
+    an interactive map of materials modalities.
+
+    [:octicons-arrow-right-24: Learn](learn/index.md)
+
+-   :material-sitemap:{ .lg .middle } **Choose an architecture**
+
+    ---
+
+    Early fusion, late fusion, shared latent spaces, cross-attention and contrastive learning, and an advisor
+    that recommends one for your data and goal.
+
+    [:octicons-arrow-right-24: Architecture Atlas](learn/architectures.md)
 
 -   :material-play-circle:{ .lg .middle } **Try MEIDNet**
 

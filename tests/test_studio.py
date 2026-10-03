@@ -129,7 +129,7 @@ def test_http_routes_landing_and_studio(studio, tmp_path):
         srv = serve(studio)
         try:
             st, _, body = get(srv, "/")
-            assert st == 200 and "MEIDNet Prism" in body and "Launch Studio" in body
+            assert st == 200 and "MEIDNet Prism" in body and "Try MEIDNet" in body and "/docs/learn/index.html" in body
             st, _, body = get(srv, "/studio/")
             assert st == 200 and "MEIDNet Studio" in body and "Researcher mode" in body
             st, h, _ = get(srv, "/?panel=rules&session=tab-route")

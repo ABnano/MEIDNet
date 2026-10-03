@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>MEIDNet Prism — multimodal materials representation and inverse design</title>
-<meta name="description" content="MEIDNet Prism: bring crystal structures and properties into one shared representation, explore it, and design new materials. The interactive platform around the MEIDNet framework (npj Computational Materials, 2026).">
+<title>MEIDNet Prism — learn, build and benchmark multimodal AI for materials discovery</title>
+<meta name="description" content="MEIDNet Prism: learn what multimodal learning is, choose an architecture, build a model on your own structures and properties, find datasets and benchmark the result. MEIDNet (npj Computational Materials, 2026) is the reference implementation.">
 <link rel="icon" href="/docs/assets/favicon-64.png" type="image/png"><link rel="apple-touch-icon" href="/docs/assets/prism-mark-192.png">
 <style>
 :root{--c-data:#2a78d6;--c-model:#eb6834;--c-family:#1baf7a;--c-rules:#eda100;--c-targets:#e87ba4;--c-search:#008300;--c-candidates:#4a3aa7;
@@ -17,8 +17,9 @@ a{color:var(--p1)}:root[data-theme="dark"] a{color:#a5b4fc}
 header{position:sticky;top:0;z-index:5;background:var(--card);border-bottom:1px solid var(--line)}
 header .wrap{display:flex;align-items:center;gap:10px;min-height:56px;flex-wrap:wrap}
 .brand{display:flex;align-items:center;gap:8px;font-weight:800;font-size:18px;text-decoration:none;color:var(--ink)}.brand img{width:28px;height:28px}
-nav{margin-left:auto;display:flex;gap:2px;flex-wrap:wrap}nav a{text-decoration:none;color:var(--muted);padding:6px 10px;border-radius:8px;font-size:14.5px;font-weight:600}
+nav{margin-left:auto;display:flex;gap:2px;flex-wrap:wrap}nav a{text-decoration:none;color:var(--muted);padding:6px 9px;border-radius:8px;font-size:14px;font-weight:600;white-space:nowrap}
 nav a:hover,nav a[aria-current]{background:var(--bg);color:var(--ink)}nav a.cta{background:var(--p1);color:#fff}nav a.cta:hover{background:var(--p2);color:#fff}
+@media(max-width:1080px){nav{order:3;width:100%;margin-left:0;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding:0 0 8px}nav::-webkit-scrollbar{display:none}header .theme{margin-left:auto}}
 .hero{display:grid;grid-template-columns:1.1fr 1fr;gap:28px;align-items:center;padding:44px 0 24px}
 @media(max-width:860px){.hero{grid-template-columns:1fr}}
 .eyebrow{font:700 12px/1 system-ui;letter-spacing:.14em;text-transform:uppercase;color:var(--p1);margin:0 0 10px}
@@ -32,7 +33,12 @@ h1 .prism{background:linear-gradient(90deg,var(--p1),var(--p2));-webkit-backgrou
 .prismfig{width:100%;height:auto;display:block;border-radius:14px;background:#fff;border:1px solid var(--line)}
 .video{margin:12px 0 28px}.video video{width:100%;height:auto;border-radius:14px;border:1px solid var(--line);background:#000;display:block}
 .video figcaption{font-size:14px;color:var(--muted);margin-top:8px}
-.three{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:8px 0 28px}@media(max-width:760px){.three{grid-template-columns:1fr}}
+.layers{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:8px 0 28px}@media(max-width:900px){.layers{grid-template-columns:1fr 1fr}}@media(max-width:600px){.layers{grid-template-columns:1fr}}
+.layers .card h2 small{display:block;font:700 11px/1.4 system-ui;letter-spacing:.12em;text-transform:uppercase;color:var(--accent,var(--p1))}
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:0 0 12px;font-weight:700;font-size:14.5px}
+.flow a{text-decoration:none;color:var(--ink);background:var(--card);border:1px solid var(--line);border-top:3px solid var(--accent);border-radius:10px;padding:6px 12px}
+.flow a:hover{box-shadow:0 4px 14px -8px rgba(0,0,0,.5)}.flow span{color:var(--faint)}
+h2.sec{font-size:24px;margin:0 0 6px}.sec-sub{color:var(--muted);margin:0 0 14px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;border-top:4px solid var(--accent,var(--p1))}
 .card h2{margin:0 0 6px;font-size:21px}.card p{margin:0 0 10px;color:var(--muted)}.card a.more{font-weight:700;text-decoration:none}
 .card ul{margin:0;padding-left:18px;color:var(--muted);font-size:14.5px}
@@ -52,9 +58,10 @@ footer{color:var(--faint);font-size:13.5px;padding:10px 0 40px;display:flex;gap:
 <header><div class="wrap">
   <a class="brand" href="/"><img src="/docs/assets/prism-mark-192.png" alt=""> MEIDNet <span style="font-weight:500;color:var(--muted)">Prism</span></a>
   <nav aria-label="Main">
-    <a href="/" aria-current="page">Home</a><a href="/docs/explore/datasets.html">Explore</a><a href="/docs/benchmarks/index.html">Benchmarks</a>
-    <a href="/docs/community/contribute.html">Community</a><a href="/docs/">Docs</a><a href="/docs/research/paper.html">About</a>
-    <a class="cta" href="/studio/">Launch Studio</a>
+    <a href="/" aria-current="page">Home</a><a href="/docs/learn/index.html">Learn</a><a href="/docs/learn/architectures.html">Architectures</a>
+    <a class="cta" href="/studio/" title="MEIDNet Studio: build a model and design materials">Build</a><a href="/docs/explore/datasets.html">Datasets</a>
+    <a href="/docs/benchmarks/index.html">Benchmarks</a><a href="/studio/?explore=space" title="Every composition of a family in the shared space">Explore</a>
+    <a href="/docs/">Docs</a><a href="/docs/community/contribute.html">Community</a>
   </nav>
   <button class="theme" id="theme" title="light / dark" aria-label="Switch light or dark mode">🌙</button>
 </div></header>
@@ -63,9 +70,9 @@ footer{color:var(--faint);font-size:13.5px;padding:10px 0 40px;display:flex;gap:
   <section class="hero">
     <div>
       <p class="eyebrow">MEIDNet Prism</p>
-      <h1>Multimodal materials <span class="prism">representation</span> and inverse design</h1>
-      <p class="tag">Bring your crystal structures and properties together in one shared representation. Explore it, design new materials from the properties you want, and benchmark the result.</p>
-      <div class="btns"><a class="btn primary" href="/studio/">▶ Launch Studio</a><a class="btn" href="/docs/explore/datasets.html">Explore datasets</a><a class="btn" href="/docs/benchmarks/index.html">Benchmarks</a></div>
+      <h1>Learn, build and benchmark <span class="prism">multimodal AI</span> for materials discovery</h1>
+      <p class="tag">From what a modality is to a trained model and a reproducible result. MEIDNet is the reference implementation: one space shared by crystal structures and their properties, searched for new materials with the properties you want.</p>
+      <div class="btns"><a class="btn primary" href="/studio/">▶ Try MEIDNet</a><a class="btn" href="/studio/?panel=data">Use your dataset</a><a class="btn" href="/docs/learn/index.html">Learn multimodality</a></div>
       <p class="pub"><b>Published in npj Computational Materials (2026)</b> · <a href="https://doi.org/10.1038/s41524-026-02153-3">doi 10.1038/s41524-026-02153-3</a> · <a href="https://github.com/ABnano/MEIDNet">GitHub</a> · MIT licence</p>
     </div>
     <img class="prismfig" src="/docs/assets/meidnet_prism_logo.png" alt="MEIDNet Prism: several modalities enter a prism and leave it as one connected representation of materials.">
@@ -79,24 +86,39 @@ footer{color:var(--faint);font-size:13.5px;padding:10px 0 40px;display:flex;gap:
     <figcaption>MEIDNet in one minute: data → model → family → rules → targets → search → candidates. The same tour opens on your first visit to the Studio.</figcaption>
   </figure>
 
+  <h2 class="sec">Six connected layers</h2>
+  <p class="sec-sub">Learn the ideas, pick a design, build it on your data, and show the evidence. Each layer links to the next.</p>
+  <div class="flow" aria-label="The six layers in order">
+    <a href="/docs/learn/index.html" style="--accent:var(--c-data)">Learn</a><span>→</span>
+    <a href="/docs/learn/architectures.html" style="--accent:var(--c-model)">Architectures</a><span>→</span>
+    <a href="/studio/" style="--accent:var(--c-family)">Build</a><span>→</span>
+    <a href="/docs/explore/datasets.html" style="--accent:var(--c-rules)">Datasets</a><span>→</span>
+    <a href="/docs/benchmarks/index.html" style="--accent:var(--c-targets)">Benchmarks</a><span>→</span>
+    <a href="/docs/community/contribute.html" style="--accent:var(--c-candidates)">Community</a>
+  </div>
+  <section class="layers">
+    <div class="card" style="--accent:var(--c-data)"><h2><small>1 · Learn</small>What is multimodal learning?</h2><p>Modalities, the five challenges of multimodal learning, contrastive learning with a playground, and an interactive map of materials modalities.</p>
+      <p><a class="more" href="/docs/learn/index.html">Learn multimodality →</a></p></div>
+    <div class="card" style="--accent:var(--c-model)"><h2><small>2 · Architectures</small>Which design fits my data?</h2><p>Early and late fusion, shared latent spaces, cross-attention and contrastive learning, drawn side by side, with an advisor that recommends one.</p>
+      <p><a class="more" href="/docs/learn/architectures.html">Architecture Atlas →</a> &nbsp; <a class="more" href="/docs/learn/architectures.html#advisor">Advisor →</a></p></div>
+    <div class="card" style="--accent:var(--c-family)"><h2><small>3 · Build</small>MEIDNet Studio</h2><p>Upload structures and properties, train in the browser, set targets and rules, run the search and inspect every candidate in 3D. No code; one YAML file.</p>
+      <p><a class="more" href="/studio/">Try MEIDNet →</a> &nbsp; <a class="more" href="/docs/learn/recipes.html">Recipes by problem →</a></p></div>
+    <div class="card" style="--accent:var(--c-rules)"><h2><small>4 · Datasets</small>Data that works</h2><p>Perov-5, the published multimodal benchmark, other datasets with their status, and 31 computed and experimental databases grouped by application.</p>
+      <p><a class="more" href="/docs/explore/datasets.html">Datasets →</a> &nbsp; <a class="more" href="/docs/explore/databases.html">Databases →</a></p></div>
+    <div class="card" style="--accent:var(--c-targets)"><h2><small>5 · Benchmarks</small>Results with evidence</h2><p>One leaderboard per dataset, an evidence ladder from “generated” to “experimentally validated”, and rows re-run here marked verified.</p>
+      <p><a class="more" href="/docs/benchmarks/index.html">Benchmarks →</a></p></div>
+    <div class="card" style="--accent:var(--c-candidates)"><h2><small>6 · Community</small>Share and reproduce</h2><p>Submit a result through GitHub. The maintainer re-runs it and marks it verified when it reproduces; a run that does not agree is shown too.</p>
+      <p><a class="more" href="/docs/community/contribute.html">Contribute a result →</a></p></div>
+  </section>
+
+  <h2 class="sec">Inside Build: the MEIDNet Studio in seven blocks</h2>
+  <p class="sec-sub">The reference implementation. Change one block and the blocks after it update.</p>
   <div class="how" aria-label="The seven blocks of the Studio">
     <div style="--bc:var(--c-data)">Data<small>your materials</small></div><div style="--bc:var(--c-model)">Model<small>shared space</small></div>
     <div style="--bc:var(--c-family)">Family<small>crystal type</small></div><div style="--bc:var(--c-rules)">Rules<small>chemistry</small></div>
     <div style="--bc:var(--c-targets)">Targets<small>what you want</small></div><div style="--bc:var(--c-search)">Search<small>inverse design</small></div>
     <div style="--bc:var(--c-candidates)">Candidates<small>new materials</small></div>
   </div>
-
-  <section class="three">
-    <div class="card" style="--accent:var(--c-data)"><h2>Explore</h2><p>Datasets, properties and modalities that work with MEIDNet today, and what is planned.</p>
-      <ul><li>Perov-5: the published multimodal benchmark</li><li>Structure + any scalar properties: supported</li><li>XRD, DOS, spectra: extensible, planned</li></ul>
-      <p><a class="more" href="/docs/explore/datasets.html">Datasets →</a> &nbsp; <a class="more" href="/docs/explore/capabilities.html">Capabilities →</a></p></div>
-    <div class="card" style="--accent:var(--c-family)"><h2>Build</h2><p>Upload a table of structures and properties, train in the browser, set targets and rules, run the search, inspect every candidate in 3D.</p>
-      <ul><li>No code: seven coloured blocks, one YAML file</li><li>Researcher mode for the configuration as text</li><li>Colab notebooks and a command line for bigger runs</li></ul>
-      <p><a class="more" href="/studio/">Launch Studio →</a> &nbsp; <a class="more" href="/docs/start/quickstart.html">Quickstart →</a></p></div>
-    <div class="card" style="--accent:var(--c-candidates)"><h2>Benchmark</h2><p>Reproducible results per dataset, with an evidence ladder from “generated” to “experimentally validated”. Contribute yours through GitHub.</p>
-      <ul><li>Published results of the paper</li><li>Rows re-run from this repository are marked verified</li><li>Never one leaderboard across different datasets</li></ul>
-      <p><a class="more" href="/docs/benchmarks/index.html">Benchmarks →</a> &nbsp; <a class="more" href="/docs/community/contribute.html">Contribute →</a></p></div>
-  </section>
 
   <div class="strip" aria-label="Credibility">
     <span>Published in npj Computational Materials</span><span>Open source, MIT</span><span>Bit-exact regression against the paper’s code</span>
@@ -115,7 +137,7 @@ footer{color:var(--faint);font-size:13.5px;padding:10px 0 40px;display:flex;gap:
   doi     = {10.1038/s41524-026-02153-3}
 }</pre>
   </section>
-  <footer><span>MEIDNet Prism is the interactive platform around the MEIDNet framework.</span><a href="https://github.com/ABnano/MEIDNet">Code</a><a href="/docs/">Documentation</a><a href="/docs/understand/limits.html">Honest scope</a><a href="https://huggingface.co/spaces/Babu09/MEIDNet">Hugging Face Space</a></footer>
+  <footer><span>MEIDNet Prism: learn, build and benchmark multimodal AI for materials discovery. MEIDNet is its reference implementation.</span><a href="https://github.com/ABnano/MEIDNet">Code</a><a href="/docs/">Documentation</a><a href="/docs/understand/limits.html">Honest scope</a><a href="https://huggingface.co/spaces/Babu09/MEIDNet">Hugging Face Space</a></footer>
 </main>
 <script>
 (function(){ const d=document.documentElement; try{ const t=localStorage.getItem('meidnet_theme'); if(t) d.dataset.theme=t; }catch(e){}

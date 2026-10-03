@@ -3,7 +3,8 @@
 </p>
 
 <p align="center"><em>Design crystalline materials from target properties — with your own data, your own rules, and no code to edit.</em><br/>
-<b>MEIDNet Prism</b> is the interactive platform around the framework: <a href="https://babu09-meidnet.hf.space/">home</a> · <a href="https://babu09-meidnet.hf.space/studio/">Studio</a> · <a href="https://babu09-meidnet.hf.space/docs/explore/datasets.html">datasets</a> · <a href="https://babu09-meidnet.hf.space/docs/benchmarks/index.html">benchmarks</a> · <a href="https://babu09-meidnet.hf.space/docs/community/contribute.html">contribute</a></p>
+<b>MEIDNet Prism</b>: learn, build and benchmark multimodal AI for materials discovery, with MEIDNet as the reference implementation.<br/>
+<a href="https://babu09-meidnet.hf.space/">home</a> · <a href="https://babu09-meidnet.hf.space/docs/learn/index.html">learn</a> · <a href="https://babu09-meidnet.hf.space/docs/learn/architectures.html">architectures</a> · <a href="https://babu09-meidnet.hf.space/studio/">build (Studio)</a> · <a href="https://babu09-meidnet.hf.space/docs/explore/datasets.html">datasets</a> · <a href="https://babu09-meidnet.hf.space/docs/benchmarks/index.html">benchmarks</a> · <a href="https://babu09-meidnet.hf.space/docs/community/contribute.html">community</a></p>
 
 <p align="center">
   <a href="https://doi.org/10.1038/s41524-026-02153-3"><img alt="Paper" src="https://img.shields.io/badge/npj%20Comput.%20Mater.-2026-1c5cab"></a>

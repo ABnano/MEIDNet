@@ -4,9 +4,21 @@ Datasets that work with MEIDNet, and what has been done with each. **One card pe
 across datasets**: the tasks, sizes and properties differ, so results are only compared within a dataset
 (see [Benchmarks](../benchmarks/index.md)).
 
+| dataset | structures | properties used | size | with MEIDNet |
+|---|---|---|---|---|
+| [Perov-5](#perov-5) | cubic ABX₃ perovskites, 5 atoms per cell | direct band gap, formation enthalpy | 18,928 | <span class="mstatus sup">trained model, configuration, tutorial, benchmark</span> |
+| [MP-20](#mp-20) | Materials Project, up to 20 atoms | none aligned in the paper | about 45,000 | <span class="mstatus plan">structure representation, published</span> |
+| [Carbon-24](#carbon-24) | carbon allotropes, up to 24 atoms | none aligned in the paper | about 10,000 | <span class="mstatus plan">structure representation, published</span> |
+| [Double perovskites A₂BB′X₆](../examples/double-perovskite.md) | a family file, no dataset | none | 10,800 compositions (halide variant) | <span class="mstatus part">design space and rules only</span> |
+| [Your dataset](#your-dataset) | one material family | any scalar columns | any | <span class="mstatus sup">supported</span> |
+
+New to multimodal data? [Learn multimodality](../learn/index.md) explains what a modality is, and
+[Databases by application](databases.md) lists 31 computed and experimental sources.
+
 <div class="grid cards" markdown>
 
 -   **Perov-5** — *published multimodal benchmark*
+    { #perov-5 }
 
     ---
 
@@ -24,11 +36,21 @@ across datasets**: the tasks, sizes and properties differ, so results are only c
     `checkpoints/dual_autoencoder_clip_earlyfusion_propertyaware_2k.pth` was trained on it; it is the data behind
     the [live Studio](https://babu09-meidnet.hf.space/studio/).
 
+    **Suitable tasks:** inverse design from a band gap and a stability target · property prediction from the
+    structure · structure–property retrieval · measuring how well two modalities align.
+
+    **MEIDNet implementation:** ✓ pretrained model · ✓ configuration (`examples/perov5/meidnet.yaml`) ·
+    ✓ tutorial ([the paper's experiment](../examples/perov5.md), [Colab](../start/colab.md)) ·
+    ✓ benchmark results.
+
+    [Open in the Studio](https://babu09-meidnet.hf.space/studio/){ .md-button .md-button--primary }
+
     [Benchmark results](../benchmarks/perov5.md) · [The paper's experiment](../examples/perov5.md) ·
     [Dataset source (CDVAE)](https://github.com/txie-93/cdvae/tree/main/data/perov_5) ·
     Castelli *et al.* 2012, Xie *et al.* 2022
 
 -   **MP-20** — *published: structure-representation generalization*
+    { #mp-20 }
 
     ---
 
@@ -41,6 +63,7 @@ across datasets**: the tasks, sizes and properties differ, so results are only c
     [Benchmark results](../benchmarks/mp20.md) · [Dataset source (CDVAE)](https://github.com/txie-93/cdvae/tree/main/data/mp_20)
 
 -   **Carbon-24** — *published: structure-representation generalization*
+    { #carbon-24 }
 
     ---
 
@@ -53,7 +76,9 @@ across datasets**: the tasks, sizes and properties differ, so results are only c
 
 </div>
 
-## Your dataset
+## Your dataset { #your-dataset }
+
+[Use your dataset in the Studio](https://babu09-meidnet.hf.space/studio/?panel=data){ .md-button .md-button--primary }
 
 Any table with an id, one or more scalar property columns and a crystal structure per row (CIF text in a column
 or one `.cif` file per id) can be used directly: upload it in the [Studio](https://babu09-meidnet.hf.space/studio/)

@@ -142,6 +142,12 @@ body>div:empty:not([id]):not([class]){position:absolute;top:0;left:0;width:0;hei
 .gloss dt{font-weight:700;margin-top:6px}.gloss dd{margin:0 0 4px;color:var(--muted);font-size:13px}
 .byod{border-left:4px solid var(--c-data)}.map-form .pr{display:flex;gap:8px;align-items:center;margin:4px 0;flex-wrap:wrap}
 .loss{display:grid;grid-template-columns:1fr 1fr;gap:10px}@media(max-width:700px){.loss{grid-template-columns:1fr}}
+.arch svg{width:100%;height:auto;display:block;max-width:680px;margin:6px 0}
+.arch text{fill:var(--ink);font:11.5px system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}.arch text.sm{fill:var(--muted);font-size:10.5px}
+.arch .bx{fill:var(--card);stroke:var(--axis);stroke-width:1.3}.arch .st{fill:color-mix(in oklab,#1baf7a 16%,var(--card));stroke:#1baf7a;stroke-width:1.4}
+.arch .pr{fill:color-mix(in oklab,#e87ba4 18%,var(--card));stroke:#e87ba4;stroke-width:1.4}.arch .sp{fill:color-mix(in oklab,#4f46e5 7%,var(--card));stroke:#4f46e5;stroke-dasharray:4 3}
+.arch .ar{stroke:var(--faint);stroke-width:1.4;fill:none}.arch .al{stroke:#4f46e5;stroke-width:1.6;stroke-dasharray:3 2;fill:none}.arch .inv{stroke:#e87ba4;stroke-width:1.6;stroke-dasharray:5 3;fill:none}
+.arch ul{margin:4px 0 6px;padding-left:18px}.arch li{margin:2px 0}
 .cands{display:block}
 /* tour: "How MEIDNet works" — the stage is SVG drawn from a function of time (see the tour section of the script) */
 .tour{display:grid;grid-template-columns:minmax(0,1.75fr) minmax(240px,1fr);gap:16px;align-items:start;border-top:4px solid var(--tour-c,var(--c-family));--tour-c:var(--c-family)}
@@ -789,11 +795,47 @@ function panelModel(){
   b+=`<table><tr><th>Property</th><th>unit</th><th>training range</th>${m.validation?'<th>validation MAE</th>':''}</tr>`;
   for(const p of m.properties){ const r=S.state.ranges[p.column]; b+=`<tr><td>${esc(p.label)}</td><td>${esc(p.unit)}</td><td>${r?fmt(r[0])+' – '+fmt(r[1]):'–'}</td>${m.validation?`<td>${fmt((m.validation.mae||{})[p.column])}</td>`:''}</tr>`; }
   b+='</table>';
+  b+=archCard(m);
   if(m.history&&m.history.train&&m.history.train.length>1){ const tr=m.history.train; b+=`<div class="loss"><div>${lineChart({'total loss':tr.map(r=>[r.epoch,r.total])},{log:true,xlabel:'epoch',title:'training loss'})}</div><div>${lineChart({'alignment cos(z_c,z_p)':tr.map(r=>[r.epoch,r.cosine])},{xlabel:'epoch',title:'alignment'})}</div></div>`; }
   if(ses.has_model && !STATIC) b+=`<p class="row"><span class="small muted">use:</span><label class="small"><input type="radio" name="mdl" ${m.own?'checked':''} onclick="selectModel('own')"> your model</label><label class="small"><input type="radio" name="mdl" ${!m.own?'checked':''} onclick="selectModel('published')"> published model</label>${S.train&&S.train.report?`<a class="small" href="/files/${esc(S.train.report)}" target="_blank">training report</a>`:''}</p>`;
   b+=`<div class="help beginner-only"><b>Two directions.</b> Structure → property (the encoder) scores every composition instantly — that is what the live tables use. Property → structure (the latent search) is what the Search block runs. Same network, numbers are predictions.</div></div>`;
   b+=trainCard();
   return b;
+}
+function learnUrl(page){ return (S.state.docs_url||'https://babu09-meidnet.hf.space/docs/')+'learn/'+page; }
+function archCard(m){
+  // How this model combines its two modalities, drawn from the loaded model (property names, latent size, atoms per cell).
+  const props=m.properties||[], D=m.latent_dim||128, names=props.map(p=>p.label||p.column);
+  const joined=names.join(', '), plist=joined.length<=22 ? joined : `${names.length} ${names.length===1?'property':'properties'} (listed below)`;
+  const short=s=>s.length>28?s.slice(0,27)+'…':s;
+  const svg=`<svg viewBox="0 0 640 182" role="img" aria-label="Structure and properties are encoded separately, aligned, averaged into one joint latent and decoded; the property latent alone also feeds the crystal decoder for inverse design">
+<defs><marker id="arch-ah" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0L8,4L0,8z" fill="#898781"/></marker>
+<marker id="arch-ahp" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0L8,4L0,8z" fill="#e87ba4"/></marker></defs>
+<rect class="st" x="4" y="22" width="128" height="34" rx="7"/><text x="68" y="38" text-anchor="middle">Crystal structure</text><text class="sm" x="68" y="51" text-anchor="middle">up to ${esc(String(m.max_sites||20))} atoms</text>
+<rect class="pr" x="4" y="112" width="128" height="34" rx="7"/><text x="68" y="128" text-anchor="middle">Properties</text><text class="sm" x="68" y="141" text-anchor="middle">${esc(short(plist))}</text>
+<path class="ar" d="M132,39 L148,39" marker-end="url(#arch-ah)"/><path class="ar" d="M132,129 L148,129" marker-end="url(#arch-ah)"/>
+<rect class="bx" x="150" y="22" width="92" height="34" rx="7"/><text x="196" y="38" text-anchor="middle">EGNN</text><text class="sm" x="196" y="51" text-anchor="middle">equivariant graph</text>
+<rect class="bx" x="150" y="112" width="92" height="34" rx="7"/><text x="196" y="133" text-anchor="middle">MLP</text>
+<ellipse class="sp" cx="318" cy="85" rx="62" ry="76"/><text class="sm" x="318" y="11" text-anchor="middle">shared space · ${esc(String(D))} numbers</text>
+<path class="ar" d="M242,39 L282,46" marker-end="url(#arch-ah)"/><path class="ar" d="M242,129 L282,124" marker-end="url(#arch-ah)"/>
+<circle cx="292" cy="48" r="7" fill="#1baf7a"/><text class="sm" x="292" y="34" text-anchor="middle">z_c</text>
+<circle cx="292" cy="122" r="7" fill="#e87ba4"/><text class="sm" x="292" y="144" text-anchor="middle">z_p</text>
+<path class="al" d="M292,56 L292,114"/><text class="sm" x="286" y="82" text-anchor="end">align</text><text class="sm" x="286" y="94" text-anchor="end">(InfoNCE)</text>
+<path d="M298,52 L336,80 M298,118 L336,90" stroke="var(--faint)" stroke-width=".9" fill="none"/>
+<circle cx="344" cy="85" r="8" fill="#4f46e5"/><text class="sm" x="344" y="108" text-anchor="middle">joint</text><text class="sm" x="344" y="120" text-anchor="middle">(average)</text>
+<path class="ar" d="M352,80 L420,42" marker-end="url(#arch-ah)"/><path class="ar" d="M352,90 L420,126" marker-end="url(#arch-ah)"/>
+<rect class="bx" x="422" y="22" width="104" height="34" rx="7"/><text x="474" y="43" text-anchor="middle">crystal decoder</text>
+<rect class="bx" x="422" y="112" width="104" height="34" rx="7"/><text x="474" y="133" text-anchor="middle">property decoder</text>
+<path class="ar" d="M526,39 L540,39" marker-end="url(#arch-ah)"/><path class="ar" d="M526,129 L540,129" marker-end="url(#arch-ah)"/>
+<text class="sm" x="544" y="36">lattice,</text><text class="sm" x="544" y="48">element per site</text><text class="sm" x="544" y="133">properties</text>
+<path class="inv" d="M300,130 C372,162 402,98 431,60" marker-end="url(#arch-ahp)"/><text class="sm" x="350" y="174" text-anchor="middle" style="fill:#e87ba4">property latent alone → crystal decoder: inverse design</text>
+</svg>`;
+  return `<div class="arch"><h4 style="margin:12px 0 2px">How this model combines its modalities</h4>${svg}
+<ul class="small"><li><b>Two modalities:</b> the crystal structure and one vector of ${props.length} scalar ${props.length===1?'property':'properties'} (${esc(names.join(', '))}). Each has its own encoder; both outputs are vectors of ${esc(String(D))} numbers scaled to length one.</li>
+<li><b>Aligned:</b> training pulls each structure's vector towards its own property vector and away from the others in the batch (contrastive InfoNCE); the pull grows during a warm-up.</li>
+<li><b>Fused:</b> the two vectors are averaged into the joint vector the decoders read (the paper calls this early fusion).</li>
+<li><b>Inverse design:</b> the crystal decoder is also trained from the property vector alone, which lets the Search block go from target properties to structures.</li></ul>
+<p class="small muted">Learn more: <a href="${learnUrl('index.html')}" target="_blank" rel="noopener">what multimodal learning is</a> · <a href="${learnUrl('architectures.html')}#shared-latent" target="_blank" rel="noopener">this architecture in the Atlas</a> · <a href="${learnUrl('architectures.html')}#advisor" target="_blank" rel="noopener">which architecture for my data?</a></p></div>`;
 }
 function trainCard(){
   if(STATIC) return '';

@@ -28,8 +28,8 @@ sdk: docker
 app_port: 7860
 pinned: true
 license: mit
-short_description: Multimodal materials representation and inverse design
-tags: [materials, inverse-design, generative, crystal, perovskite, multimodal, chemistry]
+short_description: Learn, build and benchmark multimodal AI for materials
+tags: [materials, inverse-design, generative, crystal, perovskite, multimodal, contrastive-learning, chemistry]
 models: [Babu09/MEIDNet]
 ---
 
@@ -37,19 +37,25 @@ models: [Babu09/MEIDNet]
 
 # MEIDNet Prism
 
-**Design crystalline materials from the properties you want.** MEIDNet learns one shared latent space
-for crystal structures and their properties, enumerates a prototype-family design space checked by
-chemistry rules, and searches the latent space for candidates. **MEIDNet Prism** is the interactive
-platform around it:
+**Learn, build and benchmark multimodal AI for materials discovery.** MEIDNet, the reference
+implementation, learns one shared latent space for crystal structures and their properties, enumerates a
+prototype-family design space checked by chemistry rules, and searches the latent space for candidates
+with the properties you want. Six connected layers:
 
 * **[Home](https://babu09-meidnet.hf.space/)** — what MEIDNet does, in one minute (animated tour).
-* **[Studio](https://babu09-meidnet.hf.space/studio/)** — the live workbench: seven colour-coded blocks
+* **[Learn](https://babu09-meidnet.hf.space/docs/learn/index.html)** — what a modality is, the five
+  challenges of multimodal learning, contrastive learning with a playground, an interactive map of
+  materials modalities.
+* **[Architectures](https://babu09-meidnet.hf.space/docs/learn/architectures.html)** — early and late
+  fusion, shared latent spaces, cross-attention and contrastive learning, with an advisor that recommends
+  one for your data; [recipes by problem](https://babu09-meidnet.hf.space/docs/learn/recipes.html).
+* **[Build: Studio](https://babu09-meidnet.hf.space/studio/)** — the live workbench: seven colour-coded blocks
   *Data → Model → Family → Rules → Targets → Search → Candidates*. Change a rule, exclude an element or
   move a target and watch the effect flow through the later blocks. Bring your own table (CSV / Excel /
   JSON + CIFs), train a model in the browser, run the search, inspect every candidate in 3D, export the
   `meidnet.yaml` that reproduces it on your machine.
-* **[Explore](https://babu09-meidnet.hf.space/docs/explore/datasets.html)** — datasets, properties and
-  modalities that work today, and what is planned.
+* **[Datasets](https://babu09-meidnet.hf.space/docs/explore/datasets.html)** — datasets that work with
+  MEIDNet, 31 computed and experimental databases by application, and what is planned.
 * **[Benchmarks](https://babu09-meidnet.hf.space/docs/benchmarks/index.html)** — reproducible results
   per dataset with an evidence ladder (generated → ML filtered → MLIP → DFT → experiment);
   [contribute yours](https://babu09-meidnet.hf.space/docs/community/contribute.html) through GitHub.

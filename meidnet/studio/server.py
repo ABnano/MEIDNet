@@ -274,6 +274,7 @@ class Studio:
         return {"description": desc, "legacy": lm.legacy, "own": own,
                 "path": os.path.basename(lm.path) if hide else lm.path,
                 "properties": lm.stats.to_dict(), "family": lm.family, "max_sites": lm.model.max_sites,
+                "latent_dim": getattr(lm.model, "latent_dim", None),
                 "validation": val, "note": lm.meta.get("note", ""),
                 "history": {"train": [{k: r[k] for k in ("epoch", "total", "cosine") if k in r} for r in hist.get("train", [])],
                             "val": [{"epoch": v.get("epoch"), "mae": v.get("mae"), "retrieval_top1": v.get("retrieval_top1")}

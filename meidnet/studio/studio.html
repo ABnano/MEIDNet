@@ -141,12 +141,29 @@ body>div:empty:not([id]):not([class]){position:absolute;top:0;left:0;width:0;hei
 .byod{border-left:4px solid var(--c-data)}.map-form .pr{display:flex;gap:8px;align-items:center;margin:4px 0;flex-wrap:wrap}
 .loss{display:grid;grid-template-columns:1fr 1fr;gap:10px}@media(max-width:700px){.loss{grid-template-columns:1fr}}
 .cands{display:block}
+/* tour: "How MEIDNet works" — the stage is SVG drawn from a function of time (see the tour section of the script) */
+.tour{display:grid;grid-template-columns:minmax(0,1.75fr) minmax(240px,1fr);gap:16px;align-items:start;border-top:4px solid var(--tour-c,var(--c-family));--tour-c:var(--c-family)}
+@media(max-width:860px){.tour{grid-template-columns:1fr}}
+.tour-stage{width:100%;height:auto;display:block;border-radius:10px;background:var(--bg);border:1px solid var(--line)}
+.tour-side .eyebrow{color:color-mix(in oklab,var(--tour-c) 70%,var(--ink))}
+.tour-side h2{font-size:19px;margin:0 0 2px}
+.tour-cap{font-size:16.5px;line-height:1.45;min-height:4.4em;margin:8px 0 10px}
+.tour-ch{list-style:none;margin:0 0 10px;padding:0;display:flex;flex-wrap:wrap;gap:5px}
+.tour-ch button{padding:2px 9px;font-size:12px;border-radius:999px;border-color:color-mix(in oklab,var(--cc) 45%,var(--line));color:color-mix(in oklab,var(--cc) 75%,var(--ink))}
+.tour-ch button.on{background:var(--cc);border-color:var(--cc);color:#fff;font-weight:700}
+.tour-ctl{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.tour-prog{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin:10px 0 2px;cursor:pointer}
+.tour-prog i{display:block;height:100%;background:var(--tour-c);width:0}
+.node.tour-focus .box{stroke:var(--nc);stroke-width:3;fill:color-mix(in oklab,var(--nc) 12%,var(--card));filter:drop-shadow(0 0 7px color-mix(in oklab,var(--nc) 65%,transparent))}
+@media(max-width:600px){.tour-cap{font-size:15.5px;min-height:0}}
+.tw-narrow .tw-ms text{display:none}   /* on a phone the strip at the top of the stage keeps its colours, the caption has the words */
 </style>
 </head>
 <body class="beginner">
 <header>
   <span class="brand">MEIDNet Studio</span><span class="sub" id="hdr-sub">loading…</span>
   <span class="tools">
+    <button onclick="tourOpen(true)" id="tour-btn" title="A one-minute animation of the whole workflow">▶ How it works</button>
     <label class="switch on" id="beg-switch" onclick="setBeginner(!document.body.classList.contains('beginner'))"><i></i>Beginner mode</label>
     <button onclick="toggleTheme()" id="theme-btn" title="light / dark">🌙</button>
     <button onclick="openYaml()">✎ Edit as text</button>
@@ -154,6 +171,24 @@ body>div:empty:not([id]):not([class]){position:absolute;top:0;left:0;width:0;hei
   </span>
 </header>
 <div class="wrap">
+  <section id="tour" class="card tour" hidden aria-labelledby="tour-title">
+    <svg id="tour-stage" class="tour-stage tw" viewBox="0 0 960 450" role="img" aria-labelledby="tour-cap"></svg>
+    <div class="tour-side">
+      <p class="eyebrow" id="tour-eyebrow">How it works · 1 minute</p>
+      <h2 id="tour-title">From your wish to new materials</h2>
+      <p class="tour-cap" id="tour-cap" aria-live="polite"></p>
+      <ol class="tour-ch" id="tour-ch" aria-label="Chapters"></ol>
+      <div class="tour-ctl">
+        <button class="primary" id="tour-play" onclick="tourToggle()">❚❚ Pause</button>
+        <button onclick="tourGo(TOUR.i-1)" aria-label="Previous chapter">◀</button>
+        <button onclick="tourGo(TOUR.i+1)" aria-label="Next chapter">▶</button>
+        <button onclick="tourReplay()">↺ Replay</button>
+        <button onclick="tourOpenBlock()" id="tour-open-block" hidden></button>
+        <button onclick="tourClose()" style="margin-left:auto" aria-label="Close the animation">✕ Close</button>
+      </div>
+      <div class="tour-prog" id="tour-prog" onclick="tourSeekClick(event)" title="Jump to a moment"><i></i></div>
+    </div>
+  </section>
   <div class="card strip"><div class="strip-scroll"><svg id="pipe" viewBox="0 0 1270 150" aria-label="MEIDNet workflow"></svg></div></div>
   <div class="chain" id="chain"><span class="lead">Change anything above or in a block — what it does to the blocks after it appears here.</span></div>
   <details id="flowlog"><summary>Flow log (0)</summary><ol id="flowlog-list"></ol></details>
@@ -1123,7 +1158,7 @@ function fallbackExplore(ds, sel){
   fbSelect(sel!==undefined?sel:0);
 }
 function fbSelect(i){ const ds=S.csData; if(!ds||!ds.structures[i]) return; const st=fromChemiscope(ds,i); S.cells['fb']=st; mountCell($('c3d-fb'), st, {title: ds.properties.formula?ds.properties.formula.values[i]:'', labels:true});
-  $('fb-info').innerHTML = Object.entries(ds.properties).map(([k,p])=>`<b title="${esc(p.description||k)}">${esc(k)}</b>:${typeof p.values[i]==='number'?fmt(p.values[i]):esc(p.values[i])}${p.units?' '+esc(p.units):''}`).join(' · '); }
+  $('fb-info').innerHTML = Object.entries(ds.properties).map(([k,p])=>`<b title="${esc(p.description||k)}">${esc(k)}</b>: ${typeof p.values[i]==='number'?fmt(p.values[i]):esc(p.values[i])}${p.units?' '+esc(p.units):''}`).join(' · '); }
 function closeExplore(){ $('explore').hidden=true; if(S.cs){ try{ S.cs.remove(); }catch(e){} S.cs=null; } }
 function downloadDataset(){ if(!S.csData) return; const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([JSON.stringify(S.csData)],{type:'application/json'})); a.download=`meidnet_${S.csWhat||'dataset'}_chemiscope.json`; a.click(); }
 
@@ -1140,10 +1175,356 @@ function inspect(formula){ const r=S.fam.space.rows.find(x=>x.f===formula); if(!
 }
 function closeModal(){ const was=$('modal').classList.contains('open'); $('modal').classList.remove('open');
   if(was && S.modalReturn && document.body.contains(S.modalReturn)) S.modalReturn.focus(); }
+
+/* ═══════════════════════════ tour: the whole workflow in one minute ═══════════════════════════ */
+/* The stage is SVG drawn from a pure function of time, tourFrame(ms). The page, the chapter jumps, the still frames
+   for reduced motion and the recorded video (tourRecord) all use the same frames. Scenes: TOUR_SCENES. */
+const TOUR = {ms:0, playing:false, last:0, drawn:0, raf:0, i:-1, total:0, visible:true, reduced:false, open:false};
+const TW = {
+  clamp:(x,a=0,b=1)=>Math.max(a,Math.min(b,x)),
+  seg:(t,a,b)=>Math.max(0,Math.min(1,(t-a)/(b-a))),                       // progress of t inside [a, b]
+  ease:x=>{ x=Math.max(0,Math.min(1,x)); return x<.5 ? 4*x*x*x : 1-Math.pow(-2*x+2,3)/2; },
+  out:x=>{ x=Math.max(0,Math.min(1,x)); return 1-Math.pow(1-x,3); },
+  pop:x=>{ x=Math.max(0,Math.min(1,x)); const c=1.70158; return 1+(c+1)*Math.pow(x-1,3)+c*Math.pow(x-1,2); },
+  lerp:(a,b,x)=>a+(b-a)*x,
+  rng:seed=>()=>{ seed|=0; seed=seed+0x6D2B79F5|0; let t=Math.imul(seed^seed>>>15,1|seed); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; },
+};
+const twC = id => BLOCKS.some(b=>b.id===id) ? `var(--c-${id})` : 'var(--c-family)';
+const twN = v => +(+v).toFixed(1);                                            // short coordinates
+/* drawing pieces (all return SVG markup) */
+function twText(x, y, str, o={}){ return `<text x="${twN(x)}" y="${twN(y)}" text-anchor="${o.anchor||'start'}" style="font-size:${o.size||22}px;font-weight:${o.weight||600};fill:${o.fill||'var(--ink)'}"${o.opacity!==undefined?` opacity="${twN(o.opacity*100)/100}"`:''}>${esc(str)}</text>`; }
+function twRect(x, y, w, h, o={}){ return `<rect x="${twN(x)}" y="${twN(y)}" width="${twN(Math.max(0,w))}" height="${twN(Math.max(0,h))}" rx="${o.r??10}" style="fill:${o.fill||'var(--card)'};stroke:${o.stroke||'var(--line)'};stroke-width:${o.sw??1.5}"${o.opacity!==undefined?` opacity="${twN(o.opacity*100)/100}"`:''}/>`; }
+function twChip(x, y, label, color, o={}){ const w=o.w||Math.max(44, 13*String(label).length+26), h=o.h||36;
+  return `<g${o.opacity!==undefined?` opacity="${twN(o.opacity*100)/100}"`:''}>${twRect(x-w/2, y-h/2, w, h, {r:h/2, fill:o.filled?color:'var(--card)', stroke:color, sw:2})}${twText(x, y+7.5, label, {anchor:'middle', size:o.size||20, weight:700, fill:o.filled?'#fff':color})}</g>`; }
+function twArrow(x1, y1, x2, y2, color, p=1, o={}){ if(p<=0) return ''; const x=TW.lerp(x1,x2,p), y=TW.lerp(y1,y2,p), a=Math.atan2(y2-y1,x2-x1), k=o.head||11;
+  return `<path d="M${twN(x1)} ${twN(y1)}L${twN(x)} ${twN(y)}" style="stroke:${color};stroke-width:${o.sw||3.5};fill:none;stroke-linecap:round"/>`+
+    `<path d="M${twN(x-k*Math.cos(a-.45))} ${twN(y-k*Math.sin(a-.45))}L${twN(x)} ${twN(y)}L${twN(x-k*Math.cos(a+.45))} ${twN(y-k*Math.sin(a+.45))}" style="stroke:${color};stroke-width:${o.sw||3.5};fill:none;stroke-linecap:round;stroke-linejoin:round"/>`; }
+function twCheck(x, y, ok, p=1){ if(p<=0) return ''; const s=TW.pop(p);
+  return `<g transform="translate(${twN(x)} ${twN(y)}) scale(${twN(s*100)/100})"><circle r="14" style="fill:${ok?'var(--good)':'var(--bad)'}"/>`+
+    (ok ? `<path d="M-6 0l4 4.5 8-9" style="stroke:#fff;stroke-width:3.2;fill:none;stroke-linecap:round;stroke-linejoin:round"/>` : `<path d="M-5.5-5.5l11 11M5.5-5.5l-11 11" style="stroke:#fff;stroke-width:3.2;stroke-linecap:round"/>`)+'</g>'; }
+/* a crystal from the built-in cell viewer, placed on the stage; elements = {A:'Cs', B:'Pb', X:'I'} or the family's first choice */
+function twCell(x, y, size, o={}){
+  let st;
+  if(!o.names && S.fam && S.fam.sites){ const el={}; for(const [g,grp] of Object.entries(S.fam.groups)) el[g]=(o.elements&&o.elements[g])||grp.sample.find(e=>!S.ui||!S.ui.exclude.has(e))||grp.sample[0];
+    const a=(S.fam.lattice&&S.fam.lattice.reference_a)||6; st=buildStruct(S.fam.sites.map(s=>el[s.group]), S.fam.sites.map(s=>s.frac), latticeMatrix(S.fam.lattice, a), S.fam.sites.map(s=>s.group)); }
+  if(o.names || !st){ const e=Object.assign({A:'Cs', B:'Pb', X:'I'}, o.elements||{});   // given names, or before the family has loaded: cubic ABX3
+    const nm=o.names||[e.A,e.B,e.X,e.X,e.X];
+    st=buildStruct(nm, [[0,0,0],[.5,.5,.5],[.5,.5,0],[.5,0,.5],[0,.5,.5]], latticeMatrix({lattice:'cubic'}, 6.3), ['A','B','X','X','X']); }
+  const svg=miniCell(st, {size:200, yaw:o.yaw??-0.55, pitch:o.pitch??0.35, labels:o.labels, title:o.title||''});
+  return svg.replace('<svg ', `<svg x="${twN(x-size/2)}" y="${twN(y-size/2)}" width="${twN(size)}" height="${twN(size)}" `).replace(/<title>[^<]*<\/title>/, ''); }
+/* the numbers the tour shows: live from the page when it has them, the published defaults before that */
+function tourLive(){
+  const st=S.state, ev=S.ev, fam=S.fam, d=S.data;
+  const props=(st&&st.model&&st.model.properties&&st.model.properties.length) ? st.model.properties
+    : [{column:'heat_all', label:'Formation enthalpy', unit:'eV/atom'}, {column:'dir_gap', label:'Direct band gap', unit:'eV'}];
+  const groups=fam&&fam.groups ? Object.entries(fam.groups).map(([g,grp])=>({g, sample:grp.sample.filter(e=>!S.ui||!S.ui.exclude.has(e))}))
+    : [{g:'A', sample:['Ba','Sr','Ca','Na','K','Rb','Cs','La','Ce','Pr','Nd','Sm','Eu','Gd','Tb','Dy','Ho','Er','Tm','Yb','Lu']},   // the halide variant
+       {g:'B', sample:['Mn','Fe','Co','Ni','Cu','Zn','Sn','Pb','Sc','Cr','V']}, {g:'X', sample:['F','Cl','Br','I']}];
+  return {materials: d&&d.available ? d.kept : 11356, props, groups,
+    family: fam ? fam.title : 'Cubic ABX3 perovskite', comps: ev ? ev.rows.length : 924, pass: ev ? ev.alive.length : 27,
+    ranked: ev ? ev.ranked.slice(0,3).map(r=>r[1]) : [], target: S.ui ? S.ui.target : {}, objectives: S.ui ? S.ui.objectives : []};
+}
+/* the seven-block strip at the top of the stage: where we are, and how far through this block */
+function tourMiniStrip(i, t){
+  const cur=TOUR_SCENES[i].block, idx=BLOCKS.findIndex(b=>b.id===cur), W=126, G=8, x0=(960-(7*W+6*G))/2, y=12, H=36;
+  let s='';
+  BLOCKS.forEach((b,k)=>{ const x=x0+k*(W+G), on=k===idx, done=(idx>=0&&k<idx)||cur==='outro';
+    s+=`<g class="tw-ms" opacity="${on||done||idx<0?1:.5}">${twRect(x, y, W, H, {r:18, fill:on?twC(b.id):'var(--card)', stroke:twC(b.id), sw:on?0:2})}${twText(x+W/2, y+24.5, b.name, {anchor:'middle', size:17, weight:700, fill:on?'#fff':twC(b.id)})}</g>`;
+    if(k<6) s+=`<path d="M${twN(x+W+1)} ${y+H/2}h${G-2}" style="stroke:var(--axis);stroke-width:2"/>`; });
+  if(idx>=0){ const x=x0+idx*(W+G); s+=twRect(x+16, y+H+6, (W-32)*t, 4, {r:2, fill:twC(cur), stroke:'none', sw:0}); }
+  return s;
+}
+function tourAt(ms){ let a=0; const n=TOUR_SCENES.length;
+  for(let i=0;i<n;i++){ const d=TOUR_SCENES[i].ms; if(ms<a+d || i===n-1) return {i, t:TW.clamp((ms-a)/d), start:a}; a+=d; } }
+function tourStart(i){ let a=0; for(let k=0;k<i;k++) a+=TOUR_SCENES[k].ms; return a; }
+function tourCap(sc, L){ return typeof sc.cap==='function' ? sc.cap(L) : sc.cap; }
+function tourFrame(ms){ const {i,t}=tourAt(ms), sc=TOUR_SCENES[i]; let body;
+  try{ body=sc.draw(t, tourLive()); }catch(e){ body=twText(480, 250, 'scene error: '+e.message, {anchor:'middle', fill:'var(--bad)'}); console.error(e); }
+  return tourMiniStrip(i, t) + '<g>' + body + '</g>'; }
+/* ── player ── */
+function tourDraw(){ const {i}=tourAt(TOUR.ms), sc=TOUR_SCENES[i], L=tourLive();
+  $('tour-stage').innerHTML=tourFrame(TOUR.ms);
+  $('tour-prog').firstElementChild.style.width=(100*TOUR.ms/TOUR.total).toFixed(2)+'%';
+  if(i!==TOUR.i){ TOUR.i=i; const col=twC(sc.block);
+    $('tour').style.setProperty('--tour-c', col);
+    $('tour-eyebrow').textContent=`How it works · ${i+1} of ${TOUR_SCENES.length} · ${sc.title}`;
+    $('tour-cap').innerHTML=(BLOCKS.some(b=>b.id===sc.block)?`<b style="color:color-mix(in oklab,${col} 75%,var(--ink))">${esc(blockName(sc.block))}.</b> `:'')+esc(tourCap(sc, L));
+    document.querySelectorAll('#tour-ch button').forEach((b,k)=>{ b.classList.toggle('on', k===i); b.setAttribute('aria-current', k===i?'step':'false'); });
+    const ob=$('tour-open-block'); const isBlock=BLOCKS.some(b=>b.id===sc.block); ob.hidden=!isBlock; if(isBlock) ob.textContent=`Open ${blockName(sc.block)} ↓`; }
+  tourFocusNode(sc.block);
+}
+function tourFocusNode(block){ document.querySelectorAll('#pipe .node.tour-focus').forEach(n=>{ if(n.id!=='node-'+block) n.classList.remove('tour-focus'); });
+  const n=$('node-'+block); if(n && TOUR.open) n.classList.add('tour-focus'); }
+function tourLoop(now){ TOUR.raf=0; if(!TOUR.playing) return;
+  const dt=TOUR.last ? Math.min(120, now-TOUR.last) : 0; TOUR.last=now;
+  if(TOUR.visible && !document.hidden){ TOUR.ms=Math.min(TOUR.total, TOUR.ms+dt);
+    if(now-TOUR.drawn>=30 || TOUR.ms>=TOUR.total){ TOUR.drawn=now; tourDraw(); }      // about 30 frames a second is plenty
+    if(TOUR.ms>=TOUR.total){ tourEnd(); return; } }
+  TOUR.raf=requestAnimationFrame(tourLoop); }
+function tourPlay(){ if(TOUR.ms>=TOUR.total-1) TOUR.ms=0; TOUR.playing=true; TOUR.last=0; $('tour-play').textContent='❚❚ Pause'; $('tour-play').setAttribute('aria-label','Pause the animation');
+  if(!TOUR.raf) TOUR.raf=requestAnimationFrame(tourLoop); }
+function tourPause(){ TOUR.playing=false; $('tour-play').textContent='▶ Play'; $('tour-play').setAttribute('aria-label','Play the animation'); }
+function tourToggle(){ TOUR.playing ? tourPause() : tourPlay(); }
+function tourEnd(){ tourPause(); $('tour-play').textContent='↺ Play again'; tourSeen(); }
+function tourSeen(){ try{ localStorage.setItem('meidnet_tour_seen','1'); }catch(e){} }
+/* a chapter: from its start while playing; paused (or reduced motion) shows its finished picture */
+function tourGo(i){ i=Math.max(0, Math.min(TOUR_SCENES.length-1, i)); TOUR.ms=tourStart(i)+(TOUR.playing?0:TOUR_SCENES[i].ms-1); TOUR.i=-1; tourDraw(); }
+function tourReplay(){ TOUR.ms=0; TOUR.i=-1; tourPlay(); tourDraw(); }
+function tourSeekClick(e){ const r=$('tour-prog').getBoundingClientRect(); TOUR.ms=TW.clamp((e.clientX-r.left)/r.width)*TOUR.total; tourDraw(); }
+function tourOpen(user){ const sec=$('tour'); sec.hidden=false; TOUR.open=true; TOUR.i=-1;
+  if(user){ TOUR.ms=0; sec.scrollIntoView({block:'nearest'}); }
+  if(TOUR.reduced && !user){ TOUR.ms=TOUR_SCENES[0].ms-1; tourPause(); tourDraw(); }       // still pictures; Play animates
+  else { tourDraw(); tourPlay(); }
+  if(user) $('tour-play').focus(); }
+function tourClose(){ tourPause(); $('tour').hidden=true; TOUR.open=false; tourSeen(); tourFocusNode(null); $('tour-btn').focus(); }
+function tourOpenBlock(){ const b=TOUR_SCENES[TOUR.i].block; tourPause(); show(b); $('panel').scrollIntoView({behavior:'smooth', block:'start'}); }
+function tourInit(){
+  TOUR.total=TOUR_SCENES.reduce((a,s)=>a+s.ms, 0);
+  try{ TOUR.reduced=matchMedia('(prefers-reduced-motion: reduce)').matches; }catch(e){}
+  $('tour-ch').innerHTML=TOUR_SCENES.map((s,i)=>`<li><button style="--cc:${twC(s.block)}" onclick="tourGo(${i})">${esc(s.title)}</button></li>`).join('');
+  const stage=$('tour-stage');
+  try{ new ResizeObserver(()=>stage.classList.toggle('tw-narrow', stage.clientWidth<520)).observe(stage); }catch(e){}
+  try{ new IntersectionObserver(es=>{ TOUR.visible=es[0].isIntersecting; }).observe($('tour')); }catch(e){}
+  $('tour').addEventListener('keydown', e=>{ if(/^(INPUT|SELECT|TEXTAREA)$/.test(e.target.tagName)) return;
+    if(e.key===' '||e.key==='k'){ if(e.target.tagName==='BUTTON' && e.key===' ') return; e.preventDefault(); tourToggle(); }
+    else if(e.key==='ArrowRight'){ e.preventDefault(); tourGo(TOUR.i+1); } else if(e.key==='ArrowLeft'){ e.preventDefault(); tourGo(TOUR.i-1); }
+    else if(e.key==='Escape'){ tourClose(); } });
+  const qs=new URLSearchParams(location.search); let seen=false; try{ seen=localStorage.getItem('meidnet_tour_seen')==='1'; }catch(e){}
+  if(qs.get('tour')==='1' || (!seen && qs.get('tour')!=='0' && !qs.get('panel') && !qs.get('explore'))) tourOpen(false);
+}
+/* ── video: the same frames with the caption drawn in; scripts/record_tour.mjs records them into docs/assets ── */
+function tourWrap(str, n){ const out=[]; let line=''; for(const w of String(str).split(/\s+/)){ if((line+' '+w).trim().length>n && line){ out.push(line); line=w; } else line=(line+' '+w).trim(); } if(line) out.push(line); return out; }
+function tourVideoSVG(ms){
+  const cs=getComputedStyle(document.documentElement), vars=['--c-data','--c-model','--c-family','--c-rules','--c-targets','--c-search','--c-candidates','--good','--warn','--bad','--bg','--card','--ink','--muted','--faint','--line','--axis']
+    .map(v=>`${v}:${cs.getPropertyValue(v).trim()}`).join(';');
+  const {i}=tourAt(ms), sc=TOUR_SCENES[i], isBlock=BLOCKS.some(b=>b.id===sc.block), col=twC(sc.block);
+  const lines=tourWrap((isBlock?blockName(sc.block)+'. ':'')+tourCap(sc, tourLive()), 70).slice(0,3);
+  const capY=lines.length>2 ? 640 : 652;
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720"><style>svg{${vars}}text{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}</style>`+
+    `<rect width="1280" height="720" style="fill:var(--bg)"/><svg class="tw" x="0" y="4" width="1280" height="600" viewBox="0 0 960 450">${tourFrame(ms)}</svg>`+
+    `<rect x="0" y="606" width="1280" height="114" style="fill:var(--card)"/><rect x="0" y="606" width="1280" height="4" style="fill:${col}"/>`+
+    lines.map((l,k)=>`<text x="40" y="${capY+k*34}" style="font-size:27px;font-weight:600;fill:var(--ink)">${esc(l)}</text>`).join('')+
+    `<text x="1244" y="710" text-anchor="end" style="font-size:14px;fill:var(--muted)">MEIDNet Studio · babu09-meidnet.hf.space</text></svg>`; }
+/* ── scenes: a start, one per block, an end. Numbers are live from the page once it has them. ── */
+const twSub = f => String(f).replace(/\d/g, d=>'₀₁₂₃₄₅₆₇₈₉'[+d]);
+const twOp = x => twN(TW.clamp(x)*100)/100;
+const TW_SHORT = {charge_neutrality:'charges balance', tolerance_factor:'tolerance factor', octahedral_factor:'octahedral factor',
+  bond_window:'bond lengths', min_distance:'no overlaps', symmetry_refinement:'symmetry', property_window:'property window'};
+/* four real rows of the Perov-5 training table (A on the corner, B in the centre, X on the faces) */
+const TOUR_DATA_ROWS = [
+  {f:'SrTiO₃', n:['Sr','Ti','O','O','O'], v:[-0.24, 4.3]}, {f:'KNbO₃', n:['K','Nb','O','O','O'], v:[-0.42, 4.1]},
+  {f:'LaTiNO₂', n:['La','Ti','N','O','O'], v:[0.06, 2.5]}, {f:'SrZrNOF', n:['Sr','Zr','N','O','F'], v:[0.54, 3.2]}];
+/* the property the visitor wants: the band gap when it is an objective, else the first objective */
+function twWish(L){ const obs=L.objectives.length ? L.objectives : [{property:'dir_gap'}];
+  const o=obs.find(x=>/gap/i.test(x.property))||obs[0], p=L.props.find(x=>x.column===o.property)||{label:'Band gap', unit:'eV'};
+  const v=L.target[o.property]; return {label:p.label||o.property, unit:p.unit||'', value:v===undefined||v===''?1.5:+v, prop:o.property}; }
+/* real compositions of the current space: the best-ranked passing ones and failing ones, each with the rule that stops it */
+function twPick(){ const ev=S.ev; if(!ev || !ev.rows.length) return null; const rules=activeRules();
+  const first=r=>{ for(const ru of rules) if(!rulePass(ru.name, ru.params, r, ru.extra?null:ru.key)) return ru.key; return null; };
+  const pass=ev.ranked.map(x=>x[1]).concat(ev.alive).filter((r,i,a)=>a.indexOf(r)===i).slice(0,6);
+  const fail=[], seen=new Set();
+  for(const r of ev.rows){ if(r._ok) continue; const k=first(r); if(k && !seen.has(k)){ seen.add(k); fail.push({r, k}); } }
+  for(const r of ev.rows){ if(fail.length>=8) break; if(!r._ok && !fail.some(x=>x.r===r)) fail.push({r, k:first(r)}); }
+  return {pass, fail}; }
+/* what the search found: the visitor's own search when there is one; before that, a run of the Studio defaults
+   (published model, halide, targets 2 eV / -0.1 eV/atom, seed 937; numbers vary slightly between machines) */
+const TOUR_EXAMPLE = [
+  {f:'NaNiI3', e:{A:'Na', B:'Ni', X:'I'}, p:{dir_gap:1.97, heat_all:-0.05}, flags:[]},
+  {f:'NaSnI3', e:{A:'Na', B:'Sn', X:'I'}, p:{dir_gap:1.98, heat_all:-1.37}, flags:['formation enthalpy outside the training range']},
+  {f:'NaMnI3', e:{A:'Na', B:'Mn', X:'I'}, p:{dir_gap:2.37, heat_all:14.3}, flags:['formation enthalpy outside the training range']}];
+function twFound(L){ const fc=typeof foundCands==='function' ? foundCands() : [];
+  if(fc.length) return {kind:'yours', list:fc.slice(0,3).map(c=>({f:c.formula, e:c.elements, p:c.predictions||{}, t:c.target_values||L.target, flags:c.flags||[]}))};
+  const cols=L.props.map(p=>p.column), dflt=!S.fam || (S.fam.name==='perovskite_abx3' && S.fam.variant==='halide');
+  if(dflt && cols.includes('dir_gap') && cols.includes('heat_all')) return {kind:'example', list:TOUR_EXAMPLE.map(c=>Object.assign({t:{dir_gap:2, heat_all:-0.1}}, c))};
+  const r=S.ev ? S.ev.ranked.slice(0,3).map(x=>x[1]) : [];
+  return {kind:'closest', list:r.map(x=>({f:x.f, e:x.e, p:x.p, t:L.target, flags:[]}))}; }
+function twLabel(L, col){ const p=L.props.find(x=>x.column===col); return p ? (p.label||col) : col; }
+function twUnit(L, col){ const p=L.props.find(x=>x.column===col); return p&&p.unit ? p.unit : ''; }
+/* a composition chip: neutral while travelling, red when stopped, green when it passed */
+function twFormula(x, y, f, state, o={}){ const w=Math.max(70, 13.5*String(f).length+26), h=34;
+  const col=state==='fail'?'var(--bad)':state==='pass'?'var(--good)':'var(--axis)';
+  return `<g${o.opacity!==undefined?` opacity="${twOp(o.opacity)}"`:''}>${twRect(x-w/2, y-h/2, w, h, {r:h/2, fill:'var(--card)', stroke:col, sw:2.2})}${twText(x, y+7, twSub(f), {anchor:'middle', size:19, weight:700})}</g>`; }
+
+const TOUR_SCENES = [
+  {block:'intro', title:'Start', ms:4200,
+   cap:'Tell MEIDNet the properties you want and it suggests crystals that should have them. Here is how, block by block.',
+   draw:(t,L)=>{ const w=twWish(L), a=TW.out(TW.seg(t,0,.25)), pop=TW.pop(TW.seg(t,.45,.72));
+     return `<g transform="translate(${twN(-40*(1-a))} 0)" opacity="${twOp(a)}">`+
+       twRect(60,165,330,160,{r:18, fill:'color-mix(in oklab,var(--c-targets) 12%,var(--card))', stroke:twC('targets'), sw:2.5})+
+       twText(86,206,'You want',{size:22, fill:'var(--muted)'})+twText(86,252,w.label,{size:28, weight:800, fill:twC('targets')})+
+       twText(86,300,`≈ ${fmt(w.value)} ${w.unit}`,{size:34, weight:800})+'</g>'+
+       twText(500,222,'MEIDNet',{anchor:'middle', size:28, weight:800, fill:twC('family'), opacity:TW.seg(t,.25,.45)})+
+       twArrow(405,245,602,245,twC('family'),TW.ease(TW.seg(t,.25,.5)),{sw:4.5, head:14})+
+       `<g transform="translate(770 245) scale(${twN(pop*100)/100}) translate(-770 -245)">`+twCell(770,245,240,{yaw:-0.9+t*1.1, labels:true})+'</g>'+
+       twText(480,422,'inverse design: from properties to crystals',{anchor:'middle', size:24, fill:'var(--muted)', opacity:TW.seg(t,.62,.85)}); }},
+
+  {block:'data', title:'Data', ms:6800,
+   cap:L=>`MEIDNet learns from known materials: a table in which each row is a crystal structure with its properties. Here, ${nfmt(L.materials)} materials.`,
+   draw:(t,L)=>{ const col=twC('data'); let s=twRect(36,76,610,356,{r:14});
+     s+=twText(58,108,'structure',{size:16, weight:700, fill:'var(--muted)'})+twText(176,108,'formula',{size:16, weight:700, fill:'var(--muted)'})+
+        twText(352,100,'formation enthalpy',{size:16, weight:700, fill:'var(--muted)'})+twText(352,120,'eV/atom',{size:14, fill:'var(--faint)'})+
+        twText(528,100,'band gap',{size:16, weight:700, fill:'var(--muted)'})+twText(528,120,'eV',{size:14, fill:'var(--faint)'})+
+        `<path d="M50 132H632" style="stroke:var(--line);stroke-width:1.5"/>`;
+     TOUR_DATA_ROWS.forEach((r,k)=>{ const p=TW.out(TW.seg(t,.06+k*.1,.28+k*.1)), y=136+k*64;
+       s+=`<g transform="translate(${twN(70*(1-p))} 0)" opacity="${twOp(p)}">`+twCell(95,y+32,62,{names:r.n, yaw:-0.62+0.25*t})+
+          twText(176,y+40,r.f,{size:24, weight:700})+twText(352,y+40,fmt(r.v[0]),{size:24})+twText(528,y+40,fmt(r.v[1]),{size:24})+
+          `<path d="M50 ${y+64}H632" style="stroke:var(--line);stroke-width:1"/></g>`; });
+     s+=twText(58,420,'four real rows of the Perov-5 training set',{size:14, fill:'var(--faint)', opacity:TW.seg(t,.4,.6)});
+     s+=`<g opacity="${twOp(TW.out(TW.seg(t,.4,.55)))}">`+twRect(676,120,250,250,{r:18, fill:'color-mix(in oklab,var(--c-data) 10%,var(--card))', stroke:col, sw:2.5})+
+        twText(801,222,nfmt(Math.round(L.materials*TW.ease(TW.seg(t,.45,.85)))),{anchor:'middle', size:50, weight:800, fill:col})+
+        twText(801,262,'materials',{anchor:'middle', size:24, weight:700})+
+        twText(801,304,`${L.props.length} properties each`,{anchor:'middle', size:20, fill:'var(--muted)', opacity:TW.seg(t,.7,.9)})+'</g>';
+     return s; }},
+
+  {block:'model', title:'Model', ms:7600,
+   cap:'Two encoders place each crystal and its properties on one shared map. Training pulls the two points of the same material together.',
+   draw:(t,L)=>{ const col=twC('model'), a1=TW.ease(TW.seg(t,.05,.22)), a2=TW.ease(TW.seg(t,.2,.36));
+     let s=twCell(92,158,104,{names:['Sr','Ti','O','O','O'], yaw:-0.55+0.4*t})+twText(92,232,'crystal',{anchor:'middle', size:17, weight:700, fill:'var(--muted)'});
+     s+=twRect(38,296,108,66,{r:12})+twText(92,324,'4.3 eV',{anchor:'middle', size:20, weight:700})+twText(92,350,'−0.24 eV/atom',{anchor:'middle', size:13, fill:'var(--muted)'})+
+        twText(92,388,'properties',{anchor:'middle', size:17, weight:700, fill:'var(--muted)'});
+     s+=twArrow(150,158,204,158,col,a1)+twArrow(150,329,204,329,col,a1);
+     for(const [y,lab] of [[123,'crystal encoder'],[294,'property encoder']])
+       s+=twRect(208,y,190,70,{r:14, fill:'color-mix(in oklab,var(--c-model) 12%,var(--card))', stroke:col, sw:2.5})+twText(303,y+42,lab,{anchor:'middle', size:19, weight:700, fill:col});
+     s+=twArrow(402,158,478,205,col,a2)+twArrow(402,329,478,290,col,a2);
+     s+=twRect(482,78,450,354,{r:16, fill:'var(--bg)', stroke:'var(--line)'})+twText(502,108,'shared map',{size:18, weight:800, fill:'var(--muted)'})+twText(612,108,'(latent space)',{size:15, fill:'var(--faint)'});
+     const R=TW.rng(7), c=TW.ease(TW.seg(t,.42,.86)), show=TW.seg(t,.3,.42);
+     for(let k=0;k<7;k++){ const px=540+R()*340, py=150+R()*215, ang=R()*6.283, d=48+R()*42;
+       const cx=px+Math.cos(ang)*d*(1-c), cy=py+Math.sin(ang)*d*(1-c), qx=px-Math.cos(ang)*d*(1-c), qy=py-Math.sin(ang)*d*(1-c);
+       s+=`<g opacity="${twOp(show)}"><path d="M${twN(cx)} ${twN(cy)}L${twN(qx)} ${twN(qy)}" style="stroke:var(--axis);stroke-width:1.6;stroke-dasharray:4 4" opacity="${twOp(1-c)}"/>`+
+          `<circle cx="${twN(qx)}" cy="${twN(qy)}" r="10" style="fill:var(--card);stroke:var(--c-targets);stroke-width:3"/><circle cx="${twN(cx)}" cy="${twN(cy)}" r="7" style="fill:var(--c-data)"/></g>`; }
+     s+=`<g opacity="${twOp(show)}"><circle cx="510" cy="410" r="6" style="fill:var(--c-data)"/>`+twText(522,416,'crystal',{size:15, fill:'var(--muted)'})+
+        `<circle cx="598" cy="410" r="7" style="fill:var(--card);stroke:var(--c-targets);stroke-width:2.5"/>`+twText(612,416,'its properties',{size:15, fill:'var(--muted)'})+
+        twText(914,416,'pulled together',{anchor:'end', size:15, weight:700, fill:col, opacity:TW.seg(t,.8,.92)})+'</g>';
+     return s; }},
+
+  {block:'family', title:'Family', ms:6800,
+   cap:L=>`You choose a crystal type, here the ${L.family.replace(/^([A-Z])(?=[a-z])/, c=>c.toLowerCase())}, and the elements allowed on each site: ${nfmt(L.comps)} compositions.`,
+   draw:(t,L)=>{ const col=twC('family'), gs=L.groups.slice(0,4), n=Math.max(1,gs.length), step=Math.min(5, Math.floor(t*7)), combo={};
+     gs.forEach((g,j)=>{ const vis=g.sample.slice(0,6); combo[g.g]=vis[(step*(j+2)+j)%Math.max(1,vis.length)]; });   // only elements whose chips are shown
+     let s=twCell(225,236,290,{yaw:-0.9+1.2*t, labels:true, elements:combo})+twText(225,426,L.family.length>34?L.family.slice(0,33)+'…':L.family,{anchor:'middle', size:19, weight:800, fill:col});
+     const x0=470, W=460;
+     gs.forEach((g,j)=>{ const x=x0+W/n*(j+.5), a=TW.out(TW.seg(t,.05+j*.08,.25+j*.08));
+       s+=`<g opacity="${twOp(a)}">`+twChip(x,98,`${g.g} site`,col,{filled:true, size:18, h:34, w:Math.min(110, W/n-12)});
+       g.sample.slice(0,6).forEach((el,m)=>{ s+=twChip(x,146+m*38,el,col,{filled:el===combo[g.g], size:18, h:32, w:72}); });
+       if(g.sample.length>6) s+=twText(x,146+6*38-2,`+${g.sample.length-6} more`,{anchor:'middle', size:15, fill:'var(--muted)'});
+       s+='</g>'; });
+     const sizes=L.groups.map(g=>g.sample.length), prod=sizes.reduce((a,b)=>a*b,1);   // 21 × 11 × 4 = 924 when every filling is allowed
+     s+=twText(x0+W/2,426,`${prod===L.comps&&sizes.length>1?sizes.join(' × ')+' ':''}= ${nfmt(Math.round(L.comps*TW.ease(TW.seg(t,.55,.9))))} compositions`,{anchor:'middle', size:25, weight:800, fill:col, opacity:TW.seg(t,.5,.6)});
+     return s; }},
+
+  {block:'rules', title:'Rules', ms:7600,
+   cap:L=>`Simple chemistry rules remove impossible combinations: charges must balance and ions must fit. ${nfmt(L.pass)} of ${nfmt(L.comps)} pass every rule.`,
+   draw:(t,L)=>{ const col=twC('rules'), pk=twPick();
+     const keys=S.ev ? Object.keys(S.ev.lost).filter(k=>S.ev.lost[k]>0).slice(0,4) : ['charge_neutrality','bond_window','tolerance_factor','octahedral_factor'];
+     const gx=keys.map((k,j)=>285+j*150); let s='';
+     s+=twText(36,104,nfmt(Math.round(TW.lerp(L.comps, L.pass, TW.ease(TW.seg(t,.12,.9))))),{size:34, weight:800})+twText(36,128,'compositions left',{size:15, fill:'var(--muted)'});
+     keys.forEach((k,j)=>{ const x=gx[j], spec=S.ui&&S.ui.rules&&S.ui.rules[k], name=(spec&&spec.rule)||k, words=(TW_SHORT[name]||(S.fam?ruleTitle(k):k)).split(' ');
+       s+=twRect(x-9,176,18,164,{r:9, fill:'color-mix(in oklab,var(--c-rules) 35%,var(--card))', stroke:col, sw:2})+
+          twText(x,136,words[0],{anchor:'middle', size:16, weight:700, fill:col})+(words.length>1?twText(x,156,words.slice(1).join(' '),{anchor:'middle', size:16, weight:700, fill:col}):'')+
+          (S.ev?twText(x,370,'−'+nfmt(S.ev.lost[k]),{anchor:'middle', size:18, weight:800, fill:'var(--bad)', opacity:TW.seg(t,.25+j*.12,.35+j*.12)}):''); });
+     s+=twText(880,136,'pass every',{anchor:'middle', size:16, weight:700, fill:'var(--good)'})+twText(880,156,'rule',{anchor:'middle', size:16, weight:700, fill:'var(--good)'});
+     const chips=[];
+     if(pk){ const fails=pk.fail.filter(x=>keys.includes(x.k)), P=pk.pass;
+       for(const it of [fails[0],P[0],fails[1],fails[2],P[1],fails[3],P[2],fails[4]]) if(it) chips.push(it.r ? {f:it.r.f, gate:keys.indexOf(it.k)} : {f:it.f, gate:-1}); }
+     else chips.push({f:'CsPbI3',gate:1},{f:'RbSnI3',gate:-1},{f:'NaFeCl3',gate:2},{f:'KMnBr3',gate:3},{f:'CsGeI3',gate:-1});
+     let passed=0; const span=.34;
+     chips.forEach((c,k)=>{ const st=.04+k*.075, x0=60, x1=880, stop=c.gate>=0 ? gx[c.gate]-62 : x1;
+       const tStop=st+span*(stop-x0)/(x1-x0), lane=k%2 ? 290 : 232; if(t<st) return;     // two lanes, so chips rarely overlap
+       if(t<tStop){ s+=twFormula(TW.lerp(x0,x1,(t-st)/span), lane, c.f, 'move'); return; }
+       if(c.gate>=0){ const f=TW.seg(t,tStop+.05,tStop+.16);
+         s+=`<g transform="translate(0 ${twN(46*TW.ease(f))})">`+twFormula(stop, lane, c.f, 'fail', {opacity:1-f})+(f<1?twCheck(stop+40, lane-18, false, TW.seg(t,tStop,tStop+.04)):'')+'</g>'; }
+       else { const slot=passed++, a=TW.ease(TW.seg(t,tStop,tStop+.06));
+         s+=twFormula(880, TW.lerp(lane, 206+slot*46, a), c.f, 'pass')+twCheck(880+56, TW.lerp(lane,206+slot*46,a)-14, true, a); } });
+     return s; }},
+
+  {block:'targets', title:'Targets', ms:7000,
+   cap:L=>{ const w=twWish(L); return `You say what you want, for example a ${w.label.toLowerCase()} of ${fmt(w.value)} ${w.unit}. The model predicts every composition and ranks the closest.`; },
+   draw:(t,L)=>{ const col=twC('targets'), obs=L.objectives.length?L.objectives:[{property:'heat_all'},{property:'dir_gap'}], px=obs[0].property, py=obs[1]&&obs[1].property;
+     const rows=S.ev ? (S.ev.alive.length ? S.ev.alive : S.ev.rows.slice(0,40)) : [];
+     const R=TW.rng(5), pts=rows.length ? rows.map(r=>[r.p[px], py?r.p[py]:null, r]) : Array.from({length:24},()=>[R()*3, R()*3, null]);
+     const tx=L.target[px]!==undefined?+L.target[px]:1, ty=py&&L.target[py]!==undefined?+L.target[py]:1;
+     const xs=pts.map(p=>p[0]).filter(Number.isFinite).concat([tx]), ys=py?pts.map(p=>p[1]).filter(Number.isFinite).concat([ty]):[0,1];
+     const pad=(a,b)=>{ const d=(b-a)||1; return [a-.1*d, b+.1*d]; }, [xl,xh]=pad(Math.min(...xs),Math.max(...xs)), [yl,yh]=pad(Math.min(...ys),Math.max(...ys));
+     const X=v=>110+(v-xl)/(xh-xl)*510, Y=v=>py ? 392-(v-yl)/(yh-yl)*300 : 260;
+     let s=`<path d="M110 92V392H620" style="stroke:var(--axis);stroke-width:2;fill:none"/>`+
+       twText(365,424,`predicted ${twLabel(L,px)}${twUnit(L,px)?' ('+twUnit(L,px)+')':''}`,{anchor:'middle', size:16, fill:'var(--muted)'})+
+       (py?`<text transform="translate(92 242) rotate(-90)" text-anchor="middle" style="font-size:16px;font-weight:600;fill:var(--muted)">${esc('predicted '+twLabel(L,py)+(twUnit(L,py)?' ('+twUnit(L,py)+')':''))}</text>`:'');
+     const ranked=S.ev ? S.ev.ranked.slice(0,3).map(x=>x[1]) : [];
+     pts.forEach((p,k)=>{ if(!Number.isFinite(p[0])||(py&&!Number.isFinite(p[1]))) return; const a=TW.seg(t,.02+k*.006,.12+k*.006);
+       if(!ranked.includes(p[2])) s+=`<circle cx="${twN(X(p[0]))}" cy="${twN(Y(p[1]))}" r="6" style="fill:var(--c-family)" opacity="${twOp(a*.55)}"/>`; });
+     const m=TW.ease(TW.seg(t,.2,.45)), cx=TW.lerp(365,X(tx),m), cy=TW.lerp(242,Y(ty),m), ta=TW.seg(t,.18,.26);
+     s+=`<g opacity="${twOp(ta)}"><path d="M${twN(cx)} 92V392M110 ${twN(cy)}H620" style="stroke:${col};stroke-width:2;stroke-dasharray:6 5"/><circle cx="${twN(cx)}" cy="${twN(cy)}" r="15" style="fill:none;stroke:${col};stroke-width:3.5"/></g>`+
+        twText(Math.min(560,cx+20),Math.max(112,cy-20),'your target',{size:17, weight:800, fill:col, opacity:TW.seg(t,.4,.5)});
+     ranked.forEach((r,k)=>{ const a=TW.pop(TW.seg(t,.5+k*.07,.62+k*.07)), x=X(r.p[px]), y=Y(py?r.p[py]:0);
+       s+=`<g transform="translate(${twN(x)} ${twN(y)}) scale(${twOp(a)})"><circle r="13" style="fill:var(--c-candidates)"/><text y="6" text-anchor="middle" style="font-size:16px;font-weight:800;fill:#fff">${k+1}</text></g>`; });
+     s+=`<g opacity="${twOp(TW.seg(t,.55,.68))}">`+twRect(660,92,272,300,{r:14})+twText(680,124,'closest to your target',{size:17, weight:800, fill:col});
+     (ranked.length?ranked:[{f:'—',p:{}}]).forEach((r,k)=>{ const y=168+k*72, a=TW.seg(t,.6+k*.08,.7+k*.08);
+       s+=`<g opacity="${twOp(a)}"><circle cx="694" cy="${y-6}" r="14" style="fill:var(--c-candidates)"/><text x="694" y="${y}" text-anchor="middle" style="font-size:16px;font-weight:800;fill:#fff">${k+1}</text>`+
+          twText(720,y,twSub(r.f),{size:22, weight:800})+twText(720,y+24,obs.slice(0,2).map(o=>fmt(r.p[o.property])+(twUnit(L,o.property)?' '+twUnit(L,o.property):'')).join(' · '),{size:15, fill:'var(--muted)'})+'</g>'; });
+     return s+'</g>'; }},
+
+  {block:'search', title:'Search', ms:8600,
+   cap:'Starting at your target’s point on the map, the search moves points until the model predicts your targets, turns each into a crystal and keeps those that pass every rule.',
+   draw:(t,L)=>{ const col=twC('search'), pk=twPick(), R=TW.rng(11), sx=370, sy=258;
+     let s=twRect(36,76,640,356,{r:16, fill:'var(--bg)', stroke:'var(--line)'})+twText(56,106,'shared map',{size:18, weight:800, fill:'var(--muted)'})+
+       twRect(706,76,226,356,{r:16})+twText(726,106,'found',{size:19, weight:800, fill:col})+twText(726,128,'pass every rule',{size:15, fill:'var(--muted)'});
+     for(let k=0;k<70;k++) s+=`<circle cx="${twN(60+R()*600)}" cy="${twN(120+R()*300)}" r="3.5" style="fill:var(--faint)" opacity=".35"/>`;
+     s+=`<path d="M${sx} ${sy-17}l5 10.5 11.5 1.5-8.5 8 2 11.5-10-5.5-10 5.5 2-11.5-8.5-8 11.5-1.5z" style="fill:var(--c-targets)"/>`+twText(sx,sy+42,'your target',{anchor:'middle', size:16, weight:800, fill:twC('targets')});
+     const pass=twFound(L).list.slice(0,3), fail=pk?pk.fail.slice(0,5).map(x=>x.r):[];   // found = the real search results (or the default-run example)
+     const who=[0,1,0,0,1,0,1,0].map((p,k)=>p ? {r:pass[[1,4,6].indexOf(k)], ok:true} : {r:fail[[0,2,3,5,7].indexOf(k)], ok:false});
+     const pos=(k,u)=>{ const th=k*0.785+0.3, r=(22+150*TW.ease(TW.seg(u,.08,.58))*(.55+.45*((k*37)%10)/10)); return [sx+r*Math.cos(th+.7*u)+8*Math.sin(u*9+k), sy+.72*r*Math.sin(th+.7*u)+6*Math.cos(u*7+k)]; };
+     const appear=TW.seg(t,.03,.1); let slot=0;
+     who.forEach((w,k)=>{ const [x,y]=pos(k,Math.min(t,.6));
+       if(t<.6){ let trail=''; for(let q=6;q>=0;q--){ const [a,b]=pos(k,Math.max(0,t-q*.018)); trail+=(q===6?'M':'L')+twN(a)+' '+twN(b); }
+         s+=`<path d="${trail}" style="stroke:${col};stroke-width:2.5;fill:none" opacity=".45"/><circle cx="${twN(x)}" cy="${twN(y)}" r="8" style="fill:${col}" opacity="${twOp(appear)}"/>`; return; }
+       const pop=TW.pop(TW.seg(t,.6,.68)), chk=TW.seg(t,.7,.76), fade=w.ok?0:TW.seg(t,.8,.88), fly=w.ok?TW.ease(TW.seg(t,.84,.97)):0;
+       const my=w.ok?slot++:0, X=TW.lerp(x,742,fly), Y=TW.lerp(y,178+my*88,fly);
+       const el=w.r ? w.r.e : null;
+       s+=`<g opacity="${twOp(1-.75*fade)}"><g transform="translate(${twN(X)} ${twN(Y)}) scale(${twOp(pop)}) translate(${twN(-X)} ${twN(-Y)})">`+twCell(X,Y,58,{elements:el||undefined, yaw:-0.55+t})+'</g>'+
+          (chk>0?twCheck(X+24,Y-24,w.ok,chk):'')+'</g>'; });
+     pass.forEach((r,k)=>{ if(r) s+=twText(782,185+k*88,twSub(r.f),{size:21, weight:800, opacity:TW.seg(t,.92,.99)}); });
+     return s; }},
+
+  {block:'candidates', title:'Candidates', ms:7400,
+   cap:'Each new material comes with its crystal, the rules it passed and its predicted properties. Confirm the best ones with calculations or experiments.',
+   draw:(t,L)=>{ const col=twC('candidates'), obs=L.objectives.slice(0,2);
+     const F=twFound(L), cs=F.list.length ? F.list : TOUR_EXAMPLE.slice(0,1).map(c=>Object.assign({t:L.target}, c));
+     let s=twText(932,75,{yours:'from your search', example:'example: a search with the Studio defaults', closest:'closest compositions - run a search for real candidates'}[F.kind],{anchor:'end', size:13, weight:700, fill:'var(--muted)', opacity:TW.seg(t,.1,.25)});
+     cs.forEach((c,k)=>{ const x0=40+k*302, a=TW.out(TW.seg(t,.04+k*.12,.3+k*.12));
+       s+=`<g transform="translate(0 ${twN(50*(1-a))})" opacity="${twOp(a)}">`+twRect(x0,82,282,300,{r:16, stroke:col, sw:2.2})+
+          twCell(x0+66,150,112,{elements:c.e, yaw:-0.6+0.7*t})+twText(x0+130,134,twSub(c.f),{size:25, weight:800})+
+          twText(x0+130,160,'✓ every rule',{size:16, weight:700, fill:'var(--good)'})+
+          ((c.flags||[]).length ? twText(x0+130,182,'⚠ extrapolating',{size:14, weight:700, fill:'color-mix(in oklab,var(--warn) 55%,var(--ink))'}) : '');
+       obs.forEach((o,j)=>{ const v=c.p[o.property], tv=+(c.t||L.target)[o.property], y=222+j*78, u=twUnit(L,o.property), r=(S.state&&S.state.ranges&&S.state.ranges[o.property])||[Math.min(v,tv)-1, Math.max(v,tv)+1];
+         const lo=Math.min(r[0],v,tv), hi=Math.max(r[1],v,tv), G=x=>x0+22+(x-lo)/((hi-lo)||1)*238;
+         s+=twText(x0+22,y,twLabel(L,o.property),{size:14, fill:'var(--muted)'})+
+            (Number.isFinite(v)?twText(x0+22,y+22,`${fmt(v)}${u?' '+u:''}`,{size:17, weight:800}):'')+
+            twRect(x0+22,y+32,238,7,{r:3.5, fill:'var(--line)', stroke:'none', sw:0})+
+            (Number.isFinite(tv)?`<path d="M${twN(G(tv))} ${y+27}v17" style="stroke:var(--c-targets);stroke-width:2.5;stroke-dasharray:3 2"/>`+
+              twText(TW.clamp(G(tv),x0+50,x0+232),y+60,`target ${fmt(tv)}`,{anchor:'middle', size:13, weight:700, fill:'var(--c-targets)'}):'')+
+            (Number.isFinite(v)?`<circle cx="${twN(G(v))}" cy="${y+35.5}" r="6.5" style="fill:${col}"/>`:''); });
+       s+='</g>'; });
+     s+=twChip(480,416,'next: confirm with DFT or an experiment',col,{filled:true, size:19, h:38, w:470, opacity:TW.seg(t,.62,.74)});
+     return s; }},
+
+  {block:'outro', title:'Your turn', ms:4400,
+   cap:'Your turn: open any block in the strip below, change something, and watch the effect flow through the next blocks. A good start: Targets, then Search.',
+   draw:(t)=>{ const a=TW.out(TW.seg(t,0,.25)); let s=twText(480,168,'Your turn',{anchor:'middle', size:48, weight:800, opacity:a})+
+       twText(480,214,'Open any block below and change something:',{anchor:'middle', size:23, fill:'var(--muted)', opacity:TW.seg(t,.15,.35)})+
+       twText(480,246,'the effect flows to the blocks after it.',{anchor:'middle', size:23, fill:'var(--muted)', opacity:TW.seg(t,.2,.4)});
+     const wave=(t*2.2)%1;
+     BLOCKS.forEach((b,k)=>{ const x=165+k*105, on=Math.abs(wave*7-k-.5)<.8;
+       s+=`<circle cx="${x}" cy="318" r="${on?17:12}" style="fill:${twC(b.id)}" opacity="${twOp(TW.seg(t,.25+k*.03,.35+k*.03))}"/>`;
+       if(k<6) s+=`<path d="M${x+20} 318H${x+85}" style="stroke:var(--axis);stroke-width:2.5" opacity="${twOp(TW.seg(t,.3,.4))}"/>`; });
+     const bob=6*Math.sin(t*12);
+     s+=twArrow(480,356+bob,480,410+bob,'var(--c-family)',TW.seg(t,.45,.6),{sw:5, head:15})+twText(510,404+bob,'start here',{size:18, weight:800, fill:'var(--c-family)', opacity:TW.seg(t,.5,.65)});
+     return s; }},
+];
 document.addEventListener('keydown', e=>{ if(e.key==='Escape'){ closeModal(); closeYaml(); }
   const t=e.target.closest && e.target.closest('[data-show]');   // blocks and chain steps work from the keyboard too
   if(t && (e.key==='Enter'||e.key===' ')){ e.preventDefault(); show(t.dataset.show); } });
 window.addEventListener('resize', ()=>{ clearTimeout(window._rz); window._rz=setTimeout(mountAll3d, 200); });
+tourInit();   // a first visit opens the one-minute animation above the workflow
 drawPipe();   // the workflow is visible at once; its numbers arrive with the data
 boot().catch(e=>{ renderChain([{block:'data', text:'Could not start: '+e.message}]); console.error(e);
   const lc=document.querySelector('.loading-card'); if(lc) lc.innerHTML=`<h2>The Studio could not start</h2><p>${esc(e.message)}</p><p class="muted">Reload the page in a minute. If it keeps failing, the server may be restarting or busy.</p>`; });

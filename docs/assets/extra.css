@@ -15,6 +15,7 @@
 .bench-charts{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px;margin:8px 0 18px}
 .bench-chart{border:1px solid var(--md-default-fg-color--lightest);border-radius:10px;padding:8px;background:var(--md-code-bg-color)}
 .bench-chart svg.chart{width:100%;height:auto;max-width:none;display:block}
+.md-typeset .bench-chart .bench-cap{margin:.1em .3em .3em;font-size:.72rem;font-weight:700;color:var(--md-default-fg-color--light)}
 .bench-chart .ax{stroke:var(--md-default-fg-color--light);stroke-width:1}.bench-chart .grid{stroke:var(--md-default-fg-color--lightest);stroke-width:.6}
 .bench-chart .tick,.bench-chart .val,.bench-chart .leg{fill:var(--md-default-fg-color--light);font-size:11px}
 .bench-chart .lab{fill:var(--md-default-fg-color);font-size:12px}
@@ -33,10 +34,21 @@ th[aria-sort="ascending"]:not(.no-sort)::after{border-bottom:none;border-width:4
 th[aria-sort]:not(.no-sort)::after{visibility:visible;opacity:.5}
 th[role="columnheader"]:not(.no-sort):hover::after{visibility:visible;opacity:.3}
 
-/* leaderboards: compact, one line per row where possible */
-.bench-table table{font-size:.68rem}
-.bench-table td,.bench-table th{padding:.5em .6em;white-space:nowrap}
-.bench-table td:first-child{white-space:normal;min-width:14em}
+/* leaderboards: one row per method, one colour-scaled column per metric; their pages use the full width */
+.md-main__inner.md-grid:has(.lb-wrap){max-width:96rem}
+.lb-wrap{overflow-x:auto;margin:.6em 0 1em;border:1px solid var(--md-default-fg-color--lightest);border-radius:10px}
+.md-typeset table.lb{display:table;border-collapse:collapse;border:0;margin:0;font-size:.7rem;width:100%;box-shadow:none;background:var(--md-default-bg-color)}
+.md-typeset table.lb th{position:sticky;top:0;background:var(--md-code-bg-color);color:var(--md-default-fg-color);font-weight:700;white-space:nowrap;padding:.55em .6em;border-bottom:1px solid var(--md-default-fg-color--lightest);text-align:center;min-width:0;vertical-align:bottom}
+.md-typeset table.lb td{padding:.42em .6em;border:0;border-top:1px solid var(--md-default-fg-color--lightest);white-space:nowrap;vertical-align:middle}
+.md-typeset table.lb td.lb-num{text-align:right;font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
+.md-typeset table.lb td.lb-rank,.md-typeset table.lb th.lb-rank{color:var(--md-default-fg-color--light);text-align:right;width:2em}
+.md-typeset table.lb .lb-model{text-align:left;font-weight:600;min-width:12em}
+.md-typeset table.lb .lb-model a{text-decoration:none}
+.md-typeset table.lb .lb-kind{margin-left:.5em;font-weight:400;font-size:.85em;color:var(--md-default-fg-color--light)}
+.md-typeset table.lb .lb-links{font-size:.92em}
+.md-typeset table.lb tbody tr:hover td.lb-model,.md-typeset table.lb tbody tr:hover td.lb-rank{background:var(--md-code-bg-color)}
+.md-typeset table.lb-small{width:auto}
+.md-typeset .lb-toolbar{font-size:.78rem;margin:.2em 0 .8em}
 
 /* ── Learn layer ── */
 .learn-steps ol{columns:2;column-gap:2em}@media(max-width:700px){.learn-steps ol{columns:1}}

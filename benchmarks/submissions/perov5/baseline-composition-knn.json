@@ -1,0 +1,62 @@
+{
+ "id": "baseline-composition-knn",
+ "dataset": "perov5",
+ "protocol": "perov5-v1",
+ "date": "2026-10-03",
+ "submitter": {
+  "name": "Anand Babu",
+  "affiliation": "UCLouvain",
+  "github": "ABnano"
+ },
+ "modalities": [
+  "composition"
+ ],
+ "method": {
+  "name": "Composition k-NN",
+  "kind": "baseline",
+  "description": "Mean property of the five training materials nearest in element-fraction space: a composition-only representation, without structure.",
+  "meidnet_version": "2.0.0",
+  "parameters": null,
+  "training_data": "Perov-5 train (11,356)",
+  "checkpoint": "",
+  "checkpoint_sha256": "",
+  "links": {
+   "paper": "",
+   "code": "https://github.com/ABnano/MEIDNet",
+   "weights": ""
+  }
+ },
+ "results": {
+  "property_prediction": {
+   "mae_heat_all": 0.5106261558784676,
+   "rmse_heat_all": 0.67409273437046,
+   "r2_heat_all": 0.17918539075266848,
+   "mae_dir_gap": 0.16282166446499338,
+   "mae_dir_gap_nonzero": 2.0438410596026486,
+   "rmse_dir_gap": 0.5677910568862923,
+   "r2_dir_gap": -0.12205670370125676,
+   "mae_heat_all_nonzero": 0.5105317124735729,
+   "n_evaluated": 3785.0
+  },
+  "representation": {
+   "knn_mae_heat_all": 0.5106261558784676,
+   "knn_mae_dir_gap": 0.16282166446499338,
+   "n_evaluated": 3785.0,
+   "retrieval_top1": null
+  }
+ },
+ "validation_level": "generated",
+ "evidence": [],
+ "artifacts": {
+  "property_prediction": "benchmarks/runs/perov5/baseline-composition-knn/property_prediction"
+ },
+ "reproduce": {
+  "command": "python scripts/benchmarks.py run perov5 --method baseline-composition-knn",
+  "hardware": "Intel64 Family 6 Model 197 Stepping 2, GenuineIntel (16 threads), CPU only",
+  "wall_time_s": 44.4
+ },
+ "status": "meidnet_verified",
+ "verified_by": "maintainer",
+ "verified_on": "2026-10-03",
+ "notes": ""
+}

@@ -16,7 +16,7 @@ New to multimodal data? [Learn multimodality](../learn/index.md) explains what a
 
 <div class="grid cards" markdown>
 
--   **Perov-5** — *published multimodal benchmark*
+-   **Perov-5** — *multimodal benchmark*
     { #perov-5 }
 
     ---
@@ -87,5 +87,5 @@ what the rules and the search need.
 ## Next datasets
 
 Battery conductors, MOFs, 2D materials and spinels are natural next families. Results on any of them can be
-[contributed](../community/contribute.md): the dataset gets its own benchmark page, and a result reproduced here is
-marked as verified.
+[contributed](../community/contribute.md), and a dataset becomes a benchmark once its protocol is defined
+([add a dataset](../community/contribute.md#add-a-dataset)).

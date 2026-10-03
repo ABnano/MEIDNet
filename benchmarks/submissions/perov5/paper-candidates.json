@@ -1,0 +1,56 @@
+{
+ "id": "paper-candidates",
+ "dataset": "perov5",
+ "protocol": "paper",
+ "date": "2026-10-03",
+ "submitter": {
+  "name": "Anand Babu",
+  "affiliation": "UCLouvain",
+  "github": "ABnano"
+ },
+ "modalities": [
+  "structure",
+  "property:heat_all",
+  "property:dir_gap"
+ ],
+ "method": {
+  "name": "Candidates shipped with the paper, screened here",
+  "kind": "model",
+  "description": "The 26 candidate structures in examples/perov5/paper_results, relaxed with MACE-MP-0 and scored with the protocol's stability, uniqueness and novelty criteria. Their targets and budget are those of the paper, so the record is not ranked.",
+  "meidnet_version": "2.0.0",
+  "parameters": null,
+  "training_data": "Perov-5 train (11,356)",
+  "checkpoint": "",
+  "checkpoint_sha256": "",
+  "links": {
+   "paper": "https://doi.org/10.1038/s41524-026-02153-3",
+   "code": "https://github.com/ABnano/MEIDNet",
+   "weights": ""
+  }
+ },
+ "results": {
+  "inverse_design": {
+   "sun_rate": 0.7307692307692307,
+   "stable_rate": 1.0,
+   "unique_rate": 0.9230769230769231,
+   "novel_rate": 0.7692307692307693,
+   "dhf_median": -1.270755,
+   "n_delivered": 26.0,
+   "n_sun": 19.0
+  }
+ },
+ "validation_level": "mlip_validated",
+ "evidence": [],
+ "artifacts": {
+  "inverse_design": "benchmarks/runs/perov5/paper-candidates/inverse_design"
+ },
+ "reproduce": {
+  "command": "python scripts/benchmarks.py paper-candidates perov5",
+  "hardware": "Intel64 Family 6 Model 197 Stepping 2, GenuineIntel (16 threads), CPU only",
+  "wall_time_s": null
+ },
+ "status": "meidnet_verified",
+ "verified_by": "maintainer",
+ "verified_on": "2026-10-03",
+ "notes": ""
+}

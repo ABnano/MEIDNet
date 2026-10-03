@@ -1,94 +1,54 @@
 {
  "$defs": {
-  "Metric": {
+  "Links": {
    "additionalProperties": false,
    "properties": {
-    "value": {
-     "title": "Value",
-     "type": "number"
-    },
-    "unit": {
+    "paper": {
      "default": "",
-     "title": "Unit",
+     "title": "Paper",
      "type": "string"
     },
-    "split": {
+    "code": {
      "default": "",
-     "title": "Split",
+     "title": "Code",
      "type": "string"
     },
-    "note": {
+    "weights": {
      "default": "",
-     "title": "Note",
+     "title": "Weights",
      "type": "string"
     }
    },
-   "required": [
-    "value"
-   ],
-   "title": "Metric",
+   "title": "Links",
    "type": "object"
   },
-  "ModelInfo": {
+  "Method": {
    "additionalProperties": false,
    "properties": {
     "name": {
      "title": "Name",
      "type": "string"
     },
+    "kind": {
+     "default": "model",
+     "enum": [
+      "model",
+      "baseline"
+     ],
+     "title": "Kind",
+     "type": "string"
+    },
+    "description": {
+     "default": "",
+     "title": "Description",
+     "type": "string"
+    },
     "meidnet_version": {
+     "default": "",
      "title": "Meidnet Version",
      "type": "string"
     },
-    "family": {
-     "default": "",
-     "title": "Family",
-     "type": "string"
-    },
-    "variant": {
-     "default": "",
-     "title": "Variant",
-     "type": "string"
-    },
-    "config": {
-     "default": "",
-     "description": "path to the meidnet.yaml used, relative to the repository, or a URL",
-     "title": "Config",
-     "type": "string"
-    },
-    "checkpoint_url": {
-     "default": "",
-     "title": "Checkpoint Url",
-     "type": "string"
-    },
-    "checkpoint_sha256": {
-     "default": "",
-     "pattern": "^([0-9a-f]{64})?$",
-     "title": "Checkpoint Sha256",
-     "type": "string"
-    },
-    "notes": {
-     "default": "",
-     "title": "Notes",
-     "type": "string"
-    }
-   },
-   "required": [
-    "name",
-    "meidnet_version"
-   ],
-   "title": "ModelInfo",
-   "type": "object"
-  },
-  "Reproduce": {
-   "additionalProperties": false,
-   "properties": {
-    "config": {
-     "default": "",
-     "title": "Config",
-     "type": "string"
-    },
-    "seed": {
+    "parameters": {
      "anyOf": [
       {
        "type": "integer"
@@ -98,25 +58,47 @@
       }
      ],
      "default": null,
-     "title": "Seed"
+     "title": "Parameters"
     },
+    "training_data": {
+     "default": "",
+     "title": "Training Data",
+     "type": "string"
+    },
+    "checkpoint": {
+     "default": "",
+     "title": "Checkpoint",
+     "type": "string"
+    },
+    "checkpoint_sha256": {
+     "default": "",
+     "pattern": "^([0-9a-f]{64})?$",
+     "title": "Checkpoint Sha256",
+     "type": "string"
+    },
+    "links": {
+     "$ref": "#/$defs/Links",
+     "default": {
+      "paper": "",
+      "code": "",
+      "weights": ""
+     }
+    }
+   },
+   "required": [
+    "name"
+   ],
+   "title": "Method",
+   "type": "object"
+  },
+  "Reproduce": {
+   "additionalProperties": false,
+   "properties": {
     "command": {
      "default": "",
      "title": "Command",
      "type": "string"
     },
-    "split": {
-     "default": "",
-     "title": "Split",
-     "type": "string"
-    }
-   },
-   "title": "Reproduce",
-   "type": "object"
-  },
-  "Resources": {
-   "additionalProperties": false,
-   "properties": {
     "hardware": {
      "default": "",
      "title": "Hardware",
@@ -135,7 +117,7 @@
      "title": "Wall Time S"
     }
    },
-   "title": "Resources",
+   "title": "Reproduce",
    "type": "object"
   },
   "Submitter": {
@@ -175,17 +157,18 @@
    "title": "Dataset",
    "type": "string"
   },
-  "title": {
-   "title": "Title",
+  "protocol": {
+   "description": "the protocol version the results follow, or 'paper' for numbers quoted from the paper",
+   "title": "Protocol",
    "type": "string"
-  },
-  "submitter": {
-   "$ref": "#/$defs/Submitter"
   },
   "date": {
    "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
    "title": "Date",
    "type": "string"
+  },
+  "submitter": {
+   "$ref": "#/$defs/Submitter"
   },
   "modalities": {
    "items": {
@@ -195,23 +178,24 @@
    "title": "Modalities",
    "type": "array"
   },
-  "model": {
-   "$ref": "#/$defs/ModelInfo"
-  },
-  "category": {
-   "enum": [
-    "representation_quality",
-    "conditional_design",
-    "efficiency",
-    "validation"
-   ],
-   "title": "Category",
-   "type": "string"
+  "method": {
+   "$ref": "#/$defs/Method"
   },
   "results": {
    "additionalProperties": {
-    "$ref": "#/$defs/Metric"
+    "additionalProperties": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ]
+    },
+    "type": "object"
    },
+   "description": "task id -> metric id -> value",
    "minProperties": 1,
    "title": "Results",
    "type": "object"
@@ -236,20 +220,21 @@
    "title": "Evidence",
    "type": "array"
   },
-  "resources": {
-   "$ref": "#/$defs/Resources",
-   "default": {
-    "hardware": "",
-    "wall_time_s": null
-   }
+  "artifacts": {
+   "additionalProperties": {
+    "type": "string"
+   },
+   "default": {},
+   "description": "task id -> folder with the outputs behind the numbers",
+   "title": "Artifacts",
+   "type": "object"
   },
   "reproduce": {
    "$ref": "#/$defs/Reproduce",
    "default": {
-    "config": "",
-    "seed": null,
     "command": "",
-    "split": ""
+    "hardware": "",
+    "wall_time_s": null
    }
   },
   "status": {
@@ -281,15 +266,14 @@
  "required": [
   "id",
   "dataset",
-  "title",
-  "submitter",
+  "protocol",
   "date",
+  "submitter",
   "modalities",
-  "model",
-  "category",
+  "method",
   "results"
  ],
  "title": "Submission",
  "type": "object",
- "$comment": "Allowed metric names per category: {\"representation_quality\": [\"mae_<prop>\", \"r2_<prop>\", \"retrieval_top1\", \"retrieval_top5\", \"cosine_matched\", \"l2_matched\", \"structure_match_rate\", \"n_evaluated\"], \"conditional_design\": [\"n_generated\", \"n_pass_rules\", \"n_sun\", \"sun_rate\", \"target_hit_rate\", \"mae_to_target_<prop>\", \"validity\", \"uniqueness\", \"novelty\"], \"efficiency\": [\"training_epochs\", \"training_time_s\", \"gpu_hours\", \"parameters\", \"seconds_per_candidate\"], \"validation\": [\"n_screened\", \"n_stable\", \"n_unique\", \"n_novel\", \"n_sun\", \"n_dft\", \"n_experimental\"]}"
+ "$comment": "Task and metric ids come from the dataset's protocol (benchmarks/datasets/<dataset>.json)."
 }

@@ -7,5 +7,82 @@
  "properties": ["heat_all", "dir_gap"],
  "source": "https://github.com/txie-93/cdvae/tree/main/data/perov_5",
  "citation": "Castelli et al., Energy Environ. Sci. 5, 5814 (2012); Xie et al., ICLR 2022 (CDVAE)",
- "role": "the published multimodal benchmark: alignment, property reconstruction and inverse design"
+ "role": "multimodal benchmark: inverse design, property prediction and representation",
+ "protocol": {
+  "version": "perov5-v1",
+  "data_dir": "data/perov5",
+  "reference_model": "checkpoints/dual_autoencoder_clip_earlyfusion_propertyaware_2k.pth",
+  "tasks": [
+   {
+    "id": "inverse_design",
+    "name": "Inverse design",
+    "summary": "Propose cubic ABX3 perovskites for three band-gap targets in three chemical families (54 candidates); score them for stability with an MLIP, uniqueness, novelty and, where a DFT value exists, the target band gap.",
+    "split": "train (novelty reference)",
+    "headline": "sun_rate",
+    "notes": "SUN measures stability, uniqueness and novelty, not whether a candidate has the target band gap: methods that never return a training composition, such as the two baselines, set a high reference for it. Of the compositions that pass the family's rules, 35 of the 106 oxides are in the training split and no chalcogenide or halide is, so novelty separates methods among oxides only. The DFT check is the only measure of the target and is possible for oxides whose A and B sites match a Perov-5 entry (40 of the 106 rule-passing oxides; 26 of them have a non-zero direct gap).",
+    "settings": {
+     "family": "perovskite_abx3",
+     "variants": ["oxide", "chalcogenide", "halide"],
+     "targets": [{"dir_gap": 1.5, "heat_all": -0.1}, {"dir_gap": 2.5, "heat_all": -0.1}, {"dir_gap": 3.5, "heat_all": -0.1}],
+     "per_target": 6,
+     "max_rounds": 6,
+     "stability_threshold": 0.1,
+     "gap_tolerance": 0.5,
+     "generation_config": "examples/perov5/meidnet.yaml",
+     "mlip": "MACE-MP-0 (medium), float32; BFGS with cell relaxation (FrechetCellFilter), fmax 0.05 eV/Å, at most 500 steps"
+    },
+    "metrics": [
+     {"id": "sun_rate", "label": "SUN", "better": "higher", "digits": 3, "definition": "stable, unique and novel candidates divided by the budget of 54; a candidate that was not delivered counts as a failure"},
+     {"id": "stable_rate", "label": "Stable", "better": "higher", "digits": 3, "definition": "fraction of delivered candidates whose MACE-MP-0 formation energy after relaxation is at most 0.10 eV/atom, against elemental reference phases (the criterion of `meidnet screen` and of the paper)"},
+     {"id": "unique_rate", "label": "Unique", "better": "higher", "digits": 3, "definition": "fraction of delivered candidates whose composition does not repeat an earlier one"},
+     {"id": "novel_rate", "label": "Novel", "better": "higher", "digits": 3, "definition": "fraction of delivered candidates whose composition is not in the training split"},
+     {"id": "dhf_median", "label": "ΔH<sub>f</sub>", "unit": "eV/atom", "better": "lower", "digits": 2, "definition": "median MACE-MP-0 formation energy of the delivered candidates"},
+     {"id": "dft_hit_rate", "label": "DFT hit", "better": "higher", "digits": 3, "definition": "among candidates whose A, B and X sites match a Perov-5 entry (so their DFT band gap is known), the fraction within 0.5 eV of the target"},
+     {"id": "dft_known", "label": "DFT known", "better": "none", "digits": 0, "definition": "candidates with a known DFT band gap (the denominator of DFT hit)"},
+     {"id": "n_delivered", "label": "Delivered", "better": "higher", "digits": 0, "definition": "candidates delivered out of the budget of 54"},
+     {"id": "valid_rate", "label": "Valid", "better": "higher", "digits": 3, "show": false, "definition": "fraction of the budget that passes every rule of the family"},
+     {"id": "n_sun", "label": "SUN count", "better": "higher", "digits": 0, "show": false, "definition": "stable, unique and novel candidates"},
+     {"id": "n_budget", "label": "Budget", "better": "none", "digits": 0, "show": false, "definition": "candidates requested"},
+     {"id": "n_generated", "label": "Generated", "better": "none", "digits": 0, "show": false, "definition": "candidates generated (reported in the paper)"}
+    ]
+   },
+   {
+    "id": "property_prediction",
+    "name": "Property prediction",
+    "summary": "Predict formation enthalpy and direct band gap from the crystal structure of the 3,785 test materials.",
+    "split": "test",
+    "headline": "mae_heat_all",
+    "settings": {"split": "test", "train_split": "train"},
+    "metrics": [
+     {"id": "mae_heat_all", "label": "MAE ΔH", "unit": "eV/atom", "better": "lower", "digits": 3, "definition": "mean absolute error of the formation enthalpy (heat_all)"},
+     {"id": "rmse_heat_all", "label": "RMSE ΔH", "unit": "eV/atom", "better": "lower", "digits": 3, "definition": "root-mean-square error of the formation enthalpy"},
+     {"id": "r2_heat_all", "label": "R² ΔH", "better": "higher", "digits": 3, "definition": "coefficient of determination of the formation enthalpy (0 = no better than the mean)"},
+     {"id": "mae_dir_gap", "label": "MAE gap", "unit": "eV", "better": "lower", "digits": 3, "definition": "mean absolute error of the direct band gap over all test materials; 96% of them have a gap of 0 eV"},
+     {"id": "mae_dir_gap_nonzero", "label": "MAE gap > 0", "unit": "eV", "better": "lower", "digits": 3, "definition": "mean absolute error of the direct band gap on the test materials with a non-zero gap, the range that inverse design targets"},
+     {"id": "rmse_dir_gap", "label": "RMSE gap", "unit": "eV", "better": "lower", "digits": 3, "show": false, "definition": "root-mean-square error of the direct band gap"},
+     {"id": "r2_dir_gap", "label": "R² gap", "better": "higher", "digits": 3, "show": false, "definition": "coefficient of determination of the direct band gap; not informative here, because the gap is zero for most materials"},
+     {"id": "mae_heat_all_nonzero", "label": "MAE ΔH ≠ 0", "unit": "eV/atom", "better": "lower", "digits": 3, "show": false, "definition": "mean absolute error of the formation enthalpy on materials where it is not zero"},
+     {"id": "n_evaluated", "label": "n", "better": "none", "digits": 0, "show": false, "definition": "test materials evaluated"}
+    ]
+   },
+   {
+    "id": "representation",
+    "name": "Representation",
+    "summary": "How well the shared space holds both modalities on the test split: cross-modal retrieval, agreement of the two latents, and a k-nearest-neighbour probe of the structure latent.",
+    "split": "test",
+    "headline": "retrieval_top1",
+    "settings": {"split": "test", "probe_k": 5},
+    "metrics": [
+     {"id": "retrieval_top1", "label": "R@1", "better": "higher", "digits": 3, "definition": "fraction of test materials for which, among the distinct property profiles of the test split, their own profile's latent is the nearest to their structure latent (materials with identical property values share one profile)"},
+     {"id": "retrieval_top5", "label": "R@5", "better": "higher", "digits": 3, "definition": "the same within the five nearest profiles"},
+     {"id": "cosine_matched", "label": "cos", "better": "higher", "digits": 3, "definition": "mean cosine similarity between the structure latent and the property latent of the same material"},
+     {"id": "knn_mae_heat_all", "label": "k-NN MAE ΔH", "unit": "eV/atom", "better": "lower", "digits": 3, "definition": "formation-enthalpy error of a 5-nearest-neighbour probe: each test material takes the mean property of its five nearest training materials in the representation"},
+     {"id": "knn_mae_dir_gap", "label": "k-NN MAE gap", "unit": "eV", "better": "lower", "digits": 3, "definition": "direct-band-gap error of the same probe"},
+     {"id": "l2_matched", "label": "L2", "better": "lower", "digits": 3, "show": false, "definition": "mean L2 distance between the two latents of the same material (unit latents)"},
+     {"id": "n_profiles", "label": "profiles", "better": "none", "digits": 0, "show": false, "definition": "distinct property profiles among the test materials: the candidates of retrieval (chance level of R@1 is one over this number)"},
+     {"id": "n_evaluated", "label": "n", "better": "none", "digits": 0, "show": false, "definition": "test materials evaluated"}
+    ]
+   }
+  ]
+ }
 }

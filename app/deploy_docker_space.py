@@ -60,8 +60,8 @@ with the properties you want. Six connected layers:
   `meidnet.yaml` that reproduces it on your machine.
 * **[Datasets](https://babu09-meidnet.hf.space/docs/explore/datasets.html)** — datasets that work with
   MEIDNet, 31 computed and experimental databases by application, and what is planned.
-* **[Benchmarks](https://babu09-meidnet.hf.space/docs/benchmarks/index.html)** — reproducible results
-  per dataset with an evidence ladder (generated → ML filtered → MLIP → DFT → experiment);
+* **[Benchmarks](https://babu09-meidnet.hf.space/docs/benchmarks/index.html)** — leaderboards under fixed
+  protocols: inverse design (SUN rate), property prediction and representation on Perov-5, with baselines;
   [contribute yours](https://babu09-meidnet.hf.space/docs/community/contribute.html) through GitHub.
 * **[Documentation](https://babu09-meidnet.hf.space/docs/)** — quickstart, your own data, recipes,
   how it works, reference, Colab notebooks.

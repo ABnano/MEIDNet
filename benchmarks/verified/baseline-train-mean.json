@@ -1,0 +1,21 @@
+{
+ "id": "baseline-train-mean",
+ "submission_sha256": "5169fc35f67e282c02c5c1a69dd45fed5af05f2329ccff3167551a3d55851663",
+ "date": "2026-10-03",
+ "by": "maintainer",
+ "hardware": "Intel64 Family 6 Model 197 Stepping 2, GenuineIntel (16 threads), CPU only",
+ "meidnet_version": "2.0.0",
+ "obtained": {
+  "property_prediction": {
+   "mae_heat_all": 0.5661949544069839,
+   "rmse_heat_all": 0.7441009623341133,
+   "r2_heat_all": -0.00016008318594540327,
+   "mae_dir_gap": 0.17263679417138986,
+   "mae_dir_gap_nonzero": 2.135410460730273,
+   "rmse_dir_gap": 0.536024930927169,
+   "r2_dir_gap": -1.770296343450717e-05,
+   "mae_heat_all_nonzero": 0.5659521226170967,
+   "n_evaluated": 3785.0
+  }
+ }
+}

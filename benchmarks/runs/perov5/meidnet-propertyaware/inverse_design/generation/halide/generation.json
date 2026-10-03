@@ -1,0 +1,8984 @@
+{
+ "family": "perovskite_abx3",
+ "variant": "halide",
+ "targets": [
+  {
+   "index": 1,
+   "values": {
+    "dir_gap": 1.5,
+    "heat_all": -0.1
+   },
+   "rounds_used": 2,
+   "attempts": 1072,
+   "latents_decoded": 96,
+   "latents_passing": 9,
+   "first_failure": {
+    "octahedral_factor": 209,
+    "tolerance_factor": 248,
+    "no charge-balancing element": 606
+   },
+   "failures_any": {
+    "octahedral_factor": 439,
+    "tolerance_factor": 248,
+    "no charge-balancing element": 606
+   },
+   "skipped_duplicate": 3,
+   "skipped_similar": 0,
+   "saved": [
+    {
+     "target_index": 1,
+     "round": 1,
+     "file": "cifs\\halide_T1_R1_1.cif",
+     "elements": {
+      "B": "Fe",
+      "X": "I",
+      "A": "Na"
+     },
+     "formula": "NaFeI3",
+     "lattice_a": 4.251666666666667,
+     "predictions": {
+      "heat_all": 0.06449306011199951,
+      "dir_gap": 1.8019170761108398
+     },
+     "constraint_results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.1258333333333335,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.13 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Na+1, Fe+2, I-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Fe + r_I)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.8093891811308188,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.809"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.6695026178010471,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.670"
+      }
+     ],
+     "score": 0.15695114489211848,
+     "latent_norm": 3.9773480892181396,
+     "flags": []
+    },
+    {
+     "target_index": 1,
+     "round": 1,
+     "file": "cifs\\halide_T1_R1_2.cif",
+     "elements": {
+      "B": "Ni",
+      "X": "I",
+      "A": "Na"
+     },
+     "formula": "NaNiI3",
+     "lattice_a": 4.026666666666667,
+     "predictions": {
+      "heat_all": -0.10698962211608887,
+      "dir_gap": 0.5157583355903625
+     },
+     "constraint_results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.0133333333333336,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.01 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Na+1, Ni+2, I-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Ni + r_I)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.8546158116989729,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.855"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.581151832460733,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.581"
+      }
+     ],
+     "score": 0.971527502806289,
+     "latent_norm": 4.487078666687012,
+     "flags": []
+    },
+    {
+     "target_index": 1,
+     "round": 2,
+     "file": "cifs\\halide_T1_R2_3.cif",
+     "elements": {
+      "B": "Mn",
+      "X": "I",
+      "A": "Rb"
+     },
+     "formula": "RbMnI3",
+     "lattice_a": 4.301666666666667,
+     "predictions": {
+      "heat_all": -0.09806632995605469,
+      "dir_gap": 1.5370630025863647
+     },
+     "constraint_results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.1508333333333334,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.15 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Rb+1, Mn+2, I-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Mn + r_I)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.9643610498940904,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.964"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.6891361256544501,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.689"
+      }
+     ],
+     "score": 0.002147134178295007,
+     "latent_norm": 4.3080339431762695,
+     "flags": []
+    },
+    {
+     "target_index": 1,
+     "round": 2,
+     "file": "cifs\\halide_T1_R2_4.cif",
+     "elements": {
+      "B": "Zn",
+      "X": "I",
+      "A": "Cs"
+     },
+     "formula": "CsZnI3",
+     "lattice_a": 4.306666666666667,
+     "predictions": {
+      "heat_all": -0.11547160148620605,
+      "dir_gap": 1.6692373752593994
+     },
+     "constraint_results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.1533333333333333,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.15 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Cs+1, Zn+2, I-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Zn + r_I)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 1.0124980999962174,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.012"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.6910994764397905,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.691"
+      }
+     ],
+     "score": 0.034829929779173194,
+     "latent_norm": 4.40071964263916,
+     "flags": []
+    },
+    {
+     "target_index": 1,
+     "round": 2,
+     "file": "cifs\\halide_T1_R2_5.cif",
+     "elements": {
+      "B": "Sn",
+      "X": "I",
+      "A": "Rb"
+     },
+     "formula": "RbSnI3",
+     "lattice_a": 4.206666666666667,
+     "predictions": {
+      "heat_all": 3.481135368347168,
+      "dir_gap": 1.5005723237991333
+     },
+     "constraint_results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.1033333333333335,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.10 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Rb+1, Sn+2, I-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sn + r_I)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.9861394095787034,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.986"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.6518324607329842,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.652"
+      }
+     ],
+     "score": 1.4324544748933983,
+     "latent_norm": 4.437822341918945,
+     "flags": []
+    },
+    {
+     "target_index": 1,
+     "round": 2,
+     "file": "cifs\\halide_T1_R2_6.cif",
+     "elements": {
+      "B": "Pb",
+      "X": "I",
+      "A": "Rb"
+     },
+     "formula": "RbPbI3",
+     "lattice_a": 4.791666666666667,
+     "predictions": {
+      "heat_all": 4.409507751464844,
+      "dir_gap": 1.4737337827682495
+     },
+     "constraint_results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.3958333333333335,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.40 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Rb+1, Pb+2, I-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Pb + r_I)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.8657446503570946,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.866"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.881544502617801,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.882"
+      }
+     ],
+     "score": 1.804493014753603,
+     "latent_norm": 4.8552937507629395,
+     "flags": []
+    }
+   ],
+   "rejected_examples": [
+    {
+     "formula": "NaSnF3",
+     "first_failure": "octahedral_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.535,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.53 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Na+1, Sn+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sn + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.8591232227445673,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.859"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.177304964539007,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.177"
+      }
+     ]
+    },
+    {
+     "formula": "NaSnF3",
+     "first_failure": "octahedral_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.535,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.53 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Na+1, Sn+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sn + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.8591232227445673,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.859"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.177304964539007,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.177"
+      }
+     ]
+    },
+    {
+     "formula": "NaSnF3",
+     "first_failure": "octahedral_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.535,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.53 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Na+1, Sn+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sn + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.8591232227445673,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.859"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.177304964539007,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.177"
+      }
+     ]
+    },
+    {
+     "formula": "NaSnF3",
+     "first_failure": "octahedral_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.535,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.53 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Na+1, Sn+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sn + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.8591232227445673,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.859"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.177304964539007,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.177"
+      }
+     ]
+    },
+    {
+     "formula": "NaSnF3",
+     "first_failure": "octahedral_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.535,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.53 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Na+1, Sn+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sn + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.8591232227445673,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.859"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.177304964539007,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.177"
+      }
+     ]
+    },
+    {
+     "formula": "NaSnF3",
+     "first_failure": "octahedral_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.535,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.53 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Na+1, Sn+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sn + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.8591232227445673,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.859"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.177304964539007,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.177"
+      }
+     ]
+    },
+    {
+     "formula": "NaSnF3",
+     "first_failure": "octahedral_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.535,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.53 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Na+1, Sn+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sn + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.8591232227445673,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.859"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.177304964539007,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.177"
+      }
+     ]
+    },
+    {
+     "formula": "NaSnF3",
+     "first_failure": "octahedral_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.535,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.53 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Na+1, Sn+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sn + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.8591232227445673,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.859"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.177304964539007,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.177"
+      }
+     ]
+    },
+    {
+     "formula": "NaSnF3",
+     "first_failure": "octahedral_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.535,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.53 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Na+1, Sn+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sn + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.8591232227445673,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.859"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.177304964539007,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.177"
+      }
+     ]
+    },
+    {
+     "formula": "NaSnF3",
+     "first_failure": "octahedral_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.535,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.53 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Na+1, Sn+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sn + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.8591232227445673,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.859"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.177304964539007,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.177"
+      }
+     ]
+    },
+    {
+     "formula": "NaSnF3",
+     "first_failure": "octahedral_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.535,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.53 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Na+1, Sn+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sn + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.8591232227445673,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.859"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.177304964539007,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.177"
+      }
+     ]
+    },
+    {
+     "formula": "NaSnF3",
+     "first_failure": "octahedral_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.535,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.53 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Na+1, Sn+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sn + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.8591232227445673,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.859"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.177304964539007,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.177"
+      }
+     ]
+    },
+    {
+     "formula": "NaSnCl3",
+     "first_failure": "octahedral_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.6099999999999999,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.61 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Na+1, Sn+2, Cl-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0000000000000002,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sn + r_Cl)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.8520417114918647,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.852"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.064102564102564,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.064"
+      }
+     ]
+    },
+    {
+     "formula": "NaSnCl3",
+     "first_failure": "octahedral_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.6099999999999999,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.61 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Na+1, Sn+2, Cl-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0000000000000002,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sn + r_Cl)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.8520417114918647,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.852"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.064102564102564,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.064"
+      }
+     ]
+    },
+    {
+     "formula": "NaSnCl3",
+     "first_failure": "octahedral_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.6099999999999999,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.61 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Na+1, Sn+2, Cl-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0000000000000002,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sn + r_Cl)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.8520417114918647,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.852"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.064102564102564,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.064"
+      }
+     ]
+    },
+    {
+     "formula": "NaSnCl3",
+     "first_failure": "octahedral_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.6099999999999999,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.61 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Na+1, Sn+2, Cl-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0000000000000002,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sn + r_Cl)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.8520417114918647,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.852"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.064102564102564,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.064"
+      }
+     ]
+    },
+    {
+     "formula": "NaSnCl3",
+     "first_failure": "octahedral_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.6099999999999999,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.61 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Na+1, Sn+2, Cl-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0000000000000002,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sn + r_Cl)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.8520417114918647,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.852"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.064102564102564,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.064"
+      }
+     ]
+    },
+    {
+     "formula": "NaSnCl3",
+     "first_failure": "octahedral_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.6099999999999999,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.61 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Na+1, Sn+2, Cl-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0000000000000002,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sn + r_Cl)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.8520417114918647,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.852"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.064102564102564,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.064"
+      }
+     ]
+    },
+    {
+     "formula": "NaSnCl3",
+     "first_failure": "octahedral_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.6099999999999999,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.61 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Na+1, Sn+2, Cl-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0000000000000002,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sn + r_Cl)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.8520417114918647,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.852"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.064102564102564,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.064"
+      }
+     ]
+    },
+    {
+     "formula": "NaSnCl3",
+     "first_failure": "octahedral_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.6099999999999999,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.61 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Na+1, Sn+2, Cl-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0000000000000002,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sn + r_Cl)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.8520417114918647,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.852"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.064102564102564,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.064"
+      }
+     ]
+    },
+    {
+     "formula": "NaSnCl3",
+     "first_failure": "octahedral_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.6099999999999999,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.61 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Na+1, Sn+2, Cl-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0000000000000002,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sn + r_Cl)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.8520417114918647,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.852"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.064102564102564,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.064"
+      }
+     ]
+    },
+    {
+     "formula": "NaSnCl3",
+     "first_failure": "octahedral_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.6099999999999999,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.61 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Na+1, Sn+2, Cl-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0000000000000002,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sn + r_Cl)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.8520417114918647,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.852"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.064102564102564,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.064"
+      }
+     ]
+    },
+    {
+     "formula": "NaSnCl3",
+     "first_failure": "octahedral_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.6099999999999999,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.61 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Na+1, Sn+2, Cl-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0000000000000002,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sn + r_Cl)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.8520417114918647,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.852"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.064102564102564,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.064"
+      }
+     ]
+    },
+    {
+     "formula": "NaSnCl3",
+     "first_failure": "octahedral_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.6099999999999999,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.61 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Na+1, Sn+2, Cl-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0000000000000002,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sn + r_Cl)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.8520417114918647,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.852"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.064102564102564,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.064"
+      }
+     ]
+    },
+    {
+     "formula": "RbSnF3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.535,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.53 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Rb+1, Sn+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sn + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.089451164499143,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.089"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.177304964539007,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.177"
+      }
+     ]
+    },
+    {
+     "formula": "RbSnF3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.535,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.53 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Rb+1, Sn+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sn + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.089451164499143,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.089"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.177304964539007,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.177"
+      }
+     ]
+    },
+    {
+     "formula": "RbSnF3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.535,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.53 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Rb+1, Sn+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sn + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.089451164499143,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.089"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.177304964539007,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.177"
+      }
+     ]
+    },
+    {
+     "formula": "RbSnF3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.535,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.53 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Rb+1, Sn+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sn + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.089451164499143,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.089"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.177304964539007,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.177"
+      }
+     ]
+    },
+    {
+     "formula": "RbSnF3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.535,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.53 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Rb+1, Sn+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sn + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.089451164499143,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.089"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.177304964539007,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.177"
+      }
+     ]
+    },
+    {
+     "formula": "RbSnF3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.535,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.53 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Rb+1, Sn+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sn + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.089451164499143,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.089"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.177304964539007,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.177"
+      }
+     ]
+    },
+    {
+     "formula": "RbSnF3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.535,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.53 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Rb+1, Sn+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sn + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.089451164499143,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.089"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.177304964539007,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.177"
+      }
+     ]
+    },
+    {
+     "formula": "RbSnF3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.535,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.53 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Rb+1, Sn+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sn + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.089451164499143,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.089"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.177304964539007,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.177"
+      }
+     ]
+    },
+    {
+     "formula": "RbSnF3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.535,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.53 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Rb+1, Sn+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sn + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.089451164499143,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.089"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.177304964539007,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.177"
+      }
+     ]
+    },
+    {
+     "formula": "RbSnF3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.535,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.53 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Rb+1, Sn+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sn + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.089451164499143,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.089"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.177304964539007,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.177"
+      }
+     ]
+    },
+    {
+     "formula": "RbSnF3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.535,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.53 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Rb+1, Sn+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sn + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.089451164499143,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.089"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.177304964539007,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.177"
+      }
+     ]
+    },
+    {
+     "formula": "RbSnF3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.535,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.53 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Rb+1, Sn+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sn + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.089451164499143,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.089"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.177304964539007,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.177"
+      }
+     ]
+    },
+    {
+     "formula": "RbMnF3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.5825,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.58 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Rb+1, Mn+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0000000000000002,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Mn + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.0567504186452983,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.057"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.2446808510638299,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.245"
+      }
+     ]
+    },
+    {
+     "formula": "RbMnF3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.5825,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.58 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Rb+1, Mn+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0000000000000002,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Mn + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.0567504186452983,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.057"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.2446808510638299,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.245"
+      }
+     ]
+    },
+    {
+     "formula": "RbMnF3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.5825,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.58 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Rb+1, Mn+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0000000000000002,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Mn + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.0567504186452983,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.057"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.2446808510638299,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.245"
+      }
+     ]
+    },
+    {
+     "formula": "RbMnF3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.5825,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.58 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Rb+1, Mn+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0000000000000002,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Mn + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.0567504186452983,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.057"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.2446808510638299,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.245"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "index": 2,
+   "values": {
+    "dir_gap": 2.5,
+    "heat_all": -0.1
+   },
+   "rounds_used": 5,
+   "attempts": 2705,
+   "latents_decoded": 240,
+   "latents_passing": 16,
+   "first_failure": {
+    "no charge-balancing element": 1685,
+    "tolerance_factor": 440,
+    "octahedral_factor": 564
+   },
+   "failures_any": {
+    "no charge-balancing element": 1685,
+    "tolerance_factor": 440,
+    "octahedral_factor": 990
+   },
+   "skipped_duplicate": 5,
+   "skipped_similar": 0,
+   "saved": [
+    {
+     "target_index": 2,
+     "round": 1,
+     "file": "cifs\\halide_T2_R1_1.cif",
+     "elements": {
+      "B": "Pb",
+      "X": "I",
+      "A": "Cs"
+     },
+     "formula": "CsPbI3",
+     "lattice_a": 4.791666666666667,
+     "predictions": {
+      "heat_all": -0.11024856567382812,
+      "dir_gap": 2.536835193634033
+     },
+     "constraint_results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.3958333333333335,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.40 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Cs+1, Pb+2, I-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Pb + r_I)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.9100156836139914,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.910"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.881544502617801,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.882"
+      }
+     ],
+     "score": 0.005456257759587968,
+     "latent_norm": 4.599409580230713,
+     "flags": []
+    },
+    {
+     "target_index": 2,
+     "round": 1,
+     "file": "cifs\\halide_T2_R1_2.cif",
+     "elements": {
+      "B": "Pb",
+      "X": "I",
+      "A": "K"
+     },
+     "formula": "KPbI3",
+     "lattice_a": 4.791666666666667,
+     "predictions": {
+      "heat_all": -0.3074913024902344,
+      "dir_gap": 2.610248565673828
+     },
+     "constraint_results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.3958333333333335,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.40 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as K+1, Pb+2, I-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Pb + r_I)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.8244250193173241,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.824"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.881544502617801,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.882"
+      }
+     ],
+     "score": 0.09515126722923015,
+     "latent_norm": 5.802062511444092,
+     "flags": []
+    },
+    {
+     "target_index": 2,
+     "round": 2,
+     "file": "cifs\\halide_T2_R2_3.cif",
+     "elements": {
+      "B": "Fe",
+      "X": "I",
+      "A": "Rb"
+     },
+     "formula": "RbFeI3",
+     "lattice_a": 4.251666666666667,
+     "predictions": {
+      "heat_all": 10.623647689819336,
+      "dir_gap": 2.0570881366729736
+     },
+     "constraint_results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.1258333333333335,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.13 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Rb+1, Fe+2, I-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Fe + r_I)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.9757020265686582,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.976"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.6695026178010471,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.670"
+      }
+     ],
+     "score": 4.485629994603553,
+     "latent_norm": 4.124677658081055,
+     "flags": [
+      "predicted heat_all 10.62 is outside the training range [-0.64, 5.16] - the model is extrapolating"
+     ]
+    },
+    {
+     "target_index": 2,
+     "round": 3,
+     "file": "cifs\\halide_T2_R3_4.cif",
+     "elements": {
+      "B": "Fe",
+      "X": "I",
+      "A": "K"
+     },
+     "formula": "KFeI3",
+     "lattice_a": 4.251666666666667,
+     "predictions": {
+      "heat_all": 1.4394426345825195,
+      "dir_gap": 1.1471929550170898
+     },
+     "constraint_results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.1258333333333335,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.13 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as K+1, Fe+2, I-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Fe + r_I)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.9291344298460632,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.929"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.6695026178010471,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.670"
+      }
+     ],
+     "score": 2.4458639547884014,
+     "latent_norm": 1.1491934061050415,
+     "flags": []
+    },
+    {
+     "target_index": 2,
+     "round": 4,
+     "file": "cifs\\halide_T2_R4_5.cif",
+     "elements": {
+      "B": "Zn",
+      "X": "I",
+      "A": "K"
+     },
+     "formula": "KZnI3",
+     "lattice_a": 4.306666666666667,
+     "predictions": {
+      "heat_all": 3.070240020751953,
+      "dir_gap": 2.2938015460968018
+     },
+     "constraint_results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.1533333333333333,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.15 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as K+1, Zn+2, I-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Zn + r_I)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.9172685489695461,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.917"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.6910994764397905,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.691"
+      }
+     ],
+     "score": 1.3106138106928507,
+     "latent_norm": 4.513210296630859,
+     "flags": []
+    },
+    {
+     "target_index": 2,
+     "round": 5,
+     "file": "cifs\\halide_T2_R5_6.cif",
+     "elements": {
+      "B": "Mn",
+      "X": "I",
+      "A": "Cs"
+     },
+     "formula": "CsMnI3",
+     "lattice_a": 4.301666666666667,
+     "predictions": {
+      "heat_all": -0.0930408239364624,
+      "dir_gap": 2.4793701171875
+     },
+     "constraint_results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.1508333333333334,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.15 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Cs+1, Mn+2, I-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Mn + r_I)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 1.01367496721822,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.014"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.6891361256544501,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.689"
+      }
+     ],
+     "score": 0.0032092624902725245,
+     "latent_norm": 4.3474225997924805,
+     "flags": []
+    }
+   ],
+   "rejected_examples": [
+    {
+     "formula": "CsZnF3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.585,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.58 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Cs+1, Zn+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999999,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Zn + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.1220022427029446,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.122"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.24822695035461,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.248"
+      }
+     ]
+    },
+    {
+     "formula": "CsZnF3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.585,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.58 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Cs+1, Zn+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999999,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Zn + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.1220022427029446,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.122"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.24822695035461,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.248"
+      }
+     ]
+    },
+    {
+     "formula": "CsZnF3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.585,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.58 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Cs+1, Zn+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999999,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Zn + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.1220022427029446,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.122"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.24822695035461,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.248"
+      }
+     ]
+    },
+    {
+     "formula": "CsZnF3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.585,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.58 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Cs+1, Zn+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999999,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Zn + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.1220022427029446,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.122"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.24822695035461,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.248"
+      }
+     ]
+    },
+    {
+     "formula": "CsZnF3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.585,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.58 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Cs+1, Zn+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999999,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Zn + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.1220022427029446,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.122"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.24822695035461,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.248"
+      }
+     ]
+    },
+    {
+     "formula": "CsZnF3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.585,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.58 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Cs+1, Zn+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999999,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Zn + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.1220022427029446,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.122"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.24822695035461,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.248"
+      }
+     ]
+    },
+    {
+     "formula": "CsZnF3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.585,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.58 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Cs+1, Zn+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999999,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Zn + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.1220022427029446,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.122"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.24822695035461,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.248"
+      }
+     ]
+    },
+    {
+     "formula": "CsZnF3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.585,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.58 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Cs+1, Zn+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999999,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Zn + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.1220022427029446,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.122"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.24822695035461,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.248"
+      }
+     ]
+    },
+    {
+     "formula": "CsZnF3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.585,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.58 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Cs+1, Zn+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999999,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Zn + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.1220022427029446,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.122"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.24822695035461,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.248"
+      }
+     ]
+    },
+    {
+     "formula": "CsZnF3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.585,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.58 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Cs+1, Zn+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999999,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Zn + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.1220022427029446,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.122"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.24822695035461,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.248"
+      }
+     ]
+    },
+    {
+     "formula": "CsZnF3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.585,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.58 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Cs+1, Zn+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999999,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Zn + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.1220022427029446,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.122"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.24822695035461,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.248"
+      }
+     ]
+    },
+    {
+     "formula": "CsZnF3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.585,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.58 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Cs+1, Zn+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999999,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Zn + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.1220022427029446,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.122"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.24822695035461,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.248"
+      }
+     ]
+    },
+    {
+     "formula": "RbZnF3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.585,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.58 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Rb+1, Zn+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999999,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Zn + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.055083619877719,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.055"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.24822695035461,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.248"
+      }
+     ]
+    },
+    {
+     "formula": "RbZnF3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.585,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.58 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Rb+1, Zn+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999999,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Zn + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.055083619877719,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.055"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.24822695035461,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.248"
+      }
+     ]
+    },
+    {
+     "formula": "RbZnF3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.585,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.58 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Rb+1, Zn+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999999,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Zn + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.055083619877719,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.055"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.24822695035461,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.248"
+      }
+     ]
+    },
+    {
+     "formula": "RbZnF3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.585,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.58 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Rb+1, Zn+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999999,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Zn + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.055083619877719,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.055"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.24822695035461,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.248"
+      }
+     ]
+    },
+    {
+     "formula": "RbZnF3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.585,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.58 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Rb+1, Zn+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999999,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Zn + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.055083619877719,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.055"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.24822695035461,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.248"
+      }
+     ]
+    },
+    {
+     "formula": "RbZnF3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.585,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.58 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Rb+1, Zn+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999999,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Zn + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.055083619877719,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.055"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.24822695035461,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.248"
+      }
+     ]
+    },
+    {
+     "formula": "RbZnF3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.585,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.58 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Rb+1, Zn+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999999,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Zn + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.055083619877719,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.055"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.24822695035461,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.248"
+      }
+     ]
+    },
+    {
+     "formula": "RbZnF3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.585,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.58 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Rb+1, Zn+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999999,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Zn + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.055083619877719,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.055"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.24822695035461,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.248"
+      }
+     ]
+    },
+    {
+     "formula": "RbZnF3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.585,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.58 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Rb+1, Zn+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999999,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Zn + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.055083619877719,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.055"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.24822695035461,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.248"
+      }
+     ]
+    },
+    {
+     "formula": "RbZnF3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.585,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.58 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Rb+1, Zn+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999999,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Zn + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.055083619877719,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.055"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.24822695035461,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.248"
+      }
+     ]
+    },
+    {
+     "formula": "RbZnF3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.585,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.58 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Rb+1, Zn+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999999,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Zn + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.055083619877719,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.055"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.24822695035461,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.248"
+      }
+     ]
+    },
+    {
+     "formula": "RbZnF3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.585,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.58 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Rb+1, Zn+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999999,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Zn + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.055083619877719,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.055"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.24822695035461,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.248"
+      }
+     ]
+    },
+    {
+     "formula": "NaPbCl3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.9024999999999999,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.90 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Na+1, Pb+2, Cl-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Pb + r_Cl)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7210444969786608,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.721"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.4391025641025643,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.439"
+      }
+     ]
+    },
+    {
+     "formula": "NaPbCl3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.9024999999999999,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.90 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Na+1, Pb+2, Cl-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Pb + r_Cl)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7210444969786608,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.721"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.4391025641025643,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.439"
+      }
+     ]
+    },
+    {
+     "formula": "NaPbCl3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.9024999999999999,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.90 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Na+1, Pb+2, Cl-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Pb + r_Cl)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7210444969786608,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.721"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.4391025641025643,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.439"
+      }
+     ]
+    },
+    {
+     "formula": "NaPbCl3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.9024999999999999,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.90 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Na+1, Pb+2, Cl-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Pb + r_Cl)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7210444969786608,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.721"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.4391025641025643,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.439"
+      }
+     ]
+    },
+    {
+     "formula": "NaPbCl3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.9024999999999999,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.90 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Na+1, Pb+2, Cl-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Pb + r_Cl)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7210444969786608,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.721"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.4391025641025643,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.439"
+      }
+     ]
+    },
+    {
+     "formula": "NaPbCl3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.9024999999999999,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.90 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Na+1, Pb+2, Cl-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Pb + r_Cl)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7210444969786608,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.721"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.4391025641025643,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.439"
+      }
+     ]
+    },
+    {
+     "formula": "NaPbCl3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.9024999999999999,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.90 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Na+1, Pb+2, Cl-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Pb + r_Cl)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7210444969786608,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.721"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.4391025641025643,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.439"
+      }
+     ]
+    },
+    {
+     "formula": "NaPbCl3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.9024999999999999,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.90 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Na+1, Pb+2, Cl-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Pb + r_Cl)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7210444969786608,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.721"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.4391025641025643,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.439"
+      }
+     ]
+    },
+    {
+     "formula": "NaPbCl3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.9024999999999999,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.90 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Na+1, Pb+2, Cl-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Pb + r_Cl)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7210444969786608,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.721"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.4391025641025643,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.439"
+      }
+     ]
+    },
+    {
+     "formula": "NaPbCl3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.9024999999999999,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.90 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Na+1, Pb+2, Cl-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Pb + r_Cl)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7210444969786608,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.721"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.4391025641025643,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.439"
+      }
+     ]
+    },
+    {
+     "formula": "NaPbCl3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.9024999999999999,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.90 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Na+1, Pb+2, Cl-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Pb + r_Cl)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7210444969786608,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.721"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.4391025641025643,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.439"
+      }
+     ]
+    },
+    {
+     "formula": "NaPbCl3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.9024999999999999,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.90 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Na+1, Pb+2, Cl-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Pb + r_Cl)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7210444969786608,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.721"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.4391025641025643,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.439"
+      }
+     ]
+    },
+    {
+     "formula": "KPbF3",
+     "first_failure": "octahedral_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.8275000000000001,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.83 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as K+1, Pb+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999999,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Pb + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.8609097609521578,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.861"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.592198581560284,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.592"
+      }
+     ]
+    },
+    {
+     "formula": "KPbF3",
+     "first_failure": "octahedral_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.8275000000000001,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.83 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as K+1, Pb+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999999,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Pb + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.8609097609521578,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.861"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.592198581560284,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.592"
+      }
+     ]
+    },
+    {
+     "formula": "KPbF3",
+     "first_failure": "octahedral_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.8275000000000001,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.83 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as K+1, Pb+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999999,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Pb + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.8609097609521578,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.861"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.592198581560284,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.592"
+      }
+     ]
+    },
+    {
+     "formula": "KPbF3",
+     "first_failure": "octahedral_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.8275000000000001,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.83 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as K+1, Pb+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999999,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Pb + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.8609097609521578,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.861"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.592198581560284,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.592"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "index": 3,
+   "values": {
+    "dir_gap": 3.5,
+    "heat_all": -0.1
+   },
+   "rounds_used": 6,
+   "attempts": 3295,
+   "latents_decoded": 288,
+   "latents_passing": 15,
+   "first_failure": {
+    "octahedral_factor": 658,
+    "no charge-balancing element": 1860,
+    "tolerance_factor": 762
+   },
+   "failures_any": {
+    "octahedral_factor": 1324,
+    "no charge-balancing element": 1860,
+    "tolerance_factor": 762
+   },
+   "skipped_duplicate": 11,
+   "skipped_similar": 0,
+   "saved": [
+    {
+     "target_index": 3,
+     "round": 1,
+     "file": "cifs\\halide_T3_R1_1.cif",
+     "elements": {
+      "B": "Zn",
+      "X": "I",
+      "A": "Na"
+     },
+     "formula": "NaZnI3",
+     "lattice_a": 4.306666666666667,
+     "predictions": {
+      "heat_all": -1.4279875755310059,
+      "dir_gap": 3.4766042232513428
+     },
+     "constraint_results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.1533333333333333,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.15 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Na+1, Zn+2, I-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Zn + r_I)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.7990525545916095,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.799"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.6910994764397905,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.691"
+      }
+     ],
+     "score": 0.5317423925820753,
+     "latent_norm": 4.616156578063965,
+     "flags": [
+      "predicted heat_all -1.43 is outside the training range [-0.64, 5.16] - the model is extrapolating"
+     ]
+    },
+    {
+     "target_index": 3,
+     "round": 2,
+     "file": "cifs\\halide_T3_R2_2.cif",
+     "elements": {
+      "B": "Cu",
+      "X": "I",
+      "A": "K"
+     },
+     "formula": "KCuI3",
+     "lattice_a": 4.1866666666666665,
+     "predictions": {
+      "heat_all": 0.5335808992385864,
+      "dir_gap": 3.5569534301757812
+     },
+     "constraint_results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.0933333333333333,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.09 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as K+1, Cu+2, I-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cu + r_I)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.9435596857234504,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.944"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.643979057591623,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.644"
+      }
+     ],
+     "score": 0.2566760529042222,
+     "latent_norm": 4.353365421295166,
+     "flags": []
+    },
+    {
+     "target_index": 3,
+     "round": 3,
+     "file": "cifs\\halide_T3_R3_3.cif",
+     "elements": {
+      "B": "Mn",
+      "X": "I",
+      "A": "Na"
+     },
+     "formula": "NaMnI3",
+     "lattice_a": 4.301666666666667,
+     "predictions": {
+      "heat_all": 6.587674617767334,
+      "dir_gap": 3.3124847412109375
+     },
+     "constraint_results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.1508333333333334,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.15 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Na+1, Mn+2, I-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Mn + r_I)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.799981325480325,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.800"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.6891361256544501,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.689"
+      }
+     ],
+     "score": 2.7102318193856627,
+     "latent_norm": 4.3182549476623535,
+     "flags": [
+      "predicted heat_all 6.59 is outside the training range [-0.64, 5.16] - the model is extrapolating"
+     ]
+    },
+    {
+     "target_index": 3,
+     "round": 6,
+     "file": "cifs\\halide_T3_R6_4.cif",
+     "elements": {
+      "B": "Co",
+      "X": "I",
+      "A": "Na"
+     },
+     "formula": "NaCoI3",
+     "lattice_a": 4.083333333333334,
+     "predictions": {
+      "heat_all": 4.987794876098633,
+      "dir_gap": 3.7282159328460693
+     },
+     "constraint_results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.041666666666667,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.04 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Na+1, Co+2, I-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Co + r_I)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.8427558371692728,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.843"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.6034031413612566,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.603"
+      }
+     ],
+     "score": 2.0872004624442546,
+     "latent_norm": 4.565770149230957,
+     "flags": []
+    }
+   ],
+   "rejected_examples": [
+    {
+     "formula": "RbPbF3",
+     "first_failure": "octahedral_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.8275000000000001,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.83 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Rb+1, Pb+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999999,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Pb + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.9150793638884731,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.915"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.592198581560284,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.592"
+      }
+     ]
+    },
+    {
+     "formula": "RbPbF3",
+     "first_failure": "octahedral_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.8275000000000001,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.83 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Rb+1, Pb+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999999,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Pb + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.9150793638884731,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.915"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.592198581560284,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.592"
+      }
+     ]
+    },
+    {
+     "formula": "RbPbF3",
+     "first_failure": "octahedral_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.8275000000000001,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.83 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Rb+1, Pb+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999999,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Pb + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.9150793638884731,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.915"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.592198581560284,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.592"
+      }
+     ]
+    },
+    {
+     "formula": "RbPbF3",
+     "first_failure": "octahedral_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.8275000000000001,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.83 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Rb+1, Pb+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999999,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Pb + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.9150793638884731,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.915"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.592198581560284,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.592"
+      }
+     ]
+    },
+    {
+     "formula": "RbPbF3",
+     "first_failure": "octahedral_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.8275000000000001,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.83 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Rb+1, Pb+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999999,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Pb + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.9150793638884731,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.915"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.592198581560284,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.592"
+      }
+     ]
+    },
+    {
+     "formula": "RbPbF3",
+     "first_failure": "octahedral_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.8275000000000001,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.83 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Rb+1, Pb+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999999,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Pb + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.9150793638884731,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.915"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.592198581560284,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.592"
+      }
+     ]
+    },
+    {
+     "formula": "RbPbF3",
+     "first_failure": "octahedral_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.8275000000000001,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.83 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Rb+1, Pb+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999999,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Pb + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.9150793638884731,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.915"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.592198581560284,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.592"
+      }
+     ]
+    },
+    {
+     "formula": "RbPbF3",
+     "first_failure": "octahedral_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.8275000000000001,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.83 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Rb+1, Pb+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999999,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Pb + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.9150793638884731,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.915"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.592198581560284,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.592"
+      }
+     ]
+    },
+    {
+     "formula": "RbPbF3",
+     "first_failure": "octahedral_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.8275000000000001,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.83 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Rb+1, Pb+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999999,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Pb + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.9150793638884731,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.915"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.592198581560284,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.592"
+      }
+     ]
+    },
+    {
+     "formula": "RbPbF3",
+     "first_failure": "octahedral_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.8275000000000001,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.83 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Rb+1, Pb+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999999,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Pb + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.9150793638884731,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.915"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.592198581560284,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.592"
+      }
+     ]
+    },
+    {
+     "formula": "RbPbF3",
+     "first_failure": "octahedral_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.8275000000000001,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.83 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Rb+1, Pb+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999999,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Pb + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.9150793638884731,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.915"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.592198581560284,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.592"
+      }
+     ]
+    },
+    {
+     "formula": "RbPbF3",
+     "first_failure": "octahedral_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.8275000000000001,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.83 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Rb+1, Pb+2, F-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999999,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Pb + r_F)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.9150793638884731,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.915"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.592198581560284,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.592"
+      }
+     ]
+    },
+    {
+     "formula": "CsSnI3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.1033333333333335,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.10 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Cs+1, Sn+2, I-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sn + r_I)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.0365669930230688,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.037"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.6518324607329842,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.652"
+      }
+     ]
+    },
+    {
+     "formula": "CsSnI3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.1033333333333335,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.10 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Cs+1, Sn+2, I-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sn + r_I)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.0365669930230688,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.037"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.6518324607329842,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.652"
+      }
+     ]
+    },
+    {
+     "formula": "CsSnI3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.1033333333333335,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.10 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Cs+1, Sn+2, I-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sn + r_I)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.0365669930230688,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.037"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.6518324607329842,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.652"
+      }
+     ]
+    },
+    {
+     "formula": "CsSnI3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.1033333333333335,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.10 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Cs+1, Sn+2, I-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sn + r_I)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.0365669930230688,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.037"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.6518324607329842,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.652"
+      }
+     ]
+    },
+    {
+     "formula": "CsSnI3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.1033333333333335,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.10 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Cs+1, Sn+2, I-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sn + r_I)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.0365669930230688,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.037"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.6518324607329842,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.652"
+      }
+     ]
+    },
+    {
+     "formula": "CsSnI3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.1033333333333335,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.10 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Cs+1, Sn+2, I-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sn + r_I)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.0365669930230688,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.037"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.6518324607329842,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.652"
+      }
+     ]
+    },
+    {
+     "formula": "CsSnI3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.1033333333333335,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.10 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Cs+1, Sn+2, I-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sn + r_I)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.0365669930230688,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.037"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.6518324607329842,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.652"
+      }
+     ]
+    },
+    {
+     "formula": "CsSnI3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.1033333333333335,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.10 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Cs+1, Sn+2, I-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sn + r_I)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.0365669930230688,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.037"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.6518324607329842,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.652"
+      }
+     ]
+    },
+    {
+     "formula": "CsSnI3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.1033333333333335,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.10 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Cs+1, Sn+2, I-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sn + r_I)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.0365669930230688,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.037"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.6518324607329842,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.652"
+      }
+     ]
+    },
+    {
+     "formula": "CsSnI3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.1033333333333335,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.10 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Cs+1, Sn+2, I-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sn + r_I)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.0365669930230688,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.037"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.6518324607329842,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.652"
+      }
+     ]
+    },
+    {
+     "formula": "CsSnI3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.1033333333333335,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.10 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Cs+1, Sn+2, I-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sn + r_I)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.0365669930230688,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.037"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.6518324607329842,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.652"
+      }
+     ]
+    },
+    {
+     "formula": "CsSnI3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.1033333333333335,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.10 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Cs+1, Sn+2, I-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sn + r_I)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.0365669930230688,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.037"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.6518324607329842,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.652"
+      }
+     ]
+    },
+    {
+     "formula": "KNiCl3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.52,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.52 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as K+1, Ni+2, Cl-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999999,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Ni + r_Cl)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.0699642083743808,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.070"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 0.9487179487179488,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.949"
+      }
+     ]
+    },
+    {
+     "formula": "KNiCl3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.52,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.52 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as K+1, Ni+2, Cl-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999999,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Ni + r_Cl)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.0699642083743808,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.070"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 0.9487179487179488,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.949"
+      }
+     ]
+    },
+    {
+     "formula": "KNiCl3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.52,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.52 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as K+1, Ni+2, Cl-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999999,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Ni + r_Cl)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.0699642083743808,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.070"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 0.9487179487179488,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.949"
+      }
+     ]
+    },
+    {
+     "formula": "KNiCl3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.52,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.52 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as K+1, Ni+2, Cl-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999999,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Ni + r_Cl)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.0699642083743808,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.070"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 0.9487179487179488,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.949"
+      }
+     ]
+    },
+    {
+     "formula": "KNiCl3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.52,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.52 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as K+1, Ni+2, Cl-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999999,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Ni + r_Cl)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.0699642083743808,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.070"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 0.9487179487179488,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.949"
+      }
+     ]
+    },
+    {
+     "formula": "KNiCl3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.52,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.52 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as K+1, Ni+2, Cl-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999999,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Ni + r_Cl)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.0699642083743808,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.070"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 0.9487179487179488,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.949"
+      }
+     ]
+    },
+    {
+     "formula": "KNiCl3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.52,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.52 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as K+1, Ni+2, Cl-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999999,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Ni + r_Cl)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.0699642083743808,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.070"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 0.9487179487179488,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.949"
+      }
+     ]
+    },
+    {
+     "formula": "KNiCl3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.52,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.52 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as K+1, Ni+2, Cl-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999999,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Ni + r_Cl)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.0699642083743808,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.070"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 0.9487179487179488,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.949"
+      }
+     ]
+    },
+    {
+     "formula": "KNiCl3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.52,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.52 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as K+1, Ni+2, Cl-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999999,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Ni + r_Cl)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.0699642083743808,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.070"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 0.9487179487179488,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.949"
+      }
+     ]
+    },
+    {
+     "formula": "KNiCl3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.52,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.52 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as K+1, Ni+2, Cl-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999999,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Ni + r_Cl)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.0699642083743808,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.070"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 0.9487179487179488,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.949"
+      }
+     ]
+    },
+    {
+     "formula": "KNiCl3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.52,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.52 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as K+1, Ni+2, Cl-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999999,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Ni + r_Cl)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.0699642083743808,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.070"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 0.9487179487179488,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.949"
+      }
+     ]
+    },
+    {
+     "formula": "KNiCl3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.52,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.52 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as K+1, Ni+2, Cl-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999999,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Ni + r_Cl)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 1.0699642083743808,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 1.070"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 0.9487179487179488,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.949"
+      }
+     ]
+    },
+    {
+     "formula": "KFeCl3",
+     "first_failure": "octahedral_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.6324999999999998,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.63 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as K+1, Fe+2, Cl-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0000000000000002,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Fe + r_Cl)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.9962300745660393,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.996"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.092948717948718,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.093"
+      }
+     ]
+    },
+    {
+     "formula": "KFeCl3",
+     "first_failure": "octahedral_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.6324999999999998,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.63 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as K+1, Fe+2, Cl-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0000000000000002,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Fe + r_Cl)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.9962300745660393,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.996"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.092948717948718,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.093"
+      }
+     ]
+    },
+    {
+     "formula": "KFeCl3",
+     "first_failure": "octahedral_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.6324999999999998,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.63 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as K+1, Fe+2, Cl-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0000000000000002,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Fe + r_Cl)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.9962300745660393,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.996"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.092948717948718,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.093"
+      }
+     ]
+    },
+    {
+     "formula": "KFeCl3",
+     "first_failure": "octahedral_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.6324999999999998,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.63 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as K+1, Fe+2, Cl-1"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0000000000000002,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Fe + r_Cl)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.9962300745660393,
+       "window": [
+        0.75,
+        1.02
+       ],
+       "detail": "t = 0.996"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": false,
+       "value": 1.092948717948718,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 1.093"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "property_ranges": {
+  "heat_all": [
+   -0.64,
+   5.16
+  ],
+  "dir_gap": [
+   0.0,
+   7.9
+  ]
+ },
+ "settings": {
+  "family": "perovskite_abx3",
+  "variant": "halide",
+  "objectives": [
+   {
+    "property": "dir_gap",
+    "loss": "l2",
+    "weight": 10000.0,
+    "select_weight": 1.0,
+    "select_loss": null
+   },
+   {
+    "property": "heat_all",
+    "loss": "l1",
+    "weight": 6000.0,
+    "select_weight": 0.4,
+    "select_loss": null
+   }
+  ],
+  "targets": [
+   {
+    "dir_gap": 1.5,
+    "heat_all": -0.1
+   },
+   {
+    "dir_gap": 2.5,
+    "heat_all": -0.1
+   },
+   {
+    "dir_gap": 3.5,
+    "heat_all": -0.1
+   }
+  ],
+  "per_target": 6,
+  "population": 48,
+  "rounds": 6,
+  "steps": 800,
+  "learning_rate": 0.0012,
+  "anchor_weight": 12.0,
+  "temperature_start": 1.6,
+  "temperature_end": 0.9,
+  "diversity_weight": 0.9,
+  "diversity_tau": 0.25,
+  "history_weight": 1.0,
+  "history_tau": 0.25,
+  "restart_patience": 250,
+  "restart_noise": 0.35,
+  "grad_clip": 1.0,
+  "z_clip": 5.0,
+  "init_sigma": 0.35,
+  "init_anchor_mix": 0.75,
+  "init_rff_mix": 0.6,
+  "init_noise_mix": 0.25,
+  "rff_frequencies": 48,
+  "decode_temperature": 1.25,
+  "decode_topk": 12,
+  "decode_tries": 12,
+  "anti_repeat_alpha": 0.6,
+  "anti_repeat_group": null,
+  "geometry_scale": 1.0,
+  "property_first": false,
+  "dedup_formula": true,
+  "min_cosine_sep": 0.985,
+  "unique_decimals": 3,
+  "exclude_elements": [],
+  "only_elements": {},
+  "overrides": {},
+  "extra_constraints": [],
+  "disabled_rules": [],
+  "seed": 937,
+  "amp": true,
+  "output_prefix": "halide"
+ }
+}

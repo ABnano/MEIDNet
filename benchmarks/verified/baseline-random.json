@@ -1,0 +1,23 @@
+{
+ "id": "baseline-random",
+ "submission_sha256": "5d01191b0a84232c5be97e56a425dc30b2fbe2dd3c3e3ada88c77e835da6e943",
+ "date": "2026-10-03",
+ "by": "maintainer",
+ "hardware": "Intel64 Family 6 Model 197 Stepping 2, GenuineIntel (16 threads), CPU only",
+ "meidnet_version": "2.0.0",
+ "obtained": {
+  "inverse_design": {
+   "sun_rate": 0.7777777777777778,
+   "stable_rate": 0.8888888888888888,
+   "unique_rate": 1.0,
+   "novel_rate": 0.8888888888888888,
+   "dhf_median": -1.3418999999999999,
+   "dft_hit_rate": 0.0,
+   "dft_known": 6.0,
+   "n_delivered": 54.0,
+   "valid_rate": 1.0,
+   "n_sun": 42.0,
+   "n_budget": 54.0
+  }
+ }
+}

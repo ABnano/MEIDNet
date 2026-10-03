@@ -1,0 +1,253 @@
+{
+ "dataset": "perov5",
+ "protocol": "perov5-v1",
+ "task": "inverse_design",
+ "headline": "sun_rate",
+ "metrics": [
+  {
+   "id": "sun_rate",
+   "label": "SUN",
+   "unit": "",
+   "better": "higher",
+   "digits": 3,
+   "show": true,
+   "definition": "stable, unique and novel candidates divided by the budget of 54; a candidate that was not delivered counts as a failure"
+  },
+  {
+   "id": "stable_rate",
+   "label": "Stable",
+   "unit": "",
+   "better": "higher",
+   "digits": 3,
+   "show": true,
+   "definition": "fraction of delivered candidates whose MACE-MP-0 formation energy after relaxation is at most 0.10 eV/atom, against elemental reference phases (the criterion of `meidnet screen` and of the paper)"
+  },
+  {
+   "id": "unique_rate",
+   "label": "Unique",
+   "unit": "",
+   "better": "higher",
+   "digits": 3,
+   "show": true,
+   "definition": "fraction of delivered candidates whose composition does not repeat an earlier one"
+  },
+  {
+   "id": "novel_rate",
+   "label": "Novel",
+   "unit": "",
+   "better": "higher",
+   "digits": 3,
+   "show": true,
+   "definition": "fraction of delivered candidates whose composition is not in the training split"
+  },
+  {
+   "id": "dhf_median",
+   "label": "ΔH<sub>f</sub>",
+   "unit": "eV/atom",
+   "better": "lower",
+   "digits": 2,
+   "show": true,
+   "definition": "median MACE-MP-0 formation energy of the delivered candidates"
+  },
+  {
+   "id": "dft_hit_rate",
+   "label": "DFT hit",
+   "unit": "",
+   "better": "higher",
+   "digits": 3,
+   "show": true,
+   "definition": "among candidates whose A, B and X sites match a Perov-5 entry (so their DFT band gap is known), the fraction within 0.5 eV of the target"
+  },
+  {
+   "id": "dft_known",
+   "label": "DFT known",
+   "unit": "",
+   "better": "none",
+   "digits": 0,
+   "show": true,
+   "definition": "candidates with a known DFT band gap (the denominator of DFT hit)"
+  },
+  {
+   "id": "n_delivered",
+   "label": "Delivered",
+   "unit": "",
+   "better": "higher",
+   "digits": 0,
+   "show": true,
+   "definition": "candidates delivered out of the budget of 54"
+  },
+  {
+   "id": "valid_rate",
+   "label": "Valid",
+   "unit": "",
+   "better": "higher",
+   "digits": 3,
+   "show": false,
+   "definition": "fraction of the budget that passes every rule of the family"
+  },
+  {
+   "id": "n_sun",
+   "label": "SUN count",
+   "unit": "",
+   "better": "higher",
+   "digits": 0,
+   "show": false,
+   "definition": "stable, unique and novel candidates"
+  },
+  {
+   "id": "n_budget",
+   "label": "Budget",
+   "unit": "",
+   "better": "none",
+   "digits": 0,
+   "show": false,
+   "definition": "candidates requested"
+  },
+  {
+   "id": "n_generated",
+   "label": "Generated",
+   "unit": "",
+   "better": "none",
+   "digits": 0,
+   "show": false,
+   "definition": "candidates generated (reported in the paper)"
+  }
+ ],
+ "rows": [
+  {
+   "rank": 1,
+   "id": "baseline-screening",
+   "method": "Encoder screening",
+   "kind": "baseline",
+   "metrics": {
+    "sun_rate": 0.8518518518518519,
+    "stable_rate": 0.8518518518518519,
+    "unique_rate": 1.0,
+    "novel_rate": 1.0,
+    "dhf_median": -1.2835,
+    "dft_hit_rate": null,
+    "dft_known": 0.0,
+    "n_delivered": 54.0,
+    "valid_rate": 1.0,
+    "n_sun": 46.0,
+    "n_budget": 54.0
+   },
+   "parameters": 702405,
+   "training_data": "Perov-5 train (11,356)",
+   "date": "2026-10-03",
+   "links": {
+    "paper": "https://doi.org/10.1038/s41524-026-02153-3",
+    "code": "https://github.com/ABnano/MEIDNet",
+    "weights": "https://huggingface.co/Babu09/MEIDNet/blob/main/dual_autoencoder_clip_earlyfusion_propertyaware_2k.pth"
+   }
+  },
+  {
+   "rank": 2,
+   "id": "baseline-random",
+   "method": "Random sampling",
+   "kind": "baseline",
+   "metrics": {
+    "sun_rate": 0.7777777777777778,
+    "stable_rate": 0.8888888888888888,
+    "unique_rate": 1.0,
+    "novel_rate": 0.8888888888888888,
+    "dhf_median": -1.3418999999999999,
+    "dft_hit_rate": 0.0,
+    "dft_known": 6.0,
+    "n_delivered": 54.0,
+    "valid_rate": 1.0,
+    "n_sun": 42.0,
+    "n_budget": 54.0
+   },
+   "parameters": null,
+   "training_data": "",
+   "date": "2026-10-03",
+   "links": {
+    "paper": "",
+    "code": "https://github.com/ABnano/MEIDNet",
+    "weights": ""
+   }
+  },
+  {
+   "rank": 3,
+   "id": "meidnet-earlyfusion",
+   "method": "MEIDNet (first early-fusion model)",
+   "kind": "model",
+   "metrics": {
+    "sun_rate": 0.6666666666666666,
+    "stable_rate": 0.9444444444444444,
+    "unique_rate": 1.0,
+    "novel_rate": 0.7222222222222222,
+    "dhf_median": -1.287375,
+    "dft_hit_rate": 0.1875,
+    "dft_known": 16.0,
+    "n_delivered": 54.0,
+    "valid_rate": 1.0,
+    "n_sun": 36.0,
+    "n_budget": 54.0
+   },
+   "parameters": 702405,
+   "training_data": "Perov-5 train (11,356)",
+   "date": "2026-10-03",
+   "links": {
+    "paper": "https://doi.org/10.1038/s41524-026-02153-3",
+    "code": "https://github.com/ABnano/MEIDNet",
+    "weights": "https://huggingface.co/Babu09/MEIDNet/blob/main/dual_autoencoder_clip_earlyfusion.pth"
+   }
+  },
+  {
+   "rank": 4,
+   "id": "meidnet-2k",
+   "method": "MEIDNet (published model)",
+   "kind": "model",
+   "metrics": {
+    "sun_rate": 0.6481481481481481,
+    "stable_rate": 0.9622641509433962,
+    "unique_rate": 1.0,
+    "novel_rate": 0.6981132075471698,
+    "dhf_median": -1.51814,
+    "dft_hit_rate": 0.05555555555555555,
+    "dft_known": 18.0,
+    "n_delivered": 53.0,
+    "valid_rate": 0.9814814814814815,
+    "n_sun": 35.0,
+    "n_budget": 54.0
+   },
+   "parameters": 702405,
+   "training_data": "Perov-5 train (11,356)",
+   "date": "2026-10-03",
+   "links": {
+    "paper": "https://doi.org/10.1038/s41524-026-02153-3",
+    "code": "https://github.com/ABnano/MEIDNet",
+    "weights": "https://huggingface.co/Babu09/MEIDNet/blob/main/dual_autoencoder_clip_earlyfusion_propertyaware_2k.pth"
+   }
+  },
+  {
+   "rank": 5,
+   "id": "meidnet-propertyaware",
+   "method": "MEIDNet (shorter training)",
+   "kind": "model",
+   "metrics": {
+    "sun_rate": 0.6111111111111112,
+    "stable_rate": 0.9230769230769231,
+    "unique_rate": 1.0,
+    "novel_rate": 0.7115384615384616,
+    "dhf_median": -1.499765,
+    "dft_hit_rate": 0.05555555555555555,
+    "dft_known": 18.0,
+    "n_delivered": 52.0,
+    "valid_rate": 0.9629629629629629,
+    "n_sun": 33.0,
+    "n_budget": 54.0
+   },
+   "parameters": 702405,
+   "training_data": "Perov-5 train (11,356)",
+   "date": "2026-10-03",
+   "links": {
+    "paper": "https://doi.org/10.1038/s41524-026-02153-3",
+    "code": "https://github.com/ABnano/MEIDNet",
+    "weights": "https://huggingface.co/Babu09/MEIDNet/blob/main/dual_autoencoder_clip_earlyfusion_propertyaware.pth"
+   }
+  }
+ ]
+}

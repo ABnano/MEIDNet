@@ -1,0 +1,44 @@
+{
+ "id": "meidnet-2k",
+ "submission_sha256": "48f4e0b3f336d95bdaf503acbe33e20e30dc8cf4c67ef51a7f81c29d1ff5f737",
+ "date": "2026-10-03",
+ "by": "maintainer",
+ "hardware": "Intel64 Family 6 Model 197 Stepping 2, GenuineIntel (16 threads), CPU only",
+ "meidnet_version": "2.0.0",
+ "obtained": {
+  "property_prediction": {
+   "mae_heat_all": 0.4044762492601906,
+   "rmse_heat_all": 0.5389006858741189,
+   "r2_heat_all": 0.475406073844704,
+   "mae_dir_gap": 2.791789979594544,
+   "mae_dir_gap_nonzero": 1.676130875688515,
+   "rmse_dir_gap": 3.051066034368392,
+   "r2_dir_gap": -31.399695123272913,
+   "mae_heat_all_nonzero": 0.40431394123501807,
+   "n_evaluated": 3785.0
+  },
+  "representation": {
+   "retrieval_top1": 0.33606340819022457,
+   "retrieval_top5": 0.8964332892998679,
+   "cosine_matched": 0.7717390656471252,
+   "knn_mae_heat_all": 0.021445706737120214,
+   "knn_mae_dir_gap": 0.05529194187582562,
+   "l2_matched": 0.6753583550453186,
+   "n_profiles": 367.0,
+   "n_evaluated": 3785.0
+  },
+  "inverse_design": {
+   "sun_rate": 0.6481481481481481,
+   "stable_rate": 0.9622641509433962,
+   "unique_rate": 1.0,
+   "novel_rate": 0.6981132075471698,
+   "dhf_median": -1.51814,
+   "dft_hit_rate": 0.05555555555555555,
+   "dft_known": 18.0,
+   "n_delivered": 53.0,
+   "valid_rate": 0.9814814814814815,
+   "n_sun": 35.0,
+   "n_budget": 54.0
+  }
+ }
+}

@@ -55,7 +55,7 @@ that pass every rule and sit closest to the target.
 | **Try it now** | [MEIDNet Prism — live Studio](https://babu09-meidnet.hf.space/studio/) (nothing to install; bring your own table and train in the browser) |
 | **Paper** | A. Babu, R. A. Gouvêa, P. Vandergheynst, G.-M. Rignanese, *npj Computational Materials* (2026) — [doi:10.1038/s41524-026-02153-3](https://doi.org/10.1038/s41524-026-02153-3) · [arXiv:2601.22009](https://arxiv.org/abs/2601.22009) |
 | **Code** | [github.com/ABnano/MEIDNet](https://github.com/ABnano/MEIDNet) (MIT) · [documentation](https://babu09-meidnet.hf.space/docs/) · [Colab notebooks](https://babu09-meidnet.hf.space/docs/start/colab.html) |
-| **Benchmarks** | [MEIDNet Benchmarks](https://babu09-meidnet.hf.space/docs/benchmarks/index.html) — per-dataset results with an evidence ladder; [contribute yours](https://babu09-meidnet.hf.space/docs/community/contribute.html) |
+| **Benchmarks** | [MEIDNet Benchmarks](https://babu09-meidnet.hf.space/docs/benchmarks/perov5.html) — Perov-5 leaderboards (inverse design, property prediction, representation) with baselines; [contribute yours](https://babu09-meidnet.hf.space/docs/community/contribute.html) |
 
 ## Files
 
@@ -116,8 +116,9 @@ meidnet studio meidnet.yaml                # the same workflow as a live web pag
 | L2 distance between those latents | ≈ 0.24 |
 | inverse-design campaign: candidates generated → stable, unique and novel | 140 → 19 (13.6 %) |
 
-These numbers are quoted from the paper; the benchmark pages mark which rows have been re-run from the
-public code.
+These numbers are quoted from the paper. The [Perov-5 benchmark](https://babu09-meidnet.hf.space/docs/benchmarks/perov5.html)
+evaluates this checkpoint with the public code under a fixed protocol, next to baselines: inverse design (stable,
+unique and novel candidates), property prediction and representation on the test split.
 
 ## Citation
 

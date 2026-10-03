@@ -1,0 +1,17 @@
+{
+ "id": "baseline-chance",
+ "submission_sha256": "0d0861fbf47e0855e821aa4666ac81171f9dfeaf4a64c831b39aa9ef93e34e18",
+ "date": "2026-10-03",
+ "by": "maintainer",
+ "hardware": "Intel64 Family 6 Model 197 Stepping 2, GenuineIntel (16 threads), CPU only",
+ "meidnet_version": "2.0.0",
+ "obtained": {
+  "representation": {
+   "retrieval_top1": 0.0027247956403269754,
+   "retrieval_top5": 0.013623978201634877,
+   "cosine_matched": 0.0,
+   "n_profiles": 367.0,
+   "n_evaluated": 3785.0
+  }
+ }
+}

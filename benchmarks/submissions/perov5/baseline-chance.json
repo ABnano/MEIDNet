@@ -1,0 +1,50 @@
+{
+ "id": "baseline-chance",
+ "dataset": "perov5",
+ "protocol": "perov5-v1",
+ "date": "2026-10-03",
+ "submitter": {
+  "name": "Anand Babu",
+  "affiliation": "UCLouvain",
+  "github": "ABnano"
+ },
+ "modalities": [
+  "structure"
+ ],
+ "method": {
+  "name": "Chance level",
+  "kind": "baseline",
+  "description": "Retrieval by random choice among the 3,785 test materials.",
+  "meidnet_version": "2.0.0",
+  "parameters": null,
+  "training_data": "",
+  "checkpoint": "",
+  "checkpoint_sha256": "",
+  "links": {
+   "paper": "",
+   "code": "https://github.com/ABnano/MEIDNet",
+   "weights": ""
+  }
+ },
+ "results": {
+  "representation": {
+   "retrieval_top1": 0.0027247956403269754,
+   "retrieval_top5": 0.013623978201634877,
+   "cosine_matched": 0.0,
+   "n_profiles": 367.0,
+   "n_evaluated": 3785.0
+  }
+ },
+ "validation_level": "generated",
+ "evidence": [],
+ "artifacts": {},
+ "reproduce": {
+  "command": "python scripts/benchmarks.py run perov5 --method baseline-chance",
+  "hardware": "Intel64 Family 6 Model 197 Stepping 2, GenuineIntel (16 threads), CPU only",
+  "wall_time_s": 15.8
+ },
+ "status": "meidnet_verified",
+ "verified_by": "maintainer",
+ "verified_on": "2026-10-03",
+ "notes": ""
+}

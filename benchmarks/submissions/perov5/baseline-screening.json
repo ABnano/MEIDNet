@@ -1,0 +1,60 @@
+{
+ "id": "baseline-screening",
+ "dataset": "perov5",
+ "protocol": "perov5-v1",
+ "date": "2026-10-03",
+ "submitter": {
+  "name": "Anand Babu",
+  "affiliation": "UCLouvain",
+  "github": "ABnano"
+ },
+ "modalities": [
+  "structure",
+  "property:heat_all",
+  "property:dir_gap"
+ ],
+ "method": {
+  "name": "Encoder screening",
+  "kind": "baseline",
+  "description": "Enumerates the compositions of each chemical family that pass its rules and keeps those that the published model's structure encoder predicts closest to each target, ranked with the generator's own selection score. No latent search.",
+  "meidnet_version": "2.0.0",
+  "parameters": 702405,
+  "training_data": "Perov-5 train (11,356)",
+  "checkpoint": "checkpoints/dual_autoencoder_clip_earlyfusion_propertyaware_2k.pth",
+  "checkpoint_sha256": "f9493781d5bbb05dfe106874269496c4c1c0364ae9e543703625c8d1efd60c87",
+  "links": {
+   "paper": "https://doi.org/10.1038/s41524-026-02153-3",
+   "code": "https://github.com/ABnano/MEIDNet",
+   "weights": "https://huggingface.co/Babu09/MEIDNet/blob/main/dual_autoencoder_clip_earlyfusion_propertyaware_2k.pth"
+  }
+ },
+ "results": {
+  "inverse_design": {
+   "sun_rate": 0.8518518518518519,
+   "stable_rate": 0.8518518518518519,
+   "unique_rate": 1.0,
+   "novel_rate": 1.0,
+   "dhf_median": -1.2835,
+   "dft_hit_rate": null,
+   "dft_known": 0.0,
+   "n_delivered": 54.0,
+   "valid_rate": 1.0,
+   "n_sun": 46.0,
+   "n_budget": 54.0
+  }
+ },
+ "validation_level": "mlip_validated",
+ "evidence": [],
+ "artifacts": {
+  "inverse_design": "benchmarks/runs/perov5/baseline-screening/inverse_design"
+ },
+ "reproduce": {
+  "command": "python scripts/benchmarks.py run perov5 --method baseline-screening",
+  "hardware": "Intel64 Family 6 Model 197 Stepping 2, GenuineIntel (16 threads), CPU only",
+  "wall_time_s": 6.0
+ },
+ "status": "meidnet_verified",
+ "verified_by": "maintainer",
+ "verified_on": "2026-10-03",
+ "notes": ""
+}

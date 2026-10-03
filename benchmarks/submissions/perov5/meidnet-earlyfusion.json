@@ -1,0 +1,82 @@
+{
+ "id": "meidnet-earlyfusion",
+ "dataset": "perov5",
+ "protocol": "perov5-v1",
+ "date": "2026-10-03",
+ "submitter": {
+  "name": "Anand Babu",
+  "affiliation": "UCLouvain",
+  "github": "ABnano"
+ },
+ "modalities": [
+  "structure",
+  "property:heat_all",
+  "property:dir_gap"
+ ],
+ "method": {
+  "name": "MEIDNet (first early-fusion model)",
+  "kind": "model",
+  "description": "The earliest ablation of the paper, without property-aware decoding.",
+  "meidnet_version": "2.0.0",
+  "parameters": 702405,
+  "training_data": "Perov-5 train (11,356)",
+  "checkpoint": "checkpoints/dual_autoencoder_clip_earlyfusion.pth",
+  "checkpoint_sha256": "59fc26f97d04d4d12450cb3030f3561a61237879f0aec58a190ff344153d097b",
+  "links": {
+   "paper": "https://doi.org/10.1038/s41524-026-02153-3",
+   "code": "https://github.com/ABnano/MEIDNet",
+   "weights": "https://huggingface.co/Babu09/MEIDNet/blob/main/dual_autoencoder_clip_earlyfusion.pth"
+  }
+ },
+ "results": {
+  "property_prediction": {
+   "mae_heat_all": 0.5219494936280396,
+   "rmse_heat_all": 0.6984069104329343,
+   "r2_heat_all": 0.11890478842501484,
+   "mae_dir_gap": 13.468713194923955,
+   "mae_dir_gap_nonzero": 11.997500279407628,
+   "rmse_dir_gap": 13.49162868649166,
+   "r2_dir_gap": -632.5289559190309,
+   "mae_heat_all_nonzero": 0.5216916632683787,
+   "n_evaluated": 3785.0
+  },
+  "representation": {
+   "retrieval_top1": 0.0002642007926023778,
+   "retrieval_top5": 0.0002642007926023778,
+   "cosine_matched": -0.9787194728851318,
+   "knn_mae_heat_all": 0.099976750330251,
+   "knn_mae_dir_gap": 0.07289299867899603,
+   "l2_matched": 1.9893285036087036,
+   "n_profiles": 367.0,
+   "n_evaluated": 3785.0
+  },
+  "inverse_design": {
+   "sun_rate": 0.6666666666666666,
+   "stable_rate": 0.9444444444444444,
+   "unique_rate": 1.0,
+   "novel_rate": 0.7222222222222222,
+   "dhf_median": -1.287375,
+   "dft_hit_rate": 0.1875,
+   "dft_known": 16.0,
+   "n_delivered": 54.0,
+   "valid_rate": 1.0,
+   "n_sun": 36.0,
+   "n_budget": 54.0
+  }
+ },
+ "validation_level": "mlip_validated",
+ "evidence": [],
+ "artifacts": {
+  "property_prediction": "benchmarks/runs/perov5/meidnet-earlyfusion/property_prediction",
+  "inverse_design": "benchmarks/runs/perov5/meidnet-earlyfusion/inverse_design"
+ },
+ "reproduce": {
+  "command": "python scripts/benchmarks.py run perov5 --method meidnet-earlyfusion",
+  "hardware": "Intel64 Family 6 Model 197 Stepping 2, GenuineIntel (16 threads), CPU only",
+  "wall_time_s": 2209.0
+ },
+ "status": "meidnet_verified",
+ "verified_by": "maintainer",
+ "verified_on": "2026-10-03",
+ "notes": ""
+}

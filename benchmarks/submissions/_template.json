@@ -1,17 +1,28 @@
 {
- "id": "my-dataset-my-result",
+ "id": "my-method",
  "dataset": "perov5",
- "title": "One line: what was measured",
- "submitter": {"name": "Your name", "affiliation": "", "github": ""},
+ "protocol": "perov5-v1",
  "date": "2026-01-01",
- "modalities": ["structure", "property:dir_gap"],
- "model": {"name": "MEIDNet", "meidnet_version": "2.0.0", "family": "perovskite_abx3", "variant": "halide",
-           "config": "https://... your meidnet.yaml", "checkpoint_url": "", "checkpoint_sha256": ""},
- "category": "representation_quality",
- "results": {"mae_dir_gap": {"value": 0.0, "unit": "eV", "split": "val"}},
- "validation_level": "generated",
+ "submitter": {"name": "Your name", "affiliation": "", "github": ""},
+ "modalities": ["structure", "property:heat_all", "property:dir_gap"],
+ "method": {
+  "name": "My method",
+  "kind": "model",
+  "description": "One or two sentences: what the model is and how it was trained.",
+  "meidnet_version": "",
+  "parameters": null,
+  "training_data": "Perov-5 train (11,356)",
+  "checkpoint": "",
+  "checkpoint_sha256": "",
+  "links": {"paper": "", "code": "", "weights": ""}
+ },
+ "results": {
+  "property_prediction": {"mae_heat_all": 0.0, "rmse_heat_all": 0.0, "r2_heat_all": 0.0, "mae_dir_gap": 0.0, "mae_dir_gap_nonzero": 0.0},
+  "inverse_design": {"sun_rate": 0.0, "stable_rate": 0.0, "unique_rate": 0.0, "novel_rate": 0.0, "dhf_median": 0.0, "dft_hit_rate": null, "dft_known": 0, "n_delivered": 54}
+ },
+ "validation_level": "mlip_validated",
  "evidence": [],
- "resources": {"hardware": "", "wall_time_s": null},
- "reproduce": {"config": "", "seed": 937, "command": "", "split": "val"},
+ "artifacts": {"property_prediction": "https://... folder with predictions.csv", "inverse_design": "https://... folder with candidates.csv and cifs/"},
+ "reproduce": {"command": "python scripts/benchmarks.py score perov5 --task inverse_design --candidates candidates.csv", "hardware": "", "wall_time_s": null},
  "status": "community_submitted"
 }

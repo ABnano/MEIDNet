@@ -1,10 +1,10 @@
 ## Benchmark submission
 
-- [ ] One JSON file under `benchmarks/submissions/<dataset>/<id>.json` (copied from `_template.json`), one category per file
+- [ ] One JSON file `benchmarks/submissions/<dataset>/<method>.json` (copied from `_template.json`) describing the method and its results per task
+- [ ] `protocol` names the dataset's current protocol version (for example `perov5-v1`)
+- [ ] The numbers come from `python scripts/benchmarks.py score ...` (or `run` for a MEIDNet checkpoint)
+- [ ] The outputs behind them are included or linked: `predictions.csv` and/or `candidates.csv` with the CIFs, under `artifacts`
 - [ ] `python scripts/benchmarks.py validate` passes locally
-- [ ] The dataset exists in `benchmarks/datasets/` (or this PR adds it with source, size and split)
-- [ ] Every link in `evidence` is public; the validation level matches the evidence
-- [ ] `reproduce.config`, `reproduce.seed` and `reproduce.command` let someone else obtain the numbers
-- [ ] `status` is `community_submitted` (the maintainer sets `meidnet_verified` after `reproduce`)
+- [ ] `status` is `community_submitted` (the maintainer re-scores the outputs before marking the record as computed here)
 
-What was measured, in two sentences:
+The method, in two sentences:

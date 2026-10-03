@@ -9,6 +9,7 @@ dist/
 
 # Runs and data (fetch with `meidnet download-data`)
 runs/
+!benchmarks/runs/
 data/perov5/*.csv
 site/
 *.log

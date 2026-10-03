@@ -96,14 +96,14 @@ def rules_reference() -> str:
 
 
 def capabilities_reference(verified_modalities=()) -> str:
-    """Available / Community-tested / Planned, read from the code. Community-tested is given only to a modality or
+    """Available / Benchmarked / Planned, read from the code. Benchmarked is given only to a modality or
     property named by a benchmark row that has been reproduced here (scripts/benchmarks.py)."""
     def status(name, planned=False):
         if planned:
             return "Planned"
-        return "Community-tested" if name in verified_modalities else "Available"
+        return "Benchmarked" if name in verified_modalities else "Available"
     out = ["# Capabilities", "",
-           "This page is generated from the code. **Available**: in this release. **Community-tested**: used by a "
+           "This page is generated from the code. **Available**: in this release. **Benchmarked**: used by a "
            "benchmark result reproduced here. **Planned**: on the [roadmap](../understand/limits.md), not yet "
            "implemented.", "",
            "## Modalities", "", "| modality | status | how |", "|---|---|---|",

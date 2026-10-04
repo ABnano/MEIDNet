@@ -391,19 +391,19 @@ def page_guide(F) -> str:
             "## Which model", "",
             "All public checkpoints, measured under the same protocol ([leaderboard](perov5.md)): 54 candidates for three band-gap targets "
             "in three chemical families, screened with MACE-MP-0.", "",
-            "| model | stable, unique, novel (of 54) | stable (share) | band-gap target met, of candidates with a DFT value | alignment (cosine) | retrieval, top 1 |", "|---|---|---|---|---|---|"]
+            "| model | delivered (of 54) | stable, unique, novel (of 54) | stable (share) | band-gap target met, of candidates with a DFT value | alignment (cosine) | retrieval, top 1 |", "|---|---|---|---|---|---|---|"]
     for m, name in rows:
         if recs.get(m) is None or "inverse_design" not in recs[m]["results"]:
             continue
         r = "meidnet-alignment" if m == "meidnet-alignment-seed3" else m
         hits = f"{round(float(inv(m, 'dft_hit_rate', 4)) * float(inv(m, 'dft_known', 0)))} of {inv(m, 'dft_known', 0)}" if inv(m, 'dft_hit_rate') != "–" else "–"
-        out.append(f"| [{recs[m]['method']['name']}](results/{m}.md) | {inv(m, 'n_sun', 0)} | {inv(m, 'stable_rate', 2)} | "
+        out.append(f"| [{recs[m]['method']['name']}](results/{m}.md) | {inv(m, 'n_delivered', 0)} | {inv(m, 'n_sun', 0)} | {inv(m, 'stable_rate', 2)} | "
                    f"{hits} | {rep(r, 'cosine_matched')} | {rep(r, 'retrieval_top1')} |")
     files = "; ".join(f"{recs[m]['method']['name']}: {name}" for m, name in rows if recs.get(m) and "inverse_design" in recs[m]["results"])
     for m in ("baseline-screening", "baseline-random"):
         k = inv(m, 'dft_known', 0)
         hits = f"{round(float(inv(m, 'dft_hit_rate', 4)) * float(k))} of {k}" if inv(m, 'dft_hit_rate') != "–" else "–"
-        out.append(f"| [{recs[m]['method']['name']}](results/{m}.md) (baseline) | {inv(m, 'n_sun', 0)} | {inv(m, 'stable_rate', 2)} | {hits} | – | – |")
+        out.append(f"| [{recs[m]['method']['name']}](results/{m}.md) (baseline) | {inv(m, 'n_delivered', 0)} | {inv(m, 'n_sun', 0)} | {inv(m, 'stable_rate', 2)} | {hits} | – | – |")
     seed3 = " The alignment columns of the seed-3 row are the mean of the seven alignment models." if recs.get("meidnet-alignment-seed3") else ""
     out += ["", f"Checkpoint files: {files}.{seed3}", "",
             "@GUIDE_READING@", "",
@@ -449,7 +449,9 @@ def guide_reading() -> str:
              "candidates with the encoder screening of the same family (`meidnet space`), which needs no search.",
              f"    - **To study the shared space, use the seven alignment models**: their modalities agree most closely (cosine {al['cosine_matched']:.2f} against "
              f"{two['cosine_matched']:.2f} for the published model), and seven seeds show how much a result depends on the seed. They were not trained to "
-             "decode from properties alone."]
+             "decode from properties alone" + (f": under this protocol the seed-3 model delivered {int(g('meidnet-alignment-seed3', 'n_delivered'))} of the 54 "
+                                                f"candidates asked for, against {int(g('meidnet-2k', 'n_delivered'))} for the published model."
+                                                if g("meidnet-alignment-seed3", "n_delivered") is not None else ".")]
     return "\n".join(lines)
 
 

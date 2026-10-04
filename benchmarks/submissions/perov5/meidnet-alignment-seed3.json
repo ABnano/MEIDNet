@@ -1,0 +1,64 @@
+{
+ "id": "meidnet-alignment-seed3",
+ "dataset": "perov5",
+ "protocol": "perov5-v1.1",
+ "date": "2026-10-05",
+ "submitter": {
+  "name": "Anand Babu",
+  "affiliation": "UCLouvain",
+  "github": "ABnano"
+ },
+ "modalities": [
+  "structure",
+  "property:heat_all",
+  "property:dir_gap"
+ ],
+ "method": {
+  "name": "MEIDNet (alignment training, seed 3)",
+  "kind": "model",
+  "description": "One of the seven alignment models: seed 3, the seed with the highest structure matching, chosen for the inverse-design task before any candidate was generated.",
+  "meidnet_version": "2.0.0",
+  "parameters": 702405,
+  "training_data": "Perov-5, all 18,928 materials",
+  "test_in_training": true,
+  "alignment_space": "encoder",
+  "checkpoint": "checkpoints/reproduction/meidnet_paper_rerun_seed3.pth",
+  "checkpoint_sha256": "205de8b833900c54841d9dcfe3510a8e4a8a4bb9bbf5516d80cb68a7fc121889",
+  "links": {
+   "paper": "https://doi.org/10.1038/s41524-026-02153-3",
+   "code": "https://github.com/ABnano/MEIDNet",
+   "weights": "https://huggingface.co/Babu09/MEIDNet/blob/main/reproduction/meidnet_paper_rerun_seed3.pth"
+  }
+ },
+ "results": {
+  "inverse_design": {
+   "sun_rate": 0.6111111111111112,
+   "stable_rate": 0.8723404255319149,
+   "unique_rate": 1.0,
+   "novel_rate": 0.8297872340425532,
+   "dhf_median": -1.31954,
+   "dft_hit_rate": 0.25,
+   "dft_known": 8.0,
+   "n_delivered": 47.0,
+   "valid_rate": 0.8703703703703703,
+   "n_sun": 33.0,
+   "n_budget": 54.0
+  }
+ },
+ "spread": {},
+ "n_runs": null,
+ "validation_level": "mlip_validated",
+ "evidence": [],
+ "artifacts": {
+  "inverse_design": "benchmarks/runs/perov5/meidnet-alignment-seed3/inverse_design"
+ },
+ "reproduce": {
+  "command": "python scripts/benchmarks.py run perov5 --method meidnet-alignment-seed3",
+  "hardware": "Intel64 Family 6 Model 197 Stepping 2, GenuineIntel (16 threads), CPU only",
+  "wall_time_s": 3243.8
+ },
+ "status": "meidnet_verified",
+ "verified_by": "maintainer",
+ "verified_on": "2026-10-05",
+ "notes": ""
+}

@@ -61,21 +61,22 @@ The outputs of this run are kept in [`benchmarks/reproduction/perov5/demo/`](htt
 
 All public checkpoints, measured under the same protocol ([leaderboard](perov5.md)): 54 candidates for three band-gap targets in three chemical families, screened with MACE-MP-0.
 
-| model | stable, unique, novel (of 54) | stable (share) | band-gap target met, of candidates with a DFT value | alignment (cosine) | retrieval, top 1 |
-|---|---|---|---|---|---|
-| [MEIDNet (published model)](results/meidnet-2k.md) | 33 | 0.96 | 1 of 18 | 0.772 | 0.336 |
-| [MEIDNet (shorter training)](results/meidnet-propertyaware.md) | 30 | 0.92 | 1 of 18 | 0.480 | 0.297 |
-| [MEIDNet (first early-fusion model)](results/meidnet-earlyfusion.md) | 35 | 0.94 | 3 of 16 | 0.655 | 0.028 |
-| [Encoder screening](results/baseline-screening.md) (baseline) | 46 | 0.85 | – | – | – |
-| [Random sampling](results/baseline-random.md) (baseline) | 42 | 0.89 | 0 of 6 | – | – |
+| model | delivered (of 54) | stable, unique, novel (of 54) | stable (share) | band-gap target met, of candidates with a DFT value | alignment (cosine) | retrieval, top 1 |
+|---|---|---|---|---|---|---|
+| [MEIDNet (published model)](results/meidnet-2k.md) | 53 | 33 | 0.96 | 1 of 18 | 0.772 | 0.336 |
+| [MEIDNet (shorter training)](results/meidnet-propertyaware.md) | 52 | 30 | 0.92 | 1 of 18 | 0.480 | 0.297 |
+| [MEIDNet (first early-fusion model)](results/meidnet-earlyfusion.md) | 54 | 35 | 0.94 | 3 of 16 | 0.655 | 0.028 |
+| [MEIDNet (alignment training, seed 3)](results/meidnet-alignment-seed3.md) | 47 | 33 | 0.87 | 2 of 8 | 0.954 ± 0.011 | 0.297 ± 0.062 |
+| [Encoder screening](results/baseline-screening.md) (baseline) | 54 | 46 | 0.85 | – | – | – |
+| [Random sampling](results/baseline-random.md) (baseline) | 54 | 42 | 0.89 | 0 of 6 | – | – |
 
-Checkpoint files: MEIDNet (published model): `dual_autoencoder_clip_earlyfusion_propertyaware_2k.pth`; MEIDNet (shorter training): `…_propertyaware.pth`; MEIDNet (first early-fusion model): `dual_autoencoder_clip_earlyfusion.pth`.
+Checkpoint files: MEIDNet (published model): `dual_autoencoder_clip_earlyfusion_propertyaware_2k.pth`; MEIDNet (shorter training): `…_propertyaware.pth`; MEIDNet (first early-fusion model): `dual_autoencoder_clip_earlyfusion.pth`; MEIDNet (alignment training, seed 3): `reproduction/meidnet_paper_rerun_seed3.pth`. The alignment columns of the seed-3 row are the mean of the seven alignment models.
 
 !!! key "How to read this table, and what to start with"
     - **The checkpoints are close on stability.** They deliver between 30 and 35 stable, unique and novel candidates of 54. Each is a single run; how much this count changes with the seed has not been measured.
-    - **Stable, unique and novel is not the design goal.** The two baselines score higher on it (46 and 42 of 54), in part because they rarely return a material of the data set. Whether the band-gap target is met is only known where a DFT value exists: 16 to 18 candidates per model, too few to rank the models.
+    - **Stable, unique and novel is not the design goal.** The two baselines score higher on it (46 and 42 of 54), in part because they rarely return a material of the data set. Whether the band-gap target is met is only known where a DFT value exists: 8 to 18 candidates per model, too few to rank the models.
     - **To generate, start with the published model**: it is the model of `meidnet demo` and of the Studio, and its decoder (like that of the shorter training) was trained to rebuild a crystal from the property latent alone, which is what inverse design asks of it. Compare its candidates with the encoder screening of the same family (`meidnet space`), which needs no search.
-    - **To study the shared space, use the seven alignment models**: their modalities agree most closely (cosine 0.95 against 0.77 for the published model), and seven seeds show how much a result depends on the seed. They were not trained to decode from properties alone.
+    - **To study the shared space, use the seven alignment models**: their modalities agree most closely (cosine 0.95 against 0.77 for the published model), and seven seeds show how much a result depends on the seed. They were not trained to decode from properties alone: under this protocol the seed-3 model delivered 47 of the 54 candidates asked for, against 53 for the published model.
 
 ## Your own targets
 

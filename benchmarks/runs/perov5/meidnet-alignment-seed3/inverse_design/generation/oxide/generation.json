@@ -1,0 +1,9144 @@
+{
+ "family": "perovskite_abx3",
+ "variant": "oxide",
+ "targets": [
+  {
+   "index": 1,
+   "values": {
+    "dir_gap": 1.5,
+    "heat_all": -0.1
+   },
+   "rounds_used": 2,
+   "attempts": 869,
+   "latents_decoded": 96,
+   "latents_passing": 28,
+   "first_failure": {
+    "tolerance_factor": 840,
+    "no charge-balancing element": 1
+   },
+   "failures_any": {
+    "tolerance_factor": 840,
+    "no charge-balancing element": 1
+   },
+   "skipped_duplicate": 14,
+   "skipped_similar": 0,
+   "saved": [
+    {
+     "target_index": 1,
+     "round": 1,
+     "file": "cifs\\oxide_T1_R1_1.cif",
+     "elements": {
+      "B": "Cr",
+      "X": "O",
+      "A": "Nd"
+     },
+     "formula": "NdCrO3",
+     "lattice_a": 4.4,
+     "predictions": {
+      "heat_all": 2.233443021774292,
+      "dir_gap": 0.9268081188201904
+     },
+     "constraint_results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Nd+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.8152619774907626,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.815"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ],
+     "score": 1.2619261413601657,
+     "latent_norm": 1.0259510278701782,
+     "flags": []
+    },
+    {
+     "target_index": 1,
+     "round": 1,
+     "file": "cifs\\oxide_T1_R1_2.cif",
+     "elements": {
+      "B": "Pb",
+      "X": "O",
+      "A": "Ba"
+     },
+     "formula": "BaPbO3",
+     "lattice_a": 4.765000000000001,
+     "predictions": {
+      "heat_all": 1.2055031061172485,
+      "dir_gap": 0.37659385800361633
+     },
+     "constraint_results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.3825000000000003,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.38 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Ba+2, Pb+4, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Pb + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.816177816689614,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.816"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.8908730158730159,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.891"
+      }
+     ],
+     "score": 1.7842426023220983,
+     "latent_norm": 1.022665023803711,
+     "flags": []
+    },
+    {
+     "target_index": 1,
+     "round": 1,
+     "file": "cifs\\oxide_T1_R1_3.cif",
+     "elements": {
+      "B": "Sn",
+      "X": "O",
+      "A": "Sr"
+     },
+     "formula": "SrSnO3",
+     "lattice_a": 4.18,
+     "predictions": {
+      "heat_all": 4.534491539001465,
+      "dir_gap": 2.14577317237854
+     },
+     "constraint_results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.09,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.09 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Sr+2, Sn+4, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sn + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.8728877968714319,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.873"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.6587301587301587,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.659"
+      }
+     ],
+     "score": 2.270819605764429,
+     "latent_norm": 1.0016897916793823,
+     "flags": []
+    },
+    {
+     "target_index": 1,
+     "round": 2,
+     "file": "cifs\\oxide_T1_R2_4.cif",
+     "elements": {
+      "B": "Ga",
+      "X": "O",
+      "A": "Yb"
+     },
+     "formula": "YbGaO3",
+     "lattice_a": 4.04,
+     "predictions": {
+      "heat_all": -3.4950144290924072,
+      "dir_gap": 0.8963143825531006
+     },
+     "constraint_results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.02,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.02 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Yb+3, Ga+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0000000000000002,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Ga + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.820523908465974,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.821"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.6031746031746031,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.603"
+      }
+     ],
+     "score": 1.722442096349207,
+     "latent_norm": 1.000540852546692,
+     "flags": [
+      "predicted heat_all -3.50 is outside the training range [-0.64, 5.16] - the model is extrapolating"
+     ]
+    },
+    {
+     "target_index": 1,
+     "round": 2,
+     "file": "cifs\\oxide_T1_R2_5.cif",
+     "elements": {
+      "B": "Ni",
+      "X": "O",
+      "A": "Ho"
+     },
+     "formula": "HoNiO3",
+     "lattice_a": 4.0,
+     "predictions": {
+      "heat_all": 2.239142417907715,
+      "dir_gap": 0.11149654537439346
+     },
+     "constraint_results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.0,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.00 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Ho+3, Ni+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Ni + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.8135263517551229,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.814"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.5873015873015873,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.587"
+      }
+     ],
+     "score": 2.8635988106703296,
+     "latent_norm": 1.0039637088775635,
+     "flags": []
+    },
+    {
+     "target_index": 1,
+     "round": 2,
+     "file": "cifs\\oxide_T1_R2_6.cif",
+     "elements": {
+      "B": "Sn",
+      "X": "O",
+      "A": "Ba"
+     },
+     "formula": "BaSnO3",
+     "lattice_a": 4.18,
+     "predictions": {
+      "heat_all": 4.857956886291504,
+      "dir_gap": 0.20348422229290009
+     },
+     "constraint_results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.09,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.09 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Ba+2, Sn+4, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sn + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.9304036594559836,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.930"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.6587301587301587,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.659"
+      }
+     ],
+     "score": 3.6641359163600473,
+     "latent_norm": 1.0057454109191895,
+     "flags": []
+    }
+   ],
+   "rejected_examples": [
+    {
+     "formula": "TbCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tb+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7204453863771119,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.720"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TbCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tb+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7204453863771119,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.720"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TbCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tb+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7204453863771119,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.720"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TbCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tb+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7204453863771119,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.720"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TbCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tb+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7204453863771119,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.720"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TbCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tb+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7204453863771119,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.720"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TbCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tb+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7204453863771119,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.720"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TbCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tb+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7204453863771119,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.720"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TbCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tb+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7204453863771119,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.720"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TbCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tb+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7204453863771119,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.720"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TbCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tb+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7204453863771119,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.720"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TbCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tb+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7204453863771119,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.720"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TbCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tb+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7204453863771119,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.720"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TbCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tb+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7204453863771119,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.720"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TbCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tb+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7204453863771119,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.720"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TbCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tb+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7204453863771119,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.720"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TbCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tb+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7204453863771119,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.720"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TbCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tb+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7204453863771119,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.720"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TbCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tb+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7204453863771119,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.720"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TbCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tb+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7204453863771119,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.720"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TbCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tb+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7204453863771119,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.720"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TbCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tb+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7204453863771119,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.720"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TbCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tb+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7204453863771119,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.720"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TbCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tb+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7204453863771119,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.720"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "SmCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Sm+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7999948992605984,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.800"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "SmCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Sm+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7999948992605984,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.800"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "SmCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Sm+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7999948992605984,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.800"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "SmCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Sm+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7999948992605984,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.800"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "SmCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Sm+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7999948992605984,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.800"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "SmCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Sm+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7999948992605984,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.800"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "SmCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Sm+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7999948992605984,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.800"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "SmCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Sm+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7999948992605984,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.800"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "SmCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Sm+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7999948992605984,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.800"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "SmCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Sm+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7999948992605984,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.800"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "SmCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Sm+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7999948992605984,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.800"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "SmCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Sm+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7999948992605984,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.800"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "YbCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Yb+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7533901341369397,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.753"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "YbCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Yb+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7533901341369397,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.753"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "YbCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Yb+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7533901341369397,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.753"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "YbCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Yb+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7533901341369397,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.753"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "index": 2,
+   "values": {
+    "dir_gap": 2.5,
+    "heat_all": -0.1
+   },
+   "rounds_used": 3,
+   "attempts": 1086,
+   "latents_decoded": 144,
+   "latents_passing": 59,
+   "first_failure": {
+    "tolerance_factor": 917,
+    "no charge-balancing element": 110
+   },
+   "failures_any": {
+    "tolerance_factor": 917,
+    "no charge-balancing element": 110
+   },
+   "skipped_duplicate": 38,
+   "skipped_similar": 0,
+   "saved": [
+    {
+     "target_index": 2,
+     "round": 1,
+     "file": "cifs\\oxide_T2_R1_1.cif",
+     "elements": {
+      "B": "Ni",
+      "X": "O",
+      "A": "Sm"
+     },
+     "formula": "SmNiO3",
+     "lattice_a": 4.0,
+     "predictions": {
+      "heat_all": -1.9399101734161377,
+      "dir_gap": 2.9674384593963623
+     },
+     "constraint_results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.0,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.00 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Sm+3, Ni+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Ni + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.8799943891866583,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.880"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.5873015873015873,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.587"
+      }
+     ],
+     "score": 0.9544627826892997,
+     "latent_norm": 1.008567452430725,
+     "flags": [
+      "predicted heat_all -1.94 is outside the training range [-0.64, 5.16] - the model is extrapolating"
+     ]
+    },
+    {
+     "target_index": 2,
+     "round": 1,
+     "file": "cifs\\oxide_T2_R1_2.cif",
+     "elements": {
+      "B": "Zr",
+      "X": "O",
+      "A": "Sr"
+     },
+     "formula": "SrZrO3",
+     "lattice_a": 4.24,
+     "predictions": {
+      "heat_all": 0.8823665976524353,
+      "dir_gap": 1.5892702341079712
+     },
+     "constraint_results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.12,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.12 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Sr+2, Zr+4, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Zr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.8605356110666473,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.861"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.6825396825396826,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.683"
+      }
+     ],
+     "score": 1.2223753455427238,
+     "latent_norm": 1.022864818572998,
+     "flags": []
+    },
+    {
+     "target_index": 2,
+     "round": 1,
+     "file": "cifs\\oxide_T2_R1_3.cif",
+     "elements": {
+      "B": "Co",
+      "X": "O",
+      "A": "Yb"
+     },
+     "formula": "YbCoO3",
+     "lattice_a": 4.056666666666667,
+     "predictions": {
+      "heat_all": -1.788360595703125,
+      "dir_gap": 1.489553689956665
+     },
+     "constraint_results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.0283333333333333,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.03 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Yb+3, Co+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Co + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.8171528159907646,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.817"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.6097883597883599,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.610"
+      }
+     ],
+     "score": 1.6963459837614414,
+     "latent_norm": 1.0164910554885864,
+     "flags": [
+      "predicted heat_all -1.79 is outside the training range [-0.64, 5.16] - the model is extrapolating"
+     ]
+    },
+    {
+     "target_index": 2,
+     "round": 2,
+     "file": "cifs\\oxide_T2_R2_4.cif",
+     "elements": {
+      "B": "Al",
+      "X": "O",
+      "A": "Tb"
+     },
+     "formula": "TbAlO3",
+     "lattice_a": 3.87,
+     "predictions": {
+      "heat_all": -0.6894755363464355,
+      "dir_gap": 3.2154505252838135
+     },
+     "constraint_results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.935,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.94 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tb+3, Al+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999999,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Al + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.8191110336070523,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.819"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.5357142857142857,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.536"
+      }
+     ],
+     "score": 0.7476596686674588,
+     "latent_norm": 1.0083529949188232,
+     "flags": []
+    },
+    {
+     "target_index": 2,
+     "round": 2,
+     "file": "cifs\\oxide_T2_R2_5.cif",
+     "elements": {
+      "B": "Al",
+      "X": "O",
+      "A": "Yb"
+     },
+     "formula": "YbAlO3",
+     "lattice_a": 3.87,
+     "predictions": {
+      "heat_all": 6.588411331176758,
+      "dir_gap": 4.164064407348633
+     },
+     "constraint_results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.935,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.94 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Yb+3, Al+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999999,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Al + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.85656759436758,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.857"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.5357142857142857,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.536"
+      }
+     ],
+     "score": 5.44447488427526,
+     "latent_norm": 1.0067743062973022,
+     "flags": [
+      "predicted heat_all 6.59 is outside the training range [-0.64, 5.16] - the model is extrapolating"
+     ]
+    },
+    {
+     "target_index": 2,
+     "round": 3,
+     "file": "cifs\\oxide_T2_R3_6.cif",
+     "elements": {
+      "B": "V",
+      "X": "O",
+      "A": "Nd"
+     },
+     "formula": "NdVO3",
+     "lattice_a": 4.075,
+     "predictions": {
+      "heat_all": -3.4780771732330322,
+      "dir_gap": 0.8291497230529785
+     },
+     "constraint_results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.0375,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.04 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Nd+3, V+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_V + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.8802828714010688,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.880"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.617063492063492,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.617"
+      }
+     ],
+     "score": 4.142971517267151,
+     "latent_norm": 1.0041223764419556,
+     "flags": [
+      "predicted heat_all -3.48 is outside the training range [-0.64, 5.16] - the model is extrapolating"
+     ]
+    }
+   ],
+   "rejected_examples": [
+    {
+     "formula": "HoCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Ho+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7395694106864753,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.740"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "HoCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Ho+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7395694106864753,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.740"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "HoCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Ho+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7395694106864753,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.740"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "HoCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Ho+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7395694106864753,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.740"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "HoCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Ho+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7395694106864753,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.740"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "HoCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Ho+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7395694106864753,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.740"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "HoCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Ho+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7395694106864753,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.740"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "HoCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Ho+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7395694106864753,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.740"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "HoCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Ho+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7395694106864753,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.740"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "HoCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Ho+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7395694106864753,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.740"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "HoCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Ho+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7395694106864753,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.740"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "HoCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Ho+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7395694106864753,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.740"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TmScO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.145,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.15 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tm+3, Sc+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sc + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7763340185055101,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.776"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7023809523809523,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.702"
+      }
+     ]
+    },
+    {
+     "formula": "TmScO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.145,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.15 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tm+3, Sc+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sc + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7763340185055101,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.776"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7023809523809523,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.702"
+      }
+     ]
+    },
+    {
+     "formula": "TmScO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.145,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.15 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tm+3, Sc+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sc + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7763340185055101,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.776"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7023809523809523,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.702"
+      }
+     ]
+    },
+    {
+     "formula": "TmScO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.145,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.15 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tm+3, Sc+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sc + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7763340185055101,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.776"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7023809523809523,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.702"
+      }
+     ]
+    },
+    {
+     "formula": "TmScO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.145,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.15 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tm+3, Sc+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sc + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7763340185055101,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.776"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7023809523809523,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.702"
+      }
+     ]
+    },
+    {
+     "formula": "TmScO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.145,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.15 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tm+3, Sc+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sc + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7763340185055101,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.776"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7023809523809523,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.702"
+      }
+     ]
+    },
+    {
+     "formula": "TmScO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.145,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.15 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tm+3, Sc+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sc + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7763340185055101,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.776"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7023809523809523,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.702"
+      }
+     ]
+    },
+    {
+     "formula": "TmScO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.145,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.15 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tm+3, Sc+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sc + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7763340185055101,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.776"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7023809523809523,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.702"
+      }
+     ]
+    },
+    {
+     "formula": "TmScO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.145,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.15 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tm+3, Sc+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sc + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7763340185055101,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.776"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7023809523809523,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.702"
+      }
+     ]
+    },
+    {
+     "formula": "TmScO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.145,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.15 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tm+3, Sc+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sc + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7763340185055101,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.776"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7023809523809523,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.702"
+      }
+     ]
+    },
+    {
+     "formula": "TmScO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.145,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.15 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tm+3, Sc+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sc + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7763340185055101,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.776"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7023809523809523,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.702"
+      }
+     ]
+    },
+    {
+     "formula": "TmScO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.145,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.15 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tm+3, Sc+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sc + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7763340185055101,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.776"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7023809523809523,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.702"
+      }
+     ]
+    },
+    {
+     "formula": "YbCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Yb+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7533901341369397,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.753"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "YbCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Yb+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7533901341369397,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.753"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "YbCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Yb+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7533901341369397,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.753"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "YbCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Yb+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7533901341369397,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.753"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "YbCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Yb+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7533901341369397,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.753"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "YbCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Yb+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7533901341369397,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.753"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "YbCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Yb+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7533901341369397,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.753"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "YbCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Yb+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7533901341369397,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.753"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "YbCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Yb+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7533901341369397,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.753"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "YbCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Yb+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7533901341369397,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.753"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "YbCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Yb+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7533901341369397,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.753"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "YbCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Yb+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7533901341369397,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.753"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TbCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tb+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7204453863771119,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.720"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TbCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tb+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7204453863771119,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.720"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TbCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tb+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7204453863771119,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.720"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TbCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tb+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7204453863771119,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.720"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "index": 3,
+   "values": {
+    "dir_gap": 3.5,
+    "heat_all": -0.1
+   },
+   "rounds_used": 3,
+   "attempts": 1187,
+   "latents_decoded": 144,
+   "latents_passing": 52,
+   "first_failure": {
+    "tolerance_factor": 1055,
+    "no charge-balancing element": 80
+   },
+   "failures_any": {
+    "tolerance_factor": 1055,
+    "no charge-balancing element": 80
+   },
+   "skipped_duplicate": 40,
+   "skipped_similar": 0,
+   "saved": [
+    {
+     "target_index": 3,
+     "round": 1,
+     "file": "cifs\\oxide_T3_R1_1.cif",
+     "elements": {
+      "B": "Fe",
+      "X": "O",
+      "A": "Nd"
+     },
+     "formula": "NdFeO3",
+     "lattice_a": 4.225,
+     "predictions": {
+      "heat_all": 5.974859237670898,
+      "dir_gap": 0.3918341398239136
+     },
+     "constraint_results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.1125,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.11 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Nd+3, Fe+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Fe + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.8490302250791375,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.849"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.6765873015873016,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.677"
+      }
+     ],
+     "score": 12.090638709432511,
+     "latent_norm": 1.0058091878890991,
+     "flags": [
+      "predicted heat_all 5.97 is outside the training range [-0.64, 5.16] - the model is extrapolating"
+     ]
+    },
+    {
+     "target_index": 3,
+     "round": 2,
+     "file": "cifs\\oxide_T3_R2_2.cif",
+     "elements": {
+      "B": "Al",
+      "X": "O",
+      "A": "Lu"
+     },
+     "formula": "LuAlO3",
+     "lattice_a": 3.87,
+     "predictions": {
+      "heat_all": 2.892760992050171,
+      "dir_gap": 3.272732734680176
+     },
+     "constraint_results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 1.935,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 1.94 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Lu+3, Al+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999999,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Al + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.8262369158980795,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.826"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.5357142857142857,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.536"
+      }
+     ],
+     "score": 1.24875480670602,
+     "latent_norm": 1.0104961395263672,
+     "flags": []
+    },
+    {
+     "target_index": 3,
+     "round": 2,
+     "file": "cifs\\oxide_T3_R2_3.cif",
+     "elements": {
+      "B": "Nb",
+      "X": "O",
+      "A": "Cs"
+     },
+     "formula": "CsNbO3",
+     "lattice_a": 4.16,
+     "predictions": {
+      "heat_all": 8.10097885131836,
+      "dir_gap": 0.1055581346154213
+     },
+     "constraint_results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.08,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.08 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Cs+1, Nb+5, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Nb + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 1.0436624126166831,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 1.044"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.6507936507936507,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.651"
+      }
+     ],
+     "score": 14.802627118002881,
+     "latent_norm": 0.9990657567977905,
+     "flags": [
+      "predicted heat_all 8.10 is outside the training range [-0.64, 5.16] - the model is extrapolating"
+     ]
+    },
+    {
+     "target_index": 3,
+     "round": 3,
+     "file": "cifs\\oxide_T3_R3_4.cif",
+     "elements": {
+      "B": "Ge",
+      "X": "O",
+      "A": "Sr"
+     },
+     "formula": "SrGeO3",
+     "lattice_a": 4.0600000000000005,
+     "predictions": {
+      "heat_all": -7.407781600952148,
+      "dir_gap": 1.5001566410064697
+     },
+     "constraint_results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.0300000000000002,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.03 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Sr+2, Ge+4, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Ge + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.8986874361878288,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.899"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.6111111111111112,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.611"
+      }
+     ],
+     "score": 6.922486100891385,
+     "latent_norm": 4.48726224899292,
+     "flags": [
+      "predicted heat_all -7.41 is outside the training range [-0.64, 5.16] - the model is extrapolating"
+     ]
+    },
+    {
+     "target_index": 3,
+     "round": 3,
+     "file": "cifs\\oxide_T3_R3_5.cif",
+     "elements": {
+      "B": "Nb",
+      "X": "O",
+      "A": "Rb"
+     },
+     "formula": "RbNbO3",
+     "lattice_a": 4.16,
+     "predictions": {
+      "heat_all": -0.8210837841033936,
+      "dir_gap": 0.08256403356790543
+     },
+     "constraint_results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.08,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.08 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Rb+1, Nb+5, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Nb + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.9926691351272685,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.993"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.6507936507936507,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.651"
+      }
+     ],
+     "score": 11.967302098305023,
+     "latent_norm": 0.9999454021453857,
+     "flags": []
+    },
+    {
+     "target_index": 3,
+     "round": 3,
+     "file": "cifs\\oxide_T3_R3_6.cif",
+     "elements": {
+      "B": "Sn",
+      "X": "O",
+      "A": "Ca"
+     },
+     "formula": "CaSnO3",
+     "lattice_a": 4.18,
+     "predictions": {
+      "heat_all": 2.01713228225708,
+      "dir_gap": 0.09976115822792053
+     },
+     "constraint_results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.09,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.09 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Ca+2, Sn+4, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Sn + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": true,
+       "value": 0.8119886482524947,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.812"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.6587301587301587,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.659"
+      }
+     ],
+     "score": 12.408477093998366,
+     "latent_norm": 0.9949273467063904,
+     "flags": []
+    }
+   ],
+   "rejected_examples": [
+    {
+     "formula": "TbCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tb+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7204453863771119,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.720"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TbCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tb+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7204453863771119,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.720"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TbCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tb+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7204453863771119,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.720"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TbCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tb+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7204453863771119,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.720"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TbCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tb+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7204453863771119,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.720"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TbCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tb+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7204453863771119,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.720"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TbCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tb+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7204453863771119,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.720"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TbCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tb+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7204453863771119,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.720"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TbCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tb+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7204453863771119,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.720"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TbCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tb+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7204453863771119,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.720"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TbCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tb+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7204453863771119,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.720"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TbCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tb+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7204453863771119,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.720"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TmCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tm+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7569256680428723,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.757"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TmCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tm+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7569256680428723,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.757"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TmCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tm+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7569256680428723,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.757"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TmCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tm+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7569256680428723,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.757"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TmCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tm+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7569256680428723,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.757"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TmCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tm+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7569256680428723,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.757"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TmCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tm+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7569256680428723,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.757"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TmCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tm+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7569256680428723,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.757"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TmCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tm+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7569256680428723,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.757"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TmCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tm+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7569256680428723,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.757"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TmCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tm+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7569256680428723,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.757"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TmCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tm+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7569256680428723,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.757"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TmCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tm+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7569256680428723,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.757"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TmCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tm+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7569256680428723,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.757"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TmCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tm+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7569256680428723,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.757"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TmCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tm+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7569256680428723,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.757"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TmCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tm+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7569256680428723,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.757"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TmCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tm+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7569256680428723,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.757"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TmCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tm+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7569256680428723,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.757"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TmCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tm+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7569256680428723,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.757"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TmCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tm+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7569256680428723,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.757"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TmCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tm+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7569256680428723,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.757"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TmCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tm+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7569256680428723,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.757"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TmCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tm+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7569256680428723,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.757"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TbCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tb+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7204453863771119,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.720"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TbCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tb+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7204453863771119,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.720"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TbCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tb+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7204453863771119,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.720"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    },
+    {
+     "formula": "TbCrO3",
+     "first_failure": "tolerance_factor",
+     "results": [
+      {
+       "name": "min_distance",
+       "passed": true,
+       "value": 2.2,
+       "window": [
+        0.8,
+        null
+       ],
+       "detail": "closest pair 2.20 \u00c5"
+      },
+      {
+       "name": "symmetry_refinement",
+       "passed": true,
+       "value": null,
+       "window": null,
+       "detail": ""
+      },
+      {
+       "name": "charge_neutrality",
+       "passed": true,
+       "value": 1.0,
+       "window": [
+        1,
+        1
+       ],
+       "detail": "balanced as Tb+3, Cr+3, O-2"
+      },
+      {
+       "name": "bond_window",
+       "passed": true,
+       "value": 0.9999999999999998,
+       "window": [
+        0.75,
+        1.35
+       ],
+       "detail": "nearest B\u2013X distance = 1.00 \u00d7 (r_Cr + r_O)"
+      },
+      {
+       "name": "tolerance_factor",
+       "passed": false,
+       "value": 0.7204453863771119,
+       "window": [
+        0.8,
+        1.05
+       ],
+       "detail": "t = 0.720"
+      },
+      {
+       "name": "octahedral_factor",
+       "passed": true,
+       "value": 0.7460317460317459,
+       "window": [
+        0.414,
+        0.9
+       ],
+       "detail": "\u03bc = 0.746"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "property_ranges": {
+  "heat_all": [
+   -0.64,
+   5.16
+  ],
+  "dir_gap": [
+   0.0,
+   7.9
+  ]
+ },
+ "settings": {
+  "family": "perovskite_abx3",
+  "variant": "oxide",
+  "objectives": [
+   {
+    "property": "dir_gap",
+    "loss": "l2",
+    "weight": 10000.0,
+    "select_weight": 1.0,
+    "select_loss": null
+   },
+   {
+    "property": "heat_all",
+    "loss": "l1",
+    "weight": 6000.0,
+    "select_weight": 0.4,
+    "select_loss": null
+   }
+  ],
+  "targets": [
+   {
+    "dir_gap": 1.5,
+    "heat_all": -0.1
+   },
+   {
+    "dir_gap": 2.5,
+    "heat_all": -0.1
+   },
+   {
+    "dir_gap": 3.5,
+    "heat_all": -0.1
+   }
+  ],
+  "per_target": 6,
+  "population": 48,
+  "rounds": 6,
+  "steps": 800,
+  "learning_rate": 0.0012,
+  "anchor_weight": 12.0,
+  "temperature_start": 1.6,
+  "temperature_end": 0.9,
+  "diversity_weight": 0.9,
+  "diversity_tau": 0.25,
+  "history_weight": 1.0,
+  "history_tau": 0.25,
+  "restart_patience": 250,
+  "restart_noise": 0.35,
+  "grad_clip": 1.0,
+  "z_clip": 5.0,
+  "init_sigma": 0.35,
+  "init_anchor_mix": 0.75,
+  "init_rff_mix": 0.6,
+  "init_noise_mix": 0.25,
+  "rff_frequencies": 48,
+  "decode_temperature": 1.25,
+  "decode_topk": 12,
+  "decode_tries": 12,
+  "anti_repeat_alpha": 0.6,
+  "anti_repeat_group": null,
+  "geometry_scale": 1.0,
+  "property_first": false,
+  "dedup_formula": true,
+  "min_cosine_sep": 0.985,
+  "unique_decimals": 3,
+  "exclude_elements": [],
+  "only_elements": {},
+  "overrides": {},
+  "extra_constraints": [],
+  "disabled_rules": [],
+  "seed": 937,
+  "amp": true,
+  "output_prefix": "oxide"
+ }
+}

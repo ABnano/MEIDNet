@@ -4,6 +4,7 @@ Every method record, newest first. [Contribute yours](contribute.md).
 
 | date | method | dataset | tasks | status |
 |---|---|---|---|---|
+| 2026-10-05 | [MEIDNet (alignment training, seed 3)](../benchmarks/results/meidnet-alignment-seed3.md) | [Perov-5](../benchmarks/perov5.md) | inverse design | Computed here |
 | 2026-10-05 | [MEIDNet (alignment training, 7 seeds)](../benchmarks/results/meidnet-alignment.md) | [Perov-5](../benchmarks/perov5.md) | representation | Computed here |
 | 2026-10-05 | [Candidates shipped with the paper, screened here](../benchmarks/results/paper-candidates.md) | [Perov-5](../benchmarks/perov5.md) | inverse design | Computed here |
 | 2026-10-03 | [Chance level](../benchmarks/results/baseline-chance.md) | [Perov-5](../benchmarks/perov5.md) | representation | Computed here |

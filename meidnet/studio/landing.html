@@ -49,15 +49,10 @@ h1 .prism{background:linear-gradient(90deg,var(--p1),var(--p2));-webkit-backgrou
 .tour-fallback:hover span{background:var(--p2)}
 .layers{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:8px 0 28px}@media(max-width:900px){.layers{grid-template-columns:1fr 1fr}}@media(max-width:600px){.layers{grid-template-columns:1fr}}
 .layers .card h2 small{display:block;font:700 11px/1.4 system-ui;letter-spacing:.12em;text-transform:uppercase;color:color-mix(in oklab,var(--accent,var(--p1)) 72%,var(--eyebrow-mix))}
-.flow{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:0 0 12px;font-weight:700;font-size:14.5px}
-.flow a{text-decoration:none;color:var(--ink);background:var(--card);border:1px solid var(--line);border-top:3px solid var(--accent);border-radius:10px;padding:6px 12px}
-.flow a:hover{box-shadow:0 4px 14px -8px rgba(0,0,0,.5)}.flow span{color:var(--faint)}
 h2.sec{font-size:24px;margin:0 0 6px}.sec-sub{color:var(--muted);margin:0 0 14px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;border-top:4px solid var(--accent,var(--p1))}
 .card h2{margin:0 0 6px;font-size:21px}.card p{margin:0 0 10px;color:var(--muted)}.card a.more{font-weight:700;text-decoration:none}
 .card ul{margin:0;padding-left:18px;color:var(--muted);font-size:14.5px}
-.strip{display:flex;flex-wrap:wrap;gap:8px 18px;justify-content:center;padding:14px;border:1px solid var(--line);border-radius:14px;background:var(--card);font-size:14px;color:var(--muted);margin:0 0 28px}
-.strip span::before{content:"✓ ";color:var(--c-search);font-weight:800}
 .how{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin:0 0 28px}@media(max-width:760px){.how{grid-template-columns:repeat(4,1fr)}}
 .how div{border-radius:10px;padding:10px 8px;text-align:center;font-weight:700;font-size:14px;color:#fff;background:var(--bc)}
 .how small{display:block;font-weight:500;opacity:.9;font-size:12px}
@@ -65,11 +60,19 @@ h2.sec{font-size:24px;margin:0 0 6px}.sec-sub{color:var(--muted);margin:0 0 14px
 .cite pre{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto;font-size:13px;margin:10px 0 0}
 .reading{margin:0;padding-left:18px;color:var(--muted);font-size:14.5px}.reading li{margin:4px 0}
 .cite button{font:inherit;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:9px;padding:6px 12px;cursor:pointer}
+.eqbg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;color:var(--ink);opacity:.075;
+  font:italic 400 clamp(15px,1.6vw,22px)/1.2 "Cambria Math","STIX Two Math","Latin Modern Math","Times New Roman",serif}
+.eqbg span{position:absolute;white-space:nowrap}
+:root[data-theme="dark"] .eqbg{opacity:.11}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .eqbg{opacity:.11}}
+@media(max-width:700px){.eqbg span:nth-child(n+9){display:none}}
+header,main{position:relative;z-index:1}
 footer{color:var(--faint);font-size:13.5px;padding:10px 0 40px;display:flex;gap:16px;flex-wrap:wrap}
 .theme{font:inherit;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:9px;padding:5px 9px;cursor:pointer}
 </style>
 </head>
 <body>
+<div class="eqbg" aria-hidden="true"><span style="left:4%;top:9%">Ĥψ = Eψ</span><span style="left:66%;top:7%">ℒ<sub>InfoNCE</sub> = −log exp(s<sub>ii</sub>/τ) ⁄ Σ<sub>j</sub> exp(s<sub>ij</sub>/τ)</span><span style="left:40%;top:21%">z<sup>*</sup> = argmin<sub>z</sub> ‖f(z) − y<sup>*</sup>‖²</span><span style="left:82%;top:29%">nλ = 2d sin θ</span><span style="left:2%;top:36%">θ ← θ − η ∇<sub>θ</sub>ℒ</span><span style="left:56%;top:44%">t = (r<sub>A</sub> + r<sub>X</sub>) ⁄ √2 (r<sub>B</sub> + r<sub>X</sub>)</span><span style="left:14%;top:55%">softmax(QKᵀ ⁄ √d) V</span><span style="left:74%;top:62%">ΔE<sub>hull</sub> = E − E<sub>hull</sub>(x)</span><span style="left:6%;top:73%">p(x) ∝ e<sup>−E(x)/k<sub>B</sub>T</sup></span><span style="left:44%;top:80%">h<sub>i</sub><sup>l+1</sup> = φ<sub>h</sub>(h<sub>i</sub><sup>l</sup>, Σ<sub>j</sub> m<sub>ij</sub>)</span><span style="left:78%;top:88%">D<sub>KL</sub>(q ‖ p) = Σ q log(q/p)</span><span style="left:22%;top:93%">∇·E = ρ ⁄ ε<sub>0</sub></span><span style="left:48%;top:2%">cos(z<sub>s</sub>, z<sub>p</sub>)</span><span style="left:90%;top:50%">ΔH<sub>f</sub></span><span style="left:30%;top:66%">E<sub>g</sub></span></div>
 <header><div class="wrap">
   <a class="brand" href="/"><img src="/docs/assets/prism-mark-192.png" alt=""> MEIDNet <span style="font-weight:500;color:var(--muted)">Prism</span></a>
   <nav aria-label="Main">
@@ -88,7 +91,7 @@ footer{color:var(--faint);font-size:13.5px;padding:10px 0 40px;display:flex;gap:
       <h1>Learn, build and benchmark <span class="prism">multimodal AI</span> for materials discovery</h1>
       <p class="tag">From the concepts of multimodal learning to a trained model and reproducible results. MEIDNet, the reference implementation, learns one space shared by crystal structures and their properties, and searches it for materials with target properties.</p>
       <div class="btns"><a class="btn primary" href="/studio/">▶ Try MEIDNet</a><a class="btn" href="/studio/?panel=data">Use your dataset</a><a class="btn" href="/docs/learn/index.html">Learn multimodality</a></div>
-      <p class="pub"><b>Published in npj Computational Materials (2026)</b> · <a href="https://doi.org/10.1038/s41524-026-02153-3">doi 10.1038/s41524-026-02153-3</a> · <a href="https://github.com/ABnano/MEIDNet">GitHub</a> · MIT licence</p>
+      <p class="pub">A. Babu <i>et al.</i>, <i>npj Comput. Mater.</i> <b>12</b>, 287 (2026) · <a href="https://doi.org/10.1038/s41524-026-02153-3">Article</a> · <a href="https://github.com/ABnano/MEIDNet">Code</a></p>
     </div>
     <img class="prismfig" src="/docs/assets/meidnet_prism_logo.png" alt="MEIDNet Prism: several modalities enter a prism and leave it as one connected representation of materials.">
   </section>
@@ -104,43 +107,30 @@ footer{color:var(--faint);font-size:13.5px;padding:10px 0 40px;display:flex;gap:
     <figcaption>MEIDNet in one minute: data → model → family → rules → targets → search → candidates. The same tour opens on your first visit to the Studio.</figcaption>
   </figure>
 
-  <h2 class="sec">Six connected layers</h2>
-  <p class="sec-sub">From concepts to reproducible results: the methods, the choice of architecture, a model trained on your data, and results compared on shared benchmarks.</p>
-  <div class="flow" aria-label="The six layers in order">
-    <a href="/docs/learn/index.html" style="--accent:var(--c-data)">Learn</a><span>→</span>
-    <a href="/docs/learn/architectures.html" style="--accent:var(--c-model)">Architectures</a><span>→</span>
-    <a href="/studio/" style="--accent:var(--c-family)">Build</a><span>→</span>
-    <a href="/docs/explore/datasets.html" style="--accent:var(--c-rules)">Datasets</a><span>→</span>
-    <a href="/docs/benchmarks/index.html" style="--accent:var(--c-targets)">Benchmarks</a><span>→</span>
-    <a href="/docs/community/contribute.html" style="--accent:var(--c-candidates)">Community</a>
-  </div>
+  <h2 class="sec">Contents</h2>
+  <p class="sec-sub">Background on multimodal learning, model architectures, the MEIDNet Studio, datasets, benchmarks and contributed results.</p>
   <section class="layers">
-    <div class="card" style="--accent:var(--c-data)"><h2><small>1 · Learn</small>What is multimodal learning?</h2><p>Modalities, the five challenges of multimodal learning, contrastive learning with a playground, and an interactive map of materials modalities.</p>
+    <div class="card" style="--accent:var(--c-data)"><h2><small>Learn</small>What is multimodal learning?</h2><p>Modalities, the five challenges of multimodal learning, contrastive learning with a playground, and an interactive map of materials modalities.</p>
       <p><a class="more" href="/docs/learn/index.html">Learn multimodality →</a></p></div>
-    <div class="card" style="--accent:var(--c-model)"><h2><small>2 · Architectures</small>Which design fits my data?</h2><p>Early and late fusion, shared latent spaces, cross-attention and contrastive learning, drawn side by side, with an advisor that recommends one.</p>
+    <div class="card" style="--accent:var(--c-model)"><h2><small>Architectures</small>Which design fits my data?</h2><p>Early and late fusion, shared latent spaces, cross-attention and contrastive learning, drawn side by side, with an advisor that recommends one.</p>
       <p><a class="more" href="/docs/learn/architectures.html">Architecture Atlas →</a> &nbsp; <a class="more" href="/docs/learn/architectures.html#advisor">Advisor →</a></p></div>
-    <div class="card" style="--accent:var(--c-family)"><h2><small>3 · Build</small>MEIDNet Studio</h2><p>Upload structures and properties, train in the browser, set targets and rules, run the search and inspect every candidate in 3D. Every setting is saved in one YAML file.</p>
+    <div class="card" style="--accent:var(--c-family)"><h2><small>Build</small>MEIDNet Studio</h2><p>Upload structures and properties, train in the browser, set targets and rules, run the search and inspect every candidate in 3D. Every setting is saved in one YAML file.</p>
       <p><a class="more" href="/studio/">Try MEIDNet →</a> &nbsp; <a class="more" href="/docs/learn/recipes.html">Recipes by problem →</a></p></div>
-    <div class="card" style="--accent:var(--c-rules)"><h2><small>4 · Datasets</small>Datasets and databases</h2><p>Perov-5, the published multimodal benchmark, other datasets used with MEIDNet, and 31 computed and experimental databases grouped by application.</p>
+    <div class="card" style="--accent:var(--c-rules)"><h2><small>Datasets</small>Datasets and databases</h2><p>Perov-5, the published multimodal benchmark, other datasets used with MEIDNet, and 31 computed and experimental databases grouped by application.</p>
       <p><a class="more" href="/docs/explore/datasets.html">Datasets →</a> &nbsp; <a class="more" href="/docs/explore/databases.html">Databases →</a></p></div>
-    <div class="card" style="--accent:var(--c-targets)"><h2><small>5 · Benchmarks</small>Leaderboards</h2><p>Fixed protocols per dataset: inverse design scored by stable, unique and novel candidates, property prediction and representation, with baselines. Any model can be scored with the same code.</p>
+    <div class="card" style="--accent:var(--c-targets)"><h2><small>Benchmarks</small>Leaderboards</h2><p>Fixed protocols per dataset: inverse design scored by stable, unique and novel candidates, property prediction and representation, with baselines. Any model can be scored with the same code.</p>
       <p><a class="more" href="/docs/benchmarks/index.html">Benchmarks →</a></p></div>
-    <div class="card" style="--accent:var(--c-candidates)"><h2><small>6 · Community</small>Contribute results</h2><p>Results are submitted through GitHub, re-run by the maintainer and marked as verified when they reproduce. Re-runs that disagree are published as well.</p>
+    <div class="card" style="--accent:var(--c-candidates)"><h2><small>Community</small>Contribute results</h2><p>Results are submitted through GitHub, re-run by the maintainer and marked as verified when they reproduce. Re-runs that disagree are published as well.</p>
       <p><a class="more" href="/docs/community/contribute.html">Contribute a result →</a></p></div>
   </section>
 
-  <h2 class="sec">MEIDNet Studio: from data to candidates in seven blocks</h2>
-  <p class="sec-sub">A change in one block updates every block after it.</p>
+  <h2 class="sec">MEIDNet Studio</h2>
+  <p class="sec-sub">The workflow from a dataset of structures and properties to candidate materials.</p>
   <div class="how" aria-label="The seven blocks of the Studio">
     <div style="--bc:var(--c-data)">Data<small>your materials</small></div><div style="--bc:var(--c-model)">Model<small>shared space</small></div>
     <div style="--bc:var(--c-family)">Family<small>crystal type</small></div><div style="--bc:var(--c-rules)">Rules<small>chemistry</small></div>
     <div style="--bc:var(--c-targets)">Targets<small>what you want</small></div><div style="--bc:var(--c-search)">Search<small>inverse design</small></div>
     <div style="--bc:var(--c-candidates)">Candidates<small>new materials</small></div>
-  </div>
-
-  <div class="strip" aria-label="Credibility">
-    <span>Published in npj Computational Materials</span><span>Open source, MIT</span><span>Bit-exact regression against the paper’s code</span>
-    <span>Three pretrained checkpoints</span><span>MLIP stability screening (MACE)</span><span>Runs on a laptop CPU</span>
   </div>
 
   <section class="cite" id="cite">
@@ -154,11 +144,17 @@ footer{color:var(--faint);font-size:13.5px;padding:10px 0 40px;display:flex;gap:
   year    = {2026},
   doi     = {10.1038/s41524-026-02153-3}
 }</pre>
-    <h3 style="margin:16px 0 4px;font-size:17px">Further reading</h3>
-    <ul class="reading">
-      <li>A. Babu and N. M. A. Krishnan, <i>Multimodal and cross-modal learning techniques</i>, APL Machine Learning <b>4</b>, 030901 (2026). <a href="https://doi.org/10.1063/5.0346744">doi:10.1063/5.0346744</a></li>
+  </section>
+
+  <section class="cite" id="reading">
+    <h2 style="margin:0 0 6px;font-size:20px">Further reading</h2>
+    <ol class="reading">
       <li>A. Babu, R. Almeida Gouvêa and G.-M. Rignanese, <i>Toward automated discovery with generative models multimodal learning and closed loop workflows in inverse materials design</i>, Cell Reports Physical Science <b>7</b>, 103561 (2026). <a href="https://doi.org/10.1016/j.xcrp.2026.103561">doi:10.1016/j.xcrp.2026.103561</a></li>
-    </ul>
+      <li>A. Babu and N. M. A. Krishnan, <i>Multimodal and cross-modal learning techniques</i>, APL Machine Learning <b>4</b>, 030901 (2026). <a href="https://doi.org/10.1063/5.0346744">doi:10.1063/5.0346744</a></li>
+      <li>Y. LeCun, Y. Bengio and G. Hinton, <i>Deep learning</i>, Nature <b>521</b>, 436–444 (2015). <a href="https://doi.org/10.1038/nature14539">doi:10.1038/nature14539</a></li>
+      <li>Y. Bengio, A. Courville and P. Vincent, <i>Representation learning: a review and new perspectives</i>, IEEE Transactions on Pattern Analysis and Machine Intelligence <b>35</b>, 1798–1828 (2013). <a href="https://doi.org/10.1109/TPAMI.2013.50">doi:10.1109/TPAMI.2013.50</a></li>
+      <li>B. Sanchez-Lengeling and A. Aspuru-Guzik, <i>Inverse molecular design using machine learning: generative models for matter engineering</i>, Science <b>361</b>, 360–365 (2018). <a href="https://doi.org/10.1126/science.aat2663">doi:10.1126/science.aat2663</a></li>
+    </ol>
   </section>
   <footer><span>MEIDNet Prism: learn, build and benchmark multimodal AI for materials discovery. MEIDNet is its reference implementation.</span><a href="https://github.com/ABnano/MEIDNet">Code</a><a href="/docs/">Documentation</a><a href="/docs/understand/limits.html">Scope and roadmap</a><a href="https://huggingface.co/spaces/Babu09/MEIDNet">Hugging Face Space</a></footer>
 </main>

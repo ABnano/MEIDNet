@@ -44,20 +44,18 @@ models: [Babu09/MEIDNet]
 **Learn, build and benchmark multimodal AI for materials discovery.** MEIDNet, the reference
 implementation, learns one shared latent space for crystal structures and their properties, enumerates a
 prototype-family design space checked by chemistry rules, and searches the latent space for candidates
-with the properties you want. Six connected layers:
+with the properties you want.
 
-* **[Home](https://babu09-meidnet.hf.space/)** — what MEIDNet does, in one minute (animated tour).
+* **[Home](https://babu09-meidnet.hf.space/)** — overview and a one-minute tour.
 * **[Learn](https://babu09-meidnet.hf.space/docs/learn/index.html)** — what a modality is, the five
   challenges of multimodal learning, contrastive learning with a playground, an interactive map of
   materials modalities.
 * **[Architectures](https://babu09-meidnet.hf.space/docs/learn/architectures.html)** — early and late
   fusion, shared latent spaces, cross-attention and contrastive learning, with an advisor that recommends
   one for your data; [recipes by problem](https://babu09-meidnet.hf.space/docs/learn/recipes.html).
-* **[Build: Studio](https://babu09-meidnet.hf.space/studio/)** — the live workbench: seven colour-coded blocks
-  *Data → Model → Family → Rules → Targets → Search → Candidates*. Change a rule, exclude an element or
-  move a target and see the effect on the later blocks. Bring your own table (CSV / Excel /
-  JSON + CIFs), train a model in the browser, run the search, inspect every candidate in 3D, export the
-  `meidnet.yaml` that reproduces it on your machine.
+* **[Build: Studio](https://babu09-meidnet.hf.space/studio/)** — the workflow *Data → Model → Family → Rules →
+  Targets → Search → Candidates*: bring a table of structures and properties (CSV / Excel / JSON + CIFs), train
+  a model, run the search, inspect every candidate in 3D and export the `meidnet.yaml` that reproduces it.
 * **[Datasets](https://babu09-meidnet.hf.space/docs/explore/datasets.html)** — datasets that work with
   MEIDNet, 31 computed and experimental databases by application, and what is planned.
 * **[Benchmarks](https://babu09-meidnet.hf.space/docs/benchmarks/index.html)** — leaderboards under fixed
@@ -71,11 +69,19 @@ with the properties you want. Six connected layers:
 **Paper:** A. Babu, R. A. Gouvêa, P. Vandergheynst, G.-M. Rignanese, *npj Computational Materials* (2026),
 [doi:10.1038/s41524-026-02153-3](https://doi.org/10.1038/s41524-026-02153-3).
 
-**Further reading:** A. Babu, N. M. A. Krishnan, *Multimodal and cross-modal learning techniques*, APL Machine
-Learning 4, 030901 (2026), [doi:10.1063/5.0346744](https://doi.org/10.1063/5.0346744) · A. Babu,
-R. Almeida Gouvêa, G.-M. Rignanese, *Toward automated discovery with generative models multimodal learning and
-closed loop workflows in inverse materials design*, Cell Reports Physical Science 7, 103561 (2026),
-[doi:10.1016/j.xcrp.2026.103561](https://doi.org/10.1016/j.xcrp.2026.103561).
+**Further reading**
+
+1. A. Babu, R. Almeida Gouvêa, G.-M. Rignanese, *Toward automated discovery with generative models multimodal
+   learning and closed loop workflows in inverse materials design*, Cell Reports Physical Science 7, 103561 (2026),
+   [doi:10.1016/j.xcrp.2026.103561](https://doi.org/10.1016/j.xcrp.2026.103561).
+2. A. Babu, N. M. A. Krishnan, *Multimodal and cross-modal learning techniques*, APL Machine Learning 4, 030901
+   (2026), [doi:10.1063/5.0346744](https://doi.org/10.1063/5.0346744).
+3. Y. LeCun, Y. Bengio, G. Hinton, *Deep learning*, Nature 521, 436–444 (2015),
+   [doi:10.1038/nature14539](https://doi.org/10.1038/nature14539).
+4. Y. Bengio, A. Courville, P. Vincent, *Representation learning: a review and new perspectives*, IEEE TPAMI 35,
+   1798–1828 (2013), [doi:10.1109/TPAMI.2013.50](https://doi.org/10.1109/TPAMI.2013.50).
+5. B. Sanchez-Lengeling, A. Aspuru-Guzik, *Inverse molecular design using machine learning: generative models for
+   matter engineering*, Science 361, 360–365 (2018), [doi:10.1126/science.aat2663](https://doi.org/10.1126/science.aat2663).
 
 This public Space is shared: uploads are capped (8 MB, 1,500 rows, 30 epochs), one training at a time,
 sessions are private per browser tab and removed after an hour. Predicted properties are the model's

@@ -154,11 +154,11 @@ meidnet space examples/perov5/meidnet.yaml --model checkpoints/dual_autoencoder_
   test set and Automatminer reference algorithm", *npj Comput. Mater.* **6**, 138 (2020). [doi:10.1038/s41524-020-00406-3](https://doi.org/10.1038/s41524-020-00406-3)
 - O. Kononova *et al.*, "Text-mined dataset of inorganic materials synthesis recipes", *Sci. Data* **6**, 203 (2019).
   [doi:10.1038/s41597-019-0224-1](https://doi.org/10.1038/s41597-019-0224-1)
-- A. Babu, N. M. A. Krishnan, "Multimodal and cross-modal learning techniques", *APL Mach. Learn.* **4**, 030901
-  (2026). [doi:10.1063/5.0346744](https://doi.org/10.1063/5.0346744)
 - A. Babu, R. Almeida Gouvêa, G.-M. Rignanese, "Toward automated discovery with generative models multimodal
   learning and closed loop workflows in inverse materials design", *Cell Rep. Phys. Sci.* **7**, 103561 (2026).
   [doi:10.1016/j.xcrp.2026.103561](https://doi.org/10.1016/j.xcrp.2026.103561)
+- A. Babu, N. M. A. Krishnan, "Multimodal and cross-modal learning techniques", *APL Mach. Learn.* **4**, 030901
+  (2026). [doi:10.1063/5.0346744](https://doi.org/10.1063/5.0346744)
 - C. Zeni *et al.*, "A generative model for inorganic materials design", *Nature* **639**, 624–632 (2025).
   [doi:10.1038/s41586-025-08628-5](https://doi.org/10.1038/s41586-025-08628-5)
 - T. Xie *et al.*, "Crystal diffusion variational autoencoder for periodic material generation", *ICLR* (2022).

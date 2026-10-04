@@ -24,17 +24,15 @@ Anand Babu, Rogério Almeida Gouvêa, Pierre Vandergheynst, Gian-Marco Rignanese
   Xie et al., *ICLR* (2022).
 - Generated structures: `examples/perov5/paper_results/`.
 
-## Related
+## Further reading
 
-Reviews by the authors:
-
-- A. Babu, N. M. A. Krishnan, *Multimodal and cross-modal learning techniques*, APL Machine Learning **4**, 030901
-  (2026). [doi:10.1063/5.0346744](https://doi.org/10.1063/5.0346744)
 - A. Babu, R. Almeida Gouvêa, G.-M. Rignanese, *Toward automated discovery with generative models multimodal
   learning and closed loop workflows in inverse materials design*, Cell Reports Physical Science **7**, 103561
   (2026). [doi:10.1016/j.xcrp.2026.103561](https://doi.org/10.1016/j.xcrp.2026.103561)
+- A. Babu, N. M. A. Krishnan, *Multimodal and cross-modal learning techniques*, APL Machine Learning **4**, 030901
+  (2026). [doi:10.1063/5.0346744](https://doi.org/10.1063/5.0346744)
 
-Methods MEIDNet builds on:
+## Methods MEIDNet builds on
 
 - Satorras, Hoogeboom, Welling, *E(n) equivariant graph neural networks*, ICML 2021 (the encoder).
 - Radford et al., *CLIP*, ICML 2021 (the alignment objective).

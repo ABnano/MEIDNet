@@ -16,7 +16,7 @@ oxide_T3_2,oxide,3,3.5,-0.1,LaMnO3,"{""A"": ""La"", ""B"": ""Mn"", ""X"": ""O""}
 oxide_T3_3,oxide,3,3.5,-0.1,KTaO3,"{""A"": ""K"", ""B"": ""Ta"", ""X"": ""O""}",cifs/oxide_T3_3.cif,True,KTaO3,True,True,False,-2.93,True,False,5.0,False
 oxide_T3_4,oxide,3,3.5,-0.1,LaCoO3,"{""A"": ""La"", ""B"": ""Co"", ""X"": ""O""}",cifs/oxide_T3_4.cif,True,LaCoO3,True,True,False,-2.08416,True,False,0.0,False
 oxide_T3_5,oxide,3,3.5,-0.1,CaHfO3,"{""A"": ""Ca"", ""B"": ""Hf"", ""X"": ""O""}",cifs/oxide_T3_5.cif,True,CaHfO3,True,True,False,-3.52892,True,False,7.3,False
-oxide_T3_6,oxide,3,3.5,-0.1,CsTaO3,"{""A"": ""Cs"", ""B"": ""Ta"", ""X"": ""O""}",cifs/oxide_T3_6.cif,True,CsTaO3,True,True,True,-2.6707,True,True,3.5,True
+oxide_T3_6,oxide,3,3.5,-0.1,CsTaO3,"{""A"": ""Cs"", ""B"": ""Ta"", ""X"": ""O""}",cifs/oxide_T3_6.cif,True,CsTaO3,True,True,False,-2.6707,True,False,3.5,True
 chalcogenide_T1_1,chalcogenide,1,1.5,-0.1,SmScSe3,"{""A"": ""Sm"", ""B"": ""Sc"", ""X"": ""Se""}",cifs/chalcogenide_T1_1.cif,True,SmScSe3,True,True,True,-1.8011,True,True,,
 chalcogenide_T1_2,chalcogenide,1,1.5,-0.1,LaMnSe3,"{""A"": ""La"", ""B"": ""Mn"", ""X"": ""Se""}",cifs/chalcogenide_T1_2.cif,True,LaMnSe3,True,True,True,-1.50995,True,True,,
 chalcogenide_T1_3,chalcogenide,1,1.5,-0.1,NaTaSe3,"{""A"": ""Na"", ""B"": ""Ta"", ""X"": ""Se""}",cifs/chalcogenide_T1_3.cif,True,NaTaSe3,True,True,True,-1.12527,True,True,,

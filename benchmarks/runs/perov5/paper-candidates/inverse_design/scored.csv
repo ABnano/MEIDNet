@@ -23,5 +23,5 @@ oxide_oxide_T1_R1_3,oxide,,LaScO3,{},cifs/oxide_oxide_T1_R1_3.cif,True,LaScO3,Tr
 oxide_oxide_T1_R1_4,oxide,,NaTaO3,{},cifs/oxide_oxide_T1_R1_4.cif,True,NaTaO3,True,True,False,-2.90212,True,False,,
 oxide_oxide_T2_R1_1,oxide,,LaMnO3,{},cifs/oxide_oxide_T2_R1_1.cif,True,LaMnO3,True,False,False,-2.46739,True,False,,
 oxide_oxide_T2_R1_2,oxide,,BaMnO3,{},cifs/oxide_oxide_T2_R1_2.cif,True,BaMnO3,True,True,False,-1.91944,True,False,,
-oxide_oxide_T2_R1_3,oxide,,SrVO3,{},cifs/oxide_oxide_T2_R1_3.cif,True,SrVO3,True,True,True,-2.41583,True,True,,
-oxide_oxide_T2_R1_4,oxide,,BaPbO3,{},cifs/oxide_oxide_T2_R1_4.cif,True,BaPbO3,True,True,True,-1.96994,True,True,,
+oxide_oxide_T2_R1_3,oxide,,SrVO3,{},cifs/oxide_oxide_T2_R1_3.cif,True,SrVO3,True,True,False,-2.41583,True,False,,
+oxide_oxide_T2_R1_4,oxide,,BaPbO3,{},cifs/oxide_oxide_T2_R1_4.cif,True,BaPbO3,True,True,False,-1.96994,True,False,,

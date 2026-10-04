@@ -1,7 +1,7 @@
 {
  "id": "my-method",
  "dataset": "perov5",
- "protocol": "perov5-v1",
+ "protocol": "perov5-v1.1",
  "date": "2026-01-01",
  "submitter": {"name": "Your name", "affiliation": "", "github": ""},
  "modalities": ["structure", "property:heat_all", "property:dir_gap"],

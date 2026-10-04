@@ -2,15 +2,21 @@
 
 Standardised tasks for multimodal materials models, each with a fixed protocol: the data split, the targets, the candidate budget and the metrics. Every method is evaluated the same way, the outputs behind each number are kept, and the scoring works for any model, not only MEIDNet. Results are compared within one dataset and one protocol version.
 
-<div class="bench-kpis" markdown="0"><div><b>1</b><span>protocols</span></div><div><b>3</b><span>tasks</span></div><div><b>8</b><span>methods</span></div><div><b>9</b><span>computed here</span></div></div>
+<div class="bench-kpis" markdown="0"><div><b>1</b><span>protocols</span></div><div><b>3</b><span>tasks</span></div><div><b>9</b><span>methods</span></div><div><b>10</b><span>computed here</span></div></div>
 
 ## Leaderboards
 
 | dataset | protocol | tasks | models | baselines |
 |---|---|---|---|---|
-| [Perov-5](perov5.md) | `perov5-v1` | [inverse design](perov5.md#inverse-design), [property prediction](perov5.md#property-prediction), [representation](perov5.md#representation) | 3 | 5 |
+| [Perov-5](perov5.md) | `perov5-v1.1` | [inverse design](perov5.md#inverse-design), [property prediction](perov5.md#property-prediction), [representation](perov5.md#representation) | 4 | 5 |
 | [Carbon-24](carbon24.md) | not yet defined | – | – | – |
 | [MP-20](mp20.md) | not yet defined | – | – | – |
+
+## Analysis
+
+What the benchmark runs show beyond one number per method: the spread between training seeds, results on materials held out of training, where reconstruction fails, and what the shared space contains.
+
+- **Perov-5:** [Alignment across seeds](perov5-reproduction.md) · [What the runs show](perov5-insights.md) · [Choose a model and generate](perov5-guide.md)
 
 ## How a result gets on a leaderboard
 

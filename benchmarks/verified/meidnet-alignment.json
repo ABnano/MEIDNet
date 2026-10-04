@@ -1,0 +1,22 @@
+{
+ "id": "meidnet-alignment",
+ "submission_sha256": "d45c98a1fec088ad31cf5a011b28734c75a24a24e6f91b9386681e1cebcf4859",
+ "date": "2026-10-05",
+ "by": "maintainer",
+ "hardware": "Intel64 Family 6 Model 197 Stepping 2, GenuineIntel (16 threads), CPU only",
+ "meidnet_version": "2.0.0",
+ "obtained": {
+  "representation": {
+   "retrieval_top1": 0.2972636346480468,
+   "retrieval_top5": 0.8551047367427816,
+   "cosine_matched": 0.9535511391503471,
+   "knn_mae_heat_all": 0.02514406491790904,
+   "knn_mae_dir_gap": 0.04922664653708247,
+   "l2_matched": 0.3015082861695971,
+   "cosine_encoder": 0.9535511391503471,
+   "cosine_projection": -0.9782245329448155,
+   "n_profiles": 367.0,
+   "n_evaluated": 3785.0
+  }
+ }
+}

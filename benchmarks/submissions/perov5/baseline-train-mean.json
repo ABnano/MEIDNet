@@ -1,7 +1,7 @@
 {
  "id": "baseline-train-mean",
  "dataset": "perov5",
- "protocol": "perov5-v1",
+ "protocol": "perov5-v1.1",
  "date": "2026-10-03",
  "submitter": {
   "name": "Anand Babu",
@@ -18,6 +18,8 @@
   "meidnet_version": "2.0.0",
   "parameters": null,
   "training_data": "Perov-5 train (11,356)",
+  "test_in_training": false,
+  "alignment_space": "",
   "checkpoint": "",
   "checkpoint_sha256": "",
   "links": {
@@ -39,16 +41,18 @@
    "n_evaluated": 3785.0
   }
  },
+ "spread": {},
+ "n_runs": null,
  "validation_level": "generated",
  "evidence": [],
  "artifacts": {},
  "reproduce": {
   "command": "python scripts/benchmarks.py run perov5 --method baseline-train-mean",
   "hardware": "Intel64 Family 6 Model 197 Stepping 2, GenuineIntel (16 threads), CPU only",
-  "wall_time_s": 75.9
+  "wall_time_s": 22.5
  },
  "status": "meidnet_verified",
  "verified_by": "maintainer",
- "verified_on": "2026-10-03",
+ "verified_on": "2026-10-05",
  "notes": ""
 }

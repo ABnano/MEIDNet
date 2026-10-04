@@ -82,6 +82,7 @@ class Protocol(BaseModel):
     version: str
     data_dir: str = ""
     reference_model: str = ""
+    changes: list[str] = Field([], description="what changed in each version of the protocol, newest first")
     tasks: list[Task]
 
     def task(self, tid: str) -> Task | None:
@@ -125,6 +126,8 @@ class Method(BaseModel):
     meidnet_version: str = ""
     parameters: int | None = None
     training_data: str = ""
+    test_in_training: bool = Field(False, description="the training data included the benchmark's test split, so the scores on it are not held-out")
+    alignment_space: Literal["", "encoder", "projection"] = Field("", description="where the model's two latents are compared: the space its alignment loss acts on")
     checkpoint: str = ""
     checkpoint_sha256: str = Field("", pattern=r"^([0-9a-f]{64})?$")
     links: Links = Links()
@@ -146,7 +149,9 @@ class Submission(BaseModel):
     submitter: Submitter
     modalities: list[str] = Field(min_length=1)
     method: Method
-    results: dict[str, dict[str, float | None]] = Field(min_length=1, description="task id -> metric id -> value")
+    results: dict[str, dict[str, float | None]] = Field(min_length=1, description="task id -> metric id -> value (the mean, when there are several runs)")
+    spread: dict[str, dict[str, float | None]] = Field({}, description="task id -> metric id -> standard deviation over the runs")
+    n_runs: int | None = Field(None, description="independent training runs (seeds) behind the results")
     validation_level: Level = "generated"
     evidence: list[str] = []
     artifacts: dict[str, str] = Field({}, description="task id -> folder with the outputs behind the numbers")
@@ -441,6 +446,10 @@ def _links(s: Submission) -> str:
     return " · ".join(out) or "–"
 
 
+HELD_OUT_TASKS = ("property_prediction", "representation")      # tasks scored on the test split
+SEEN_MARK = '<sup title="trained on all materials, the test split included">†</sup>'
+
+
 def leaderboard(task: Task, rows: list[Submission], page_prefix: str = "results/") -> str:
     """One task as a sortable table: one row per method, one colour-scaled column per metric."""
     rows = _sorted_rows(task, [r for r in rows if task.id in r.results])
@@ -467,11 +476,18 @@ def leaderboard(task: Task, rows: list[Submission], page_prefix: str = "results/
                 bg, fg = heat(t)
                 style = f' style="background:{bg};color:{fg}"'
             sort = f' data-sort="{v:.6g}"' if _num(v) else ' data-sort=""'
-            h.append(f'<td class="lb-num"{sort}{style}>{_fmt(v, m.digits)}</td>')
+            sd = r.spread.get(task.id, {}).get(m.id)
+            pm = (f' <small title="standard deviation over {r.n_runs} runs">± {_fmt(sd, m.digits)}</small>'
+                  if _num(sd) and _num(v) and m.better != "none" else "")
+            h.append(f'<td class="lb-num"{sort}{style}>{_fmt(v, m.digits)}{pm}</td>')
         p = r.method.parameters
-        h.append(f'<td class="lb-num" data-sort="{p or 0}">{_params(p)}</td><td>{html.escape(r.method.training_data or "–")}</td>'
+        seen = SEEN_MARK if r.method.test_in_training and task.id in HELD_OUT_TASKS else ""
+        h.append(f'<td class="lb-num" data-sort="{p or 0}">{_params(p)}</td><td>{html.escape(r.method.training_data or "–")}{seen}</td>'
                  f'<td>{r.date}</td><td class="lb-links">{_links(r)}</td></tr>')
     h.append("</tbody></table></div>")
+    if any(r.method.test_in_training for r in rows) and task.id in HELD_OUT_TASKS:
+        h.append(f'\n\n{SEEN_MARK} Trained on all materials of the data set, the test split included: for these rows the scores '
+                 "are measured on materials the model has seen, and are not comparable with rows trained on the training split only.")
     return "".join(h)
 
 
@@ -586,6 +602,8 @@ def export_task(ds: Dataset, task: Task, rows: list[Submission]) -> tuple[str, s
 def _protocol_section(ds: Dataset) -> list[str]:
     p = ds.protocol
     out = ["## Protocol", "", f"Version **{p.version}**. Data: `{p.data_dir}` (`meidnet download-data`), split {ds.split}.", ""]
+    if p.changes:
+        out += ['??? note "Changes of the protocol"', ""] + [f"    - {c}" for c in p.changes] + [""]
     for t in p.tasks:
         out += [f"### {t.name}", "", t.summary, ""]
         st = t.settings
@@ -598,7 +616,7 @@ def _protocol_section(ds: Dataset) -> list[str]:
                     f"({st.get('per_target', 0) * len(st.get('targets', [])) * len(st.get('variants', []))} in total), each passing the family's rules |",
                     f"| MEIDNet search | the generation settings of `{st.get('generation_config')}`, at most {st.get('max_rounds')} rounds per target |",
                     f"| stability | {st.get('mlip')}; formation energy against elemental phases at most {st.get('stability_threshold')} eV/atom |",
-                    f"| novelty | composition absent from the training split |",
+                    f"| novelty | composition absent from the data set (all {ds.rows:,} materials) |",
                     f"| DFT check | Perov-5 entries with the same A, B and X sites; hit within {st.get('gap_tolerance')} eV of the target band gap |", ""]
         else:
             out += [f"Split: `{t.split}`. Reference implementation: `meidnet.benchmark`.", ""]
@@ -649,8 +667,9 @@ def render_dataset(ds: Dataset, rows: list[Submission]) -> str:
         st = idt.settings
         tiles.append(f"<div><b>{st['per_target'] * len(st['targets']) * len(st['variants'])}</b><span>candidates per method</span></div>")
     out += ['<div class="bench-kpis" markdown="0">' + "".join(tiles) + "</div>", ""]
-    nav = " · ".join([f"[{t.name}](#{_anchor(t.name)})" for t in p.tasks] + ["[Protocol](#protocol)", "[Reported in the paper](#reported-in-the-paper)",
-                                                                             "[Submit a method](../community/contribute.md)"])
+    extra = [f"[{title}]({page})" for page, title in ANALYSIS_PAGES.get(ds.id, [])]
+    nav = " · ".join([f"[{t.name}](#{_anchor(t.name)})" for t in p.tasks] + extra + ["[Protocol](#protocol)", "[Reported in the paper](#reported-in-the-paper)",
+                                                                                     "[Submit a method](../community/contribute.md)"])
     out += [nav, "{ .lb-toolbar }", ""]
     from meidnet import svg
     for t in p.tasks:
@@ -692,16 +711,6 @@ def render_dataset(ds: Dataset, rows: list[Submission]) -> str:
                 vals = ", ".join(f"{re.sub('<[^>]+>', '', t.metric(m).label)} {_fmt(v, t.metric(m).digits)}" for m, v in res.items() if t and t.metric(m))
                 out.append(f"| [{r.method.name}](results/{r.id}.md) | {t.name if t else tid} | {vals} | {STATUS_WORDS[r.status]} |")
         out.append("")
-        for r in paper:
-            att = attempt_record(r.id)
-            if att:
-                t = p.task(next(iter(r.results)))
-                def label(m):
-                    md = t.metric(m) if t else None
-                    return re.sub("<[^>]+>", "", md.label) if md else m
-                dis = "; ".join(f"{label(m)} {_fmt(d['submitted'], 3)} reported, {_fmt(d['obtained'], 3)} obtained here" for m, d in att.get("compared", {}).items())
-                out += [f"Re-evaluating the shipped checkpoint with this code on the same split gives: {dis} "
-                        f"([details](results/{r.id}.md)). The protocol rows above report this code's numbers on the test split.", ""]
     else:
         out += ["_None._", ""]
     return "\n".join(out)
@@ -715,10 +724,14 @@ def render_result(s: Submission, ds: Dataset | None) -> str:
            f"| Type | {s.method.kind} |",
            f"| Inputs | {', '.join(f'`{m}`' for m in s.modalities)} |",
            f"| Parameters | {_params(s.method.parameters)} |",
-           f"| Training data | {s.method.training_data or '–'} |",
+           f"| Training data | {s.method.training_data or '–'}{' (the test split included: scores on it are not held-out)' if s.method.test_in_training else ''} |",
            f"| Status | {STATUS_WORDS[s.status]}{' on ' + s.verified_on if s.verified_on else ''} |",
            f"| Evidence level | {LEVEL_WORDS[s.validation_level]} |",
            f"| Added | {s.date} by {s.submitter.name}{' (' + s.submitter.affiliation + ')' if s.submitter.affiliation else ''} |"]
+    if s.n_runs:
+        out.append(f"| Runs | {s.n_runs} independent training runs (seeds); values are the mean ± the standard deviation |")
+    if s.method.alignment_space:
+        out.append(f"| Alignment space | {SPACE_WORDS[s.method.alignment_space]} |")
     if s.method.checkpoint:
         url = s.method.links.weights or (s.method.checkpoint if s.method.checkpoint.startswith("http") else CODE_URL + "/blob/main/" + s.method.checkpoint)
         out.append(f"| Checkpoint | [{os.path.basename(s.method.checkpoint)}]({url})"
@@ -735,7 +748,9 @@ def render_result(s: Submission, ds: Dataset | None) -> str:
             md = t.metric(m) if t else None
             label = re.sub("<[^>]+>", "", md.label) if md else m
             unit = f" {md.unit}" if md and md.unit and _num(v) else ""
-            out.append(f"| {label} | {_fmt(v, md.digits if md else 3)}{unit} | {md.definition if md else ''} |")
+            sd = s.spread.get(tid, {}).get(m)
+            pm = f" ± {_fmt(sd, md.digits if md else 3)}" if _num(sd) and _num(v) and (md is None or md.better != "none") else ""
+            out.append(f"| {label} | {_fmt(v, md.digits if md else 3)}{pm}{unit} | {md.definition if md else ''} |")
         out.append("")
         if tid == "inverse_design":
             sr = _scored_rows(s)
@@ -805,6 +820,12 @@ def render_hub(ds: dict[str, Dataset], by_ds: dict[str, list[Submission]]) -> st
                        f"{len({r.id for r in rows if r.method.kind == 'model'})} | {len({r.id for r in rows if r.method.kind == 'baseline'})} |")
         else:
             hub.append(f"| [{d.name}]({k}.md) | not yet defined | – | – | – |")
+    hub += ["", "## Analysis", "",
+            "What the benchmark runs show beyond one number per method: the spread between training seeds, results on "
+            "materials held out of training, where reconstruction fails, and what the shared space contains.", ""]
+    for k, pages in ANALYSIS_PAGES.items():
+        if k in ds:
+            hub += [f"- **{ds[k].name}:** " + " · ".join(f"[{title}]({page})" for page, title in pages)]
     hub += ["", "## How a result gets on a leaderboard", "",
             "1. **Protocol.** Each dataset fixes its tasks in `benchmarks/datasets/<dataset>.json`: splits, property targets, "
             "candidate budget, metrics and the direction in which each is better.",
@@ -855,21 +876,50 @@ def render() -> list[str]:
 
 
 # ── run and score ────────────────────────────────────────────────────────────
+SPACE_WORDS = {"encoder": "the normalised encoder outputs, before the projection heads",
+               "projection": "the outputs of the projection heads (what the decoders read)"}
+ANALYSIS_PAGES = {"perov5": [("perov5-reproduction.md", "Alignment across seeds"), ("perov5-insights.md", "What the runs show"),
+                             ("perov5-guide.md", "Choose a model and generate")]}
+ALL_DATA = "Perov-5, all 18,928 materials"
+REPRO_URL = "https://huggingface.co/Babu09/MEIDNet/tree/main/reproduction"
+REPRO_SEEDS = list(range(7))
 BUILTIN = {
+    "meidnet-alignment": {
+        "name": "MEIDNet (alignment training, 7 seeds)", "kind": "model",
+        "checkpoints": [f"checkpoints/reproduction/meidnet_paper_rerun_seed{i}.pth" for i in REPRO_SEEDS],
+        "alignment_space": "encoder", "training_data": ALL_DATA, "test_in_training": True, "weights": REPRO_URL,
+        "description": "The alignment training script (early fusion, contrastive weight raised over the first 1,500 of 2,200 "
+                       "epochs), trained seven times with seeds 0 to 6. Values are the mean over the seven models; ± is the "
+                       "standard deviation.",
+        "notes": "This model has no structure-only property head: its property decoder reads the joint latent, which contains "
+                 "the properties themselves. Prediction from the structure alone is therefore measured by the k-nearest-neighbour "
+                 "probe of this table, and the model is not listed under property prediction.",
+        "tasks": ["representation"]},
+    "meidnet-alignment-seed3": {
+        "name": "MEIDNet (alignment training, seed 3)", "kind": "model",
+        "checkpoint": "checkpoints/reproduction/meidnet_paper_rerun_seed3.pth",
+        "alignment_space": "encoder", "training_data": ALL_DATA, "test_in_training": True,
+        "weights": "https://huggingface.co/Babu09/MEIDNet/blob/main/reproduction/meidnet_paper_rerun_seed3.pth",
+        "description": "One of the seven alignment models: seed 3, the seed with the highest structure matching, chosen for "
+                       "the inverse-design task before any candidate was generated.",
+        "tasks": ["inverse_design"]},
     "meidnet-2k": {
         "name": "MEIDNet (published model)", "kind": "model",
         "checkpoint": "checkpoints/dual_autoencoder_clip_earlyfusion_propertyaware_2k.pth",
+        "alignment_space": "projection", "training_data": ALL_DATA, "test_in_training": True,
         "description": "Early fusion with property-aware decoding, trained for 2,000 epochs with a contrastive warm-up over the "
                        "first 1,200: the model of the paper and of the live Studio.",
         "tasks": ["inverse_design", "property_prediction", "representation"]},
     "meidnet-propertyaware": {
         "name": "MEIDNet (shorter training)", "kind": "model",
         "checkpoint": "checkpoints/dual_autoencoder_clip_earlyfusion_propertyaware.pth",
+        "alignment_space": "projection", "training_data": ALL_DATA, "test_in_training": True,
         "description": "The architecture of the published model, trained for fewer epochs.",
         "tasks": ["inverse_design", "property_prediction", "representation"]},
     "meidnet-earlyfusion": {
         "name": "MEIDNet (first early-fusion model)", "kind": "model",
         "checkpoint": "checkpoints/dual_autoencoder_clip_earlyfusion.pth",
+        "alignment_space": "encoder", "training_data": ALL_DATA, "test_in_training": True,
         "description": "The earliest ablation of the paper, without property-aware decoding.",
         "tasks": ["inverse_design", "property_prediction", "representation"]},
     "baseline-screening": {
@@ -923,7 +973,7 @@ def _score_candidates(ds: Dataset, folder: str, log=print) -> tuple[dict, list[d
     if missing:
         raise SystemExit(f"{len(missing)} candidate(s) have no stability result ({missing[:3]} ...): run the MLIP step")
     known = B.known_by_site(data_dir, "dir_gap", cache=os.path.join(BENCH, "runs", ds.id, "known_dir_gap_by_site.json"))
-    metrics, rows = B.score_inverse_design(cands, stab, t.settings, B.training_formulas(data_dir), known)
+    metrics, rows = B.score_inverse_design(cands, stab, t.settings, B.dataset_formulas(data_dir), known)
     with open(os.path.join(folder, "scored.csv"), "w", newline="", encoding="utf-8") as f:
         keys = list(rows[0]) if rows else ["id"]
         w = csv.DictWriter(f, fieldnames=keys)
@@ -938,17 +988,20 @@ def _pick(task: Task, values: dict) -> dict:
     return out
 
 
-def _record(ds: Dataset, method_id: str, spec: dict, results: dict, artifacts: dict, wall: float) -> str:
+def _record(ds: Dataset, method_id: str, spec: dict, results: dict, artifacts: dict, wall: float, spread: dict | None = None) -> str:
     """Write (or update) the method's record and the verification record."""
     path = os.path.join(BENCH, "submissions", ds.id, method_id + ".json")
     old = _read(path) if os.path.exists(path) else {}
     from meidnet import __version__ as ver
+    many = spec.get("checkpoints")
     ck = spec.get("checkpoint") or (BUILTIN[spec["uses"]]["checkpoint"] if spec.get("uses") else "")
     params = None
-    if ck:
+    if ck or many:
         from meidnet.checkpoint import load_checkpoint
-        params = int(sum(p.numel() for p in load_checkpoint(os.path.join(ROOT, ck)).model.parameters()))
+        params = int(sum(p.numel() for p in load_checkpoint(os.path.join(ROOT, ck or many[0])).model.parameters()))
     model_like = spec["kind"] == "model" or spec.get("uses")
+    base = BUILTIN[spec["uses"]] if spec.get("uses") else spec
+    trained_on = "" if method_id in ("baseline-random", "baseline-chance") else base.get("training_data", "Perov-5 train (11,356)")
     rec = {
         "id": method_id, "dataset": ds.id, "protocol": ds.protocol.version,
         "date": old.get("date") or _dt.date.today().isoformat(),
@@ -956,17 +1009,19 @@ def _record(ds: Dataset, method_id: str, spec: dict, results: dict, artifacts: d
         "modalities": (["structure", *[f"property:{c}" for c in ds.properties]] if model_like else
                        (["composition"] if "knn" in method_id else ["structure"])),
         "method": {"name": spec["name"], "kind": spec["kind"], "description": spec["description"], "meidnet_version": ver,
-                   "parameters": params, "training_data": "" if method_id in ("baseline-random", "baseline-chance") else "Perov-5 train (11,356)",
+                   "parameters": params, "training_data": trained_on,
+                   "test_in_training": bool(spec.get("test_in_training")), "alignment_space": spec.get("alignment_space", ""),
                    "checkpoint": ck, "checkpoint_sha256": sha256(os.path.join(ROOT, ck)) if ck else "",
                    "links": {"paper": PAPER_URL if model_like else "", "code": CODE_URL,
-                             "weights": (WEIGHTS_URL + os.path.basename(ck)) if ck else ""}},
+                             "weights": spec.get("weights") or ((WEIGHTS_URL + os.path.basename(ck)) if ck else "")}},
         "results": {**old.get("results", {}), **results},
+        "spread": {**old.get("spread", {}), **(spread or {})}, "n_runs": len(many) if many else None,
         "validation_level": "mlip_validated" if "inverse_design" in {**old.get("results", {}), **results} else "generated",
         "evidence": [], "artifacts": {**old.get("artifacts", {}), **artifacts},
         "reproduce": {"command": f"python scripts/benchmarks.py run {ds.id} --method {method_id}", "hardware": _hardware(),
                       "wall_time_s": round(wall, 1)},          # candidate generation when there is one, else this run
         "status": "meidnet_verified", "verified_by": "maintainer", "verified_on": _dt.date.today().isoformat(),
-        "notes": old.get("notes", ""),
+        "notes": spec.get("notes") or old.get("notes", ""),
     }
     Submission.model_validate(rec)
     _write(path, json.dumps(_clean(rec), indent=1, ensure_ascii=False) + "\n")
@@ -990,7 +1045,7 @@ def run(dataset: str, method_id: str, tasks: list[str] | None = None, stage: str
     tasks = tasks or spec["tasks"]
     data_dir = os.path.join(ROOT, ds.protocol.data_dir)
     run_root = os.path.join(BENCH, "runs", dataset, method_id)
-    results, artifacts = {}, {}
+    results, artifacts, spread = {}, {}, {}
     t0 = time.time()
     ck = spec.get("checkpoint") or (BUILTIN[spec["uses"]]["checkpoint"] if spec.get("uses") else "")
     lm = None
@@ -998,8 +1053,26 @@ def run(dataset: str, method_id: str, tasks: list[str] | None = None, stage: str
         from meidnet.checkpoint import load_checkpoint
         lm = load_checkpoint(os.path.join(ROOT, ck), device="cpu")
     if {"property_prediction", "representation"} & set(tasks):
-        if spec["kind"] == "model":
-            ev = B.evaluate_checkpoint(lm, data_dir, k=ds.protocol.task("representation").settings.get("probe_k", 5))
+        k = ds.protocol.task("representation").settings.get("probe_k", 5)
+        space = spec.get("alignment_space") or "projection"
+        if spec.get("checkpoints"):                           # several runs of one method: the mean, and the spread
+            import numpy as np
+            from meidnet.checkpoint import load_checkpoint
+            evs = []
+            for one in spec["checkpoints"]:
+                if not os.path.exists(os.path.join(ROOT, one)):
+                    raise SystemExit(f"{one} is missing: download it from {spec.get('weights', WEIGHTS_URL)} into {os.path.dirname(one)}/")
+                evs.append(B.evaluate_checkpoint(load_checkpoint(os.path.join(ROOT, one), device="cpu"), data_dir, k=k, space=space))
+                log(f"evaluated {os.path.basename(one)}")
+            values, preds = {}, None
+            for tid, get in (("property_prediction", lambda e: e.property_prediction), ("representation", lambda e: e.representation)):
+                keys = list(get(evs[0]))
+                values[tid] = {m: float(np.mean([get(e)[m] for e in evs])) for m in keys}
+                if tid in tasks:
+                    sd = {m: float(np.std([get(e)[m] for e in evs], ddof=1)) for m in keys}
+                    spread[tid] = {m: v for m, v in _pick(ds.protocol.task(tid), sd).items() if v is not None}
+        elif spec["kind"] == "model":
+            ev = B.evaluate_checkpoint(lm, data_dir, k=k, space=space)
             values = {"property_prediction": ev.property_prediction, "representation": ev.representation}
             preds = ev.predictions
         else:
@@ -1052,7 +1125,7 @@ def run(dataset: str, method_id: str, tasks: list[str] | None = None, stage: str
     timing = os.path.join(run_root, "inverse_design", "timing.json")
     if os.path.exists(timing):                               # the dominant cost: generating the candidates
         wall = float(_read(timing).get("seconds", wall))
-    path = _record(ds, method_id, spec, results, artifacts, wall)
+    path = _record(ds, method_id, spec, results, artifacts, wall, spread)
     log(f"wrote {os.path.relpath(path, ROOT)}")
     return path
 
@@ -1122,7 +1195,7 @@ def paper_candidates(dataset: str, mlip_python: str | None = None, log=print) ->
     settings = {**t.settings, "budget": len(rows)}
     metrics, scored = B.score_inverse_design(B.read_candidates(os.path.join(folder, "candidates.csv")),
                                              B.read_stability(os.path.join(folder, "stability.csv")), settings,
-                                             B.training_formulas(data_dir), {})
+                                             B.dataset_formulas(data_dir), {})
     with open(os.path.join(folder, "scored.csv"), "w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=list(scored[0]))
         w.writeheader()

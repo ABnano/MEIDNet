@@ -1,6 +1,6 @@
 {
  "dataset": "perov5",
- "protocol": "perov5-v1",
+ "protocol": "perov5-v1.1",
  "task": "inverse_design",
  "headline": "sun_rate",
  "metrics": [
@@ -38,7 +38,7 @@
    "better": "higher",
    "digits": 3,
    "show": true,
-   "definition": "fraction of delivered candidates whose composition is not in the training split"
+   "definition": "fraction of delivered candidates whose composition is not in the data set (training, validation and test splits)"
   },
   {
    "id": "dhf_median",
@@ -133,7 +133,7 @@
     "n_budget": 54.0
    },
    "parameters": 702405,
-   "training_data": "Perov-5 train (11,356)",
+   "training_data": "Perov-5, all 18,928 materials",
    "date": "2026-10-03",
    "links": {
     "paper": "https://doi.org/10.1038/s41524-026-02153-3",
@@ -174,20 +174,20 @@
    "method": "MEIDNet (first early-fusion model)",
    "kind": "model",
    "metrics": {
-    "sun_rate": 0.6666666666666666,
+    "sun_rate": 0.6481481481481481,
     "stable_rate": 0.9444444444444444,
     "unique_rate": 1.0,
-    "novel_rate": 0.7222222222222222,
+    "novel_rate": 0.7037037037037037,
     "dhf_median": -1.287375,
     "dft_hit_rate": 0.1875,
     "dft_known": 16.0,
     "n_delivered": 54.0,
     "valid_rate": 1.0,
-    "n_sun": 36.0,
+    "n_sun": 35.0,
     "n_budget": 54.0
    },
    "parameters": 702405,
-   "training_data": "Perov-5 train (11,356)",
+   "training_data": "Perov-5, all 18,928 materials",
    "date": "2026-10-03",
    "links": {
     "paper": "https://doi.org/10.1038/s41524-026-02153-3",
@@ -201,20 +201,20 @@
    "method": "MEIDNet (published model)",
    "kind": "model",
    "metrics": {
-    "sun_rate": 0.6481481481481481,
+    "sun_rate": 0.6111111111111112,
     "stable_rate": 0.9622641509433962,
     "unique_rate": 1.0,
-    "novel_rate": 0.6981132075471698,
+    "novel_rate": 0.660377358490566,
     "dhf_median": -1.51814,
     "dft_hit_rate": 0.05555555555555555,
     "dft_known": 18.0,
     "n_delivered": 53.0,
     "valid_rate": 0.9814814814814815,
-    "n_sun": 35.0,
+    "n_sun": 33.0,
     "n_budget": 54.0
    },
    "parameters": 702405,
-   "training_data": "Perov-5 train (11,356)",
+   "training_data": "Perov-5, all 18,928 materials",
    "date": "2026-10-03",
    "links": {
     "paper": "https://doi.org/10.1038/s41524-026-02153-3",
@@ -228,20 +228,20 @@
    "method": "MEIDNet (shorter training)",
    "kind": "model",
    "metrics": {
-    "sun_rate": 0.6111111111111112,
+    "sun_rate": 0.5555555555555556,
     "stable_rate": 0.9230769230769231,
     "unique_rate": 1.0,
-    "novel_rate": 0.7115384615384616,
+    "novel_rate": 0.6538461538461539,
     "dhf_median": -1.499765,
     "dft_hit_rate": 0.05555555555555555,
     "dft_known": 18.0,
     "n_delivered": 52.0,
     "valid_rate": 0.9629629629629629,
-    "n_sun": 33.0,
+    "n_sun": 30.0,
     "n_budget": 54.0
    },
    "parameters": 702405,
-   "training_data": "Perov-5 train (11,356)",
+   "training_data": "Perov-5, all 18,928 materials",
    "date": "2026-10-03",
    "links": {
     "paper": "https://doi.org/10.1038/s41524-026-02153-3",

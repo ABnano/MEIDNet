@@ -9,7 +9,11 @@
  "citation": "Castelli et al., Energy Environ. Sci. 5, 5814 (2012); Xie et al., ICLR 2022 (CDVAE)",
  "role": "multimodal benchmark: inverse design, property prediction and representation",
  "protocol": {
-  "version": "perov5-v1",
+  "version": "perov5-v1.1",
+  "changes": [
+   "**perov5-v1.1** (2026-10-05). Representation: the two latents are compared in the space where the model aligns them (before or after its projection heads), declared per method; the cosine in both spaces is recorded. Inverse design: novelty is measured against all 18,928 materials of the data set instead of the training split. Records may give the mean and the standard deviation over several training runs. Rows trained on all materials are marked, because their test scores are not held-out.",
+   "**perov5-v1** (2026-10-03). First version: three tasks, CDVAE split, novelty against the training split, latents compared after the projection heads."
+  ],
   "data_dir": "data/perov5",
   "reference_model": "checkpoints/dual_autoencoder_clip_earlyfusion_propertyaware_2k.pth",
   "tasks": [
@@ -17,9 +21,9 @@
     "id": "inverse_design",
     "name": "Inverse design",
     "summary": "Propose cubic ABX3 perovskites for three band-gap targets in three chemical families (54 candidates); score them for stability with an MLIP, uniqueness, novelty and, where a DFT value exists, the target band gap.",
-    "split": "train (novelty reference)",
+    "split": "all splits (novelty reference)",
     "headline": "sun_rate",
-    "notes": "SUN measures stability, uniqueness and novelty, not whether a candidate has the target band gap: methods that never return a training composition, such as the two baselines, set a high reference for it. Of the compositions that pass the family's rules, 35 of the 106 oxides are in the training split and no chalcogenide or halide is, so novelty separates methods among oxides only. The DFT check is the only measure of the target and is possible for oxides whose A and B sites match a Perov-5 entry (40 of the 106 rule-passing oxides; 26 of them have a non-zero direct gap).",
+    "notes": "SUN measures stability, uniqueness and novelty, not whether a candidate has the target band gap: methods that never return a composition of the data set, such as the two baselines, set a high reference for it. Of the compositions that pass the family's rules, 40 of the 106 oxides are in the data set and no chalcogenide or halide is, so novelty separates methods among oxides only. The DFT check is the only measure of the target and is possible for oxides whose A and B sites match a Perov-5 entry (40 of the 106 rule-passing oxides; 26 of them have a non-zero direct gap).",
     "settings": {
      "family": "perovskite_abx3",
      "variants": ["oxide", "chalcogenide", "halide"],
@@ -35,7 +39,7 @@
      {"id": "sun_rate", "label": "SUN", "better": "higher", "digits": 3, "definition": "stable, unique and novel candidates divided by the budget of 54; a candidate that was not delivered counts as a failure"},
      {"id": "stable_rate", "label": "Stable", "better": "higher", "digits": 3, "definition": "fraction of delivered candidates whose MACE-MP-0 formation energy after relaxation is at most 0.10 eV/atom, against elemental reference phases (the criterion of `meidnet screen` and of the paper)"},
      {"id": "unique_rate", "label": "Unique", "better": "higher", "digits": 3, "definition": "fraction of delivered candidates whose composition does not repeat an earlier one"},
-     {"id": "novel_rate", "label": "Novel", "better": "higher", "digits": 3, "definition": "fraction of delivered candidates whose composition is not in the training split"},
+     {"id": "novel_rate", "label": "Novel", "better": "higher", "digits": 3, "definition": "fraction of delivered candidates whose composition is not in the data set (training, validation and test splits)"},
      {"id": "dhf_median", "label": "ΔH<sub>f</sub>", "unit": "eV/atom", "better": "lower", "digits": 2, "definition": "median MACE-MP-0 formation energy of the delivered candidates"},
      {"id": "dft_hit_rate", "label": "DFT hit", "better": "higher", "digits": 3, "definition": "among candidates whose A, B and X sites match a Perov-5 entry (so their DFT band gap is known), the fraction within 0.5 eV of the target"},
      {"id": "dft_known", "label": "DFT known", "better": "none", "digits": 0, "definition": "candidates with a known DFT band gap (the denominator of DFT hit)"},
@@ -75,10 +79,12 @@
     "metrics": [
      {"id": "retrieval_top1", "label": "R@1", "better": "higher", "digits": 3, "definition": "fraction of test materials for which, among the distinct property profiles of the test split, their own profile's latent is the nearest to their structure latent (materials with identical property values share one profile)"},
      {"id": "retrieval_top5", "label": "R@5", "better": "higher", "digits": 3, "definition": "the same within the five nearest profiles"},
-     {"id": "cosine_matched", "label": "cos", "better": "higher", "digits": 3, "definition": "mean cosine similarity between the structure latent and the property latent of the same material"},
+     {"id": "cosine_matched", "label": "cos", "better": "higher", "digits": 3, "definition": "mean cosine similarity between the structure latent and the property latent of the same material, in the space where the model aligns them (before or after its projection heads; stated on the method's page)"},
      {"id": "knn_mae_heat_all", "label": "k-NN MAE ΔH", "unit": "eV/atom", "better": "lower", "digits": 3, "definition": "formation-enthalpy error of a 5-nearest-neighbour probe: each test material takes the mean property of its five nearest training materials in the representation"},
      {"id": "knn_mae_dir_gap", "label": "k-NN MAE gap", "unit": "eV", "better": "lower", "digits": 3, "definition": "direct-band-gap error of the same probe"},
      {"id": "l2_matched", "label": "L2", "better": "lower", "digits": 3, "show": false, "definition": "mean L2 distance between the two latents of the same material (unit latents)"},
+     {"id": "cosine_encoder", "label": "cos, encoder outputs", "better": "none", "digits": 3, "show": false, "definition": "the matched cosine between the normalised encoder outputs, before the projection heads"},
+     {"id": "cosine_projection", "label": "cos, projection heads", "better": "none", "digits": 3, "show": false, "definition": "the matched cosine between the outputs of the projection heads"},
      {"id": "n_profiles", "label": "profiles", "better": "none", "digits": 0, "show": false, "definition": "distinct property profiles among the test materials: the candidates of retrieval (chance level of R@1 is one over this number)"},
      {"id": "n_evaluated", "label": "n", "better": "none", "digits": 0, "show": false, "definition": "test materials evaluated"}
     ]

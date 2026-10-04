@@ -2,11 +2,11 @@ id,variant,target,target_dir_gap,target_heat_all,formula,elements,cif,passes_rul
 oxide_T1_1,oxide,1,1.5,-0.1,LaMnO3,"{""A"": ""La"", ""B"": ""Mn"", ""X"": ""O""}",cifs/oxide_T1_1.cif,True,LaMnO3,True,True,False,-2.46739,True,False,0.0,False
 oxide_T1_2,oxide,1,1.5,-0.1,CaTiO3,"{""A"": ""Ca"", ""B"": ""Ti"", ""X"": ""O""}",cifs/oxide_T1_2.cif,True,CaTiO3,True,True,False,-3.36381,True,False,4.7,False
 oxide_T1_3,oxide,1,1.5,-0.1,LaAlO3,"{""A"": ""La"", ""B"": ""Al"", ""X"": ""O""}",cifs/oxide_T1_3.cif,True,LaAlO3,True,True,False,-3.58685,True,False,6.3,False
-oxide_T1_4,oxide,1,1.5,-0.1,CsTaO3,"{""A"": ""Cs"", ""B"": ""Ta"", ""X"": ""O""}",cifs/oxide_T1_4.cif,True,CsTaO3,True,True,True,-2.6707,True,True,3.5,False
+oxide_T1_4,oxide,1,1.5,-0.1,CsTaO3,"{""A"": ""Cs"", ""B"": ""Ta"", ""X"": ""O""}",cifs/oxide_T1_4.cif,True,CsTaO3,True,True,False,-2.6707,True,False,3.5,False
 oxide_T1_5,oxide,1,1.5,-0.1,BaTiO3,"{""A"": ""Ba"", ""B"": ""Ti"", ""X"": ""O""}",cifs/oxide_T1_5.cif,True,BaTiO3,True,True,False,-3.36382,True,False,4.0,False
 oxide_T1_6,oxide,1,1.5,-0.1,NaTaO3,"{""A"": ""Na"", ""B"": ""Ta"", ""X"": ""O""}",cifs/oxide_T1_6.cif,True,NaTaO3,True,True,False,-2.90212,True,False,5.3,False
 oxide_T2_1,oxide,2,2.5,-0.1,LaCoO3,"{""A"": ""La"", ""B"": ""Co"", ""X"": ""O""}",cifs/oxide_T2_1.cif,True,LaCoO3,True,True,False,-2.08416,True,False,0.0,False
-oxide_T2_2,oxide,2,2.5,-0.1,NaNbO3,"{""A"": ""Na"", ""B"": ""Nb"", ""X"": ""O""}",cifs/oxide_T2_2.cif,True,NaNbO3,True,True,True,-2.66755,True,True,4.4,False
+oxide_T2_2,oxide,2,2.5,-0.1,NaNbO3,"{""A"": ""Na"", ""B"": ""Nb"", ""X"": ""O""}",cifs/oxide_T2_2.cif,True,NaNbO3,True,True,False,-2.66755,True,False,4.4,False
 oxide_T2_3,oxide,2,2.5,-0.1,BaMnO3,"{""A"": ""Ba"", ""B"": ""Mn"", ""X"": ""O""}",cifs/oxide_T2_3.cif,True,BaMnO3,True,True,False,-1.91944,True,False,0.0,False
 oxide_T2_4,oxide,2,2.5,-0.1,LaFeO3,"{""A"": ""La"", ""B"": ""Fe"", ""X"": ""O""}",cifs/oxide_T2_4.cif,True,LaFeO3,True,True,False,-2.15515,True,False,0.0,False
 oxide_T2_5,oxide,2,2.5,-0.1,KNbO3,"{""A"": ""K"", ""B"": ""Nb"", ""X"": ""O""}",cifs/oxide_T2_5.cif,True,KNbO3,True,True,False,-2.71341,True,False,4.1,False

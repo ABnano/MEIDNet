@@ -4,12 +4,12 @@ Draws compositions at random, without repetition, from those that pass the famil
 
 | field | value |
 |---|---|
-| Dataset | [Perov-5](../perov5.md), protocol `perov5-v1` |
+| Dataset | [Perov-5](../perov5.md), protocol `perov5-v1.1` |
 | Type | baseline |
 | Inputs | `structure` |
 | Parameters | – |
 | Training data | – |
-| Status | Computed here on 2026-10-03 |
+| Status | Computed here on 2026-10-05 |
 | Evidence level | MLIP validated |
 | Added | 2026-10-03 by Anand Babu (UCLouvain) |
 | Links | [code](https://github.com/ABnano/MEIDNet) |
@@ -21,7 +21,7 @@ Draws compositions at random, without repetition, from those that pass the famil
 | SUN | 0.778 | stable, unique and novel candidates divided by the budget of 54; a candidate that was not delivered counts as a failure |
 | Stable | 0.889 | fraction of delivered candidates whose MACE-MP-0 formation energy after relaxation is at most 0.10 eV/atom, against elemental reference phases (the criterion of `meidnet screen` and of the paper) |
 | Unique | 1.000 | fraction of delivered candidates whose composition does not repeat an earlier one |
-| Novel | 0.889 | fraction of delivered candidates whose composition is not in the training split |
+| Novel | 0.889 | fraction of delivered candidates whose composition is not in the data set (training, validation and test splits) |
 | ΔHf | -1.34 eV/atom | median MACE-MP-0 formation energy of the delivered candidates |
 | DFT hit | 0.000 | among candidates whose A, B and X sites match a Perov-5 entry (so their DFT band gap is known), the fraction within 0.5 eV of the target |
 | DFT known | 6 | candidates with a known DFT band gap (the denominator of DFT hit) |

@@ -1,7 +1,7 @@
 {
  "id": "baseline-screening",
  "dataset": "perov5",
- "protocol": "perov5-v1",
+ "protocol": "perov5-v1.1",
  "date": "2026-10-03",
  "submitter": {
   "name": "Anand Babu",
@@ -19,7 +19,9 @@
   "description": "Enumerates the compositions of each chemical family that pass its rules and keeps those that the published model's structure encoder predicts closest to each target, ranked with the generator's own selection score. No latent search.",
   "meidnet_version": "2.0.0",
   "parameters": 702405,
-  "training_data": "Perov-5 train (11,356)",
+  "training_data": "Perov-5, all 18,928 materials",
+  "test_in_training": false,
+  "alignment_space": "",
   "checkpoint": "checkpoints/dual_autoencoder_clip_earlyfusion_propertyaware_2k.pth",
   "checkpoint_sha256": "f9493781d5bbb05dfe106874269496c4c1c0364ae9e543703625c8d1efd60c87",
   "links": {
@@ -43,6 +45,8 @@
    "n_budget": 54.0
   }
  },
+ "spread": {},
+ "n_runs": null,
  "validation_level": "mlip_validated",
  "evidence": [],
  "artifacts": {
@@ -55,6 +59,6 @@
  },
  "status": "meidnet_verified",
  "verified_by": "maintainer",
- "verified_on": "2026-10-03",
+ "verified_on": "2026-10-05",
  "notes": ""
 }

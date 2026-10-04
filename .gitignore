@@ -22,3 +22,7 @@ Thumbs.db
 
 # Space staging folders
 build/
+
+# cluster results (large, kept outside git) and the rerun checkpoints (on Hugging Face: Babu09/MEIDNet, reproduction/)
+meidnet_reporo_again/
+checkpoints/reproduction/

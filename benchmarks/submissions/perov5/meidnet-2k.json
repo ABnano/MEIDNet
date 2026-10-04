@@ -1,7 +1,7 @@
 {
  "id": "meidnet-2k",
  "dataset": "perov5",
- "protocol": "perov5-v1",
+ "protocol": "perov5-v1.1",
  "date": "2026-10-03",
  "submitter": {
   "name": "Anand Babu",
@@ -19,7 +19,9 @@
   "description": "Early fusion with property-aware decoding, trained for 2,000 epochs with a contrastive warm-up over the first 1,200: the model of the paper and of the live Studio.",
   "meidnet_version": "2.0.0",
   "parameters": 702405,
-  "training_data": "Perov-5 train (11,356)",
+  "training_data": "Perov-5, all 18,928 materials",
+  "test_in_training": true,
+  "alignment_space": "projection",
   "checkpoint": "checkpoints/dual_autoencoder_clip_earlyfusion_propertyaware_2k.pth",
   "checkpoint_sha256": "f9493781d5bbb05dfe106874269496c4c1c0364ae9e543703625c8d1efd60c87",
   "links": {
@@ -30,40 +32,44 @@
  },
  "results": {
   "property_prediction": {
-   "mae_heat_all": 0.4044762492601906,
-   "rmse_heat_all": 0.5389006858741189,
-   "r2_heat_all": 0.475406073844704,
-   "mae_dir_gap": 2.791789979594544,
-   "mae_dir_gap_nonzero": 1.676130875688515,
-   "rmse_dir_gap": 3.051066034368392,
-   "r2_dir_gap": -31.399695123272913,
-   "mae_heat_all_nonzero": 0.40431394123501807,
+   "mae_heat_all": 0.40447624858304404,
+   "rmse_heat_all": 0.5389006864628664,
+   "r2_heat_all": 0.47540607269846924,
+   "mae_dir_gap": 2.7917899843503173,
+   "mae_dir_gap_nonzero": 1.6761308891094284,
+   "rmse_dir_gap": 3.051066040757689,
+   "r2_dir_gap": -31.399695258970574,
+   "mae_heat_all_nonzero": 0.4043139405576926,
    "n_evaluated": 3785.0
   },
   "representation": {
    "retrieval_top1": 0.33606340819022457,
    "retrieval_top5": 0.8964332892998679,
-   "cosine_matched": 0.7717390656471252,
+   "cosine_matched": 0.7717390060424805,
    "knn_mae_heat_all": 0.021445706737120214,
    "knn_mae_dir_gap": 0.05529194187582562,
    "l2_matched": 0.6753583550453186,
+   "cosine_encoder": -0.008391765877604485,
+   "cosine_projection": 0.7717390060424805,
    "n_profiles": 367.0,
    "n_evaluated": 3785.0
   },
   "inverse_design": {
-   "sun_rate": 0.6481481481481481,
+   "sun_rate": 0.6111111111111112,
    "stable_rate": 0.9622641509433962,
    "unique_rate": 1.0,
-   "novel_rate": 0.6981132075471698,
+   "novel_rate": 0.660377358490566,
    "dhf_median": -1.51814,
    "dft_hit_rate": 0.05555555555555555,
    "dft_known": 18.0,
    "n_delivered": 53.0,
    "valid_rate": 0.9814814814814815,
-   "n_sun": 35.0,
+   "n_sun": 33.0,
    "n_budget": 54.0
   }
  },
+ "spread": {},
+ "n_runs": null,
  "validation_level": "mlip_validated",
  "evidence": [],
  "artifacts": {
@@ -77,6 +83,6 @@
  },
  "status": "meidnet_verified",
  "verified_by": "maintainer",
- "verified_on": "2026-10-03",
+ "verified_on": "2026-10-05",
  "notes": ""
 }

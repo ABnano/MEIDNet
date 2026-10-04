@@ -140,3 +140,57 @@ def test_inverse_design_scoring_counts_against_the_budget():
     assert m["dft_known"] == 3 and m["dft_hit_rate"] == pytest.approx(2 / 3)       # SrTiO3 within 0.5 eV, BaTiO3 not
     assert [r["sun"] for r in rows] == [False, True, False]
     assert B.site_key({"A": "Ba", "B": "Ti", "X": "O"}) == "Ba|Ti|O" and B.site_key({"A": "Ba"}) is None
+
+
+def test_leaderboard_shows_the_spread_and_marks_rows_trained_on_the_test_split():
+    task = _ds().protocol.task("property_prediction")
+    rows = [_sub(id="a-row", method={"name": "Alpha", "training_data": "all", "test_in_training": True}, n_runs=7,
+                 results={"property_prediction": {"mae_x": 0.5, "r2_x": 0.1}}, spread={"property_prediction": {"mae_x": 0.04}}),
+            _sub(id="b-row", method={"name": "Beta"})]
+    page = bench.leaderboard(task, rows)
+    assert "± 0.04" in page and "over 7 runs" in page                       # mean ± s.d. for the row with several runs
+    assert page.count(bench.SEEN_MARK) == 2 and "not comparable" in page      # the marked row and the footnote
+    assert bench.SEEN_MARK not in bench.leaderboard(task, rows[1:])           # no footnote without such a row
+    assert "± 0.04" in bench.render_result(rows[0], _ds()) and "not held-out" in bench.render_result(rows[0], _ds())
+
+
+def test_novelty_reference_is_the_whole_data_set(tmp_path):
+    for split, formulas in (("train", ["BaTiO3"]), ("val", ["SrTiO3"]), ("test", ["CaTiO3"])):
+        (tmp_path / f"{split}.csv").write_text("formula\n" + "\n".join(formulas) + "\n", encoding="utf-8")
+    assert B.training_formulas(str(tmp_path)) == {B.formula_key("BaTiO3")}
+    assert B.dataset_formulas(str(tmp_path)) == {B.formula_key(x) for x in ("BaTiO3", "SrTiO3", "CaTiO3")}
+
+
+def test_alignment_space_is_declared_and_both_cosines_are_recorded():
+    ds = bench.datasets()["perov5"]
+    rep = ds.protocol.task("representation")
+    assert ds.protocol.version == "perov5-v1.1" and ds.protocol.changes
+    assert rep.metric("cosine_encoder") and rep.metric("cosine_projection")
+    subs = {s.id: s for _, s in bench.submissions()}
+    for sid in ("meidnet-2k", "meidnet-propertyaware", "meidnet-earlyfusion", "meidnet-alignment"):
+        s = subs[sid]
+        r = s.results["representation"]
+        assert s.method.alignment_space in B.SPACES and s.method.test_in_training
+        assert r["cosine_matched"] == pytest.approx(r["cosine_" + s.method.alignment_space])       # read where the model aligns
+        assert r["cosine_matched"] > r["cosine_" + next(x for x in B.SPACES if x != s.method.alignment_space)]
+    a = subs["meidnet-alignment"]
+    assert a.n_runs == 7 and a.spread["representation"]["cosine_matched"] > 0
+    with pytest.raises(ValueError):
+        B.encode(None, [], space="elsewhere")
+
+
+def test_analysis_pages_quote_the_result_files():
+    spec2 = importlib.util.spec_from_file_location("reproduction_pages", os.path.join(ROOT, "scripts", "reproduction_pages.py"))
+    pages = importlib.util.module_from_spec(spec2)
+    spec2.loader.exec_module(pages)
+    F = json.load(open(os.path.join(ROOT, "benchmarks", "reproduction", "perov5", "findings.json"), encoding="utf-8"))
+    runs = F["runs"]
+    assert len(runs) == 7 and F["summary"]["cosine"]["mean"] == pytest.approx(np.mean([r["cosine"] for r in runs]))
+    assert F["summary"]["cosine"]["sd"] == pytest.approx(np.std([r["cosine"] for r in runs], ddof=1))
+    assert sum(F["consistency"]["matched_in_k_seeds"].values()) == F["n_materials"]
+    assert F["determinism"]["identical"] is True
+    text = pages.page_reproduction(F)
+    assert pages.pm(F["summary"]["cosine"]) in text and f"{runs[4]['cosine']:.4f}" in text
+    assert f"{F['ensemble']['three_seeds']:.2f} %" in pages.page_insights(F)
+    guide = pages.page_guide(F)
+    assert "meidnet demo" in guide and "meidnet screen" in guide and "NaNiI₃" in guide

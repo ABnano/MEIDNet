@@ -4,14 +4,15 @@ Early fusion with property-aware decoding, trained for 2,000 epochs with a contr
 
 | field | value |
 |---|---|
-| Dataset | [Perov-5](../perov5.md), protocol `perov5-v1` |
+| Dataset | [Perov-5](../perov5.md), protocol `perov5-v1.1` |
 | Type | model |
 | Inputs | `structure`, `property:heat_all`, `property:dir_gap` |
 | Parameters | 0.70 M |
-| Training data | Perov-5 train (11,356) |
-| Status | Computed here on 2026-10-03 |
+| Training data | Perov-5, all 18,928 materials (the test split included: scores on it are not held-out) |
+| Status | Computed here on 2026-10-05 |
 | Evidence level | MLIP validated |
 | Added | 2026-10-03 by Anand Babu (UCLouvain) |
+| Alignment space | the outputs of the projection heads (what the decoders read) |
 | Checkpoint | [dual_autoencoder_clip_earlyfusion_propertyaware_2k.pth](https://huggingface.co/Babu09/MEIDNet/blob/main/dual_autoencoder_clip_earlyfusion_propertyaware_2k.pth) · sha256 `f9493781d5bb…` |
 | Links | [paper](https://doi.org/10.1038/s41524-026-02153-3) · [code](https://github.com/ABnano/MEIDNet) · [weights](https://huggingface.co/Babu09/MEIDNet/blob/main/dual_autoencoder_clip_earlyfusion_propertyaware_2k.pth) |
 
@@ -37,10 +38,12 @@ Early fusion with property-aware decoding, trained for 2,000 epochs with a contr
 |---|---|---|
 | R@1 | 0.336 | fraction of test materials for which, among the distinct property profiles of the test split, their own profile's latent is the nearest to their structure latent (materials with identical property values share one profile) |
 | R@5 | 0.896 | the same within the five nearest profiles |
-| cos | 0.772 | mean cosine similarity between the structure latent and the property latent of the same material |
+| cos | 0.772 | mean cosine similarity between the structure latent and the property latent of the same material, in the space where the model aligns them (before or after its projection heads; stated on the method's page) |
 | k-NN MAE ΔH | 0.021 eV/atom | formation-enthalpy error of a 5-nearest-neighbour probe: each test material takes the mean property of its five nearest training materials in the representation |
 | k-NN MAE gap | 0.055 eV | direct-band-gap error of the same probe |
 | L2 | 0.675 | mean L2 distance between the two latents of the same material (unit latents) |
+| cos, encoder outputs | -0.008 | the matched cosine between the normalised encoder outputs, before the projection heads |
+| cos, projection heads | 0.772 | the matched cosine between the outputs of the projection heads |
 | profiles | 367 | distinct property profiles among the test materials: the candidates of retrieval (chance level of R@1 is one over this number) |
 | n | 3,785 | test materials evaluated |
 
@@ -48,16 +51,16 @@ Early fusion with property-aware decoding, trained for 2,000 epochs with a contr
 
 | metric | value | definition |
 |---|---|---|
-| SUN | 0.648 | stable, unique and novel candidates divided by the budget of 54; a candidate that was not delivered counts as a failure |
+| SUN | 0.611 | stable, unique and novel candidates divided by the budget of 54; a candidate that was not delivered counts as a failure |
 | Stable | 0.962 | fraction of delivered candidates whose MACE-MP-0 formation energy after relaxation is at most 0.10 eV/atom, against elemental reference phases (the criterion of `meidnet screen` and of the paper) |
 | Unique | 1.000 | fraction of delivered candidates whose composition does not repeat an earlier one |
-| Novel | 0.698 | fraction of delivered candidates whose composition is not in the training split |
+| Novel | 0.660 | fraction of delivered candidates whose composition is not in the data set (training, validation and test splits) |
 | ΔHf | -1.52 eV/atom | median MACE-MP-0 formation energy of the delivered candidates |
 | DFT hit | 0.056 | among candidates whose A, B and X sites match a Perov-5 entry (so their DFT band gap is known), the fraction within 0.5 eV of the target |
 | DFT known | 18 | candidates with a known DFT band gap (the denominator of DFT hit) |
 | Delivered | 53 | candidates delivered out of the budget of 54 |
 | Valid | 0.981 | fraction of the budget that passes every rule of the family |
-| SUN count | 35 | stable, unique and novel candidates |
+| SUN count | 33 | stable, unique and novel candidates |
 | Budget | 54 | candidates requested |
 
 ### Candidates
@@ -69,11 +72,11 @@ Every candidate with its MLIP formation energy, novelty and, where Perov-5 has t
 | oxide_T1_1 | LaMnO3 | 1.5 | -2.467 | yes | no | 0.00 |
 | oxide_T1_2 | CaTiO3 | 1.5 | -3.364 | yes | no | 4.70 |
 | oxide_T1_3 | LaAlO3 | 1.5 | -3.587 | yes | no | 6.30 |
-| oxide_T1_4 | CsTaO3 | 1.5 | -2.671 | yes | yes | 3.50 |
+| oxide_T1_4 | CsTaO3 | 1.5 | -2.671 | yes | no | 3.50 |
 | oxide_T1_5 | BaTiO3 | 1.5 | -3.364 | yes | no | 4.00 |
 | oxide_T1_6 | NaTaO3 | 1.5 | -2.902 | yes | no | 5.30 |
 | oxide_T2_1 | LaCoO3 | 2.5 | -2.084 | yes | no | 0.00 |
-| oxide_T2_2 | NaNbO3 | 2.5 | -2.668 | yes | yes | 4.40 |
+| oxide_T2_2 | NaNbO3 | 2.5 | -2.668 | yes | no | 4.40 |
 | oxide_T2_3 | BaMnO3 | 2.5 | -1.919 | yes | no | 0.00 |
 | oxide_T2_4 | LaFeO3 | 2.5 | -2.155 | yes | no | 0.00 |
 | oxide_T2_5 | KNbO3 | 2.5 | -2.713 | yes | no | 4.10 |

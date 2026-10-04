@@ -2,7 +2,7 @@
  "id": "paper-candidates",
  "dataset": "perov5",
  "protocol": "paper",
- "date": "2026-10-03",
+ "date": "2026-10-05",
  "submitter": {
   "name": "Anand Babu",
   "affiliation": "UCLouvain",
@@ -30,13 +30,13 @@
  },
  "results": {
   "inverse_design": {
-   "sun_rate": 0.7307692307692307,
+   "sun_rate": 0.6538461538461539,
    "stable_rate": 1.0,
    "unique_rate": 0.9230769230769231,
-   "novel_rate": 0.7692307692307693,
+   "novel_rate": 0.6923076923076923,
    "dhf_median": -1.270755,
    "n_delivered": 26.0,
-   "n_sun": 19.0
+   "n_sun": 17.0
   }
  },
  "validation_level": "mlip_validated",
@@ -51,6 +51,6 @@
  },
  "status": "meidnet_verified",
  "verified_by": "maintainer",
- "verified_on": "2026-10-03",
+ "verified_on": "2026-10-05",
  "notes": ""
 }

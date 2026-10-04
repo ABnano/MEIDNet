@@ -156,6 +156,8 @@ def main():
     bench.write_schema()
     for w in bench.render():
         pass
+    import reproduction_pages                      # the analysis pages of Perov-5, from benchmarks/reproduction/perov5/
+    reproduction_pages.main()
     print("wrote docs/explore/capabilities.md, docs/benchmarks/**, docs/community/index.md")
     if "--no-studio" not in sys.argv:
         from meidnet.cli import published_checkpoint

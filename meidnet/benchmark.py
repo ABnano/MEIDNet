@@ -145,20 +145,34 @@ def load_split(data_dir: str, split: str, columns: list[str], max_sites: int):
     return recs, formulas
 
 
-def encode(lm, records, batch: int = 128):
-    """Structure latents, property latents and structure-only property predictions (physical units)."""
+SPACES = ("projection", "encoder")
+
+
+def encode(lm, records, batch: int = 128, space: str = "projection"):
+    """Structure latents, property latents and structure-only property predictions (physical units).
+
+    `space` is where the two latents are read: "projection" (after the projection heads: what the decoders read) or
+    "encoder" (the normalised encoder outputs, before the heads). A model aligns its modalities in one of the two,
+    the one its contrastive loss acts on; measured in the other, the same model can look unaligned."""
     import torch
+    import torch.nn.functional as F
     from torch.utils.data import DataLoader
     from meidnet.data import MaterialsDataset
+    if space not in SPACES:
+        raise ValueError(f"space must be one of {SPACES}")
     model = lm.model.eval()
     dev = next(model.parameters()).device
     Zc, Zp, P = [], [], []
     with torch.no_grad():
         for b in DataLoader(MaterialsDataset(records, lm.stats), batch_size=batch, shuffle=False):
-            zc, zp, *_ = model.encode_modalities(b["crystal_vec"].to(dev), b["props"].to(dev))
+            cv, props = b["crystal_vec"].to(dev), b["props"].to(dev)
+            zc, zp, *_ = model.encode_modalities(cv, props)
+            P.append(lm.stats.denormalize_tensor(model.property_decoder(zc)).cpu().numpy())
+            if space == "encoder":
+                zc = F.normalize(model.crystal_encoder(cv)[0], p=2, dim=1)
+                zp = F.normalize(model.property_encoder(props), p=2, dim=1)
             Zc.append(zc.cpu().numpy())
             Zp.append(zp.cpu().numpy())
-            P.append(lm.stats.denormalize_tensor(model.property_decoder(zc)).cpu().numpy())
     return np.concatenate(Zc), np.concatenate(Zp), np.concatenate(P)
 
 
@@ -169,15 +183,16 @@ class ModelEvaluation:
     predictions: list[dict] = field(default_factory=list)   # per test material: id, true_/pred_<col>, cos
 
 
-def evaluate_checkpoint(lm, data_dir: str, k: int = 5) -> ModelEvaluation:
+def evaluate_checkpoint(lm, data_dir: str, k: int = 5, space: str = "projection") -> ModelEvaluation:
     """Property prediction and representation metrics of a checkpoint on the test split; the k-NN probe uses the
-    training split's structure latents."""
+    training split's structure latents. The representation is read in `space` (see `encode`); the matched cosine
+    in both spaces is reported next to it."""
     cols = list(lm.stats.columns)
     ms = lm.model.max_sites
     train, _ = load_split(data_dir, "train", cols, ms)
     test, _ = load_split(data_dir, "test", cols, ms)
-    Zc_tr, _, _ = encode(lm, train)
-    Zc, Zp, P = encode(lm, test)
+    Zc_tr, _, _ = encode(lm, train, space=space)
+    Zc, Zp, P = encode(lm, test, space=space)
     Y = np.array([r.properties for r in test], dtype=float)
     Y_tr = np.array([r.properties for r in train], dtype=float)
     prop = property_metrics(cols, Y, P)
@@ -187,6 +202,10 @@ def evaluate_checkpoint(lm, data_dir: str, k: int = 5) -> ModelEvaluation:
         rep[f"knn_mae_{c}"] = float(np.abs(knn[:, j] - Y[:, j]).mean())
     rep["n_evaluated"] = float(len(test))
     cos = (Zc * Zp).sum(1)
+    other = next(s for s in SPACES if s != space)
+    Zc_o, Zp_o, _ = encode(lm, test, space=other)
+    rep[f"cosine_{space}"] = rep["cosine_matched"]
+    rep[f"cosine_{other}"] = float((Zc_o * Zp_o).sum(1).mean())
     preds = [{"id": r.material_id, **{f"true_{c}": float(Y[i, j]) for j, c in enumerate(cols)},
               **{f"pred_{c}": float(P[i, j]) for j, c in enumerate(cols)}, "cos": float(cos[i])}
              for i, r in enumerate(test)]
@@ -434,6 +453,18 @@ def training_formulas(data_dir: str) -> set[str]:
     return {formula_key(f) for f in df["formula"]}
 
 
+def dataset_formulas(data_dir: str) -> set[str]:
+    """Every composition of the data set (training, validation and test splits): the novelty reference. A candidate
+    is novel when the data set does not contain it, whichever part of it a model was trained on."""
+    import pandas as pd
+    out = set()
+    for split in ("train", "val", "test"):
+        p = os.path.join(data_dir, f"{split}.csv")
+        if os.path.exists(p):
+            out |= {formula_key(f) for f in pd.read_csv(p, usecols=["formula"])["formula"]}
+    return out
+
+
 def score_inverse_design(candidates: list[dict], stability: dict[str, dict], settings: dict, train_formulas: set[str],
                          known: dict[str, list[float]], gap_column: str = "dir_gap") -> tuple[dict, list[dict]]:
     """Metrics of a candidate set under the protocol. The SUN rate is over the requested budget
@@ -510,4 +541,5 @@ def read_stability(path: str) -> dict[str, dict]:
 __all__ = ["formula_key", "regression", "property_metrics", "retrieval", "knn_predict", "composition_features",
            "load_split", "encode", "evaluate_checkpoint", "evaluate_baselines", "Candidate", "passing_compositions",
            "design_random", "design_screening", "design_meidnet", "write_candidates", "read_candidates",
-           "known_values", "known_by_site", "site_key", "training_formulas", "score_inverse_design", "read_stability"]
+           "known_values", "known_by_site", "site_key", "training_formulas", "dataset_formulas", "score_inverse_design", "read_stability",
+           "SPACES"]

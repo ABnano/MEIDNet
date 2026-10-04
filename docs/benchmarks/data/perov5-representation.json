@@ -1,6 +1,6 @@
 {
  "dataset": "perov5",
- "protocol": "perov5-v1",
+ "protocol": "perov5-v1.1",
  "task": "representation",
  "headline": "retrieval_top1",
  "metrics": [
@@ -29,7 +29,7 @@
    "better": "higher",
    "digits": 3,
    "show": true,
-   "definition": "mean cosine similarity between the structure latent and the property latent of the same material"
+   "definition": "mean cosine similarity between the structure latent and the property latent of the same material, in the space where the model aligns them (before or after its projection heads; stated on the method's page)"
   },
   {
    "id": "knn_mae_heat_all",
@@ -59,6 +59,24 @@
    "definition": "mean L2 distance between the two latents of the same material (unit latents)"
   },
   {
+   "id": "cosine_encoder",
+   "label": "cos, encoder outputs",
+   "unit": "",
+   "better": "none",
+   "digits": 3,
+   "show": false,
+   "definition": "the matched cosine between the normalised encoder outputs, before the projection heads"
+  },
+  {
+   "id": "cosine_projection",
+   "label": "cos, projection heads",
+   "unit": "",
+   "better": "none",
+   "digits": 3,
+   "show": false,
+   "definition": "the matched cosine between the outputs of the projection heads"
+  },
+  {
    "id": "n_profiles",
    "label": "profiles",
    "unit": "",
@@ -86,15 +104,17 @@
    "metrics": {
     "retrieval_top1": 0.33606340819022457,
     "retrieval_top5": 0.8964332892998679,
-    "cosine_matched": 0.7717390656471252,
+    "cosine_matched": 0.7717390060424805,
     "knn_mae_heat_all": 0.021445706737120214,
     "knn_mae_dir_gap": 0.05529194187582562,
     "l2_matched": 0.6753583550453186,
+    "cosine_encoder": -0.008391765877604485,
+    "cosine_projection": 0.7717390060424805,
     "n_profiles": 367.0,
     "n_evaluated": 3785.0
    },
    "parameters": 702405,
-   "training_data": "Perov-5 train (11,356)",
+   "training_data": "Perov-5, all 18,928 materials",
    "date": "2026-10-03",
    "links": {
     "paper": "https://doi.org/10.1038/s41524-026-02153-3",
@@ -104,6 +124,32 @@
   },
   {
    "rank": 2,
+   "id": "meidnet-alignment",
+   "method": "MEIDNet (alignment training, 7 seeds)",
+   "kind": "model",
+   "metrics": {
+    "retrieval_top1": 0.2972636346480468,
+    "retrieval_top5": 0.8551047367427816,
+    "cosine_matched": 0.9535511391503471,
+    "knn_mae_heat_all": 0.02514406491790904,
+    "knn_mae_dir_gap": 0.04922664653708247,
+    "l2_matched": 0.3015082861695971,
+    "cosine_encoder": 0.9535511391503471,
+    "cosine_projection": -0.9782245329448155,
+    "n_profiles": 367.0,
+    "n_evaluated": 3785.0
+   },
+   "parameters": 702405,
+   "training_data": "Perov-5, all 18,928 materials",
+   "date": "2026-10-05",
+   "links": {
+    "paper": "https://doi.org/10.1038/s41524-026-02153-3",
+    "code": "https://github.com/ABnano/MEIDNet",
+    "weights": "https://huggingface.co/Babu09/MEIDNet/tree/main/reproduction"
+   }
+  },
+  {
+   "rank": 3,
    "id": "meidnet-propertyaware",
    "method": "MEIDNet (shorter training)",
    "kind": "model",
@@ -114,11 +160,13 @@
     "knn_mae_heat_all": 0.024196565389696178,
     "knn_mae_dir_gap": 0.046900924702774106,
     "l2_matched": 1.019321322441101,
+    "cosine_encoder": 0.002863099565729499,
+    "cosine_projection": 0.48043641448020935,
     "n_profiles": 367.0,
     "n_evaluated": 3785.0
    },
    "parameters": 702405,
-   "training_data": "Perov-5 train (11,356)",
+   "training_data": "Perov-5, all 18,928 materials",
    "date": "2026-10-03",
    "links": {
     "paper": "https://doi.org/10.1038/s41524-026-02153-3",
@@ -127,7 +175,33 @@
    }
   },
   {
-   "rank": 3,
+   "rank": 4,
+   "id": "meidnet-earlyfusion",
+   "method": "MEIDNet (first early-fusion model)",
+   "kind": "model",
+   "metrics": {
+    "retrieval_top1": 0.02774108322324967,
+    "retrieval_top5": 0.13130779392338177,
+    "cosine_matched": 0.6550266742706299,
+    "knn_mae_heat_all": 0.05149062087186262,
+    "knn_mae_dir_gap": 0.06434874504623514,
+    "l2_matched": 0.8223259449005127,
+    "cosine_encoder": 0.6550266742706299,
+    "cosine_projection": -0.9787194728851318,
+    "n_profiles": 367.0,
+    "n_evaluated": 3785.0
+   },
+   "parameters": 702405,
+   "training_data": "Perov-5, all 18,928 materials",
+   "date": "2026-10-03",
+   "links": {
+    "paper": "https://doi.org/10.1038/s41524-026-02153-3",
+    "code": "https://github.com/ABnano/MEIDNet",
+    "weights": "https://huggingface.co/Babu09/MEIDNet/blob/main/dual_autoencoder_clip_earlyfusion.pth"
+   }
+  },
+  {
+   "rank": 5,
    "id": "baseline-chance",
    "method": "Chance level",
    "kind": "baseline",
@@ -148,31 +222,7 @@
    }
   },
   {
-   "rank": 4,
-   "id": "meidnet-earlyfusion",
-   "method": "MEIDNet (first early-fusion model)",
-   "kind": "model",
-   "metrics": {
-    "retrieval_top1": 0.0002642007926023778,
-    "retrieval_top5": 0.0002642007926023778,
-    "cosine_matched": -0.9787194728851318,
-    "knn_mae_heat_all": 0.099976750330251,
-    "knn_mae_dir_gap": 0.07289299867899603,
-    "l2_matched": 1.9893285036087036,
-    "n_profiles": 367.0,
-    "n_evaluated": 3785.0
-   },
-   "parameters": 702405,
-   "training_data": "Perov-5 train (11,356)",
-   "date": "2026-10-03",
-   "links": {
-    "paper": "https://doi.org/10.1038/s41524-026-02153-3",
-    "code": "https://github.com/ABnano/MEIDNet",
-    "weights": "https://huggingface.co/Babu09/MEIDNet/blob/main/dual_autoencoder_clip_earlyfusion.pth"
-   }
-  },
-  {
-   "rank": 5,
+   "rank": 6,
    "id": "baseline-composition-knn",
    "method": "Composition k-NN",
    "kind": "baseline",

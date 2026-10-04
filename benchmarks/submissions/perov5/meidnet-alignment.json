@@ -1,0 +1,74 @@
+{
+ "id": "meidnet-alignment",
+ "dataset": "perov5",
+ "protocol": "perov5-v1.1",
+ "date": "2026-10-05",
+ "submitter": {
+  "name": "Anand Babu",
+  "affiliation": "UCLouvain",
+  "github": "ABnano"
+ },
+ "modalities": [
+  "structure",
+  "property:heat_all",
+  "property:dir_gap"
+ ],
+ "method": {
+  "name": "MEIDNet (alignment training, 7 seeds)",
+  "kind": "model",
+  "description": "The alignment training script (early fusion, contrastive weight raised over the first 1,500 of 2,200 epochs), trained seven times with seeds 0 to 6. Values are the mean over the seven models; ± is the standard deviation.",
+  "meidnet_version": "2.0.0",
+  "parameters": 702405,
+  "training_data": "Perov-5, all 18,928 materials",
+  "test_in_training": true,
+  "alignment_space": "encoder",
+  "checkpoint": "",
+  "checkpoint_sha256": "",
+  "links": {
+   "paper": "https://doi.org/10.1038/s41524-026-02153-3",
+   "code": "https://github.com/ABnano/MEIDNet",
+   "weights": "https://huggingface.co/Babu09/MEIDNet/tree/main/reproduction"
+  }
+ },
+ "results": {
+  "representation": {
+   "retrieval_top1": 0.2972636346480468,
+   "retrieval_top5": 0.8551047367427816,
+   "cosine_matched": 0.9535511391503471,
+   "knn_mae_heat_all": 0.02514406491790904,
+   "knn_mae_dir_gap": 0.04922664653708247,
+   "l2_matched": 0.3015082861695971,
+   "cosine_encoder": 0.9535511391503471,
+   "cosine_projection": -0.9782245329448155,
+   "n_profiles": 367.0,
+   "n_evaluated": 3785.0
+  }
+ },
+ "spread": {
+  "representation": {
+   "retrieval_top1": 0.06221623482479425,
+   "retrieval_top5": 0.06453188543229614,
+   "cosine_matched": 0.010644875238132564,
+   "knn_mae_heat_all": 0.004328777668132091,
+   "knn_mae_dir_gap": 0.016330750426644555,
+   "l2_matched": 0.03410046287081924,
+   "cosine_encoder": 0.010644875238132564,
+   "cosine_projection": 0.0022207140515753585,
+   "n_profiles": 0.0,
+   "n_evaluated": 0.0
+  }
+ },
+ "n_runs": 7,
+ "validation_level": "generated",
+ "evidence": [],
+ "artifacts": {},
+ "reproduce": {
+  "command": "python scripts/benchmarks.py run perov5 --method meidnet-alignment",
+  "hardware": "Intel64 Family 6 Model 197 Stepping 2, GenuineIntel (16 threads), CPU only",
+  "wall_time_s": 229.7
+ },
+ "status": "meidnet_verified",
+ "verified_by": "maintainer",
+ "verified_on": "2026-10-05",
+ "notes": "This model has no structure-only property head: its property decoder reads the joint latent, which contains the properties themselves. Prediction from the structure alone is therefore measured by the k-nearest-neighbour probe of this table, and the model is not listed under property prediction."
+}

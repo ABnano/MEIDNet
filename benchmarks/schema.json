@@ -65,6 +65,23 @@
      "title": "Training Data",
      "type": "string"
     },
+    "test_in_training": {
+     "default": false,
+     "description": "the training data included the benchmark's test split, so the scores on it are not held-out",
+     "title": "Test In Training",
+     "type": "boolean"
+    },
+    "alignment_space": {
+     "default": "",
+     "description": "where the model's two latents are compared: the space its alignment loss acts on",
+     "enum": [
+      "",
+      "encoder",
+      "projection"
+     ],
+     "title": "Alignment Space",
+     "type": "string"
+    },
     "checkpoint": {
      "default": "",
      "title": "Checkpoint",
@@ -195,10 +212,42 @@
     },
     "type": "object"
    },
-   "description": "task id -> metric id -> value",
+   "description": "task id -> metric id -> value (the mean, when there are several runs)",
    "minProperties": 1,
    "title": "Results",
    "type": "object"
+  },
+  "spread": {
+   "additionalProperties": {
+    "additionalProperties": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ]
+    },
+    "type": "object"
+   },
+   "default": {},
+   "description": "task id -> metric id -> standard deviation over the runs",
+   "title": "Spread",
+   "type": "object"
+  },
+  "n_runs": {
+   "anyOf": [
+    {
+     "type": "integer"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "default": null,
+   "description": "independent training runs (seeds) behind the results",
+   "title": "N Runs"
   },
   "validation_level": {
    "default": "generated",

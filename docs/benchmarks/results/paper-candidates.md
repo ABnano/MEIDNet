@@ -9,22 +9,22 @@ The 26 candidate structures in examples/perov5/paper_results, relaxed with MACE-
 | Inputs | `structure`, `property:heat_all`, `property:dir_gap` |
 | Parameters | – |
 | Training data | Perov-5 train (11,356) |
-| Status | Computed here on 2026-10-03 |
+| Status | Computed here on 2026-10-05 |
 | Evidence level | MLIP validated |
-| Added | 2026-10-03 by Anand Babu (UCLouvain) |
+| Added | 2026-10-05 by Anand Babu (UCLouvain) |
 | Links | [paper](https://doi.org/10.1038/s41524-026-02153-3) · [code](https://github.com/ABnano/MEIDNet) |
 
 ## Inverse design
 
 | metric | value | definition |
 |---|---|---|
-| SUN | 0.731 | stable, unique and novel candidates divided by the budget of 54; a candidate that was not delivered counts as a failure |
+| SUN | 0.654 | stable, unique and novel candidates divided by the budget of 54; a candidate that was not delivered counts as a failure |
 | Stable | 1.000 | fraction of delivered candidates whose MACE-MP-0 formation energy after relaxation is at most 0.10 eV/atom, against elemental reference phases (the criterion of `meidnet screen` and of the paper) |
 | Unique | 0.923 | fraction of delivered candidates whose composition does not repeat an earlier one |
-| Novel | 0.769 | fraction of delivered candidates whose composition is not in the training split |
+| Novel | 0.692 | fraction of delivered candidates whose composition is not in the data set (training, validation and test splits) |
 | ΔHf | -1.27 eV/atom | median MACE-MP-0 formation energy of the delivered candidates |
 | Delivered | 26 | candidates delivered out of the budget of 54 |
-| SUN count | 19 | stable, unique and novel candidates |
+| SUN count | 17 | stable, unique and novel candidates |
 
 ### Candidates
 
@@ -56,8 +56,8 @@ Every candidate with its MLIP formation energy, novelty and, where Perov-5 has t
 | oxide_oxide_T1_R1_4 | NaTaO3 |  | -2.902 | yes | no | – |
 | oxide_oxide_T2_R1_1 | LaMnO3 |  | -2.467 | yes | no | – |
 | oxide_oxide_T2_R1_2 | BaMnO3 |  | -1.919 | yes | no | – |
-| oxide_oxide_T2_R1_3 | SrVO3 |  | -2.416 | yes | yes | – |
-| oxide_oxide_T2_R1_4 | BaPbO3 |  | -1.970 | yes | yes | – |
+| oxide_oxide_T2_R1_3 | SrVO3 |  | -2.416 | yes | no | – |
+| oxide_oxide_T2_R1_4 | BaPbO3 |  | -1.970 | yes | no | – |
 
 ## Outputs
 

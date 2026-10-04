@@ -4,14 +4,15 @@ The earliest ablation of the paper, without property-aware decoding.
 
 | field | value |
 |---|---|
-| Dataset | [Perov-5](../perov5.md), protocol `perov5-v1` |
+| Dataset | [Perov-5](../perov5.md), protocol `perov5-v1.1` |
 | Type | model |
 | Inputs | `structure`, `property:heat_all`, `property:dir_gap` |
 | Parameters | 0.70 M |
-| Training data | Perov-5 train (11,356) |
-| Status | Computed here on 2026-10-03 |
+| Training data | Perov-5, all 18,928 materials (the test split included: scores on it are not held-out) |
+| Status | Computed here on 2026-10-05 |
 | Evidence level | MLIP validated |
 | Added | 2026-10-03 by Anand Babu (UCLouvain) |
+| Alignment space | the normalised encoder outputs, before the projection heads |
 | Checkpoint | [dual_autoencoder_clip_earlyfusion.pth](https://huggingface.co/Babu09/MEIDNet/blob/main/dual_autoencoder_clip_earlyfusion.pth) · sha256 `59fc26f97d04…` |
 | Links | [paper](https://doi.org/10.1038/s41524-026-02153-3) · [code](https://github.com/ABnano/MEIDNet) · [weights](https://huggingface.co/Babu09/MEIDNet/blob/main/dual_autoencoder_clip_earlyfusion.pth) |
 
@@ -35,12 +36,14 @@ The earliest ablation of the paper, without property-aware decoding.
 
 | metric | value | definition |
 |---|---|---|
-| R@1 | 0.000 | fraction of test materials for which, among the distinct property profiles of the test split, their own profile's latent is the nearest to their structure latent (materials with identical property values share one profile) |
-| R@5 | 0.000 | the same within the five nearest profiles |
-| cos | -0.979 | mean cosine similarity between the structure latent and the property latent of the same material |
-| k-NN MAE ΔH | 0.100 eV/atom | formation-enthalpy error of a 5-nearest-neighbour probe: each test material takes the mean property of its five nearest training materials in the representation |
-| k-NN MAE gap | 0.073 eV | direct-band-gap error of the same probe |
-| L2 | 1.989 | mean L2 distance between the two latents of the same material (unit latents) |
+| R@1 | 0.028 | fraction of test materials for which, among the distinct property profiles of the test split, their own profile's latent is the nearest to their structure latent (materials with identical property values share one profile) |
+| R@5 | 0.131 | the same within the five nearest profiles |
+| cos | 0.655 | mean cosine similarity between the structure latent and the property latent of the same material, in the space where the model aligns them (before or after its projection heads; stated on the method's page) |
+| k-NN MAE ΔH | 0.051 eV/atom | formation-enthalpy error of a 5-nearest-neighbour probe: each test material takes the mean property of its five nearest training materials in the representation |
+| k-NN MAE gap | 0.064 eV | direct-band-gap error of the same probe |
+| L2 | 0.822 | mean L2 distance between the two latents of the same material (unit latents) |
+| cos, encoder outputs | 0.655 | the matched cosine between the normalised encoder outputs, before the projection heads |
+| cos, projection heads | -0.979 | the matched cosine between the outputs of the projection heads |
 | profiles | 367 | distinct property profiles among the test materials: the candidates of retrieval (chance level of R@1 is one over this number) |
 | n | 3,785 | test materials evaluated |
 
@@ -48,16 +51,16 @@ The earliest ablation of the paper, without property-aware decoding.
 
 | metric | value | definition |
 |---|---|---|
-| SUN | 0.667 | stable, unique and novel candidates divided by the budget of 54; a candidate that was not delivered counts as a failure |
+| SUN | 0.648 | stable, unique and novel candidates divided by the budget of 54; a candidate that was not delivered counts as a failure |
 | Stable | 0.944 | fraction of delivered candidates whose MACE-MP-0 formation energy after relaxation is at most 0.10 eV/atom, against elemental reference phases (the criterion of `meidnet screen` and of the paper) |
 | Unique | 1.000 | fraction of delivered candidates whose composition does not repeat an earlier one |
-| Novel | 0.722 | fraction of delivered candidates whose composition is not in the training split |
+| Novel | 0.704 | fraction of delivered candidates whose composition is not in the data set (training, validation and test splits) |
 | ΔHf | -1.29 eV/atom | median MACE-MP-0 formation energy of the delivered candidates |
 | DFT hit | 0.188 | among candidates whose A, B and X sites match a Perov-5 entry (so their DFT band gap is known), the fraction within 0.5 eV of the target |
 | DFT known | 16 | candidates with a known DFT band gap (the denominator of DFT hit) |
 | Delivered | 54 | candidates delivered out of the budget of 54 |
 | Valid | 1.000 | fraction of the budget that passes every rule of the family |
-| SUN count | 36 | stable, unique and novel candidates |
+| SUN count | 35 | stable, unique and novel candidates |
 | Budget | 54 | candidates requested |
 
 ### Candidates
@@ -83,7 +86,7 @@ Every candidate with its MLIP formation energy, novelty and, where Perov-5 has t
 | oxide_T3_3 | KTaO3 | 3.5 | -2.930 | yes | no | 5.00 |
 | oxide_T3_4 | LaCoO3 | 3.5 | -2.084 | yes | no | 0.00 |
 | oxide_T3_5 | CaHfO3 | 3.5 | -3.529 | yes | no | 7.30 |
-| oxide_T3_6 | CsTaO3 | 3.5 | -2.671 | yes | yes | 3.50 |
+| oxide_T3_6 | CsTaO3 | 3.5 | -2.671 | yes | no | 3.50 |
 | chalcogenide_T1_1 | SmScSe3 | 1.5 | -1.801 | yes | yes | – |
 | chalcogenide_T1_2 | LaMnSe3 | 1.5 | -1.510 | yes | yes | – |
 | chalcogenide_T1_3 | NaTaSe3 | 1.5 | -1.125 | yes | yes | – |

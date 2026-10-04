@@ -6,7 +6,7 @@ go through GitHub, so every number has a public record and a reviewer.
 
 ## 1. Produce the outputs
 
-Each task of a protocol asks for one kind of output. For [Perov-5](../benchmarks/perov5.md) (protocol `perov5-v1`):
+Each task of a protocol asks for one kind of output. For [Perov-5](../benchmarks/perov5.md) (protocol `perov5-v1.1`):
 
 | task | output | format |
 |---|---|---|
@@ -39,9 +39,12 @@ Copy `benchmarks/submissions/_template.json` to `benchmarks/submissions/<dataset
 
 | field | what to put |
 |---|---|
-| `protocol` | the dataset's protocol version, for example `perov5-v1` |
+| `protocol` | the dataset's protocol version, for example `perov5-v1.1` |
 | `method` | name, type (`model` or `baseline`), a one-sentence description, parameters, training data, links to paper, code and weights |
+| `method.test_in_training` | `true` if the training data included the test split; the row is then marked, because its test scores are not held-out |
+| `method.alignment_space` | for the representation task: `encoder` or `projection`, the space in which the model's alignment loss compares the two latents |
 | `results` | per task, the JSON printed by `score` |
+| `spread`, `n_runs` | optional: the standard deviation of each metric over several training runs (seeds), and their number; `results` then holds the means |
 | `artifacts` | per task, a public link to the folder with the outputs (predictions or candidates with their CIFs) |
 | `validation_level` | `mlip_validated` for inverse design scored with the MLIP; `dft_validated` only with public DFT outputs in `evidence` |
 | `status` | `community_submitted` |
@@ -69,9 +72,12 @@ protocol version; earlier records keep theirs.
 
 ## Common mistakes
 
-1. **A different split.** The protocol fixes the split; numbers on another split are not comparable.
-2. **A metric computed differently.** Use `score`, which implements the definitions of the protocol.
-3. **Outputs that are not public.** A record without its outputs cannot be re-scored and is not ranked.
-4. **A validation level the evidence does not support.** `dft_validated` needs the DFT outputs.
+1. **A different split.** The protocol fixes the split; numbers on another split are not comparable. A model trained on all
+   materials can be listed, with `test_in_training` set.
+2. **One seed.** Results differ between training seeds ([how much](../benchmarks/perov5-reproduction.md)); give the mean and the
+   spread over several runs where you can.
+3. **A metric computed differently.** Use `score`, which implements the definitions of the protocol.
+4. **Outputs that are not public.** A record without its outputs cannot be re-scored and is not ranked.
+5. **A validation level the evidence does not support.** `dft_validated` needs the DFT outputs.
 
 Submissions are reviewed by the author of MEIDNet.

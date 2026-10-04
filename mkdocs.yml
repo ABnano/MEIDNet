@@ -71,6 +71,9 @@ nav:
   - Benchmarks:
       - MEIDNet Benchmarks: benchmarks/index.md
       - Perov-5: benchmarks/perov5.md
+      - "Perov-5: alignment across seeds": benchmarks/perov5-reproduction.md
+      - "Perov-5: what the runs show": benchmarks/perov5-insights.md
+      - "Perov-5: choose a model and generate": benchmarks/perov5-guide.md
       - MP-20: benchmarks/mp20.md
       - Carbon-24: benchmarks/carbon24.md
   - Community:

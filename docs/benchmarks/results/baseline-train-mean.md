@@ -4,12 +4,12 @@ Predicts the training-set mean of each property.
 
 | field | value |
 |---|---|
-| Dataset | [Perov-5](../perov5.md), protocol `perov5-v1` |
+| Dataset | [Perov-5](../perov5.md), protocol `perov5-v1.1` |
 | Type | baseline |
 | Inputs | `structure` |
 | Parameters | – |
 | Training data | Perov-5 train (11,356) |
-| Status | Computed here on 2026-10-03 |
+| Status | Computed here on 2026-10-05 |
 | Evidence level | generated |
 | Added | 2026-10-03 by Anand Babu (UCLouvain) |
 | Links | [code](https://github.com/ABnano/MEIDNet) |
@@ -34,4 +34,4 @@ Predicts the training-set mean of each property.
 python scripts/benchmarks.py run perov5 --method baseline-train-mean
 ```
 
-Computed on Intel64 Family 6 Model 197 Stepping 2, GenuineIntel (16 threads), CPU only; the evaluation took 76 s.
+Computed on Intel64 Family 6 Model 197 Stepping 2, GenuineIntel (16 threads), CPU only; the evaluation took 22 s.

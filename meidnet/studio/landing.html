@@ -72,13 +72,22 @@ h1.mh .ln{display:block}h1.mh .for{font-weight:700;letter-spacing:-.01em}
 @media(max-width:560px){.method{grid-template-columns:repeat(2,minmax(0,1fr))}.method div:nth-child(odd){border-left:0}.method div:nth-child(4){border-left:1px solid var(--line)}.method div:nth-child(n+3){border-top:1px solid var(--line)}.method div:nth-child(odd)::before{display:none}.method div:nth-child(4)::before{display:block}}
 .frac{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:0 .15em;line-height:1.15}
 .frac>span:first-child{border-bottom:1px solid currentColor;padding:0 .2em .05em}.frac>span:last-child{padding:.08em .2em 0}
-.video{margin:12px 0 28px}.video video{width:100%;height:auto;border-radius:14px;border:1px solid var(--line);background:#000;display:block}
-.video figcaption{font-size:14px;color:var(--muted);margin-top:8px}
-.video video[hidden]{display:none}
-.tour-fallback{position:relative;display:block;border-radius:14px;overflow:hidden;border:1px solid var(--line)}.tour-fallback[hidden]{display:none}
-.tour-fallback img{width:100%;height:auto;display:block}
-.tour-fallback span{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:var(--p1);color:#fff;font-weight:800;font-size:18px;padding:14px 22px;border-radius:999px;box-shadow:0 8px 30px -8px rgba(0,0,0,.6)}
-.tour-fallback:hover span{background:var(--p2)}
+.tour3d{margin:4px 0 30px;border:1px solid var(--line);border-top:4px solid var(--t3c,var(--c-family));border-radius:16px;background:var(--card);padding:16px 16px 14px;transition:border-color .3s}
+.tour3d h2{margin:0 0 2px}.tour3d .sec-sub{margin:0}
+.t3-strip{list-style:none;margin:12px 0 10px;padding:0;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+.t3-strip button{position:relative;width:100%;border:2px solid var(--bc);background:var(--card);color:color-mix(in oklab,var(--bc) 78%,var(--ink));border-radius:999px;padding:8px 4px;font:700 14.5px/1 var(--display);cursor:pointer;overflow:hidden}
+.t3-strip button.on{background:var(--bc);color:#fff}.t3-strip button:hover{box-shadow:0 4px 14px -8px var(--bc)}
+.t3-strip button i{position:absolute;left:0;bottom:0;height:3px;width:0;background:rgba(255,255,255,.9)}
+.t3-stage{position:relative;aspect-ratio:16/9;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:radial-gradient(60% 70% at 72% 40%,rgba(99,102,241,.08),transparent 70%),radial-gradient(50% 60% at 20% 80%,rgba(20,184,166,.07),transparent 70%),var(--bg)}
+.t3-stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.t3-cap{font-size:16.5px;line-height:1.5;margin:12px 2px 12px;min-height:3em}
+.t3-bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.t3-b{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;padding:8px 12px;font:600 14px/1 system-ui,sans-serif;cursor:pointer}
+.t3-b:hover{box-shadow:0 4px 14px -8px rgba(0,0,0,.5)}.t3-b.primary{background:var(--p1);border-color:var(--p1);color:#fff;min-width:100px}
+.t3-prog{flex:1 1 160px;height:8px;border-radius:4px;background:var(--line);cursor:pointer;overflow:hidden}
+.t3-prog i{display:block;height:100%;width:0;background:var(--t3c,var(--p1))}
+.t3-time{font:500 13px/1 var(--mono);color:var(--muted)}.t3-open{font-weight:700;text-decoration:none;margin-left:auto}
+@media(max-width:700px){.tour3d{padding:12px 10px}.t3-strip{grid-template-columns:repeat(4,minmax(0,1fr))}.t3-strip button{font-size:13px;padding:7px 2px}.t3-cap{font-size:15.5px}.t3-open{margin-left:0;width:100%}}
 .layers{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:8px 0 28px}@media(max-width:900px){.layers{grid-template-columns:1fr 1fr}}@media(max-width:600px){.layers{grid-template-columns:1fr}}
 .layers .card h2 small{display:block;font:700 11px/1.4 system-ui;letter-spacing:.12em;text-transform:uppercase;color:color-mix(in oklab,var(--accent,var(--p1)) 72%,var(--eyebrow-mix))}
 h2.sec{font-size:24px;margin:0 0 6px}.sec-sub{color:var(--muted);margin:0 0 14px}
@@ -144,16 +153,21 @@ footer{color:var(--faint);font-size:13.5px;padding:10px 0 40px;display:flex;gap:
     <div style="--k:var(--c-search)"><b>Validate</b><span class="eq">E<sub>hull</sub>(x<sup>*</sup>) ≤ ε</span></div>
   </section>
 
-  <figure class="video" id="tour">
-    <video id="tour-video" controls muted playsinline preload="metadata" poster="/docs/assets/meidnet_tour_poster.png">
-      <source src="/docs/assets/meidnet_tour.webm" type="video/webm">
-    </video>
-    <a class="tour-fallback" id="tour-fallback" href="/studio/?tour=0" hidden>
-      <img src="/docs/assets/meidnet_tour_poster.png" alt="MEIDNet in one minute: from the properties you want to candidate crystals">
-      <span>▶ Play the one-minute tour</span>
-    </a>
-    <figcaption>MEIDNet in one minute: data → model → family → rules → targets → search → candidates. The same tour opens on your first visit to the Studio.</figcaption>
-  </figure>
+  <section class="tour3d" id="tour3d" aria-labelledby="t3-title">
+    <h2 class="sec" id="t3-title">MEIDNet in one minute</h2>
+    <p class="sec-sub">From the properties you want to candidate crystals, block by block. Click a block to jump to it.</p>
+    <ol class="t3-strip" aria-label="Chapters"></ol>
+    <div class="t3-stage"><canvas tabindex="0" role="img" aria-label="Animated tour of MEIDNet in three dimensions: data, model, family, rules, targets, search and candidates. The caption below gives each step in words."></canvas></div>
+    <p class="t3-cap" aria-live="polite"></p>
+    <div class="t3-bar">
+      <button type="button" class="t3-b primary" data-t3="play" aria-label="Play the tour">▶ Play</button>
+      <button type="button" class="t3-b" data-t3="prev" aria-label="Previous chapter">◀</button>
+      <button type="button" class="t3-b" data-t3="next" aria-label="Next chapter">▶</button>
+      <div class="t3-prog" role="slider" tabindex="0" aria-label="Position in the tour, in seconds" aria-valuemin="0" aria-valuemax="63" aria-valuenow="0"><i></i></div>
+      <span class="t3-time">0:00</span>
+      <a class="t3-open" href="/studio/">Open the Studio →</a>
+    </div>
+  </section>
 
   <h2 class="sec">Contents</h2>
   <p class="sec-sub">Background on multimodal learning, model architectures, the MEIDNet Studio, datasets, benchmarks and contributed results.</p>
@@ -211,11 +225,6 @@ footer{color:var(--faint);font-size:13.5px;padding:10px 0 40px;display:flex;gap:
   // Inside the Hugging Face page this site runs in a frame, and GitHub, doi.org or arXiv refuse to load in one:
   // open every link that leaves this site in a new tab.
   document.querySelectorAll('a[href^="http"]').forEach(a=>{ try{ if(new URL(a.href).origin!==location.origin){ a.target='_blank'; a.rel='noopener'; } }catch(e){} });
-  // The tour video is WebM (VP9). A browser that cannot play it gets the poster, linked to the same tour drawn live in the Studio.
-  const v=document.getElementById('tour-video'), fb=document.getElementById('tour-fallback');
-  const fallback=()=>{ v.hidden=true; v.removeAttribute('src'); fb.hidden=false; };
-  if(!v.canPlayType('video/webm; codecs="vp9"') && !v.canPlayType('video/webm')) fallback();
-  else { v.querySelector('source').addEventListener('error', fallback); v.addEventListener('error', fallback); }
 })();
 (function(){ const d=document.documentElement; try{ const t=localStorage.getItem('meidnet_theme'); if(t) d.dataset.theme=t; }catch(e){}
   const b=document.getElementById('theme'); const isDark=()=>d.dataset.theme==='dark'||(!d.dataset.theme&&matchMedia('(prefers-color-scheme: dark)').matches);
@@ -224,7 +233,9 @@ footer{color:var(--faint);font-size:13.5px;padding:10px 0 40px;display:flex;gap:
   document.getElementById('copybib').onclick=async()=>{ const m=document.getElementById('copied'); try{ await navigator.clipboard.writeText(document.getElementById('bib').textContent); m.textContent='copied'; setTimeout(()=>m.textContent='',1500); }catch(e){ m.textContent='select the text below and copy it'; } };
 })();
 </script>
+<script src="/docs/assets/prism3d.js" defer></script>
 <script src="/docs/assets/prism-hero.js" defer></script>
+<script src="/docs/assets/prism-tour.js" defer></script>
 <script src="/ask-prism.js" defer></script>
 </body>
 </html>

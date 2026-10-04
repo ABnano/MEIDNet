@@ -5,11 +5,7 @@
   "use strict";
   var NS = "http://www.w3.org/2000/svg";
 
-  function isDark() {
-    var t = document.documentElement.getAttribute("data-theme");
-    if (t) return t === "dark";
-    return !!(window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
-  }
+  var P3 = window.Prism3D, isDark = P3.isDark;
 
   /* ═══════════ the lettering: one glyph skeleton, two renderings ═══════════
      "neural":  nodes at regular spacing along the strokes, thin connections, faint synapses inside each letter
@@ -182,21 +178,11 @@
   var ctx = canvas.getContext("2d");
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  // crystal: the cubic ABX3 cell, A cations on the corners, the BX6 octahedron in the centre (X on the face centres)
-  var a = 1.25, B = [[0, 0, 0]], A = [], EDGES = [], FACES = [];
-  var X = [[a, 0, 0], [-a, 0, 0], [0, a, 0], [0, -a, 0], [0, 0, a], [0, 0, -a]];
-  [-a, a].forEach(function (x) { [-a, a].forEach(function (y) { [-a, a].forEach(function (z) { A.push([x, y, z]); }); }); });
-  A.forEach(function (p) { A.forEach(function (q) {     // the cube: corners one lattice step apart
-    var d = Math.abs(p[0] - q[0]) + Math.abs(p[1] - q[1]) + Math.abs(p[2] - q[2]);
-    if (Math.abs(d - 2 * a) < 1e-6 && p < q) EDGES.push([p, q]);
-  }); });
-  [[0, 2, 4], [0, 4, 3], [0, 3, 5], [0, 5, 2], [1, 4, 2], [1, 3, 4], [1, 5, 3], [1, 2, 5]].forEach(function (f) {
-    FACES.push([X[f[0]], X[f[1]], X[f[2]]]);
-  });
+  // the cubic ABX3 cell (A on the corners, the BX6 octahedron in the centre), half edge 1.25 in this scene
+  var CELL = P3.perovskite({A: "A", B: "B", X: "X"});
 
   // panels behind the crystal: centre, half sizes, rotation about y, what they show
-  function rng(seed) { return function () { seed = (seed * 1664525 + 1013904223) % 4294967296; return seed / 4294967296; }; }
-  var r = rng(7), LATENT = [];
+  var r = P3.T.rng(7), LATENT = [];
   for (var i = 0; i < 90; i++) {                 // paired points: a structure (teal) and its properties (violet), close together
     var t = r() * 2 - 1, u = r() * 2 - 1, cx = 0.75 * t, cy = 0.55 * Math.sin(2.2 * t) * 0.8 + 0.25 * u;
     LATENT.push({u: cx, v: cy, du: (r() - 0.5) * 0.09, dv: (r() - 0.5) * 0.09, c: t});
@@ -209,7 +195,7 @@
     {c: [2.25, -1.25, -1.6], h: [0.8, 0.56], ry: -0.62, kind: "property", label: "property: band gap"}
   ];
 
-  var W = 0, H = 0, DPR = 1, yaw = 0, pitch = 0, dragYaw = 0, dragPitch = 0, t0 = performance.now();
+  var W = 0, H = 0, DPR = 1, yaw = 0, pitch = 0, dragYaw = 0, dragPitch = 0, t0 = performance.now(), cam = null;
   function resize() {
     var b = canvas.getBoundingClientRect();
     DPR = Math.min(2, window.devicePixelRatio || 1);
@@ -217,27 +203,12 @@
     canvas.width = Math.round(W * DPR); canvas.height = Math.round(H * DPR);
     draw();
   }
-  function proj(p) {
-    var cy = Math.cos(yaw), sy = Math.sin(yaw), cp = Math.cos(pitch), sp = Math.sin(pitch);
-    var x1 = p[0] * cy + p[2] * sy, z1 = -p[0] * sy + p[2] * cy, y1 = p[1];
-    var y2 = y1 * cp - z1 * sp, z2 = y1 * sp + z1 * cp;
-    var D = 9, F = Math.min(W, H * 1.1) * D / 8.3, k = F / (D - z2);
-    return [W * 0.52 + x1 * k, H * 0.5 - y2 * k, z2, k];
-  }
+  function proj(p) { return cam.proj(p); }
   function panelPoint(P, u, v, w) {        // panel-local (u, v in [-1, 1]) to world
     var c = Math.cos(P.ry), sn = Math.sin(P.ry), x = u * P.h[0], y = v * P.h[1];
     return [P.c[0] + x * c + (w || 0) * sn, P.c[1] + y, P.c[2] - x * sn + (w || 0) * c];
   }
   function poly(pts) { ctx.beginPath(); pts.forEach(function (p, j) { j ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]); }); ctx.closePath(); }
-
-  function sphere(p, rad, col, dark) {
-    var q = proj(p), R = rad * q[3];
-    var g = ctx.createRadialGradient(q[0] - R * 0.38, q[1] - R * 0.42, R * 0.08, q[0], q[1], R);
-    g.addColorStop(0, "#ffffff"); g.addColorStop(0.22, col[0]); g.addColorStop(0.72, col[1]); g.addColorStop(1, col[2]);
-    ctx.beginPath(); ctx.arc(q[0], q[1], R, 0, 2 * Math.PI);
-    ctx.fillStyle = g; ctx.fill();
-    ctx.lineWidth = 0.8; ctx.strokeStyle = dark ? "rgba(0,0,0,.35)" : "rgba(15,23,42,.12)"; ctx.stroke();
-  }
 
   function drawPanel(P, dark) {
     var corners = [[-1, -1], [1, -1], [1, 1], [-1, 1]].map(function (c) { return proj(panelPoint(P, c[0], c[1])); });
@@ -291,6 +262,7 @@
   function draw() {
     if (!W) return;
     var dark = isDark();
+    cam = P3.camera({cx: W * 0.52, cy: H * 0.5, scale: Math.min(W, H * 1.1) / 8.3, yaw: yaw, pitch: pitch});
     ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
     ctx.clearRect(0, 0, W, H);
     // floor grid
@@ -305,36 +277,7 @@
     ctx.fillStyle = sh; ctx.beginPath(); ctx.ellipse(f[0], f[1], 2.0 * f[3], 0.62 * f[3], 0, 0, 2 * Math.PI); ctx.fill();
     // panels, far first
     PANELS.slice().sort(function (p, q) { return proj(p.c)[2] - proj(q.c)[2]; }).forEach(function (P) { drawPanel(P, dark); });
-    // crystal: faces and atoms sorted by depth
-    var items = [];
-    FACES.forEach(function (fc) {
-      var q = fc.map(proj), z = (q[0][2] + q[1][2] + q[2][2]) / 3;
-      items.push({z: z, f: fc, q: q});
-    });
-    B.forEach(function (p) { items.push({z: proj(p)[2], p: p, rad: 0.27, col: ["#93c5fd", "#3b82f6", "#1e3a8a"]}); });
-    X.forEach(function (p) { items.push({z: proj(p)[2], p: p, rad: 0.2, col: ["#99f6e4", "#14b8a6", "#115e59"]}); });
-    A.forEach(function (p) { items.push({z: proj(p)[2], p: p, rad: 0.25, col: ["#c4b5fd", "#8b5cf6", "#3b0764"]}); });
-    EDGES.forEach(function (e) { var q = [proj(e[0]), proj(e[1])]; items.push({z: (q[0][2] + q[1][2]) / 2 - 0.4, line: q}); });
-    items.sort(function (m, n) { return m.z - n.z; });
-    var Ldir = [-0.45, 0.7, 0.55];
-    items.forEach(function (it) {
-      if (it.p) return sphere(it.p, it.rad, it.col, dark);
-      if (it.line) {
-        ctx.lineWidth = 1.2; ctx.strokeStyle = dark ? "rgba(148,163,184,.45)" : "rgba(100,116,139,.45)";
-        ctx.beginPath(); ctx.moveTo(it.line[0][0], it.line[0][1]); ctx.lineTo(it.line[1][0], it.line[1][1]); ctx.stroke(); return;
-      }
-      var v = it.f, e1 = [v[1][0] - v[0][0], v[1][1] - v[0][1], v[1][2] - v[0][2]], e2 = [v[2][0] - v[0][0], v[2][1] - v[0][1], v[2][2] - v[0][2]];
-      var n = [e1[1] * e2[2] - e1[2] * e2[1], e1[2] * e2[0] - e1[0] * e2[2], e1[0] * e2[1] - e1[1] * e2[0]], nl = Math.hypot(n[0], n[1], n[2]);
-      var cy = Math.cos(yaw), sy = Math.sin(yaw), nx = (n[0] * cy + n[2] * sy) / nl, nz = (-n[0] * sy + n[2] * cy) / nl, ny = n[1] / nl;
-      var lit = Math.abs(nx * Ldir[0] + ny * Ldir[1] + nz * Ldir[2]);
-      poly(it.q);
-      var gr = ctx.createLinearGradient(it.q[0][0], it.q[0][1], it.q[2][0], it.q[2][1]);
-      gr.addColorStop(0, dark ? "rgba(147,197,253," + (0.1 + 0.22 * lit).toFixed(3) + ")" : "rgba(255,255,255," + (0.25 + 0.45 * lit).toFixed(3) + ")");
-      gr.addColorStop(1, dark ? "rgba(59,130,246," + (0.08 + 0.14 * lit).toFixed(3) + ")" : "rgba(129,161,250," + (0.12 + 0.22 * lit).toFixed(3) + ")");
-      ctx.fillStyle = gr; ctx.fill();
-      ctx.lineWidth = 1; ctx.strokeStyle = dark ? "rgba(191,219,254,.5)" : "rgba(255,255,255,.95)"; ctx.stroke();
-      ctx.lineWidth = 0.6; ctx.strokeStyle = dark ? "rgba(96,165,250,.35)" : "rgba(99,102,241,.25)"; ctx.stroke();
-    });
+    P3.crystal(ctx, cam, CELL, {s: 1.25, atomScale: 0.6, dark: dark});
   }
 
   var running = false, visible = true;

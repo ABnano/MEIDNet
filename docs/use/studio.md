@@ -12,11 +12,7 @@ the change did to each later block — the way a LabVIEW diagram shows data flow
 No installation? Use the [hosted Studio](https://babu09-meidnet.hf.space/) — the same page, running on a shared
 server.
 
-```
- Data ──► Model ──► Family ──► Rules ──► Targets ──► Search ──► Candidates
- 11,356    MAE       halide     5 rules   Eg 2.0     idle       0 found
- materials 0.17 eV   924 comps  27 pass   ΔHf −0.1
-```
+<div class="pflow" data-flow="studio"></div>
 
 ## Reading the workflow strip
 
@@ -81,21 +77,49 @@ the encoder considers best, and whether the predictions agree.
 
 ## The blocks
 
-- **Data** — how many materials were usable, why rows were skipped, property distributions, the elements
-  present; *Bring your own data* (below).
-- **Model** — properties, units, training ranges, validation errors, loss and alignment curves; *Train your own
-  model* (below).
-- **Family** — prototype sites with a rotatable 3D preview of the cell, element chips per site group with their
-  charges (click to exclude), cell-size rule.
-- **Rules** — each rule with its explanation, parameters, pass count and descriptor histogram; add a
-  *predicted-property window* rule; the funnel.
-- **Targets** — one card per objective: target value, comparison kind, weights; the predicted-property scatter
-  of all compositions (coloured = passes, grey = rejected, ★ = found by the search). Click any point or table row
-  for its checklist and its crystal in 3D.
-- **Search** — budget (candidates, latents per round, rounds, steps), a rough time estimate, Run/Stop, progress,
-  log, link to the full report.
-- **Candidates** — one card per candidate: a rotatable 3D cell, elements, gauges of predicted values against the
-  targets, the rule checklist, warnings, CIF links.
+Each block, with what it shows. The animation is the same block in the tour of the landing page.
+
+=== "Data"
+
+    <figure class="pscene" data-scene="data"></figure>
+
+    How many materials were usable, why rows were skipped, property distributions, the elements present; *Bring your own data* (below).
+
+=== "Model"
+
+    <figure class="pscene" data-scene="model"></figure>
+
+    Properties, units, training ranges, validation errors, loss and alignment curves; *Train your own model* (below).
+
+=== "Family"
+
+    <figure class="pscene" data-scene="family"></figure>
+
+    Prototype sites with a rotatable 3D preview of the cell, element chips per site group with their charges (click to exclude), cell-size rule.
+
+=== "Rules"
+
+    <figure class="pscene" data-scene="rules"></figure>
+
+    Each rule with its explanation, parameters, pass count and descriptor histogram; add a *predicted-property window* rule; the funnel.
+
+=== "Targets"
+
+    <figure class="pscene" data-scene="targets"></figure>
+
+    One card per objective: target value, comparison kind, weights; the predicted-property scatter of all compositions (coloured = passes, grey = rejected, ★ = found by the search). Click any point or table row for its checklist and its crystal in 3D.
+
+=== "Search"
+
+    <figure class="pscene" data-scene="search"></figure>
+
+    Budget (candidates, latents per round, rounds, steps), a rough time estimate, Run/Stop, progress, log, link to the full report.
+
+=== "Candidates"
+
+    <figure class="pscene" data-scene="candidates"></figure>
+
+    One card per candidate: a rotatable 3D cell, elements, gauges of predicted values against the targets, the rule checklist, warnings, CIF links.
 
 Crystals are drawn by a small built-in viewer: drag to rotate, double-click to spin.
 
@@ -121,6 +145,8 @@ your own project; nothing on the page is hidden from the command line.
 The Data block has an **adapter**: it maps your column names to what MEIDNet expects. Nothing in your files is
 changed.
 
+<div class="psteps" markdown>
+
 1. **Upload** a table — CSV, Excel (`.xlsx`) or JSON, one row per material — with an id column, numeric property
    columns and the structures, either as a column of CIF text or as a zip of `<id>.cif` files (select both files
    together). Parquet works too when `pyarrow` is installed.
@@ -139,6 +165,8 @@ changed.
    how often a validation structure is matched to its own properties.
 5. Switch between **your model** and the **published model** at any time in the Model block. *Start over*
    removes your upload and model from the session.
+
+</div>
 
 A few epochs give a rough model in a minute or two; 100–200 epochs are typical for real work — run
 `meidnet train` locally (with a GPU if you have one) and open the result with `meidnet studio meidnet.yaml`.

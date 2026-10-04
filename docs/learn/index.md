@@ -25,19 +25,24 @@ each, how MEIDNet implements it. For a full review, see Babu and Krishnan (2026)
 A modality is one kind of observation of a material, with its own shape of data. The shape decides which kind of
 neural network can read it.
 
-| modality | what the data looks like | example | a network that reads it |
-|---|---|---|---|
-| Crystal structure | atoms with positions in a unit cell: a graph | a CIF file | graph neural network |
-| Composition | elements and their fractions: a set | CsPbI₃ | set or element network |
-| Scalar properties | a short vector of numbers | band gap, formation enthalpy | small fully connected network (MLP) |
-| Diffraction pattern | a curve: intensity versus angle 2θ | powder XRD | 1D convolutional network |
-| Spectra and DOS | a curve: signal versus energy | density of states, XAS, Raman | 1D convolutional network or transformer |
-| Image | a grid of pixels | SEM or TEM micrograph | 2D convolutional network or vision transformer |
-| Text | a sequence of words | a synthesis procedure | language model |
+<div class="pmodal"></div>
 
-**Why combine them?** Each modality sees part of the material. A structure fixes the atoms but does not tell you
-the band gap without a calculation; a band gap says nothing about which atoms produce it. A model that learns both
-together can translate between them in either direction.
+??? note "The same as a table"
+
+    | modality | what the data looks like | example | a network that reads it |
+    |---|---|---|---|
+    | Crystal structure | atoms with positions in a unit cell: a graph | a CIF file | graph neural network |
+    | Composition | elements and their fractions: a set | CsPbI₃ | set or element network |
+    | Scalar properties | a short vector of numbers | band gap, formation enthalpy | small fully connected network (MLP) |
+    | Diffraction pattern | a curve: intensity versus angle 2θ | powder XRD | 1D convolutional network |
+    | Spectra and DOS | a curve: signal versus energy | density of states, XAS, Raman | 1D convolutional network or transformer |
+    | Image | a grid of pixels | SEM or TEM micrograph | 2D convolutional network or vision transformer |
+    | Text | a sequence of words | a synthesis procedure | language model |
+
+!!! key "Why combine them?"
+    Each modality sees part of the material. A structure fixes the atoms but does not tell you the band gap without
+    a calculation; a band gap says nothing about which atoms produce it. A model that learns both together can
+    translate between them in either direction.
 
 **What it needs:** *paired* data, where several modalities describe the same material. In Perov-5, every one of the
 18,928 structures comes with its DFT band gap and formation enthalpy, which makes it a two-modality dataset.
@@ -117,6 +122,8 @@ latents are pulled together. After training, the [training report](../use/report
 
 The same loss pairs pictures with their captions in CLIP; MEIDNet pairs crystals with their properties.
 
+<figure class="pscene" data-scene="model" data-caption="Training in pictures: each crystal (blue) and its own properties (pink ring) start apart in the shared space; the contrastive loss pulls every pair together."></figure>
+
 *Further reading:* van den Oord *et al.* 2018 (InfoNCE) · Radford *et al.* 2021 (CLIP) · Babu and Krishnan 2026 ·
 [Contrastive learning in the Architecture Atlas](architectures.md#contrastive).
 
@@ -128,6 +135,8 @@ alone**. A vector of wanted properties can then be encoded and decoded into a st
 
 The search in practice:
 
+<div class="psteps" markdown>
+
 1. **Encode the target.** The property encoder turns the target values into a starting point in the shared space.
 2. **Optimise a population** of latent points so that their decoded properties approach the target, while staying
    diverse and near the target's latent.
@@ -136,9 +145,15 @@ The search in practice:
 4. **Check the rules** (charge balance, tolerance factor, distances and your own) and keep only what passes.
 5. **Rank** by distance to the target and save each candidate as a CIF with a report.
 
-The full objective and every step are in [How MEIDNet works](../understand/how-it-works.md). Two limits matter:
-MEIDNet does not invent new atomic arrangements, and its predicted properties are estimates to confirm with DFT or
-experiment ([scope and roadmap](../understand/limits.md)).
+</div>
+
+<figure class="pscene" data-scene="search"></figure>
+
+The full objective and every step are in [How MEIDNet works](../understand/how-it-works.md).
+
+!!! meidnet "Two limits that matter"
+    MEIDNet does not invent new atomic arrangements: candidates are compositions on a known prototype. Its
+    predicted properties are estimates to confirm with DFT or experiment ([scope and roadmap](../understand/limits.md)).
 
 *Further reading:* the MEIDNet paper (Babu *et al.* 2026) · Babu, Gouvêa and Rignanese 2026 (generative models,
 multimodal learning and closed-loop workflows in inverse materials design) · Moro, Loh *et al.* 2025 (multimodal

@@ -8,18 +8,19 @@ copyright: MIT licence · Anand Babu
 
 theme:
   name: material
+  font: false                      # self-hosted fonts (assets/fonts), set in assets/prism-docs.css
   logo: assets/prism-mark.png
   favicon: assets/favicon-64.png
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
-      primary: indigo
-      accent: deep orange
+      primary: custom
+      accent: custom
       toggle: {icon: material/weather-night, name: dark mode}
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
-      primary: indigo
-      accent: deep orange
+      primary: custom
+      accent: custom
       toggle: {icon: material/weather-sunny, name: light mode}
   features: [navigation.tabs, navigation.sections, navigation.top, content.code.copy, content.tabs.link, search.suggest]
 
@@ -39,6 +40,7 @@ markdown_extensions:
 
 extra_css:
   - assets/extra.css
+  - assets/prism-docs.css
 
 extra_javascript:
   - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
@@ -47,6 +49,9 @@ extra_javascript:
   - assets/tablesort.js
   - assets/learn.js
   - assets/links.js
+  - assets/prism3d.js
+  - assets/prism-tour.js
+  - assets/prism-docs.js
   - /ask-prism.js
 
 nav:

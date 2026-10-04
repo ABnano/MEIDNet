@@ -1,12 +1,13 @@
-/* The MEIDNet tour on the landing page: the one-minute story of the Studio (data → model → family → rules → targets →
-   search → candidates) as a live 3D animation. Every frame is a pure function of time, so playing, seeking, the
+/* The MEIDNet tour: the story of the Studio (data → model → family → rules → targets → search → candidates) as a
+   live 3D animation. Two parts: the scenes (window.PrismScenes, also used by the documentation to show one block)
+   and the player of the landing page (#tour3d). Every frame is a pure function of time, so playing, seeking, the
    chapter buttons and reduced motion all show the same pictures. The numbers are those of the Studio with its
    defaults: the published Perov-5 model, the cubic halide perovskite family, targets 2 eV and −0.1 eV/atom. */
 (function () {
   "use strict";
-  var P = window.Prism3D, root = document.getElementById("tour3d");
-  if (!P || !root) return;
-  var T = P.T, canvas = root.querySelector("canvas"), ctx = canvas.getContext("2d");
+  var P = window.Prism3D;
+  if (!P) return;
+  var T = P.T, ctx = null;               // the canvas being drawn: set by render() for each frame
   var VW = 960, VH = 540;
 
   var BLOCKS = [{id: "data", name: "Data", c: "#2a78d6"}, {id: "model", name: "Model", c: "#eb6834"}, {id: "family", name: "Family", c: "#1baf7a"},
@@ -359,7 +360,24 @@
   function dotFlat(x, y, r, color, a) { ctx.save(); ctx.globalAlpha *= a; ctx.beginPath(); ctx.arc(x, y, r, 0, 2 * Math.PI); ctx.fillStyle = color; ctx.fill(); ctx.restore(); }
   function ringFlat(x, y, r, color, a) { ctx.save(); ctx.globalAlpha *= a; ctx.beginPath(); ctx.arc(x, y, r, 0, 2 * Math.PI); ctx.lineWidth = 2.5; ctx.strokeStyle = color; ctx.stroke(); ctx.restore(); }
 
-  /* ── player ── */
+  /* ── one frame of one scene, on any canvas: the 960 × 540 stage scaled to its width and centred ── */
+  function render(c2d, i, t, W, H, dpr) {
+    ctx = c2d; th = P.theme();
+    var k = W / VW;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, W, H);
+    ctx.setTransform(dpr * k, 0, 0, dpr * k, 0, (H - VH * k) / 2 * dpr);
+    try { SCENES[i].draw(T.clamp(t)); } catch (e) { if (window.console) console.error(e); }
+  }
+  window.PrismScenes = {
+    blocks: BLOCKS, render: render, ratio: VW / VH,
+    list: SCENES.map(function (s) { return {block: s.block, title: s.title, ms: s.ms, cap: s.cap}; }),
+    index: function (block) { return SCENES.map(function (s) { return s.block; }).indexOf(block); }
+  };
+
+  /* ── the player of the landing page ── */
+  var root = document.getElementById("tour3d");
+  if (!root) return;
+  var canvas = root.querySelector("canvas"), tctx = canvas.getContext("2d");
   var TOTAL = SCENES.reduce(function (a, s) { return a + s.ms; }, 0);
   var S = {ms: 0, playing: false, last: 0, raf: 0, i: -1, visible: false, started: false, W: 0, H: 0, dpr: 1};
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -380,11 +398,8 @@
   }
   function draw() {
     if (!S.W) return;
-    th = P.theme();
-    var w = at(S.ms), sc = SCENES[w.i], k = S.W / VW;
-    ctx.setTransform(S.dpr, 0, 0, S.dpr, 0, 0); ctx.clearRect(0, 0, S.W, S.H);
-    ctx.setTransform(S.dpr * k, 0, 0, S.dpr * k, 0, (S.H - VH * k) / 2 * S.dpr);
-    try { sc.draw(w.t); } catch (e) { if (window.console) console.error(e); }
+    var w = at(S.ms), sc = SCENES[w.i];
+    render(tctx, w.i, w.t, S.W, S.H, S.dpr);
     prog.firstElementChild.style.width = (100 * S.ms / TOTAL).toFixed(2) + "%";
     prog.setAttribute("aria-valuenow", String(Math.round(S.ms / 1000)));
     time.textContent = clock(S.ms) + " / " + clock(TOTAL);
@@ -444,10 +459,10 @@
   if (window.ResizeObserver) new ResizeObserver(resize).observe(canvas); else window.addEventListener("resize", resize);
   if (window.IntersectionObserver) new IntersectionObserver(function (es) {
     S.visible = es[0].isIntersecting;
-    if (S.visible && !S.started && !reduce) play();       // starts the first time it is seen
+    if (S.visible && !S.started && !reduce) { S.ms = 0; S.i = -1; play(); }   // starts the first time it is seen
   }, {threshold: 0.35}).observe(canvas);
-  else { S.visible = true; if (!reduce) play(); }
-  if (reduce) S.ms = SCENES[0].ms - 1;                      // still pictures; Play animates
+  else { S.visible = true; if (!reduce) { S.ms = 0; play(); } }
+  S.ms = SCENES[0].ms - 1;            // before it plays (or with reduced motion): the finished opening picture
   resize();
   window.prismTour = {play: play, pause: pause, go: go, seek: function (ms) { S.ms = T.clamp(ms, 0, TOTAL); S.i = -1; draw(); },
                       scenes: SCENES.map(function (s) { return {block: s.block, title: s.title, ms: s.ms}; })};

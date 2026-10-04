@@ -1,32 +1,45 @@
-<p align="center"><img src="assets/meidnet_prism_logo.png" alt="MEIDNet Prism" width="640" style="background:#fff;border-radius:14px"></p>
+<div class="phero" markdown>
 
-# MEIDNet Prism
+# MEIDNet Prism documentation
 
-[← MEIDNet Prism home](https://babu09-meidnet.hf.space/) · the documentation of the MEIDNet framework and its platform.
+Learn, build and benchmark multimodal AI for materials discovery. MEIDNet, the reference implementation, learns one
+latent space shared by crystal structures and their properties, and searches it for materials with the properties
+you want, using your own data, rules and material families.
 
-**Learn, build and benchmark multimodal AI for materials discovery.** MEIDNet is the reference implementation:
-it designs crystalline materials from target properties, using your own data and rules, configured in one YAML
-file or in the Studio.
+<div class="pbtns" markdown>
+[▶ Open the Studio](https://babu09-meidnet.hf.space/studio/){ .primary }
+[5-minute quickstart](start/quickstart.md)
+[Learn multimodality](learn/index.md)
+[← MEIDNet Prism home](https://babu09-meidnet.hf.space/)
+</div>
 
-```
-   Learn ──► Architectures ──► Build ──► Datasets ──► Benchmarks ──► Community
-   what is   which design      MEIDNet    data that    results with   share and
-   multimodal fits your data   Studio     works        evidence       reproduce
-```
+</div>
 
-MEIDNet learns one latent space shared by crystal structures and their properties, then searches it for new
-materials that hit property targets while obeying the chemical and structural rules of a *material family*.
-The published cubic-perovskite model (band gap + formation enthalpy) is one application of it; the framework
-accepts any table of structures and scalar properties and any prototype family you describe.
+## The workflow
 
-<figure class="tour-video">
-  <video controls muted playsinline preload="metadata" poster="assets/meidnet_tour_poster.png" style="width:100%;max-width:960px;border-radius:12px">
-    <source src="assets/meidnet_tour.webm" type="video/webm">
-    Your browser cannot play this video: <a href="assets/meidnet_tour.webm">download it</a>.
-  </video>
-  <figcaption>MEIDNet from concept to demonstration: data, model, family, rules, targets, search and candidates. The same tour opens
-  on a first visit to the <a href="https://babu09-meidnet.hf.space/">live Studio</a> (the “▶ How it works” button replays it).</figcaption>
-</figure>
+Seven blocks, from a table of known materials to new candidates. Each block is a section of `meidnet.yaml`, a node in
+[MEIDNet Studio](use/studio.md) (where a change in one block updates every block after it) and a section of the
+report that each step writes. Click a block to read about it.
+
+<div class="pflow" data-flow="workflow"></div>
+
+<section class="tour3d" id="tour3d" aria-labelledby="t3-title">
+  <h2 id="t3-title">From concept to demonstration</h2>
+  <p class="sec-sub">The seven blocks at work on the published perovskite model. Click a block to jump to it.</p>
+  <ol class="t3-strip" aria-label="Chapters"></ol>
+  <div class="t3-stage"><canvas tabindex="0" role="img" aria-label="Animated tour of MEIDNet in three dimensions: data, model, family, rules, targets, search and candidates. The caption below gives each step in words."></canvas></div>
+  <p class="t3-cap" aria-live="polite"></p>
+  <div class="t3-bar">
+    <button type="button" class="t3-b primary" data-t3="play" aria-label="Play the tour">▶ Play</button>
+    <button type="button" class="t3-b" data-t3="prev" aria-label="Previous chapter">◀</button>
+    <button type="button" class="t3-b" data-t3="next" aria-label="Next chapter">▶</button>
+    <div class="t3-prog" role="slider" tabindex="0" aria-label="Position in the tour, in seconds" aria-valuemin="0" aria-valuemax="63" aria-valuenow="0"><i></i></div>
+    <span class="t3-time">0:00</span>
+    <a class="t3-open" href="https://babu09-meidnet.hf.space/studio/">Open the Studio →</a>
+  </div>
+</section>
+
+## Where to start
 
 <div class="grid cards" markdown>
 
@@ -86,24 +99,15 @@ accepts any table of structures and scalar properties and any prototype family y
 
 </div>
 
-## The workflow
-
-```
-   Data ──► Model ──► Family ──► Rules ──► Targets ──► Search ──► Candidates
-   table    shared    prototype  hard      property   latent     CIFs + report
-   + CIFs   latent    + sites    checks    goals      optimisation
-```
-
-Each block is a setting in `meidnet.yaml`, a node in [MEIDNet Studio](use/studio.md), where a change in one block
-updates the blocks after it, and a section in the HTML report that each step writes.
-
 ## Scope
 
-- Generation works for **prototype families**: a fixed arrangement of sites whose occupants and cell size are
-  chosen (ABX₃ perovskites, A₂BB′X₆ double perovskites, and anything you describe the same way). MEIDNet does
-  not invent new atomic arrangements. [Details and roadmap](understand/limits.md).
-- Predicted properties are the model's estimates. The reports say when a prediction is an extrapolation.
-  Confirm candidates with DFT or experiment; `meidnet screen` is a first filter.
+!!! meidnet "What MEIDNet generates, and what it does not"
+    Generation works for **prototype families**: a fixed arrangement of sites whose occupants and cell size are
+    chosen (ABX₃ perovskites, A₂BB′X₆ double perovskites, and anything you describe the same way). MEIDNet does
+    not invent new atomic arrangements. [Details and roadmap](understand/limits.md).
+
+    Predicted properties are the model's estimates, and the reports say when a prediction is an extrapolation.
+    Confirm candidates with DFT or experiment; `meidnet screen` is a first filter.
 
 ## Paper
 

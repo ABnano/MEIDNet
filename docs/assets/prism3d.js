@@ -9,13 +9,15 @@
   var SITE = {A: "#8b5cf6", B: "#3b82f6", X: "#14b8a6"};          // atoms are coloured by site, labelled by element
   var RADIUS = {A: 0.31, B: 0.29, X: 0.23};
 
-  function isDark() {
+  function isDark() {      // the landing page's switch, then the documentation's (Material) colour scheme, then the system
     var t = document.documentElement.getAttribute("data-theme");
     if (t) return t === "dark";
+    var md = document.body && document.body.getAttribute("data-md-color-scheme");
+    if (md) return md === "slate";
     return !!(window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
   }
   function theme() {
-    var cs = getComputedStyle(document.documentElement), v = function (n, d) { return (cs.getPropertyValue(n) || "").trim() || d; };
+    var cs = getComputedStyle(document.body || document.documentElement), v = function (n, d) { return (cs.getPropertyValue(n) || "").trim() || d; };
     var dark = isDark();
     return {dark: dark, bg: v("--bg", dark ? "#111417" : "#f6f7f5"), card: v("--card", dark ? "#1b1f24" : "#fff"),
             ink: v("--ink", dark ? "#fff" : "#0b0b0b"), muted: v("--muted", dark ? "#c3c2b7" : "#52514e"),

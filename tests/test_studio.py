@@ -103,7 +103,7 @@ def test_http_routes_landing_and_studio(studio, tmp_path):
     Without a docs folder, / is the workbench itself."""
     import http.client
     import threading
-    from meidnet.studio.server import Handler, _Server
+    from meidnet.studio.server import ASK_PRISM_TAG, Handler, _Server
     docs = tmp_path / "site"
     docs.mkdir()
     (docs / "index.html").write_text("<h1>docs</h1>", encoding="utf-8")
@@ -132,6 +132,9 @@ def test_http_routes_landing_and_studio(studio, tmp_path):
             assert st == 200 and "MEIDNet Prism" in body and "Try MEIDNet" in body and "/docs/learn/index.html" in body
             st, _, body = get(srv, "/studio/")
             assert st == 200 and "MEIDNet Studio" in body and "Researcher mode" in body
+            assert all(ASK_PRISM_TAG in get(srv, p)[2] for p in ("/", "/studio/"))   # the help panel on both pages
+            st, h, body = get(srv, "/ask-prism.js")
+            assert st == 200 and h["Content-Type"].startswith("text/javascript") and "Ask PRISM" in body
             st, h, _ = get(srv, "/?panel=rules&session=tab-route")
             assert st == 302 and h["Location"] == "/studio/?panel=rules&session=tab-route"
             st, _, body = get(srv, "/docs/")
@@ -173,11 +176,29 @@ def test_http_routes_landing_and_studio(studio, tmp_path):
             st, _, body = get(srv, "/")
             assert st == 200 and "MEIDNet Studio" in body          # no docs folder: the workbench is the front page
             assert json.loads(get(srv, "/api/state?session=tab-route")[2])["home_url"] is None
+            assert get(srv, "/ask-prism.js")[0] == 200                 # local Studio: the panel works without docs
         finally:
             srv.shutdown()
             srv.server_close()
     finally:
         Handler.studio = old
+
+
+def test_ask_prism_static_copy_and_issue_form():
+    """The static Studio carries the panel inside the file, and the GitHub form has the fields the panel fills in."""
+    import re
+    from meidnet.studio.server import ASK_PRISM_TAG, HERE, inline_ask_prism
+    with open(os.path.join(HERE, "studio.html"), encoding="utf-8") as f:
+        page = f.read()
+    out = inline_ask_prism(page)
+    assert ASK_PRISM_TAG in page and "/ask-prism.js" not in out and "Ask PRISM" in out
+    with open(os.path.join(HERE, "ask_prism.js"), encoding="utf-8") as f:
+        js = f.read()
+    with open(os.path.join(os.path.dirname(__file__), "..", ".github", "ISSUE_TEMPLATE", "bug_report.yml"), encoding="utf-8") as f:
+        ids = set(re.findall(r"^\s+id: (\w+)$", f.read(), re.M))
+    gh = js[js.index("function ghBugUrl"):js.index("function copy")]
+    used = set(re.findall(r'"&(\w+)=" \+ encodeURIComponent', gh)) - {"body"}   # body: the fallback without the form
+    assert "template=bug_report.yml" in js and used and used <= ids, (used, ids)
 
 
 def test_doped_cif_is_skipped_not_fatal(studio):

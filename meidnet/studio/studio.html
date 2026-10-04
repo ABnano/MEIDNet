@@ -1575,5 +1575,6 @@ drawPipe();   // the workflow is visible at once; its numbers arrive with the da
 boot().catch(e=>{ renderChain([{block:'data', text:'Could not start: '+e.message}]); console.error(e);
   const lc=document.querySelector('.loading-card'); if(lc) lc.innerHTML=`<h2>The Studio could not start</h2><p>${esc(e.message)}</p><p class="muted">Reload the page in a minute. If it keeps failing, the server may be restarting or busy.</p>`; });
 </script>
+<script src="/ask-prism.js" defer></script>
 </body>
 </html>

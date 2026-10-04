@@ -1065,7 +1065,7 @@ def _finite(obj):
 
 
 def _page(name: str) -> str:
-    """One of the two pages shipped with the package (studio.html, landing.html), read on every request so that
+    """A file shipped with the package (studio.html, landing.html, ask_prism.js), read on every request so that
     edits show without a restart."""
     with open(os.path.join(HERE, name), "r", encoding="utf-8") as f:
         return f.read()
@@ -1173,6 +1173,8 @@ class Handler(BaseHTTPRequestHandler):
                 return self._send(200, _page("studio.html"), "text/html")
             if path in ("/studio", "/studio/", "/studio/index.html"):
                 return self._send(200, _page("studio.html"), "text/html")
+            if path == "/ask-prism.js":     # the help panel, shared by the landing page, the Studio and the docs
+                return self._send(200, _page("ask_prism.js"), "text/javascript")
             if path == "/api/state":
                 return self._send(200, s.state(sid))
             if path == "/api/data":
@@ -1235,6 +1237,14 @@ class Handler(BaseHTTPRequestHandler):
             return self._send(500, {"error": traceback.format_exc() if not s.public else "server error"})
 
 
+ASK_PRISM_TAG = '<script src="/ask-prism.js" defer></script>'
+
+
+def inline_ask_prism(html: str) -> str:
+    """The page with the Ask PRISM panel embedded: a file on a plain web host has no /ask-prism.js to load."""
+    return html.replace(ASK_PRISM_TAG, "<script>\n" + _page("ask_prism.js") + "\n</script>", 1)
+
+
 def export_static(cfg: MEIDNetConfig | None, out_path: str, model_path: str | None = None,
                   variants: list[tuple[str, str]] | None = None) -> str:
     """
@@ -1257,6 +1267,7 @@ def export_static(cfg: MEIDNetConfig | None, out_path: str, model_path: str | No
         html = f.read()
     inject = "<script>window.MEIDNET_STATIC = " + json.dumps(payload, default=float) + ";</script>\n<script>"
     html = html.replace("<script>", inject, 1)
+    html = inline_ask_prism(html)
     os.makedirs(os.path.dirname(os.path.abspath(out_path)), exist_ok=True)
     with open(out_path, "w", encoding="utf-8") as f:
         f.write(html)

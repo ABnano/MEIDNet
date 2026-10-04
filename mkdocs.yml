@@ -47,6 +47,7 @@ extra_javascript:
   - assets/tablesort.js
   - assets/learn.js
   - assets/links.js
+  - /ask-prism.js
 
 nav:
   - Home: index.md
@@ -70,6 +71,7 @@ nav:
   - Community:
       - Contribute a result: community/contribute.md
       - Community results: community/index.md
+      - Getting help: community/help.md
   - Guides:
       - 5-minute quickstart: start/quickstart.md
       - What data do I need?: start/what-data.md

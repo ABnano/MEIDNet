@@ -50,7 +50,7 @@ Paper = "https://www.nature.com/articles/s41524-026-02153-3"
 include = ["meidnet*"]
 
 [tool.setuptools.package-data]
-meidnet = ["families/*.yaml", "studio/*.html"]
+meidnet = ["families/*.yaml", "studio/*.html", "studio/*.js"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

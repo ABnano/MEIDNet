@@ -201,5 +201,6 @@ footer{color:var(--faint);font-size:13.5px;padding:10px 0 40px;display:flex;gap:
   document.getElementById('copybib').onclick=async()=>{ const m=document.getElementById('copied'); try{ await navigator.clipboard.writeText(document.getElementById('bib').textContent); m.textContent='copied'; setTimeout(()=>m.textContent='',1500); }catch(e){ m.textContent='select the text below and copy it'; } };
 })();
 </script>
+<script src="/ask-prism.js" defer></script>
 </body>
 </html>

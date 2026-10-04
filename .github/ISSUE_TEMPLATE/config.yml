@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Questions and help
+    url: https://huggingface.co/spaces/Babu09/MEIDNet/discussions
+    about: How to do something, which settings to use, how to read a result. Answered in the Space's discussions.

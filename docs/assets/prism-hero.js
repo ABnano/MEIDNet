@@ -1,4 +1,4 @@
-/* MEIDNet Prism landing page: the molecular lettering of the headline and the 3D crystal scene of the hero.
+/* MEIDNet Prism landing page: the lettering of the headline (a neural network, a crystal) and the 3D crystal scene of the hero.
    No libraries: the lettering is SVG built from stroke glyphs, the scene a small canvas renderer (painter's algorithm).
    The headline stays real text for search engines and screen readers; without JavaScript it shows as plain text. */
 (function () {
@@ -11,10 +11,12 @@
     return !!(window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
   }
 
-  /* ═══════════ molecular lettering: bonds along the strokes, atoms at the joints ═══════════ */
+  /* ═══════════ the lettering: one glyph skeleton, two renderings ═══════════
+     "neural":  nodes at regular spacing along the strokes, thin connections, faint synapses inside each letter
+     "crystal": faceted strokes (arcs become polygons), two alternating atom species, glass in closed rings, a lattice behind */
   var ASC = 1.42, DESC = 0.48, PAD = 0.24, GAP = 0.36, U = 0.76;   // x-height = 1 unit; U = unit in em
 
-  function arc(cx, cy, rx, ry, a0, a1, every) {
+  function arc(cx, cy, rx, ry, a0, a1, every) {   // fine points for the curve; vertices every `every` degrees for the facets
     var n = Math.max(8, Math.ceil(Math.abs(a1 - a0) / 6)), pts = [], beads = [];
     for (var i = 0; i <= n; i++) {
       var a = (a0 + (a1 - a0) * i / n) * Math.PI / 180;
@@ -22,12 +24,12 @@
     }
     var k = Math.max(1, Math.round(n * every / Math.abs(a1 - a0)));
     for (var j = 0; j <= n; j += k) beads.push(pts[j]);
-    beads.push(pts[n]);
+    if (beads[beads.length - 1] !== pts[n]) beads.push(pts[n]);
     return {pts: pts, beads: beads};
   }
   function line() { var p = Array.prototype.slice.call(arguments); return {pts: p, beads: p}; }
   function dot(x, y) { return {pts: [], beads: [[x, y]]}; }
-  var ring = function () { return arc(0.5, 0.5, 0.5, 0.5, 0, 360, 72); };
+  var ring = function () { return arc(0.5, 0.5, 0.5, 0.5, 0, 360, 60); };
 
   var G = {
     a: {w: 1.0, s: function () { return [ring(), line([1, 1], [1, 0])]; }},
@@ -37,13 +39,13 @@
     i: {w: 0.2, s: function () { return [line([0.1, 0], [0.1, 1]), dot(0.1, 1.34)]; }},
     l: {w: 0.2, s: function () { return [line([0.1, 0], [0.1, 0.71], [0.1, ASC])]; }},
     m: {w: 1.3, s: function () {
-      return [line([0, 0], [0, 1]), arc(0.325, 0.62, 0.325, 0.38, 180, 0, 90), line([0.65, 0.62], [0.65, 0]),
-              arc(0.975, 0.62, 0.325, 0.38, 180, 0, 90), line([1.3, 0.62], [1.3, 0])]; }},
+      return [line([0, 0], [0, 1]), arc(0.325, 0.62, 0.325, 0.38, 180, 0, 60), line([0.65, 0.62], [0.65, 0]),
+              arc(0.975, 0.62, 0.325, 0.38, 180, 0, 60), line([1.3, 0.62], [1.3, 0])]; }},
     o: {w: 1.0, s: function () { return [arc(0.5, 0.5, 0.5, 0.5, 90, 450, 60)]; }},
     r: {w: 0.68, s: function () { return [line([0, 0], [0, 1]), arc(0.42, 0.55, 0.42, 0.42, 180, 60, 60)]; }},
     s: {w: 0.82, s: function () { return [arc(0.41, 0.75, 0.36, 0.25, 20, 270, 85), arc(0.41, 0.25, 0.39, 0.25, 90, -160, 85)]; }},
     t: {w: 0.72, s: function () { return [line([0.28, 1.32], [0.28, 1], [0.28, 0]), line([0, 1], [0.66, 1])]; }},
-    u: {w: 0.92, s: function () { return [line([0, 1], [0, 0.46]), arc(0.46, 0.46, 0.46, 0.46, 180, 360, 90), line([0.92, 1], [0.92, 0])]; }},
+    u: {w: 0.92, s: function () { return [line([0, 1], [0, 0.46]), arc(0.46, 0.46, 0.46, 0.46, 180, 360, 60), line([0.92, 1], [0.92, 0])]; }},
     v: {w: 0.92, s: function () { return [line([0, 1], [0.46, 0], [0.92, 1])]; }},
     y: {w: 0.92, s: function () { return [line([0, 1], [0.46, 0]), line([0.92, 1], [0.46, 0], [0.24, -0.48])]; }},
     A: {w: 1.16, s: function () { return [line([0, 0], [0.58, ASC], [1.16, 0]), line([0.25, 0.55], [0.91, 0.55])]; }},
@@ -51,52 +53,124 @@
     " ": {w: 0.38, s: function () { return []; }}
   };
 
-  var lettering = 0;
-  function moleculeSvg(text, stops) {
-    var id = "mol" + (++lettering), x = PAD, paths = [], beads = [];
+  function layout(text) {          // the word's strokes in word coordinates, with the glyph each belongs to
+    var x = PAD, strokes = [];
     for (var c = 0; c < text.length; c++) {
       var g = G[text[c]];
-      if (!g) return null;                       // a glyph we do not draw: keep the plain text
-      g.s().forEach(function (st) {
-        if (st.pts.length) paths.push(st.pts.map(function (p) { return [p[0] + x, p[1]]; }));
-        st.beads.forEach(function (b) {
-          var q = [b[0] + x, b[1]];
-          if (!beads.some(function (o) { return Math.hypot(o[0] - q[0], o[1] - q[1]) < 0.06; })) beads.push(q);
-        });
-      });
+      if (!g) return null;          // a glyph we do not draw: keep the plain text
+      var sh = function (p) { return [p[0] + x, p[1]]; };
+      g.s().forEach(function (st) { strokes.push({pts: st.pts.map(sh), beads: st.beads.map(sh), glyph: c}); });
       x += g.w + GAP;
     }
-    var W = x - GAP + PAD, H = ASC + DESC + 2 * PAD;
-    var Y = function (y) { return (ASC + PAD - y).toFixed(3); };
-    var d = paths.map(function (p) { return "M" + p.map(function (q) { return q[0].toFixed(3) + " " + Y(q[1]); }).join("L"); }).join("");
+    return {strokes: strokes, W: x - GAP + PAD, H: ASC + DESC + 2 * PAD};
+  }
+  var near = function (p, q, e) { return Math.hypot(p[0] - q[0], p[1] - q[1]) < e; };
+  var f3 = function (v) { return v.toFixed(3); };
+  var Y = function (y) { return f3(ASC + PAD - y); };
+  var XY = function (p) { return f3(p[0]) + " " + Y(p[1]); };
+
+  function neural(L, id) {
+    var nodes = [], edges = [], syn = [], SP = 0.32;
+    function node(p, glyph) {
+      for (var i = 0; i < nodes.length; i++) if (near(nodes[i].p, p, 0.12)) return i;
+      nodes.push({p: p, glyph: glyph}); return nodes.length - 1;
+    }
+    L.strokes.forEach(function (st) {
+      if (!st.pts.length) { node(st.beads[0], st.glyph); return; }
+      var prev = node(st.pts[0], st.glyph), acc = 0;
+      for (var i = 1; i < st.pts.length; i++) {
+        var a = st.pts[i - 1], b = st.pts[i], seg = Math.hypot(b[0] - a[0], b[1] - a[1]), t = SP - acc;
+        while (t <= seg - 1e-9) {
+          var n = node([a[0] + (b[0] - a[0]) * t / seg, a[1] + (b[1] - a[1]) * t / seg], st.glyph);
+          if (n !== prev) edges.push([prev, n]);
+          prev = n; t += SP;
+        }
+        acc = (acc + seg) % SP;
+      }
+      var last = node(st.pts[st.pts.length - 1], st.glyph);
+      if (last !== prev) edges.push([prev, last]);
+    });
+    var linked = function (i, j) { return edges.some(function (e) { return (e[0] === i && e[1] === j) || (e[0] === j && e[1] === i); }); };
+    nodes.forEach(function (n, i) {             // synapses: each node to its nearest unlinked neighbour in the same letter
+      nodes.map(function (m, j) { return {j: j, d: Math.hypot(m.p[0] - n.p[0], m.p[1] - n.p[1])}; })
+        .filter(function (o) { return o.j > i && nodes[o.j].glyph === n.glyph && o.d > 0.36 && o.d < 0.8 && !linked(i, o.j); })
+        .sort(function (u, v) { return u.d - v.d; }).slice(0, 1)
+        .forEach(function (o) { syn.push([i, o.j]); });
+    });
+    var far = [];                              // between neighbouring letters: the closest pair, like links between layers
+    nodes.forEach(function (n, i) { nodes.forEach(function (m, j) {
+      if (m.glyph === n.glyph + 1) {
+        var d = Math.hypot(m.p[0] - n.p[0], m.p[1] - n.p[1]);
+        if (d < 0.9 && (!far[n.glyph] || d < far[n.glyph].d)) far[n.glyph] = {i: i, j: j, d: d};
+      }
+    }); });
+    far.forEach(function (f) { if (f) syn.push([f.i, f.j]); });
+    var seg = function (e) { return "M" + XY(nodes[e[0]].p) + "L" + XY(nodes[e[1]].p); };
+    return '<path d="' + syn.map(seg).join("") + '" fill="none" stroke="url(#' + id + 'g)" stroke-opacity=".55" stroke-width=".026"/>' +
+      '<path d="' + edges.map(seg).join("") + '" fill="none" stroke="url(#' + id + 'g)" stroke-width=".05" stroke-linecap="round"/>' +
+      nodes.map(function (n, i) {
+        var c = 'cx="' + f3(n.p[0]) + '" cy="' + Y(n.p[1]) + '"', r = 0.088 + 0.03 * ((i * 7919) % 5) / 4;   // varied, like neurons
+        return '<circle ' + c + ' r="' + f3(r * 1.9) + '" fill="url(#' + id + 'g)" opacity=".13"/>' +
+               '<circle ' + c + ' r="' + f3(r) + '" fill="url(#' + id + 'g)"/>' +
+               '<circle ' + c + ' r="' + f3(r * 0.42) + '" fill="#fff" opacity=".92"/>';
+      }).join("");
+  }
+
+  function crystal(L, id) {
+    var atoms = [], bonds = [], glass = [], lat = [];
+    function atom(p, big) {        // an atom keeps the species it got first: alternating along its stroke
+      for (var i = 0; i < atoms.length; i++) if (near(atoms[i].p, p, 0.07)) return atoms[i];
+      var a = {p: p, big: big}; atoms.push(a); return a;
+    }
+    L.strokes.forEach(function (st) {
+      var v = st.beads.filter(function (p, i, all) { return i === 0 || !near(p, all[i - 1], 0.02); });
+      v.forEach(function (p, i) { atom(p, i % 2 === 0); });
+      if (v.length > 1) bonds.push(v);
+      if (v.length > 3 && near(v[0], v[v.length - 1], 0.03)) glass.push(v);    // a closed ring: a facet
+    });
+    for (var gx = 0.25; gx < L.W; gx += 0.5) for (var gy = -DESC + 0.1; gy < ASC + 0.1; gy += 0.5) lat.push([gx, gy]);
+    var path = function (v) { return "M" + v.map(XY).join("L"); };
+    var d = bonds.map(path).join("");
+    return '<g class="mol-lat">' + lat.map(function (p) { return '<circle cx="' + f3(p[0]) + '" cy="' + Y(p[1]) + '" r=".022"/>'; }).join("") + "</g>" +
+      glass.map(function (v) { return '<path d="' + path(v) + 'Z" fill="url(#' + id + 'g)" fill-opacity=".16" stroke="#fff" stroke-opacity=".55" stroke-width=".02"/>'; }).join("") +
+      '<path class="mol-shadow" d="' + d + '" transform="translate(.05 .07)"/>' +
+      '<path d="' + d + '" fill="none" stroke="url(#' + id + 'g)" stroke-width=".13" stroke-linecap="round" stroke-linejoin="round"/>' +
+      '<path d="' + d + '" fill="none" stroke="#fff" stroke-opacity=".4" stroke-width=".035" stroke-linecap="round" stroke-linejoin="round" transform="translate(-.02 -.03)"/>' +
+      atoms.map(function (a) {
+        var c = 'cx="' + f3(a.p[0]) + '" cy="' + Y(a.p[1]) + '"', r = a.big ? 0.17 : 0.11;
+        return '<circle ' + c + ' r="' + r + '" fill="url(#' + id + 'g)"/>' +
+               (a.big ? "" : '<circle ' + c + ' r="' + r + '" fill="#fff" opacity=".5"/>') +
+               '<circle ' + c + ' r="' + r + '" fill="url(#' + id + 's)"/>';
+      }).join("");
+  }
+
+  var lettering = 0;
+  function letteringSvg(text, stops, style) {
+    var L = layout(text);
+    if (!L) return null;
+    var id = "mol" + (++lettering);
     var svg = document.createElementNS(NS, "svg");
-    svg.setAttribute("viewBox", "0 0 " + W.toFixed(3) + " " + H.toFixed(3));
+    svg.setAttribute("viewBox", "0 0 " + f3(L.W) + " " + f3(L.H));
     svg.setAttribute("aria-hidden", "true");
     svg.setAttribute("focusable", "false");
-    svg.style.width = (W * U).toFixed(3) + "em";
-    svg.style.verticalAlign = (-(DESC + PAD) * U).toFixed(3) + "em";
+    svg.style.width = f3(L.W * U) + "em";
+    svg.style.verticalAlign = f3(-(DESC + PAD) * U) + "em";
     svg.innerHTML =
-      '<defs><linearGradient id="' + id + 'g" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="' + W.toFixed(2) + '" y2="0">' +
+      '<defs><linearGradient id="' + id + 'g" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="' + f3(L.W) + '" y2="0">' +
       stops.map(function (s) { return '<stop offset="' + s[0] + '" stop-color="' + s[1] + '"/>'; }).join("") + "</linearGradient>" +
       '<radialGradient id="' + id + 's" cx=".36" cy=".32" r=".68"><stop offset="0" stop-color="#fff" stop-opacity=".95"/>' +
       '<stop offset=".38" stop-color="#fff" stop-opacity=".28"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient></defs>' +
-      '<path class="mol-shadow" d="' + d + '" transform="translate(.05 .07)"/>' +
-      '<path d="' + d + '" fill="none" stroke="url(#' + id + 'g)" stroke-width=".2" stroke-linecap="round" stroke-linejoin="round"/>' +
-      '<path d="' + d + '" fill="none" stroke="#fff" stroke-opacity=".45" stroke-width=".05" stroke-linecap="round" stroke-linejoin="round" transform="translate(-.03 -.04)"/>' +
-      beads.map(function (b) {
-        var cx = b[0].toFixed(3), cy = Y(b[1]);
-        return '<circle cx="' + cx + '" cy="' + cy + '" r=".158" fill="url(#' + id + 'g)"/>' +
-               '<circle cx="' + cx + '" cy="' + cy + '" r=".158" fill="url(#' + id + 's)"/>';
-      }).join("");
+      (style === "crystal" ? crystal(L, id) : neural(L, id));
     return svg;
   }
 
-  var PALETTES = {
-    a: [[0, "#2f6fe4"], [0.45, "#6366f1"], [0.8, "#8b5cf6"], [1, "#a855f7"]],
-    b: [[0, "#2563eb"], [0.3, "#0e7490"], [0.55, "#0d9488"], [1, "#10b981"]]
+  var STYLES = {
+    a: {style: "neural", stops: [[0, "#2f6fe4"], [0.45, "#6366f1"], [0.8, "#8b5cf6"], [1, "#a855f7"]]},
+    b: {style: "crystal", stops: [[0, "#2563eb"], [0.3, "#0e7490"], [0.55, "#0d9488"], [1, "#10b981"]]}
   };
   document.querySelectorAll("[data-mol]").forEach(function (span) {
-    var svg = moleculeSvg(span.textContent.trim(), PALETTES[span.getAttribute("data-mol")] || PALETTES.a);
+    var st = STYLES[span.getAttribute("data-mol")] || STYLES.a;
+    var svg = letteringSvg(span.textContent.trim(), st.stops, st.style);
     if (!svg) return;
     span.classList.add("mol-on");
     span.insertBefore(svg, span.firstChild);

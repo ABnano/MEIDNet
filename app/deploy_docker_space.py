@@ -71,17 +71,17 @@ with the properties you want.
 
 **Further reading**
 
-1. A. Babu, R. Almeida Gouvêa, G.-M. Rignanese, *Toward automated discovery with generative models multimodal
+1. Y. Bengio, A. Courville, P. Vincent, *Representation learning: a review and new perspectives*, IEEE TPAMI 35,
+   1798–1828 (2013), [doi:10.1109/TPAMI.2013.50](https://doi.org/10.1109/TPAMI.2013.50).
+2. Y. LeCun, Y. Bengio, G. Hinton, *Deep learning*, Nature 521, 436–444 (2015),
+   [doi:10.1038/nature14539](https://doi.org/10.1038/nature14539).
+3. B. Sanchez-Lengeling, A. Aspuru-Guzik, *Inverse molecular design using machine learning: generative models for
+   matter engineering*, Science 361, 360–365 (2018), [doi:10.1126/science.aat2663](https://doi.org/10.1126/science.aat2663).
+4. A. Babu, R. Almeida Gouvêa, G.-M. Rignanese, *Toward automated discovery with generative models multimodal
    learning and closed loop workflows in inverse materials design*, Cell Reports Physical Science 7, 103561 (2026),
    [doi:10.1016/j.xcrp.2026.103561](https://doi.org/10.1016/j.xcrp.2026.103561).
-2. A. Babu, N. M. A. Krishnan, *Multimodal and cross-modal learning techniques*, APL Machine Learning 4, 030901
+5. A. Babu, N. M. A. Krishnan, *Multimodal and cross-modal learning techniques*, APL Machine Learning 4, 030901
    (2026), [doi:10.1063/5.0346744](https://doi.org/10.1063/5.0346744).
-3. Y. LeCun, Y. Bengio, G. Hinton, *Deep learning*, Nature 521, 436–444 (2015),
-   [doi:10.1038/nature14539](https://doi.org/10.1038/nature14539).
-4. Y. Bengio, A. Courville, P. Vincent, *Representation learning: a review and new perspectives*, IEEE TPAMI 35,
-   1798–1828 (2013), [doi:10.1109/TPAMI.2013.50](https://doi.org/10.1109/TPAMI.2013.50).
-5. B. Sanchez-Lengeling, A. Aspuru-Guzik, *Inverse molecular design using machine learning: generative models for
-   matter engineering*, Science 361, 360–365 (2018), [doi:10.1126/science.aat2663](https://doi.org/10.1126/science.aat2663).
 
 This public Space is shared: uploads are capped (8 MB, 1,500 rows, 30 epochs), one training at a time,
 sessions are private per browser tab and removed after an hour. Predicted properties are the model's

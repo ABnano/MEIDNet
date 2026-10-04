@@ -15,9 +15,17 @@
 (function(){ var d=document.documentElement, t=null; try{ t=localStorage.getItem('meidnet_theme'); }catch(e){}
   var q=new URLSearchParams(location.search).get('__theme'); if(t) d.dataset.theme=t; else if(q==='light'||q==='dark') d.dataset.theme=q; })();</script><link rel="apple-touch-icon" href="/docs/assets/prism-mark-192.png">
 <style>
+/* STIX Two Text and IBM Plex Mono: SIL Open Font License 1.1, see /docs/assets/fonts/ */
+@font-face{font-family:'STIX Two Text';font-style:normal;font-weight:400 700;font-display:swap;src:url(/docs/assets/fonts/stixtwotext-normal-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'STIX Two Text';font-style:normal;font-weight:400 700;font-display:swap;src:url(/docs/assets/fonts/stixtwotext-normal-greek.woff2) format('woff2');unicode-range:U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF}
+@font-face{font-family:'STIX Two Text';font-style:italic;font-weight:400 700;font-display:swap;src:url(/docs/assets/fonts/stixtwotext-italic-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'STIX Two Text';font-style:italic;font-weight:400 700;font-display:swap;src:url(/docs/assets/fonts/stixtwotext-italic-greek.woff2) format('woff2');unicode-range:U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF}
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:500;font-display:swap;src:url(/docs/assets/fonts/ibmplexmono-normal-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
 :root{--c-data:#2a78d6;--c-model:#eb6834;--c-family:#1baf7a;--c-rules:#eda100;--c-targets:#e87ba4;--c-search:#008300;--c-candidates:#4a3aa7;
   --p1:#4f46e5;--p2:#9333ea;--bg:#f6f7f5;--card:#fff;--ink:#0b0b0b;--muted:#52514e;--faint:#898781;--line:#e1e0d9;
-  --link:#4f46e5;--eyebrow-mix:#000}
+  --link:#4f46e5;--eyebrow-mix:#000;
+  --serif:'STIX Two Text','Cambria','Sitka Text',Georgia,serif;--math:'STIX Two Text','Cambria Math','STIX Two Math','Latin Modern Math',serif;
+  --mono:'IBM Plex Mono',ui-monospace,'Cascadia Mono',Consolas,monospace}
 :root[data-theme="dark"]{--bg:#111417;--card:#1b1f24;--ink:#fff;--muted:#c3c2b7;--faint:#898781;--line:#2c2c2a;--link:#a5b4fc;--eyebrow-mix:#fff}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#111417;--card:#1b1f24;--ink:#fff;--muted:#c3c2b7;--faint:#898781;--line:#2c2c2a;--link:#a5b4fc;--eyebrow-mix:#fff}}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
@@ -29,17 +37,28 @@ header .wrap{display:flex;align-items:center;gap:10px;min-height:56px;flex-wrap:
 nav{margin-left:auto;display:flex;gap:2px;flex-wrap:wrap}nav a{text-decoration:none;color:var(--muted);padding:6px 9px;border-radius:8px;font-size:14px;font-weight:600;white-space:nowrap}
 nav a:hover,nav a[aria-current]{background:var(--bg);color:var(--ink)}nav a.cta{background:var(--p1);color:#fff}nav a.cta:hover{background:var(--p2);color:#fff}
 @media(max-width:1080px){nav{order:3;width:100%;margin-left:0;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding:0 0 8px}nav::-webkit-scrollbar{display:none}header .theme{margin-left:auto}}
-.hero{display:grid;grid-template-columns:1.1fr 1fr;gap:28px;align-items:center;padding:44px 0 24px}
+.hero{display:grid;grid-template-columns:1.12fr 1fr;gap:40px;align-items:center;padding:52px 0 28px}
 @media(max-width:860px){.hero{grid-template-columns:1fr}}
-.eyebrow{font:700 12px/1 system-ui;letter-spacing:.14em;text-transform:uppercase;color:var(--p1);margin:0 0 10px}
-h1{font-size:clamp(34px,5vw,54px);line-height:1.05;margin:0 0 10px;letter-spacing:-.02em}
-h1 .prism{background:linear-gradient(90deg,var(--p1),var(--p2));-webkit-background-clip:text;background-clip:text;color:transparent}
-.tag{font-size:clamp(18px,2.2vw,22px);color:var(--muted);margin:0 0 18px;max-width:34ch}
+.hero>*{min-width:0}
+h1{font:600 clamp(38px,4.5vw,60px)/1.06 var(--serif);letter-spacing:-.012em;margin:0 0 20px;text-wrap:balance;font-kerning:normal}
+h1 .prism{font-style:italic;padding-right:.08em;background:linear-gradient(90deg,var(--p1),var(--p2) 60%,#db2777);-webkit-background-clip:text;background-clip:text;color:transparent}
+h1 .thin{font-weight:400}
+.tag{font-size:clamp(17px,1.55vw,19.5px);line-height:1.6;color:var(--muted);margin:0 0 24px;max-width:46ch}
 .btns{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 16px}
 .btn{display:inline-flex;align-items:center;gap:8px;border-radius:12px;padding:12px 18px;font-weight:700;text-decoration:none;border:1px solid var(--line);background:var(--card);color:var(--ink);font-size:16px}
 .btn.primary{background:var(--p1);border-color:var(--p1);color:#fff}.btn.primary:hover{background:var(--p2);border-color:var(--p2)}.btn:hover{box-shadow:0 4px 14px -8px rgba(0,0,0,.5)}
-.pub{font-size:14px;color:var(--muted)}.pub b{color:var(--ink)}
+.pub{font:15.5px/1.5 var(--serif);color:var(--muted);margin:0}.pub b{color:var(--ink)}
 .prismfig{width:100%;height:auto;display:block;border-radius:14px;background:#fff;border:1px solid var(--line)}
+.heroart{display:flex;flex-direction:column;gap:18px}
+.eqs{display:grid;grid-template-columns:5.2rem minmax(0,1fr);gap:9px 16px;align-items:baseline;margin:0;padding:0 4px}
+.eqs dt{font:500 10.5px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:color-mix(in oklab,var(--k) 78%,var(--eyebrow-mix))}
+.eqs dd{margin:0;font:italic 400 clamp(15px,1.45vw,18.5px)/1.3 var(--math);color:var(--muted);white-space:nowrap}
+.eqs dd .up{font-style:normal}.eqs sub,.eqs sup{font-size:.68em;line-height:0}
+.eqs dd{overflow-x:auto;scrollbar-width:none}.eqs dd::-webkit-scrollbar{display:none}
+.frac{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:0 .15em;line-height:1.15}
+.frac>span:first-child{border-bottom:1px solid currentColor;padding:0 .2em .05em}.frac>span:last-child{padding:.08em .2em 0}
+.eqs .note{font:400 12.5px/1.4 var(--serif);font-style:normal;color:var(--faint);white-space:normal}
+@media(max-width:480px){.eqs{gap:8px 10px;grid-template-columns:4.4rem minmax(0,1fr)}.eqs dd{font-size:14.5px}}
 .video{margin:12px 0 28px}.video video{width:100%;height:auto;border-radius:14px;border:1px solid var(--line);background:#000;display:block}
 .video figcaption{font-size:14px;color:var(--muted);margin-top:8px}
 .video video[hidden]{display:none}
@@ -60,19 +79,22 @@ h2.sec{font-size:24px;margin:0 0 6px}.sec-sub{color:var(--muted);margin:0 0 14px
 .cite pre{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto;font-size:13px;margin:10px 0 0}
 .reading{margin:0;padding-left:18px;color:var(--muted);font-size:14.5px}.reading li{margin:4px 0}
 .cite button{font:inherit;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:9px;padding:6px 12px;cursor:pointer}
-.eqbg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;color:var(--ink);opacity:.075;
-  font:italic 400 clamp(15px,1.6vw,22px)/1.2 "Cambria Math","STIX Two Math","Latin Modern Math","Times New Roman",serif}
-.eqbg span{position:absolute;white-space:nowrap}
-:root[data-theme="dark"] .eqbg{opacity:.11}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .eqbg{opacity:.11}}
-@media(max-width:700px){.eqbg span:nth-child(n+9){display:none}}
+.eqbg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;color:var(--ink);opacity:.11;display:none;
+  font:italic 400 clamp(15px,1.12vw,21px)/1.2 var(--math)}
+.eqbg .col{position:absolute;top:56px;bottom:0;width:calc((100vw - 1100px) / 2 - 28px);display:flex;flex-direction:column;justify-content:space-evenly;padding:12px 0}
+.eqbg .l{left:14px}.eqbg .r{right:14px}
+.eqbg span{white-space:nowrap}.eqbg span:nth-child(3n+1){align-self:flex-start}.eqbg span:nth-child(3n+2){align-self:flex-end}.eqbg span:nth-child(3n){align-self:center}
+.eqbg sub,.eqbg sup{font-size:.68em}
+:root[data-theme="dark"] .eqbg{opacity:.16}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .eqbg{opacity:.16}}
+@media(min-width:1400px){.eqbg{display:block}}
 header,main{position:relative;z-index:1}
 footer{color:var(--faint);font-size:13.5px;padding:10px 0 40px;display:flex;gap:16px;flex-wrap:wrap}
 .theme{font:inherit;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:9px;padding:5px 9px;cursor:pointer}
 </style>
 </head>
 <body>
-<div class="eqbg" aria-hidden="true"><span style="left:4%;top:9%">Ĥψ = Eψ</span><span style="left:66%;top:7%">ℒ<sub>InfoNCE</sub> = −log exp(s<sub>ii</sub>/τ) ⁄ Σ<sub>j</sub> exp(s<sub>ij</sub>/τ)</span><span style="left:40%;top:21%">z<sup>*</sup> = argmin<sub>z</sub> ‖f(z) − y<sup>*</sup>‖²</span><span style="left:82%;top:29%">nλ = 2d sin θ</span><span style="left:2%;top:36%">θ ← θ − η ∇<sub>θ</sub>ℒ</span><span style="left:56%;top:44%">t = (r<sub>A</sub> + r<sub>X</sub>) ⁄ √2 (r<sub>B</sub> + r<sub>X</sub>)</span><span style="left:14%;top:55%">softmax(QKᵀ ⁄ √d) V</span><span style="left:74%;top:62%">ΔE<sub>hull</sub> = E − E<sub>hull</sub>(x)</span><span style="left:6%;top:73%">p(x) ∝ e<sup>−E(x)/k<sub>B</sub>T</sup></span><span style="left:44%;top:80%">h<sub>i</sub><sup>l+1</sup> = φ<sub>h</sub>(h<sub>i</sub><sup>l</sup>, Σ<sub>j</sub> m<sub>ij</sub>)</span><span style="left:78%;top:88%">D<sub>KL</sub>(q ‖ p) = Σ q log(q/p)</span><span style="left:22%;top:93%">∇·E = ρ ⁄ ε<sub>0</sub></span><span style="left:48%;top:2%">cos(z<sub>s</sub>, z<sub>p</sub>)</span><span style="left:90%;top:50%">ΔH<sub>f</sub></span><span style="left:30%;top:66%">E<sub>g</sub></span></div>
+<div class="eqbg" aria-hidden="true"><div class="col l"><span>Ĥψ = Eψ</span><span>nλ = 2d sin θ</span><span>θ ← θ − η∇<sub>θ</sub>ℒ</span><span>∇·E = ρ ⁄ ε<sub>0</sub></span><span>ΔG = ΔH − TΔS</span><span>p ∝ e<sup>−E/k<sub>B</sub>T</sup></span><span>F(<b>q</b>) = Σ<sub>j</sub> f<sub>j</sub> e<sup>i<b>q</b>·<b>r</b><sub>j</sub></sup></span><span>σ(x) = 1 ⁄ (1 + e<sup>−x</sup>)</span><span>S = k<sub>B</sub> ln Ω</span><span>E<sub>g</sub> = E<sub>c</sub> − E<sub>v</sub></span></div><div class="col r"><span>⟨ψ|Ĥ|ψ⟩</span><span>softmax(QK<sup>T</sup>⁄√d)</span><span>ρ(<b>r</b>) = Σ|ψ<sub>i</sub>|²</span><span>D<sub>KL</sub>(q ‖ p)</span><span><b>F</b> = −∇U</span><span>ΔH<sub>f</sub> = E − Σ μ<sub>i</sub></span><span>k = 2π ⁄ λ</span><span>p(y | z)</span><span>∂ℒ ⁄ ∂θ</span><span>ħω = E<sub>2</sub> − E<sub>1</sub></span></div></div>
 <header><div class="wrap">
   <a class="brand" href="/"><img src="/docs/assets/prism-mark-192.png" alt=""> MEIDNet <span style="font-weight:500;color:var(--muted)">Prism</span></a>
   <nav aria-label="Main">
@@ -87,13 +109,16 @@ footer{color:var(--faint);font-size:13.5px;padding:10px 0 40px;display:flex;gap:
 <main class="wrap">
   <section class="hero">
     <div>
-      <p class="eyebrow">MEIDNet Prism</p>
-      <h1>Learn, build and benchmark <span class="prism">multimodal AI</span> for materials discovery</h1>
+      <h1>Learn, build and benchmark <span class="prism">multimodal AI</span> <span class="thin">for materials discovery</span></h1>
       <p class="tag">From the concepts of multimodal learning to a trained model and reproducible results. MEIDNet, the reference implementation, learns one space shared by crystal structures and their properties, and searches it for materials with target properties.</p>
       <div class="btns"><a class="btn primary" href="/studio/">▶ Try MEIDNet</a><a class="btn" href="/studio/?panel=data">Use your dataset</a><a class="btn" href="/docs/learn/index.html">Learn multimodality</a></div>
       <p class="pub">A. Babu <i>et al.</i>, <i>npj Comput. Mater.</i> <b>12</b>, 287 (2026) · <a href="https://doi.org/10.1038/s41524-026-02153-3">Article</a> · <a href="https://github.com/ABnano/MEIDNet">Code</a></p>
     </div>
-    <img class="prismfig" src="/docs/assets/meidnet_prism_logo.png" alt="MEIDNet Prism: several modalities enter a prism and leave it as one connected representation of materials.">
+    <div class="heroart">
+      <dl class="eqs" aria-label="Representation learning" style="--k:var(--c-model)"><dt style="--k:var(--c-model)">Encode</dt><dd>m<sub>ij</sub> = φ<sub>e</sub>(h<sub>i</sub>, h<sub>j</sub>, ‖<b>x</b><sub>i</sub> − <b>x</b><sub>j</sub>‖²)</dd><dt></dt><dd>h<sub>i</sub> ← φ<sub>h</sub>(h<sub>i</sub>, Σ<sub>j</sub> m<sub>ij</sub>)</dd><dt style="--k:var(--c-family)">Align</dt><dd>s<sub>ij</sub> = cos(z<sub>s,i</sub>, z<sub>p,j</sub>)</dd><dt></dt><dd>ℒ = −log <span class="frac"><span>exp(s<sub>ii</sub>/τ)</span><span>Σ<sub>j</sub> exp(s<sub>ij</sub>/τ)</span></span></dd><dt style="--k:var(--p2)">Fuse</dt><dd>z = ½ (z<sub>s</sub> + z<sub>p</sub>) <span class="up">∈ ℝ<sup>128</sup></span></dd></dl>
+      <img class="prismfig" src="/docs/assets/meidnet_prism_logo.png" alt="MEIDNet Prism: several modalities enter a prism and leave it as one connected representation of materials.">
+      <dl class="eqs" aria-label="Inverse design"><dt style="--k:var(--c-targets)">Design</dt><dd>z<sup>*</sup> = argmin<sub>z</sub> ‖g(z) − y<sup>*</sup>‖²</dd><dt style="--k:var(--c-candidates)">Decode</dt><dd>x<sup>*</sup> = D(z<sup>*</sup>)</dd><dt style="--k:var(--c-search)">Validate</dt><dd>E<sub>hull</sub>(x<sup>*</sup>) ≤ ε</dd></dl>
+    </div>
   </section>
 
   <figure class="video" id="tour">
@@ -149,11 +174,11 @@ footer{color:var(--faint);font-size:13.5px;padding:10px 0 40px;display:flex;gap:
   <section class="cite" id="reading">
     <h2 style="margin:0 0 6px;font-size:20px">Further reading</h2>
     <ol class="reading">
+      <li>Y. Bengio, A. Courville and P. Vincent, <i>Representation learning: a review and new perspectives</i>, IEEE Transactions on Pattern Analysis and Machine Intelligence <b>35</b>, 1798–1828 (2013). <a href="https://doi.org/10.1109/TPAMI.2013.50">doi:10.1109/TPAMI.2013.50</a></li>
+      <li>Y. LeCun, Y. Bengio and G. Hinton, <i>Deep learning</i>, Nature <b>521</b>, 436–444 (2015). <a href="https://doi.org/10.1038/nature14539">doi:10.1038/nature14539</a></li>
+      <li>B. Sanchez-Lengeling and A. Aspuru-Guzik, <i>Inverse molecular design using machine learning: generative models for matter engineering</i>, Science <b>361</b>, 360–365 (2018). <a href="https://doi.org/10.1126/science.aat2663">doi:10.1126/science.aat2663</a></li>
       <li>A. Babu, R. Almeida Gouvêa and G.-M. Rignanese, <i>Toward automated discovery with generative models multimodal learning and closed loop workflows in inverse materials design</i>, Cell Reports Physical Science <b>7</b>, 103561 (2026). <a href="https://doi.org/10.1016/j.xcrp.2026.103561">doi:10.1016/j.xcrp.2026.103561</a></li>
       <li>A. Babu and N. M. A. Krishnan, <i>Multimodal and cross-modal learning techniques</i>, APL Machine Learning <b>4</b>, 030901 (2026). <a href="https://doi.org/10.1063/5.0346744">doi:10.1063/5.0346744</a></li>
-      <li>Y. LeCun, Y. Bengio and G. Hinton, <i>Deep learning</i>, Nature <b>521</b>, 436–444 (2015). <a href="https://doi.org/10.1038/nature14539">doi:10.1038/nature14539</a></li>
-      <li>Y. Bengio, A. Courville and P. Vincent, <i>Representation learning: a review and new perspectives</i>, IEEE Transactions on Pattern Analysis and Machine Intelligence <b>35</b>, 1798–1828 (2013). <a href="https://doi.org/10.1109/TPAMI.2013.50">doi:10.1109/TPAMI.2013.50</a></li>
-      <li>B. Sanchez-Lengeling and A. Aspuru-Guzik, <i>Inverse molecular design using machine learning: generative models for matter engineering</i>, Science <b>361</b>, 360–365 (2018). <a href="https://doi.org/10.1126/science.aat2663">doi:10.1126/science.aat2663</a></li>
     </ol>
   </section>
   <footer><span>MEIDNet Prism: learn, build and benchmark multimodal AI for materials discovery. MEIDNet is its reference implementation.</span><a href="https://github.com/ABnano/MEIDNet">Code</a><a href="/docs/">Documentation</a><a href="/docs/understand/limits.html">Scope and roadmap</a><a href="https://huggingface.co/spaces/Babu09/MEIDNet">Hugging Face Space</a></footer>

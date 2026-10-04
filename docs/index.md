@@ -24,7 +24,7 @@ accepts any table of structures and scalar properties and any prototype family y
     <source src="assets/meidnet_tour.webm" type="video/webm">
     Your browser cannot play this video: <a href="assets/meidnet_tour.webm">download it</a>.
   </video>
-  <figcaption>MEIDNet in one minute: data, model, family, rules, targets, search and candidates. The same tour opens
+  <figcaption>MEIDNet from concept to demonstration: data, model, family, rules, targets, search and candidates. The same tour opens
   on a first visit to the <a href="https://babu09-meidnet.hf.space/">live Studio</a> (the “▶ How it works” button replays it).</figcaption>
 </figure>
 

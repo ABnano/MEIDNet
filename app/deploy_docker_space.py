@@ -46,7 +46,7 @@ implementation, learns one shared latent space for crystal structures and their 
 prototype-family design space checked by chemistry rules, and searches the latent space for candidates
 with the properties you want.
 
-* **[Home](https://babu09-meidnet.hf.space/)** — overview and a one-minute tour.
+* **[Home](https://babu09-meidnet.hf.space/)** — overview and a guided tour, from concept to demonstration.
 * **[Learn](https://babu09-meidnet.hf.space/docs/learn/index.html)** — what a modality is, the five
   challenges of multimodal learning, contrastive learning with a playground, an interactive map of
   materials modalities.

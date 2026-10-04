@@ -133,6 +133,7 @@ def test_http_routes_landing_and_studio(studio, tmp_path):
             st, _, body = get(srv, "/studio/")
             assert st == 200 and "MEIDNet Studio" in body and "Researcher mode" in body
             assert all(ASK_PRISM_TAG in get(srv, p)[2] for p in ("/", "/studio/"))   # the help panel on both pages
+            assert all(get(srv, p)[1]["Cache-Control"] == "no-cache" for p in ("/", "/studio/", "/docs/"))   # a deploy shows at once
             st, h, body = get(srv, "/ask-prism.js")
             assert st == 200 and h["Content-Type"].startswith("text/javascript") and "Ask PRISM" in body
             st, h, _ = get(srv, "/?panel=rules&session=tab-route")

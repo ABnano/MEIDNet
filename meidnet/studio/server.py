@@ -1110,9 +1110,10 @@ class Handler(BaseHTTPRequestHandler):
             self.send_header(k, v)
         self.send_header("Content-Type", ctype + ("; charset=utf-8" if ctype.startswith("text") or "json" in ctype else ""))
         self.send_header("Content-Length", str(len(body)))
-        # run outputs change under the same name (a retrained model's report): always revalidate those
+        # run outputs change under the same name (a retrained model's report), and so do the pages after a deploy:
+        # always revalidate those
         self.send_header("Cache-Control", "no-store" if ctype == "application/json" else
-                         "no-cache" if sandbox else "max-age=300")
+                         "no-cache" if sandbox or ctype == "text/html" else "max-age=300")
         self.send_header("X-Content-Type-Options", "nosniff")
         if sandbox:   # files written from visitors' data: no scripts, nothing loaded from elsewhere
             self.send_header("Content-Security-Policy",

@@ -83,7 +83,7 @@ The alignment carries over to unseen materials with a small loss; the reconstruc
 
 === "2 · On a laptop, about a minute"
 
-    Recompute the cosine and L2 of any seed on a CPU. The checkpoint is downloaded from Hugging Face.
+    Recompute the cosine and L2 of any seed on a CPU. The checkpoint (2.8 MB) is downloaded once from Hugging Face to `~/.meidnet/reproduction/`.
 
     ```bash
     pip install git+https://github.com/ABnano/MEIDNet.git
@@ -97,12 +97,13 @@ The alignment carries over to unseen materials with a small loss; the reconstruc
 
 === "3 · Full training, one GPU, about 7 hours"
 
-    The training script, the wrapper and the job files are in [`reproduction/paper_alignment/`](https://github.com/ABnano/MEIDNet/blob/main/reproduction/paper_alignment).
+    The training script and its wrapper are in [`reproduction/paper_alignment/`](https://github.com/ABnano/MEIDNet/blob/main/reproduction/paper_alignment). In the clone, after `meidnet download-data`:
 
     ```bash
     cd reproduction/paper_alignment
+    python prepare_data.py                                          # train.csv and cif_files/: all 18,928 materials
     python -u retrain_alignment.py --seed 4 --epochs 2200           # trains, then prints cosine, L2 and structure matching
-    python -u retrain_alignment.py --ckpt path/to/checkpoint.pth    # evaluation only
+    python -u retrain_alignment.py --ckpt ~/.meidnet/reproduction/meidnet_paper_rerun_seed4.pth   # evaluation only
     ```
 
     The same seed gives the same numbers as in the table above, on any GPU.

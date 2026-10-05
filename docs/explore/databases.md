@@ -90,7 +90,7 @@ Pick an application:
 | [AFLOW](https://aflowlib.org) | computed | more than 3,500,000 entries | formation enthalpy, band gaps, elastic and thermal properties (AGL), Debye temperature, magnetic moments, prototype encyclopedia | ready; the AFLOW prototype library is a good source of family files |
 | [JARVIS-DFT (NIST)](https://jarvis.nist.gov/jarvisdft) | computed | about 80,000 3D and 1,000 2D materials | OptB88vdW and TBmBJ band gaps, effective masses, dielectric functions, solar-cell efficiency (SLME), elastic tensors, piezoelectric and thermoelectric (BoltzTraP) properties, exfoliation energies, superconducting Tc (electron-phonon) for a subset | ready; the richest single source of scalar targets per structure |
 | [matminer datasets](https://hackingmaterials.lbl.gov/matminer/dataset_summary.html) | computed + experimental | about 50 curated tables | one-line loaders for experimental band gaps (Zhuo 2018, 6,354 compounds; matbench_expt_gap 4,604), experimental formation enthalpies (Kim 2017), UCSB thermoelectrics, elastic tensors, dielectric constants, piezoelectric tensors, phonon data, superhard materials, HOIP perovskites | experimental tables are composition-only: join with a structure source (COD, Materials Project) to train; use them directly as realistic targets |
-| [UCSB thermoelectrics (Gaultois et al.)](https://citrine.io/ucsb-te/) | experimental | about 1,100 compounds | experimental Seebeck, resistivity, thermal conductivity, zT at a given temperature | targets; join with structures |
+| [UCSB thermoelectrics (Gaultois et al.)](https://hackingmaterials.lbl.gov/matminer/dataset_summary.html#ucsb-thermoelectrics) | experimental | about 1,100 compounds | experimental Seebeck, resistivity, thermal conductivity, zT at a given temperature | targets; join with structures |
 | [Starrydata](https://www.starrydata2.org) | experimental | tens of thousands of digitised curves | temperature-dependent thermoelectric and other property curves digitised from papers | targets at a chosen temperature |
 | [Materials Data Facility](https://materialsdatafacility.org) | computed + experimental | hundreds of datasets | a registry of published materials datasets, experimental and computed, with DOIs | a place to find and to publish tables |
 
@@ -124,7 +124,7 @@ Pick an application:
 | [Crystallography Open Database (COD)](https://www.crystallography.net/cod/) | experimental | more than 500,000 crystal structures | experimentally determined structures (organic and inorganic) as CIFs with references; no properties | structures: join with a property table to train; the natural source of experimental prototypes for family files |
 | [ICSD](https://icsd.products.fiz-karlsruhe.de) | experimental | about 300,000 inorganic structures | the reference collection of experimentally determined inorganic structures; the ground truth most DFT databases start from | structures: licence forbids redistribution, train locally |
 | [SuperCon (NIMS) and 3DSC](https://github.com/aimat-lab/3DSC) | experimental | about 16,000 Tc entries; 3DSC links 5,700 to structures | experimental superconducting critical temperatures; 3DSC matches them to ICSD / Materials Project structures | 3DSC is ready (structure + Tc); use log Tc as the target |
-| [MAGNDATA (Bilbao)](https://www.cryst.ehu.es/magndata/) | experimental | about 2,000 magnetic structures | experimentally determined commensurate and incommensurate magnetic structures | structures with magnetic ordering; join with moments as targets |
+| [MAGNDATA (Bilbao)](https://cryst.ehu.es/magndata/) | experimental | about 2,000 magnetic structures | experimentally determined commensurate and incommensurate magnetic structures | structures with magnetic ordering; join with moments as targets |
 
 ## Mechanical, dielectric and piezoelectric
 
@@ -169,7 +169,7 @@ Pick an application:
 | [Crystallography Open Database (COD)](https://www.crystallography.net/cod/) | experimental | more than 500,000 crystal structures | experimentally determined structures (organic and inorganic) as CIFs with references; no properties | structures: join with a property table to train; the natural source of experimental prototypes for family files |
 | [Cambridge Structural Database (CSD)](https://www.ccdc.cam.ac.uk/solutions/software/csd/) | experimental | more than 1,300,000 organic and metal-organic structures | experimental molecular and MOF crystal structures | beyond today's cell-size limit; descriptors only |
 | [QMOF](https://github.com/Andrew-S-Rosen/QMOF) | computed | about 20,000 MOFs | DFT-optimised MOF structures with band gaps and charges | beyond today's cell-size limit; targets and descriptors |
-| [CoRE MOF](https://github.com/gregchung/gregchung.github.io/tree/master/CoRE-MOFs) | experimental | about 14,000 experimental MOFs | computation-ready experimental MOF structures with pore descriptors | beyond today's cell-size limit |
+| [CoRE MOF](https://zenodo.org/records/3677685) | experimental | about 14,000 experimental MOFs | computation-ready experimental MOF structures with pore descriptors | beyond today's cell-size limit |
 
 ## Generative-model benchmarks
 
@@ -211,14 +211,14 @@ Pick an application:
 | [Experimental band gaps (Zhuo et al. 2018)](https://pubs.acs.org/doi/10.1021/acs.jpclett.8b00124) | experimental | paper SI, matminer expt_gap | per paper | Semiconductor physics, Solar cells and photovoltaics |
 | [Liverpool Ionic Conductivity Database (LiIonDB)](https://pcwww.liv.ac.uk/~msd30/lmds/LiIonDatabase.html) | experimental | web, download | open | Batteries and ionic conductors |
 | [Materials Project battery explorer](https://next-gen.materialsproject.org/batteries) | computed | web, mp-api | CC BY 4.0 | Batteries and ionic conductors |
-| [UCSB thermoelectrics (Gaultois et al.)](https://citrine.io/ucsb-te/) | experimental | matminer ucsb_thermoelectrics | open | Thermoelectrics |
+| [UCSB thermoelectrics (Gaultois et al.)](https://hackingmaterials.lbl.gov/matminer/dataset_summary.html#ucsb-thermoelectrics) | experimental | matminer ucsb_thermoelectrics | open | Thermoelectrics |
 | [Starrydata](https://www.starrydata2.org) | experimental | web, download | open | Thermoelectrics |
 | [Open Catalyst (OC20 / OC22)](https://opencatalystproject.org) | computed | download, fairchem | CC BY 4.0 | Catalysis and surfaces |
 | [Catalysis-Hub](https://www.catalysis-hub.org) | computed | web, GraphQL API | open | Catalysis and surfaces |
 | [SuperCon (NIMS) and 3DSC](https://github.com/aimat-lab/3DSC) | experimental | NIMS MDR, 3DSC on GitHub | open (3DSC) | Magnetism and superconductivity |
-| [MAGNDATA (Bilbao)](https://www.cryst.ehu.es/magndata/) | experimental | web | open | Magnetism and superconductivity |
+| [MAGNDATA (Bilbao)](https://cryst.ehu.es/magndata/) | experimental | web | open | Magnetism and superconductivity |
 | [QMOF](https://github.com/Andrew-S-Rosen/QMOF) | computed | download (figshare) | CC BY 4.0 | Porous materials and MOFs, Semiconductor physics |
-| [CoRE MOF](https://github.com/gregchung/gregchung.github.io/tree/master/CoRE-MOFs) | experimental | download | CC BY 4.0 | Porous materials and MOFs |
+| [CoRE MOF](https://zenodo.org/records/3677685) | experimental | download | CC BY 4.0 | Porous materials and MOFs |
 | [Materials Data Facility](https://materialsdatafacility.org) | computed + experimental | web, API | per dataset | Semiconductor physics, Solar cells and photovoltaics, Batteries and ionic conductors, Thermoelectrics, Catalysis and surfaces, Mechanical, dielectric and piezoelectric |
 
 Missing one you use? [Open an issue](https://github.com/ABnano/MEIDNet/issues) or edit `benchmarks/catalog/databases.json`.

@@ -6,7 +6,8 @@ Recompute the alignment results of one of the seven published checkpoints on you
     python scripts/reproduce_alignment.py --seed 4 --structure-matching     # also rebuild every crystal (a few minutes)
     python scripts/reproduce_alignment.py --ckpt my_model.pt   # any MEIDNet checkpoint with the same two properties
 
-The checkpoint is downloaded from https://huggingface.co/Babu09/MEIDNet (folder reproduction/) unless --ckpt is given.
+Unless --ckpt is given, the checkpoint is downloaded once from https://huggingface.co/Babu09/MEIDNet (folder
+reproduction/) to ~/.meidnet/reproduction/.
 The numbers to expect are in benchmarks/reproduction/perov5/runs.csv and on the page
 docs/benchmarks/perov5-reproduction.md.
 
@@ -23,16 +24,24 @@ import time
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 sys.path.insert(0, ROOT)
-REPO, FOLDER = "Babu09/MEIDNet", "reproduction"
+URL = "https://huggingface.co/Babu09/MEIDNet/resolve/main/reproduction/{name}"
 
 
 def checkpoint_path(seed: int) -> str:
+    """checkpoints/reproduction/ of the repository if the file is there, else downloaded once to ~/.meidnet/reproduction/
+    (a plain download: no Hugging Face library needed)."""
     name = f"meidnet_paper_rerun_seed{seed}.pth"
     local = os.path.join(ROOT, "checkpoints", "reproduction", name)
     if os.path.exists(local):
         return local
-    from huggingface_hub import hf_hub_download
-    return hf_hub_download(REPO, f"{FOLDER}/{name}")
+    cache = os.path.join(os.path.expanduser("~"), ".meidnet", "reproduction", name)
+    if not os.path.exists(cache):
+        import urllib.request
+        os.makedirs(os.path.dirname(cache), exist_ok=True)
+        print(f"downloading {name} (2.8 MB) to {cache} ...")
+        urllib.request.urlretrieve(URL.format(name=name), cache + ".part")
+        os.replace(cache + ".part", cache)
+    return cache
 
 
 def measure(ckpt: str, data_dir: str, structure_matching: bool = False, limit: int | None = None, log=print) -> dict:

@@ -1,21 +1,27 @@
 [build-system]
-requires = ["setuptools>=68", "wheel"]
+requires = ["setuptools>=77", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "meidnet"
-version = "2.0.0"
+version = "2.2.0"
 description = "MEIDNet: multimodal structure-property latent space and constrained inverse design of crystalline materials"
 readme = "README.md"
-license = { text = "MIT" }
+license = "MIT"
+license-files = ["LICENSE"]
 requires-python = ">=3.10"
 authors = [
     { name = "Anand Babu" },
 ]
 keywords = ["materials", "inverse design", "generative model", "perovskite", "contrastive learning"]
 classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
     "Topic :: Scientific/Engineering :: Chemistry",
     "Topic :: Scientific/Engineering :: Artificial Intelligence",
 ]
@@ -42,12 +48,15 @@ dev = ["pytest>=7.4"]
 meidnet = "meidnet.cli:main"
 
 [project.urls]
-Homepage = "https://github.com/ABnano/MEIDNet"
-Documentation = "https://abnano.github.io/MEIDNet"
-Paper = "https://www.nature.com/articles/s41524-026-02153-3"
+Homepage = "https://babu09-meidnet.hf.space/"
+Documentation = "https://babu09-meidnet.hf.space/docs/"
+Source = "https://github.com/ABnano/MEIDNet"
+Issues = "https://github.com/ABnano/MEIDNet/issues"
+Paper = "https://doi.org/10.1038/s41524-026-02153-3"
+Models = "https://huggingface.co/Babu09/MEIDNet"
 
 [tool.setuptools.packages.find]
-include = ["meidnet*"]
+include = ["meidnet", "meidnet.*"]
 
 [tool.setuptools.package-data]
 meidnet = ["families/*.yaml", "studio/*.html", "studio/*.js"]

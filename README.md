@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/assets/meidnet_prism_logo.png" alt="MEIDNet Prism — Multimodal materials representation and inverse design" width="640"/>
+  <img src="https://raw.githubusercontent.com/ABnano/MEIDNet/main/docs/assets/meidnet_prism_logo.png" alt="MEIDNet Prism — Multimodal materials representation and inverse design" width="640"/>
 </p>
 
 <p align="center"><em>Inverse design of crystalline materials from target properties, with your own data and rules.</em><br/>
@@ -11,7 +11,7 @@
   <a href="https://babu09-meidnet.hf.space/"><img alt="MEIDNet Prism" src="https://img.shields.io/badge/MEIDNet%20Prism-live-4f46e5"></a>
   <a href="https://huggingface.co/Babu09/MEIDNet"><img alt="Model on Hugging Face" src="https://img.shields.io/badge/%F0%9F%A4%97%20model-Babu09%2FMEIDNet-ffcc4d"></a>
   <a href="https://github.com/ABnano/MEIDNet/actions"><img alt="CI" src="https://github.com/ABnano/MEIDNet/actions/workflows/ci.yml/badge.svg"></a>
-  <a href="LICENSE"><img alt="MIT" src="https://img.shields.io/badge/licence-MIT-0a7d0a"></a>
+  <a href="https://github.com/ABnano/MEIDNet/blob/main/LICENSE"><img alt="MIT" src="https://img.shields.io/badge/licence-MIT-0a7d0a"></a>
 </p>
 
 <p align="center">
@@ -22,8 +22,8 @@
 </p>
 
 <p align="center">
-  <a href="https://babu09-meidnet.hf.space/"><img src="docs/assets/meidnet_tour_poster.png" alt="MEIDNet in one minute: from the properties you want to candidate crystals" width="720"/></a><br/>
-  <sub><a href="docs/assets/meidnet_tour.webm"><b>▶ MEIDNet in one minute</b></a> (video) — the same tour plays when you open the <a href="https://babu09-meidnet.hf.space/">live Studio</a></sub>
+  <a href="https://babu09-meidnet.hf.space/"><img src="https://raw.githubusercontent.com/ABnano/MEIDNet/main/docs/assets/meidnet_tour_poster.png" alt="MEIDNet: from concept to demonstration" width="720"/></a><br/>
+  <sub><a href="https://babu09-meidnet.hf.space/"><b>▶ MEIDNet: from concept to demonstration</b></a>, the live 3D tour on the home page (<a href="https://github.com/ABnano/MEIDNet/releases/download/v2.1.0/meidnet_tour.webm">video version</a>)</sub>
 </p>
 
 ---

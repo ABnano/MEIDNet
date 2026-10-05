@@ -1176,6 +1176,8 @@ class Handler(BaseHTTPRequestHandler):
                 return self._send(200, _page("studio.html"), "text/html")
             if path == "/ask-prism.js":     # the help panel, shared by the landing page, the Studio and the docs
                 return self._send(200, _page("ask_prism.js"), "text/javascript")
+            if path == "/health":         # for uptime checks: answers without touching a session or the model
+                return self._send(200, {"status": "ok", "version": __version__})
             if path == "/api/state":
                 return self._send(200, s.state(sid))
             if path == "/api/data":

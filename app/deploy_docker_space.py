@@ -2,8 +2,12 @@
 Deploy the live MEIDNet Studio (+ documentation site) as a Docker Space.
 
     python scripts/build_docs.py --no-studio && mkdocs build      # fresh docs site in site/
-    python app/deploy_docker_space.py --repo Babu09/MEIDNet       # build the bundle and upload
-    python app/deploy_docker_space.py --repo Babu09/MEIDNet --dry-run
+    python app/deploy_docker_space.py --repo Babu09/MEIDNet-Prism                  # build the bundle and upload
+    python app/deploy_docker_space.py --repo Babu09/MEIDNet-Prism --dry-run
+    python app/deploy_docker_space.py --repo Babu09/MEIDNet --allow-original       # the original Space: only on purpose
+
+The pages name their Space's address (babu09-meidnet.hf.space); a copy deployed to another Space gets its own
+address written into the bundle, so its links stay on it. After the build the script checks / and /health.
 
 The bundle is self-contained (package, checkpoint, Perov-5 training table for the Data node,
 built docs), so the Space does not depend on the GitHub repository.  Needs a write token:
@@ -17,6 +21,9 @@ import time
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 STAGE = os.path.join(ROOT, "build", "space_docker")
+ORIGINAL = "Babu09/MEIDNet"                      # the Space the pages are written for; replaced only with --allow-original
+CANONICAL_HOST = "babu09-meidnet.hf.space"
+TEXT_TYPES = (".html", ".js", ".css", ".md", ".json", ".xml", ".txt", ".py", ".yaml", ".yml")
 CKPT = "dual_autoencoder_clip_earlyfusion_propertyaware_2k.pth"
 # binary file types in the bundle, all tracked by LFS on the Space (see stage())
 LFS_EXTENSIONS = ("pth", "csv", "png", "jpg", "jpeg", "gif", "webp", "ico", "webm", "mp4", "gz", "zip", "pdf",
@@ -134,13 +141,57 @@ def build_stage() -> str:
     return STAGE
 
 
+def space_host(repo: str) -> str:
+    owner, name = repo.split("/")
+    return f"{owner.lower()}-{name.lower().replace('_', '-').replace('.', '-')}.hf.space"
+
+
+def rewrite_host(stage: str, host: str) -> int:
+    """Point a copy's links at its own address: every text file of the bundle, CANONICAL_HOST -> host."""
+    n = 0
+    for d, _, files in os.walk(stage):
+        for f in files:
+            if not f.endswith(TEXT_TYPES):
+                continue
+            p = os.path.join(d, f)
+            with open(p, encoding="utf-8", errors="surrogateescape") as fh:
+                s = fh.read()
+            if CANONICAL_HOST in s:
+                with open(p, "w", encoding="utf-8", errors="surrogateescape", newline="") as fh:
+                    fh.write(s.replace(CANONICAL_HOST, host))
+                n += 1
+    return n
+
+
+def check_live(host: str, tries: int = 30) -> None:
+    import urllib.request
+    for path in ("/health", "/", "/studio/", "/docs/"):
+        for i in range(tries):
+            try:
+                with urllib.request.urlopen(f"https://{host}{path}", timeout=30) as r:
+                    if r.status == 200:
+                        print(f"  {path:9s} 200")
+                        break
+            except Exception as e:          # the container may still be starting
+                err = e
+            time.sleep(5)
+        else:
+            sys.exit(f"https://{host}{path} did not answer 200 ({err})")
+
+
 def main():
     p = argparse.ArgumentParser()
-    p.add_argument("--repo", required=True, help="e.g. Babu09/MEIDNet")
+    p.add_argument("--repo", required=True, help="e.g. Babu09/MEIDNet-Prism")
+    p.add_argument("--allow-original", action="store_true", help=f"needed to replace {ORIGINAL}")
     p.add_argument("--dry-run", action="store_true")
     p.add_argument("--wait", type=int, default=900, help="seconds to wait for the build")
     a = p.parse_args()
+    if a.repo.lower() == ORIGINAL.lower() and not a.allow_original:
+        sys.exit(f"refusing to replace {ORIGINAL}: pass --allow-original to deploy there on purpose")
     stage = build_stage()
+    host = space_host(a.repo)
+    if host != CANONICAL_HOST:
+        print(f"links rewritten to {host} in {rewrite_host(stage, host)} files")
     if a.dry_run:
         return
     from huggingface_hub import HfApi
@@ -175,8 +226,8 @@ def main():
         if stage_ in ("BUILD_ERROR", "RUNTIME_ERROR", "CONFIG_ERROR"):
             sys.exit(f"Space failed with {stage_}; see {url}?logs=build")
         time.sleep(10)
-    owner, name = a.repo.split("/")
-    print(f"live: https://{owner.lower()}-{name.lower()}.hf.space/   docs: https://{owner.lower()}-{name.lower()}.hf.space/docs/")
+    check_live(host)
+    print(f"live: https://{host}/   docs: https://{host}/docs/")
 
 
 if __name__ == "__main__":

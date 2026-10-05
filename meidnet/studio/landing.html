@@ -218,13 +218,16 @@ footer{color:var(--faint);font-size:13.5px;padding:10px 0 40px;display:flex;gap:
       <li>A. Babu and N. M. A. Krishnan, <i>Multimodal and cross-modal learning techniques</i>, APL Machine Learning <b>4</b>, 030901 (2026). <a href="https://doi.org/10.1063/5.0346744">doi:10.1063/5.0346744</a></li>
     </ol>
   </section>
-  <footer><span>MEIDNet Prism: learn, build and benchmark multimodal AI for materials discovery. MEIDNet is its reference implementation.</span><a href="https://github.com/ABnano/MEIDNet">Code</a><a href="/docs/">Documentation</a><a href="/docs/understand/limits.html">Scope and roadmap</a><a href="https://huggingface.co/spaces/Babu09/MEIDNet">Hugging Face Space</a></footer>
+  <footer><span>MEIDNet Prism: learn, build and benchmark multimodal AI for materials discovery. MEIDNet is its reference implementation.</span><a href="https://github.com/ABnano/MEIDNet">Code</a><a href="/docs/">Documentation</a><a href="/docs/understand/limits.html">Scope and roadmap</a><a href="https://huggingface.co/spaces/Babu09/MEIDNet">Hugging Face Space</a><a id="direct-app" href="/" target="_blank" rel="noopener" hidden title="The same page, outside the Hugging Face frame">Open the direct app ↗</a></footer>
 </main>
 <script>
 (function(){
   // Inside the Hugging Face page this site runs in a frame, and GitHub, doi.org or arXiv refuse to load in one:
   // open every link that leaves this site in a new tab.
   document.querySelectorAll('a[href^="http"]').forEach(a=>{ try{ if(new URL(a.href).origin!==location.origin){ a.target='_blank'; a.rel='noopener'; } }catch(e){} });
+  // inside the Hugging Face page: a link to the same page at its own address
+  let framed=false; try{ framed = window.self !== window.top; }catch(e){ framed = true; }
+  const da=document.getElementById('direct-app'); if(framed && da){ da.href=location.href; da.hidden=false; }
 })();
 (function(){ const d=document.documentElement; try{ const t=localStorage.getItem('meidnet_theme'); if(t) d.dataset.theme=t; }catch(e){}
   const b=document.getElementById('theme'); const isDark=()=>d.dataset.theme==='dark'||(!d.dataset.theme&&matchMedia('(prefers-color-scheme: dark)').matches);

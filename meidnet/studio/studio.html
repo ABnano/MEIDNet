@@ -345,11 +345,14 @@ async function resumeJobs(){
     statusAll(); updateEdges(); renderLive();
   }catch(e){ /* nothing to resume */ }
 }
+/* inside the Hugging Face page the app runs in a frame: offer the same page at its own address */
+function directAppLink(){ let framed=false; try{ framed = window.self !== window.top; }catch(e){ framed = true; }
+  return framed && !STATIC ? ` · <a href="${esc(location.href)}" target="_blank" rel="noopener" title="The same page, outside the Hugging Face frame">Open the direct app ↗</a>` : ''; }
 function renderHeader(){
   const props=S.state.model.properties;
   const links=[S.state.docs_url?`<a href="${S.state.docs_url}" target="_blank">Docs</a>`:'', '<a href="https://github.com/ABnano/MEIDNet" target="_blank">Code</a>', '<a href="https://www.nature.com/articles/s41524-026-02153-3" target="_blank">Paper</a>'].filter(Boolean).join(' · ');
   const which = S.state.model.own ? 'your model' : (S.state.model.legacy ? 'published Perov-5 model' : S.state.model.path);
-  $('hdr-sub').innerHTML = esc(which + ' · ' + props.map(p=>p.label).join(', ')) + ' &nbsp;·&nbsp; ' + links;
+  $('hdr-sub').innerHTML = esc(which + ' · ' + props.map(p=>p.label).join(', ')) + ' &nbsp;·&nbsp; ' + links + directAppLink();
   $('home-link').hidden = !(S.state.home_url && !STATIC);
 }
 
@@ -1157,7 +1160,9 @@ function loadChemiscope(){
   if(_csLoader) return _csLoader;
   _csLoader = new Promise((resolve, reject)=>{
     if(!navigator.onLine){ reject(new Error('offline')); return; }
-    const urls=['https://cdn.jsdelivr.net/npm/chemiscope@1.1.0/dist/chemiscope.min.js','https://unpkg.com/chemiscope@1.1.0/dist/chemiscope.min.js'];
+    // the copy served with the docs first (no CDN needed); the CDNs only for a Studio started without the docs
+    const urls=[...(S.state&&S.state.docs_url?[S.state.docs_url+'assets/vendor/chemiscope-1.1.0/chemiscope.min.js']:[]),
+                'https://cdn.jsdelivr.net/npm/chemiscope@1.1.0/dist/chemiscope.min.js','https://unpkg.com/chemiscope@1.1.0/dist/chemiscope.min.js'];
     const timer=setTimeout(()=>reject(new Error('timeout loading chemiscope')), 25000);
     const tryUrl=(i)=>{ if(i>=urls.length){ clearTimeout(timer); reject(new Error('could not load chemiscope')); return; } const sc=document.createElement('script'); sc.src=urls[i]; sc.onload=()=>{ clearTimeout(timer); window.Chemiscope?resolve():reject(new Error('chemiscope did not initialise')); }; sc.onerror=()=>tryUrl(i+1); document.head.appendChild(sc); };
     tryUrl(0);

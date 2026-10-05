@@ -136,6 +136,8 @@ def test_http_routes_landing_and_studio(studio, tmp_path):
             assert all(get(srv, p)[1]["Cache-Control"] == "no-cache" for p in ("/", "/studio/", "/docs/"))   # a deploy shows at once
             st, h, body = get(srv, "/ask-prism.js")
             assert st == 200 and h["Content-Type"].startswith("text/javascript") and "Ask PRISM" in body
+            st, _, body = get(srv, "/health")
+            assert st == 200 and json.loads(body)["status"] == "ok"                 # uptime checks, no session needed
             st, h, _ = get(srv, "/?panel=rules&session=tab-route")
             assert st == 302 and h["Location"] == "/studio/?panel=rules&session=tab-route"
             st, _, body = get(srv, "/docs/")

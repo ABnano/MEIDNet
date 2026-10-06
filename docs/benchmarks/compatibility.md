@@ -19,12 +19,17 @@ Two families of metrics, so that a result here can be read next to results elsew
 
 ## Conditional inverse-design quality: the MEIDNet extension
 
-A conditional generator is asked for a property; these metrics say whether it delivered. They need `targets.csv` with a `file` column (the CIF file name) and, per property, `<p>_target` and optionally `<p>_value`, the value the submitter reports for the structure, with a `source` column saying how it was obtained (`dft`, `experiment`, `predicted`). Without a value, `--model <checkpoint>` predicts it with a MEIDNet model, and the report labels those values model-predicted.
+A conditional generator is asked for a property; these metrics say whether it delivered. They need `targets.csv` with a `file` column (the CIF file name) and, per property, a point target `<p>_target`, a window `<p>_min` / `<p>_max`, or both. A bound such as "formation energy at most 1.0 eV/atom" is a window with only `<p>_max` = 1.0, not a point target. An optional `<p>_value` holds the value the submitter reports for the structure, with a `source` column saying how it was obtained (`dft`, `experiment`, `predicted`). Without a value, `--model <checkpoint>` predicts it with a MEIDNet model, and the report labels those values model-predicted.
+
+```text
+file,dir_gap_target,dir_gap_min,dir_gap_max,dir_gap_value,heat_all_max,heat_all_value,source
+cand-001.cif,1.5,1.2,1.8,1.47,1.0,-0.62,dft
+```
 
 | metric | definition |
 |---|---|
-| target success rate | share of structures with \|value − target\| ≤ tolerance, per property; the tolerance is `--tolerance p=…` or 5 % of the reference's range |
-| target error | mean \|value − target\| |
+| target success rate | share of structures whose value lies inside the window when one is given, else with \|value − target\| ≤ tolerance, per property; the tolerance is `--tolerance p=…` or 5 % of the reference's range |
+| target error | mean \|value − target\|, or the distance outside the window for a property with a window and no point target |
 | multi-property success | share with every targeted property within tolerance |
 | constraint success | valid structures (the validity family) among the successes |
 | conditional diversity | distinct compositions among the successes, over the successes |
@@ -36,7 +41,7 @@ Oracle efficiency, the number of candidates evaluated per success, is a property
 ## Running it
 
 ```bash
-pip install "meidnet>=2.3"                       # or: pip install "meidnet[stability]" for --mlip
+pip install "meidnet>=2.3.1"                     # or: pip install "meidnet[stability]" for --mlip
 meidnet download-data                            # Perov-5 as a reference (data/perov5/)
 meidnet score generated/ --reference data/perov5
 meidnet score generated/ --reference data/perov5 --targets targets.csv --tolerance dir_gap=0.3

@@ -20,12 +20,13 @@ Metric families, named as in LeMat-GenBench (Siron et al. 2025):
                   energy above the convex hull that LeMat-GenBench computes
     sun           stable and unique and novel (structure novelty), with --mlip
 
-The conditional extension needs targets.csv with a column `file` (the CIF file name) and, per property, `<p>_target`
-and optionally `<p>_value` (the value the submitter reports for the structure; `source` says how it was obtained).
-Without `<p>_value`, --model <meidnet checkpoint> predicts it from the structure (labelled "model-predicted").
+The conditional extension needs targets.csv with a column `file` (the CIF file name) and, per property, a point target
+`<p>_target` and/or a window `<p>_min` / `<p>_max` (a bound such as "at most 1.0" is `<p>_max` = 1.0), and optionally
+`<p>_value` (the value the submitter reports for the structure; `source` says how it was obtained). Without
+`<p>_value`, --model <meidnet checkpoint> predicts it from the structure (labelled "model-predicted").
 
-    target_success        |value - target| <= tolerance (per property)
-    target_error          mean |value - target|
+    target_success        inside the window when one is given, else |value - target| <= tolerance (per property)
+    target_error          mean |value - target|, or the distance outside the window when there is no point target
     multi_success         every targeted property within tolerance
     constraint_success    valid structures among those that hit their targets
     conditional_diversity distinct compositions among the successes, over the successes
@@ -337,15 +338,24 @@ def sun(entries: list[Entry]) -> dict:
 
 
 # ───────────────────────── the conditional extension ─────────────────────────
+TARGET_SUFFIXES = ("_target", "_min", "_max")
+
+
 def load_targets(path: str) -> tuple[list[dict], list[str]]:
+    """targets.csv: `file` + per property `<p>_target` (a point target) and/or `<p>_min` / `<p>_max` (a window, e.g. a
+    bound "at most 1.0" is `<p>_max` = 1.0), optionally `<p>_value` and `source`."""
     with open(path, encoding="utf-8", newline="") as f:
         rows = list(csv.DictReader(f))
     if not rows or not any(c in rows[0] for c in ("file", "id", "material_id")):
         raise SystemExit(f"{path} needs a 'file' column naming each structure")
-    props = sorted({c[: -len("_target")] for c in rows[0] if c.endswith("_target")})
+    props = sorted({c[: -len(s)] for c in rows[0] for s in TARGET_SUFFIXES if c.endswith(s) and len(c) > len(s)})
     if not props:
-        raise SystemExit(f"{path} has no '<property>_target' column")
+        raise SystemExit(f"{path} has no '<property>_target', '<property>_min' or '<property>_max' column")
     return rows, props
+
+
+def _number(v) -> float | None:
+    return float(v) if _is_number(v) else None
 
 
 def predict_with_model(entries: list[Entry], checkpoint: str, props: list[str], log=print) -> dict[str, dict[str, float]]:
@@ -375,7 +385,7 @@ def conditional(entries: list[Entry], rows: list[dict], props: list[str], tolera
                 ref: Reference | None, predictions: dict[str, dict[str, float]] | None) -> dict:
     by_name = {e.name: e for e in entries}
     by_stem = {os.path.splitext(e.name)[0]: e for e in entries}
-    matched, per = [], {p: {"errors": [], "hits": 0, "n": 0} for p in props}
+    matched, per = [], {p: {"errors": [], "hits": 0, "n": 0, "windowed": 0} for p in props}
     successes, target_keys, hit_keys, sources = [], set(), set(), Counter()
     for r in rows:
         key = str(r.get("file") or r.get("id") or r.get("material_id"))
@@ -385,12 +395,11 @@ def conditional(entries: list[Entry], rows: list[dict], props: list[str], tolera
         matched.append(e)
         tvec, all_hit, any_target = [], True, False
         for p in props:
-            t = r.get(f"{p}_target")
-            if not _is_number(t):
+            t, lo, hi = _number(r.get(f"{p}_target")), _number(r.get(f"{p}_min")), _number(r.get(f"{p}_max"))
+            if t is None and lo is None and hi is None:
                 continue
             any_target = True
-            t = float(t)
-            tvec.append((p, t))
+            tvec.append((p, t, lo, hi))
             v = r.get(f"{p}_value")
             src = r.get("source") or ("reported" if _is_number(v) else None)
             if not _is_number(v) and predictions and e.name in predictions and p in predictions[e.name]:
@@ -399,9 +408,15 @@ def conditional(entries: list[Entry], rows: list[dict], props: list[str], tolera
                 all_hit = False
                 continue
             sources[src] += 1
-            err = abs(float(v) - t)
+            v = float(v)
+            if lo is not None or hi is not None:          # a window: inside it is a success; the error is the distance outside it
+                hit = (lo is None or v >= lo) and (hi is None or v <= hi)
+                err = abs(v - t) if t is not None else max(0.0, (lo - v) if lo is not None else 0.0, (v - hi) if hi is not None else 0.0)
+                per[p]["windowed"] += 1
+            else:                                          # a point target: within the tolerance is a success
+                err = abs(v - t)
+                hit = err <= tolerances[p]
             per[p]["errors"].append(err); per[p]["n"] += 1
-            hit = err <= tolerances[p]
             per[p]["hits"] += hit
             all_hit &= hit
         if any_target:
@@ -412,22 +427,25 @@ def conditional(entries: list[Entry], rows: list[dict], props: list[str], tolera
                 hit_keys.add(tkey)
     n = len(matched)
     out = {"n_structures_with_targets": n, "n_distinct_targets": len(target_keys), "tolerances": tolerances, "value_sources": dict(sources),
-           "per_property": {p: {"target_success_rate": (d["hits"] / d["n"]) if d["n"] else None, "target_error_mean": (float(np.mean(d["errors"])) if d["errors"] else None), "n": d["n"]} for p, d in per.items()},
+           "per_property": {p: {"target_success_rate": (d["hits"] / d["n"]) if d["n"] else None, "target_error_mean": (float(np.mean(d["errors"])) if d["errors"] else None),
+                                "n": d["n"], "n_windowed": d["windowed"]} for p, d in per.items()},
            "multi_success_rate": (len(successes) / n) if n else None,
            "constraint_success_rate": (sum(e.valid for e in successes) / len(successes)) if successes else None,
            "conditional_diversity": (len({e.formula for e in successes}) / len(successes)) if successes else None,
            "target_coverage": (len(hit_keys) / len(target_keys)) if target_keys else None,
-           "definition": "target success: |value - target| <= tolerance; multi-property success: every targeted property within tolerance; "
-                         "constraint success: valid structures among the successes; conditional diversity: distinct compositions among the "
-                         "successes; target coverage: distinct targets with at least one success"}
+           "definition": "target success: the value lies inside the window <p>_min..<p>_max when one is given, else |value - target| <= tolerance; "
+                         "target error: |value - target|, or the distance outside the window when there is no point target; multi-property "
+                         "success: every targeted property a success; constraint success: valid structures among the successes; conditional "
+                         "diversity: distinct compositions among the successes; target coverage: distinct targets with at least one success"}
     if ref and ref.properties:
         inside = total = 0
         ranges = {p: ref.property_range(p) for p in props if p in ref.properties}
         for tkey in target_keys:
-            for p, t in tkey:
+            for p, t, lo, hi in tkey:
+                anchor = t if t is not None else ((lo + hi) / 2 if lo is not None and hi is not None else (lo if lo is not None else hi))
                 if ranges.get(p):
                     total += 1
-                    inside += ranges[p][0] <= t <= ranges[p][1]
+                    inside += ranges[p][0] <= anchor <= ranges[p][1]
         out["interpolation_share"] = (inside / total) if total else None
         out["reference_property_ranges"] = {p: list(r) for p, r in ranges.items() if r}
     return out
@@ -489,7 +507,7 @@ def score(structures: str, reference: str | None = None, targets: str | None = N
 
 def format_report(report: dict) -> str:
     f = report["families"]
-    pct = lambda v: "—" if v is None else f"{100 * v:5.1f} %"  # noqa: E731
+    pct = lambda v: "-" if v is None else f"{100 * v:5.1f} %"  # noqa: E731
     lines = [f"# Structure generation report ({report['n']} structures, meidnet {report['meidnet_version']})", "",
              "| family | metric | value |", "|---|---|---|"]
     v = f["validity"]
@@ -511,15 +529,18 @@ def format_report(report: dict) -> str:
                   f"| distribution | site-number JSD vs reference | {f['distribution']['site_number_jsd']:.3f} |"]
     if "stability" in f:
         s = f["stability"]
-        lines += [f"| stability | stable (ΔHf ≤ {s['threshold_ev_per_atom']} eV/atom, {s['mlip']}) | {pct(s['stable_rate'])} |"]
+        lines += [f"| stability | stable (formation energy <= {s['threshold_ev_per_atom']} eV/atom, {s['mlip']}) | {pct(s['stable_rate'])} |"]
     if "sun" in f and f["sun"].get("sun_rate") is not None:
         lines += [f"| sun | stable, unique and novel | {pct(f['sun']['sun_rate'])} |"]
     if "conditional" in f:
         c = f["conditional"]
         for p, m in c["per_property"].items():
             err = m["target_error_mean"]
-            err_text = "—" if err is None else f"{err:.3g}"
-            lines += [f"| conditional | {p}: target success (± {c['tolerances'][p]:g}) | {pct(m['target_success_rate'])} |",
+            err_text = "-" if err is None else f"{err:.3g}"
+            how = ("inside the window" if m.get("n_windowed") == m["n"] and m["n"] else
+                   f"within {c['tolerances'][p]:g} of the target" if not m.get("n_windowed") else
+                   f"window, or within {c['tolerances'][p]:g} of the target")
+            lines += [f"| conditional | {p}: target success ({how}) | {pct(m['target_success_rate'])} |",
                       f"| conditional | {p}: mean target error | {err_text} |"]
         lines += [f"| conditional | multi-property success | {pct(c['multi_success_rate'])} |",
                   f"| conditional | constraint success | {pct(c['constraint_success_rate'])} |",

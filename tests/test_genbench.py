@@ -93,6 +93,29 @@ def test_conditional_extension(tmp_path, report):
     assert c["tolerances"] == {"dir_gap": 0.3}
 
 
+def test_windows_and_bounds(tmp_path, report):
+    """A bound ("at most 1.0") is a window, not a point target: a value far below it is a success with no error."""
+    from meidnet.genbench import format_report, load_targets, score
+    names = [e["name"] for e in report["entries"][:3]]
+    targets = tmp_path / "bounds.csv"
+    targets.write_text("file,heat_all_max,heat_all_value,dir_gap_target,dir_gap_min,dir_gap_max,dir_gap_value\n"
+                       f"{names[0]},1.0,-2.2,1.5,1.2,1.8,1.5\n"
+                       f"{names[1]},1.0,1.4,1.5,1.2,1.8,1.9\n"
+                       f"{names[2]},1.0,0.9,,1.2,1.8,1.0\n", encoding="utf-8")
+    assert load_targets(str(targets))[1] == ["dir_gap", "heat_all"]
+    r = score(CIFS, reference=MINI, targets=str(targets), tolerances={"dir_gap": 5.0}, **QUIET)   # a window overrides the tolerance
+    c = r["families"]["conditional"]
+    h, g = c["per_property"]["heat_all"], c["per_property"]["dir_gap"]
+    assert h["n"] == 3 and h["n_windowed"] == 3 and h["target_success_rate"] == pytest.approx(2 / 3)
+    assert h["target_error_mean"] == pytest.approx((0.0 + 0.4 + 0.0) / 3)            # distance outside the window
+    assert g["target_success_rate"] == pytest.approx(1 / 3)                            # 1.9 and 1.0 lie outside 1.2-1.8
+    assert g["target_error_mean"] == pytest.approx((0.0 + 0.4 + 0.2) / 3)              # |v - t| where t is given, else distance
+    assert c["multi_success_rate"] == pytest.approx(1 / 3) and c["n_distinct_targets"] == 2
+    assert c["interpolation_share"] == 1.0
+    text = format_report(r)
+    assert "heat_all: target success (inside the window)" in text and text.isascii()
+
+
 def test_default_tolerance_is_five_percent_of_the_reference_range(tmp_path, report):
     from meidnet.genbench import Reference, score
     name = report["entries"][0]["name"]
@@ -110,6 +133,9 @@ def test_targets_need_a_file_column(tmp_path):
     with pytest.raises(SystemExit):
         load_targets(str(bad))
     bad.write_text("file,dir_gap\nx.cif,2.0\n", encoding="utf-8")
+    with pytest.raises(SystemExit):
+        load_targets(str(bad))
+    bad.write_text("file,_max\nx.cif,2.0\n", encoding="utf-8")
     with pytest.raises(SystemExit):
         load_targets(str(bad))
 

@@ -58,50 +58,52 @@ nav:
   - Home: index.md
   - Learn:
       - Learn multimodality: learn/index.md
+      - Architectures: learn/architectures.md
       - Recipes by problem: learn/recipes.md
-  - Architectures: learn/architectures.md
-  - Build:
-      - MEIDNet Studio: use/studio.md
-      - Explore in 3D: use/explore-3d.md
-      - Reading the reports: use/reports.md
-  - Datasets:
-      - Datasets: explore/datasets.md
-      - Databases by application: explore/databases.md
-      - Capabilities: explore/capabilities.md
-  - Benchmarks:
+      - How MEIDNet works: understand/how-it-works.md
+      - Interpreting a candidate: understand/interpretability.md
+      - Scope and roadmap: understand/limits.md
+      - The ecosystem: ecosystem.md
+      - Paper and citation: research/paper.md
+  - Benchmark:
       - MEIDNet Benchmarks: benchmarks/index.md
+      - Benchmark compatibility: benchmarks/compatibility.md
       - Perov-5: benchmarks/perov5.md
       - "Perov-5: alignment across seeds": benchmarks/perov5-reproduction.md
       - "Perov-5: what the runs show": benchmarks/perov5-insights.md
       - "Perov-5: choose a model and generate": benchmarks/perov5-guide.md
       - MP-20: benchmarks/mp20.md
       - Carbon-24: benchmarks/carbon24.md
-  - Community:
+      - Datasets: explore/datasets.md
+      - Databases by application: explore/databases.md
       - Contribute a result: community/contribute.md
       - Community results: community/index.md
-      - Getting help: community/help.md
-  - Guides:
+  - Develop:
+      - Develop with MEIDNet: develop.md
       - 5-minute quickstart: start/quickstart.md
       - What data do I need?: start/what-data.md
       - Run in Colab: start/colab.md
+      - MEIDNet Studio: use/studio.md
       - Bring your own dataset: use/your-data.md
       - The configuration file: use/config.md
-      - Change the target properties: recipes/change-targets.md
-      - Add a property: recipes/add-property.md
-      - Exclude or restrict elements: recipes/elements.md
-      - Change the material family: recipes/change-family.md
-      - Add a rule (constraint): recipes/add-constraint.md
-      - Screen stability with MACE: recipes/screen.md
-      - How MEIDNet works: understand/how-it-works.md
-      - Interpreting a candidate: understand/interpretability.md
-      - Scope and roadmap: understand/limits.md
-      - Perov-5 (the paper): examples/perov5.md
-      - Double perovskites: examples/double-perovskite.md
-  - Reference:
-      - Command line: reference/cli.md
-      - Configuration: reference/config.md
-      - Family files: reference/families.md
-      - Rules and search terms: reference/rules.md
-      - Python API: reference/api.md
-  - About:
-      - Paper and citation: research/paper.md
+      - Explore in 3D: use/explore-3d.md
+      - Reading the reports: use/reports.md
+      - Capabilities: explore/capabilities.md
+      - Recipes:
+          - Change the target properties: recipes/change-targets.md
+          - Add a property: recipes/add-property.md
+          - Exclude or restrict elements: recipes/elements.md
+          - Change the material family: recipes/change-family.md
+          - Add a rule (constraint): recipes/add-constraint.md
+          - Screen stability with MACE: recipes/screen.md
+      - Examples:
+          - Perov-5 (the paper): examples/perov5.md
+          - Double perovskites: examples/double-perovskite.md
+      - Reference:
+          - Command line: reference/cli.md
+          - Configuration: reference/config.md
+          - Family files: reference/families.md
+          - Rules and search terms: reference/rules.md
+          - Python API: reference/api.md
+      - Getting help: community/help.md
+  - "Matter ↗": https://babu09-meidnet-matter.hf.space/

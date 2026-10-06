@@ -40,6 +40,18 @@
            "and the value you obtained in your question.",
      links: [["MEIDNet Benchmarks", "/docs/benchmarks/index.html"], ["Perov-5 benchmark", "/docs/benchmarks/perov5.html"],
              ["Perov-5 example", "/docs/examples/perov5.html"], ["Contribute a result", "/docs/community/contribute.html"]]},
+    {id: "score", title: "Can I benchmark my own model's structures?",
+     text: "Yes: `meidnet score generated/ --reference data/perov5` reports validity, uniqueness, novelty, diversity and " +
+           "distribution for a folder of CIF files from any model, with stability through MACE and the conditional " +
+           "metrics when you add targets.csv. The metric families are named as in LeMat-GenBench.",
+     links: [["Benchmark compatibility", "/docs/benchmarks/compatibility.html"], ["MEIDNet Benchmarks", "/docs/benchmarks/index.html"],
+             ["Contribute a result", "/docs/community/contribute.html"]]},
+    {id: "matter", title: "Where do I design with my own data?",
+     text: "MEIDNet Matter is the companion application for that: bring a dataset, set a design goal, read whether the " +
+           "data and model support it, search for candidates with evidence next to each one, and export them. Prism " +
+           "stays the place to learn the method, benchmark models and develop with the package.",
+     links: [["Open MEIDNet Matter", "https://babu09-meidnet-matter.hf.space/"], ["The ecosystem", "/docs/ecosystem.html"],
+             ["Bring your own dataset (package)", "/docs/use/your-data.html"]]},
     {id: "bug", title: "I found a bug"},
     {id: "ask", title: "Ask something else"}
   ];

@@ -120,10 +120,11 @@ footer{color:var(--faint);font-size:13.5px;padding:10px 0 40px;display:flex;gap:
 <header><div class="wrap">
   <a class="brand" href="/"><img src="/docs/assets/prism-mark-192.png" alt=""> MEIDNet <span style="font-weight:500;color:var(--muted)">Prism</span></a>
   <nav aria-label="Main">
-    <a href="/" aria-current="page">Home</a><a href="/docs/learn/index.html">Learn</a><a href="/docs/learn/architectures.html">Architectures</a>
-    <a class="cta" href="/studio/" title="MEIDNet Studio: build a model and design materials">Build</a><a href="/docs/explore/datasets.html">Datasets</a>
-    <a href="/docs/benchmarks/index.html">Benchmarks</a><a href="/studio/?explore=space" title="Every composition of a family in the shared space">Explore</a>
-    <a href="/docs/">Docs</a><a href="/docs/community/contribute.html">Community</a>
+    <a href="/" aria-current="page">Home</a><a href="/docs/learn/index.html" title="Multimodal learning, architectures, how MEIDNet works">Learn</a>
+    <a href="/docs/benchmarks/index.html" title="Leaderboards, metrics, datasets, contributed results">Benchmark</a>
+    <a href="/docs/develop.html" title="The package, the Studio, your own data, the API">Develop</a>
+    <a class="cta" href="/studio/" title="MEIDNet Studio: train a model and design materials in the browser">Studio</a>
+    <a href="https://babu09-meidnet-matter.hf.space/" title="MEIDNet Matter: from your materials data to candidate structures">Matter ↗</a>
   </nav>
   <button class="theme" id="theme" title="light / dark" aria-label="Switch light or dark mode">🌙</button>
 </div></header>
@@ -134,7 +135,7 @@ footer{color:var(--faint);font-size:13.5px;padding:10px 0 40px;display:flex;gap:
     <div class="copy">
       <h1 class="mh"><span class="ln">Learn, build and benchmark </span><span class="ln"><span class="mol" data-mol="a"><span>multimodal AI</span></span> <span class="for">for</span> </span><span class="ln"><span class="mol" data-mol="b"><span>materials discovery</span></span></span></h1>
       <p class="tag">Go from multimodal learning to working models and reproducible materials-discovery workflows. Explore architectures, train on your own data, compare results, and use the MEIDNet methodology to learn shared representations of materials and their properties.</p>
-      <div class="btns"><a class="btn primary" href="/studio/">▶ Try MEIDNet</a><a class="btn" href="/studio/?panel=data">Use your dataset</a><a class="btn" href="/docs/learn/index.html">Learn multimodality</a></div>
+      <div class="btns"><a class="btn primary" href="/studio/">▶ Try MEIDNet</a><a class="btn" href="/docs/learn/index.html">Learn multimodality</a><a class="btn" href="https://babu09-meidnet-matter.hf.space/" title="MEIDNet Matter: bring your own data and design candidates">Design with Matter ↗</a></div>
       <p class="pub">A. Babu <i>et al.</i>, <i>npj Comput. Mater.</i> <b>12</b>, 287 (2026) · <a href="https://doi.org/10.1038/s41524-026-02153-3">Article</a> · <a href="https://github.com/ABnano/MEIDNet">Code</a></p>
     </div>
     </div>
@@ -170,20 +171,16 @@ footer{color:var(--faint);font-size:13.5px;padding:10px 0 40px;display:flex;gap:
   </section>
 
   <h2 class="sec">Contents</h2>
-  <p class="sec-sub">Background on multimodal learning, model architectures, the MEIDNet Studio, datasets, benchmarks and contributed results.</p>
+  <p class="sec-sub">Learn the method, benchmark any model against it, develop with the package and the Studio, and design with your own data in MEIDNet Matter.</p>
   <section class="layers">
-    <div class="card" style="--accent:var(--c-data)"><h2><small>Learn</small>What is multimodal learning?</h2><p>Modalities, the five challenges of multimodal learning, contrastive learning with a playground, and an interactive map of materials modalities.</p>
-      <p><a class="more" href="/docs/learn/index.html">Learn multimodality →</a></p></div>
-    <div class="card" style="--accent:var(--c-model)"><h2><small>Architectures</small>Which design fits my data?</h2><p>Early and late fusion, shared latent spaces, cross-attention and contrastive learning, drawn side by side, with an advisor that recommends one.</p>
-      <p><a class="more" href="/docs/learn/architectures.html">Architecture Atlas →</a> &nbsp; <a class="more" href="/docs/learn/architectures.html#advisor">Advisor →</a></p></div>
-    <div class="card" style="--accent:var(--c-family)"><h2><small>Build</small>MEIDNet Studio</h2><p>Upload structures and properties, train in the browser, set targets and rules, run the search and inspect every candidate in 3D. Every setting is saved in one YAML file.</p>
-      <p><a class="more" href="/studio/">Try MEIDNet →</a> &nbsp; <a class="more" href="/docs/learn/recipes.html">Recipes by problem →</a></p></div>
-    <div class="card" style="--accent:var(--c-rules)"><h2><small>Datasets</small>Datasets and databases</h2><p>Perov-5, the published multimodal benchmark, other datasets used with MEIDNet, and 31 computed and experimental databases grouped by application.</p>
-      <p><a class="more" href="/docs/explore/datasets.html">Datasets →</a> &nbsp; <a class="more" href="/docs/explore/databases.html">Databases →</a></p></div>
-    <div class="card" style="--accent:var(--c-targets)"><h2><small>Benchmarks</small>Leaderboards</h2><p>Fixed protocols per dataset: inverse design scored by stable, unique and novel candidates, property prediction and representation, with baselines. Any model can be scored with the same code.</p>
-      <p><a class="more" href="/docs/benchmarks/index.html">Benchmarks →</a></p></div>
-    <div class="card" style="--accent:var(--c-candidates)"><h2><small>Community</small>Contribute results</h2><p>Results are submitted through GitHub, re-run by the maintainer and marked as verified when they reproduce. Re-runs that disagree are published as well.</p>
-      <p><a class="more" href="/docs/community/contribute.html">Contribute a result →</a></p></div>
+    <div class="card" style="--accent:var(--c-data)"><h2><small>Learn</small>Multimodal learning for materials</h2><p>Modalities and the five challenges of multimodal learning, contrastive learning with a playground, the Architecture Atlas with an advisor, how MEIDNet works and where it stops.</p>
+      <p><a class="more" href="/docs/learn/index.html">Learn multimodality →</a> &nbsp; <a class="more" href="/docs/learn/architectures.html">Architecture Atlas →</a></p></div>
+    <div class="card" style="--accent:var(--c-targets)"><h2><small>Benchmark</small>Leaderboards and metrics</h2><p>Fixed protocols per dataset, metric families named as in LeMat-GenBench plus a conditional extension, datasets and databases, and <code>meidnet score</code> for any model's generated structures. Results are contributed through GitHub and re-run before they are marked as computed here.</p>
+      <p><a class="more" href="/docs/benchmarks/index.html">Benchmarks →</a> &nbsp; <a class="more" href="/docs/benchmarks/compatibility.html">Score your structures →</a></p></div>
+    <div class="card" style="--accent:var(--c-model)"><h2><small>Develop</small>The package and the Studio</h2><p>Install <code>meidnet</code>, train on a table of structures and properties, set targets and rules in one YAML file, run the search and inspect every candidate in 3D, from the command line, Python or the Studio in the browser.</p>
+      <p><a class="more" href="/studio/">Open the Studio →</a> &nbsp; <a class="more" href="/docs/develop.html">Develop with MEIDNet →</a></p></div>
+    <div class="card" style="--accent:var(--c-candidates)"><h2><small>Matter ↗</small>Design with your data</h2><p>MEIDNet Matter is the companion application for researchers: bring a dataset, set a design goal, read whether the data and model support it, search for candidates with evidence next to each one, and export them with a validation ladder.</p>
+      <p><a class="more" href="https://babu09-meidnet-matter.hf.space/">Open MEIDNet Matter ↗</a> &nbsp; <a class="more" href="/docs/ecosystem.html">The ecosystem →</a></p></div>
   </section>
 
   <h2 class="sec">MEIDNet Studio</h2>
@@ -218,7 +215,7 @@ footer{color:var(--faint);font-size:13.5px;padding:10px 0 40px;display:flex;gap:
       <li>A. Babu and N. M. A. Krishnan, <i>Multimodal and cross-modal learning techniques</i>, APL Machine Learning <b>4</b>, 030901 (2026). <a href="https://doi.org/10.1063/5.0346744">doi:10.1063/5.0346744</a></li>
     </ol>
   </section>
-  <footer><span>MEIDNet Prism: learn, build and benchmark multimodal AI for materials discovery. MEIDNet is its reference implementation.</span><a href="https://github.com/ABnano/MEIDNet">Code</a><a href="/docs/">Documentation</a><a href="/docs/understand/limits.html">Scope and roadmap</a><a href="https://huggingface.co/spaces/Babu09/MEIDNet">Hugging Face Space</a><a id="direct-app" href="/" target="_blank" rel="noopener" hidden title="The same page, outside the Hugging Face frame">Open the direct app ↗</a></footer>
+  <footer><span>MEIDNet Prism: learn, build and benchmark multimodal AI for materials discovery. MEIDNet is its reference implementation.</span><a href="https://github.com/ABnano/MEIDNet">Code</a><a href="/docs/">Documentation</a><a href="/docs/ecosystem.html">The ecosystem</a><a href="https://babu09-meidnet-matter.hf.space/">MEIDNet Matter</a><a href="https://huggingface.co/spaces/Babu09/MEIDNet">Hugging Face Space</a><a id="direct-app" href="/" target="_blank" rel="noopener" hidden title="The same page, outside the Hugging Face frame">Open the direct app ↗</a></footer>
 </main>
 <script>
 (function(){

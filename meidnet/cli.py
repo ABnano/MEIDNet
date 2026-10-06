@@ -8,6 +8,7 @@ The ``meidnet`` command.
     meidnet studio CONFIG   interactive design workbench in your browser
     meidnet demo            5-minute demo with the published perovskite model
     meidnet screen DIR      stability screening of CIFs with MACE (optional extra)
+    meidnet score  DIR      generation-quality report of any model's CIFs (LeMat-GenBench families + conditional)
     meidnet info MODEL      describe a checkpoint
     meidnet families        list material families
     meidnet schema          JSON Schema of the config (for editors and the Studio)
@@ -289,6 +290,29 @@ def cmd_screen(a):
     screen(a.dir, train_csv=a.train_csv, threshold=a.threshold, device=a.device, model_path=a.model)
 
 
+def cmd_score(a):
+    import json
+    from meidnet.genbench import format_report, score
+    tol = {}
+    for item in a.tolerance or []:
+        if "=" not in item:
+            raise SystemExit(f"--tolerance expects property=number, got {item!r}")
+        k, v = item.split("=", 1)
+        try:
+            tol[k.strip()] = float(v)
+        except ValueError:
+            raise SystemExit(f"--tolerance {item!r}: {v!r} is not a number") from None
+    report = score(a.dir, reference=a.reference, targets=a.targets, tolerances=tol, model=a.model, mlip=a.mlip,
+                   mlip_model=a.mlip_model, device=a.device, limit=a.limit)
+    print()
+    print(format_report(report))
+    if a.out:
+        os.makedirs(os.path.dirname(os.path.abspath(a.out)), exist_ok=True)
+        with open(a.out, "w", encoding="utf-8") as f:
+            json.dump(report, f, indent=1, allow_nan=False, default=lambda o: None)
+        print(f"\nreport -> {a.out}")
+
+
 def main(argv=None):
     for stream in (sys.stdout, sys.stderr):  # print ✓ / ⚠ safely on legacy Windows consoles
         if hasattr(stream, "reconfigure"):
@@ -367,6 +391,21 @@ def main(argv=None):
     s.add_argument("--device", default="auto")
     s.add_argument("--model", default="medium")
     s.set_defaults(fn=cmd_screen)
+
+    s = sub.add_parser("score", help="generation-quality report of a folder of CIFs from any model (LeMat-GenBench "
+                                     "metric families + MEIDNet's conditional extension)")
+    s.add_argument("dir", help="folder with CIF files (searched recursively) or a CSV with a 'cif' column")
+    s.add_argument("--reference", default=None, help="data/perov5 (train/val/test.csv) or one CSV with 'formula' and, "
+                                                     "for structure novelty, 'cif' columns")
+    s.add_argument("--targets", default=None, help="targets.csv: 'file' + '<property>_target' (+ '<property>_value', 'source')")
+    s.add_argument("--tolerance", action="append", metavar="PROP=X", help="success window per property (default 5 %% of the reference range)")
+    s.add_argument("--model", default=None, help="MEIDNet checkpoint predicting '<property>_value' where targets.csv gives none")
+    s.add_argument("--mlip", action="store_true", help="relax with MACE and report stability and SUN (pip install meidnet[stability])")
+    s.add_argument("--mlip-model", default="medium", help="MACE-MP model size or path")
+    s.add_argument("--device", default="auto")
+    s.add_argument("--limit", type=int, default=None, help="score only the first N structures")
+    s.add_argument("--out", default=None, help="write the full JSON report here")
+    s.set_defaults(fn=cmd_score)
 
     s = sub.add_parser("info", help="describe a checkpoint")
     s.add_argument("model")

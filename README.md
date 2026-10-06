@@ -4,7 +4,7 @@
 
 <p align="center"><em>Inverse design of crystalline materials from target properties, with your own data and rules.</em><br/>
 <b>MEIDNet Prism</b>: learn, build and benchmark multimodal AI for materials discovery, with MEIDNet as the reference implementation.<br/>
-<a href="https://babu09-meidnet.hf.space/">home</a> · <a href="https://babu09-meidnet.hf.space/docs/learn/index.html">learn</a> · <a href="https://babu09-meidnet.hf.space/docs/learn/architectures.html">architectures</a> · <a href="https://babu09-meidnet.hf.space/studio/">build (Studio)</a> · <a href="https://babu09-meidnet.hf.space/docs/explore/datasets.html">datasets</a> · <a href="https://babu09-meidnet.hf.space/docs/benchmarks/index.html">benchmarks</a> · <a href="https://babu09-meidnet.hf.space/docs/community/contribute.html">community</a></p>
+<a href="https://babu09-meidnet.hf.space/">home</a> · <a href="https://babu09-meidnet.hf.space/docs/learn/index.html">learn</a> · <a href="https://babu09-meidnet.hf.space/docs/benchmarks/index.html">benchmark</a> · <a href="https://babu09-meidnet.hf.space/docs/develop.html">develop</a> · <a href="https://babu09-meidnet.hf.space/studio/">Studio</a> · <a href="https://babu09-meidnet-matter.hf.space/">MEIDNet Matter ↗</a></p>
 
 <p align="center">
   <a href="https://doi.org/10.1038/s41524-026-02153-3"><img alt="Paper" src="https://img.shields.io/badge/npj%20Comput.%20Mater.-2026-1c5cab"></a>
@@ -61,6 +61,7 @@ From source: `git clone https://github.com/ABnano/MEIDNet && cd MEIDNet && pip i
 ```bash
 meidnet demo                      # halide perovskites, band gap 2.0 eV → CIFs + report
 meidnet studio                    # interactive workbench with the published model
+meidnet score runs/demo/cifs --reference data/perov5   # validity, uniqueness, novelty, diversity of any CIF folder
 ```
 
 ## Use your own data (the main path)

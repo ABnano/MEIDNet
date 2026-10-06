@@ -3,8 +3,8 @@ message: "If you use MEIDNet, please cite the paper and the software."
 title: "MEIDNet: Multimodal Equivariant Inverse Design Network"
 abstract: "Inverse design of crystalline materials from target properties: one shared latent space for crystal structures and their properties, a prototype-family design space with chemistry rules, and a latent search that proposes candidates. MEIDNet Prism is the interactive platform around it."
 type: software
-version: "2.2.0"
-date-released: "2026-10-05"
+version: "2.3.0"
+date-released: "2026-10-06"
 license: MIT
 repository-code: "https://github.com/ABnano/MEIDNet"
 url: "https://babu09-meidnet.hf.space/"

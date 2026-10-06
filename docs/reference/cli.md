@@ -9,6 +9,7 @@ meidnet studio [CONFIG] interactive workbench in your browser
 meidnet space  CONFIG   every composition of the family with rule values and predictions → CSV
 meidnet demo            quick demo with the published perovskite model
 meidnet screen DIR      stability screening of CIFs with MACE (optional extra)
+meidnet score  DIR      generation-quality report of any model's CIFs → table, report.json
 meidnet info MODEL      describe a checkpoint
 meidnet families [NAME] list / describe material families
 meidnet schema          JSON Schema of the config (for editors and the Studio)
@@ -29,5 +30,8 @@ meidnet download-data   fetch the Perov-5 dataset used in the paper
 | `studio --run-root DIR --docs-dir site` | where sessions and searches are written; serve a built docs site at `/docs/` |
 | `space --chemiscope FILE.json` | also write the design space as a [3D dataset](../use/explore-3d.md) for chemiscope.org |
 | `demo --family oxide --band-gap 3 --enthalpy -0.2 -n 5` | demo targets |
+| `score DIR --reference data/perov5` | validity, uniqueness, novelty, diversity and distribution of a folder of CIFs from any model ([the metrics](../benchmarks/compatibility.md)) |
+| `score DIR --targets targets.csv --tolerance dir_gap=0.3` | the conditional metrics: target success, target error, multi-property success, constraint success, conditional diversity, target coverage |
+| `score DIR --mlip --out report.json` | relax with MACE for stability and SUN; write the full JSON report |
 
 If `meidnet` is not on your PATH, `python -m meidnet.cli …` is equivalent.

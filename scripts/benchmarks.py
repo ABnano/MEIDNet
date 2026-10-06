@@ -836,7 +836,15 @@ def render_hub(ds: dict[str, Dataset], by_ds: dict[str, list[Submission]]) -> st
             "the numbers per task and the folder with the outputs behind them.",
             "4. **Verification.** Numbers computed in this repository carry a record in `benchmarks/verified/`; submitted "
             "results are re-scored from their outputs before they are marked as computed here.", "",
-            "[Contribute a method](../community/contribute.md) · [Databases by application](../explore/databases.md)", ""]
+            "## Score any model's generated structures", "",
+            "`meidnet score generated/ --reference data/perov5 [--targets targets.csv] [--mlip]` reports the generation "
+            "quality of a folder of CIF files from any model in the metric families of LeMat-GenBench (validity, "
+            "uniqueness, novelty, diversity, distribution, stability, SUN) and MEIDNet's conditional extension (target "
+            "success, target error, multi-property success, constraint satisfaction, conditional diversity, target "
+            "coverage). The [compatibility page](compatibility.md) defines every metric and states where this "
+            "implementation differs from LeMat-GenBench. A run bundle from MEIDNet Matter is scored the same way.", "",
+            "[Contribute a method](../community/contribute.md) · [Benchmark compatibility](compatibility.md) · "
+            "[Databases by application](../explore/databases.md)", ""]
     return "\n".join(hub)
 
 

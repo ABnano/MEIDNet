@@ -17,4 +17,4 @@ Typical use (the same steps the ``meidnet`` command runs)::
     generate(cfg)     # design candidates (writes CIFs + generation_report.html)
 """
 
-__version__ = "2.2.0"
+__version__ = "2.3.0"

@@ -97,6 +97,24 @@ report that each step writes. Click a block to read about it.
 
     [:octicons-arrow-right-24: How MEIDNet works](understand/how-it-works.md)
 
+-   :material-scale-balance:{ .lg .middle } **Benchmark any model**
+
+    ---
+
+    Leaderboards under fixed protocols, and `meidnet score` for a folder of generated structures from any
+    model: the LeMat-GenBench metric families plus the conditional extension.
+
+    [:octicons-arrow-right-24: Benchmark compatibility](benchmarks/compatibility.md)
+
+-   :material-flask-outline:{ .lg .middle } **Design with my data in Matter**
+
+    ---
+
+    MEIDNet Matter is the companion application: a dataset, a design goal, a readiness report, candidates
+    with evidence, and a validation ladder.
+
+    [:octicons-arrow-right-24: The ecosystem](ecosystem.md)
+
 </div>
 
 ## Scope

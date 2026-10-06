@@ -55,21 +55,20 @@ with the properties you want.
 
 * **[Home](https://babu09-meidnet.hf.space/)** — overview and a guided tour, from concept to demonstration.
 * **[Learn](https://babu09-meidnet.hf.space/docs/learn/index.html)** — what a modality is, the five
-  challenges of multimodal learning, contrastive learning with a playground, an interactive map of
-  materials modalities.
-* **[Architectures](https://babu09-meidnet.hf.space/docs/learn/architectures.html)** — early and late
-  fusion, shared latent spaces, cross-attention and contrastive learning, with an advisor that recommends
-  one for your data; [recipes by problem](https://babu09-meidnet.hf.space/docs/learn/recipes.html).
-* **[Build: Studio](https://babu09-meidnet.hf.space/studio/)** — the workflow *Data → Model → Family → Rules →
-  Targets → Search → Candidates*: bring a table of structures and properties (CSV / Excel / JSON + CIFs), train
-  a model, run the search, inspect every candidate in 3D and export the `meidnet.yaml` that reproduces it.
-* **[Datasets](https://babu09-meidnet.hf.space/docs/explore/datasets.html)** — datasets that work with
-  MEIDNet, 31 computed and experimental databases by application, and what is planned.
-* **[Benchmarks](https://babu09-meidnet.hf.space/docs/benchmarks/index.html)** — leaderboards under fixed
-  protocols: inverse design (SUN rate), property prediction and representation on Perov-5, with baselines;
-  [contribute yours](https://babu09-meidnet.hf.space/docs/community/contribute.html) through GitHub.
-* **[Documentation](https://babu09-meidnet.hf.space/docs/)** — quickstart, your own data, recipes,
-  how it works, reference, Colab notebooks.
+  challenges of multimodal learning, contrastive learning with a playground, the
+  [Architecture Atlas](https://babu09-meidnet.hf.space/docs/learn/architectures.html) with an advisor,
+  how MEIDNet works, and [the ecosystem](https://babu09-meidnet.hf.space/docs/ecosystem.html) it fits in.
+* **[Benchmark](https://babu09-meidnet.hf.space/docs/benchmarks/index.html)** — leaderboards under fixed
+  protocols (inverse design, property prediction, representation on Perov-5, with baselines), metric
+  families named as in LeMat-GenBench plus a conditional extension, `meidnet score` for any model's
+  generated structures ([compatibility](https://babu09-meidnet.hf.space/docs/benchmarks/compatibility.html)),
+  datasets and databases, and [contributed results](https://babu09-meidnet.hf.space/docs/community/contribute.html).
+* **[Develop](https://babu09-meidnet.hf.space/docs/develop.html)** — the `meidnet` package (`pip install meidnet`),
+  the [Studio](https://babu09-meidnet.hf.space/studio/) with the workflow *Data → Model → Family → Rules →
+  Targets → Search → Candidates*, your own data, recipes, the configuration file, the Python API.
+* **[MEIDNet Matter ↗](https://babu09-meidnet-matter.hf.space/)** — the companion application for
+  researchers: bring a dataset, set a design goal, read whether the data and model support it, search for
+  candidates with evidence next to each one, export them with a validation ladder.
 
 **Model:** [Babu09/MEIDNet](https://huggingface.co/Babu09/MEIDNet) (the pretrained Perov-5 checkpoints) ·
 **Code:** [github.com/ABnano/MEIDNet](https://github.com/ABnano/MEIDNet) (MIT) ·

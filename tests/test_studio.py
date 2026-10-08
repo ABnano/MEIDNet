@@ -204,6 +204,27 @@ def test_ask_prism_static_copy_and_issue_form():
     assert "template=bug_report.yml" in js and used and used <= ids, (used, ids)
 
 
+
+def test_docs_work_from_any_folder():
+    """The documentation is served under /docs/ by the Space and at the root of its GitHub Pages mirror
+    (abnano.github.io/MEIDNet/, for networks that block *.hf.space): nothing it loads may be rooted at a server's /."""
+    import re
+    from meidnet.studio.server import HERE, static_paths
+    with open(os.path.join(ROOT, "mkdocs.yml"), encoding="utf-8") as f:
+        cfg = f.read()
+    scripts = cfg[cfg.index("extra_javascript:"):cfg.index("\nnav:")]
+    assert not re.search(r"^\s*-\s*/", scripts, re.M), "an extra_javascript entry rooted at /"
+    with open(os.path.join(HERE, "ask_prism.js"), encoding="utf-8") as f:
+        panel = f.read()
+    with open(os.path.join(ROOT, "docs", "assets", "ask-prism.js"), encoding="utf-8") as f:
+        assert f.read() == panel, "docs/assets/ask-prism.js is a copy of meidnet/studio/ask_prism.js (scripts/build_docs.py)"
+    assert "function href(" in panel and "github" in panel                  # its links follow the mirror
+    with open(os.path.join(HERE, "studio.html"), encoding="utf-8") as f:
+        page = static_paths(f.read())
+    assert not re.search(r'(src|href)="/docs/', page) and 'id="home-link" href="index.html"' in page
+    with open(os.path.join(ROOT, "docs", "studio.html"), encoding="utf-8") as f:
+        assert not re.search(r'(src|href)="/docs/', f.read())
+
 def test_doped_cif_is_skipped_not_fatal(studio):
     """A partially occupied (doped) structure is reported as a skip reason; the rest of the table is still checked."""
     df = pd.read_csv(MINI).head(6)

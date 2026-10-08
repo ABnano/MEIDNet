@@ -159,6 +159,10 @@ def main():
     import reproduction_pages                      # the analysis pages of Perov-5, from benchmarks/reproduction/perov5/
     reproduction_pages.main()
     print("wrote docs/explore/capabilities.md, docs/benchmarks/**, docs/community/index.md")
+    # the Ask PRISM panel, as a documentation asset: a page under /docs/ (the Space) or at the mirror's root loads it
+    # relatively; the Space's own pages keep /ask-prism.js
+    import shutil
+    shutil.copyfile(os.path.join(ROOT, "meidnet", "studio", "ask_prism.js"), os.path.join(DOCS, "assets", "ask-prism.js"))
     if "--no-studio" not in sys.argv:
         from meidnet.cli import published_checkpoint
         from meidnet.studio.server import export_static

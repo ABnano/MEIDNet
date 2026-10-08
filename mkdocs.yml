@@ -52,7 +52,7 @@ extra_javascript:
   - assets/prism3d.js
   - assets/prism-tour.js
   - assets/prism-docs.js
-  - /ask-prism.js
+  - assets/ask-prism.js                                         # copied from meidnet/studio by scripts/build_docs.py
 
 nav:
   - Home: index.md

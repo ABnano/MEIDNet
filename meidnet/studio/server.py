@@ -1248,6 +1248,13 @@ def inline_ask_prism(html: str) -> str:
     return html.replace(ASK_PRISM_TAG, "<script>\n" + _page("ask_prism.js") + "\n</script>", 1)
 
 
+def static_paths(html: str) -> str:
+    """The static copy lives beside the documentation (docs/studio.html, served under /docs/ by the Space and at the root
+    of the GitHub Pages mirror): its icon and its home link are relative, never rooted at a server's /."""
+    html = html.replace('src="/docs/assets/', 'src="assets/').replace('href="/docs/assets/', 'href="assets/')
+    return html.replace('id="home-link" href="/"', 'id="home-link" href="index.html"')
+
+
 def export_static(cfg: MEIDNetConfig | None, out_path: str, model_path: str | None = None,
                   variants: list[tuple[str, str]] | None = None) -> str:
     """
@@ -1271,6 +1278,7 @@ def export_static(cfg: MEIDNetConfig | None, out_path: str, model_path: str | No
     inject = "<script>window.MEIDNET_STATIC = " + json.dumps(payload, default=float) + ";</script>\n<script>"
     html = html.replace("<script>", inject, 1)
     html = inline_ask_prism(html)
+    html = static_paths(html)
     os.makedirs(os.path.dirname(os.path.abspath(out_path)), exist_ok=True)
     with open(out_path, "w", encoding="utf-8") as f:
         f.write(html)

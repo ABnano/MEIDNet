@@ -13,6 +13,10 @@ you want, using your own data, rules and material families.
 [← MEIDNet Prism home](https://babu09-meidnet.hf.space/)
 </div>
 
+On a network that blocks `*.hf.space` (public Wi-Fi often does), this documentation is also at
+[abnano.github.io/MEIDNet](https://abnano.github.io/MEIDNet/), and MEIDNet Matter at
+[abnano.github.io/MEIDNet-Matter](https://abnano.github.io/MEIDNet-Matter/); the live Studio stays on the Space.
+
 </div>
 
 ## The workflow

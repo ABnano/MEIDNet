@@ -1,8 +1,10 @@
-/* The MEIDNet tour: the story of the Studio (data → model → family → rules → targets → search → candidates) as a
-   live 3D animation. Two parts: the scenes (window.PrismScenes, also used by the documentation to show one block)
-   and the player of the landing page (#tour3d). Every frame is a pure function of time, so playing, seeking, the
-   chapter buttons and reduced motion all show the same pictures. The numbers are those of the Studio with its
-   defaults: the published Perov-5 model, the cubic halide perovskite family, targets 2 eV and −0.1 eV/atom. */
+/* The MEIDNet tour: the method (data → model → family → rules → targets → search → candidates) as a live 3D
+   animation. Two parts: the scenes (window.PrismScenes, also used by the documentation to show one block) and the
+   player of the landing page (#tour3d). Every frame is a pure function of time, so playing, seeking, the chapter
+   buttons and reduced motion all show the same pictures. The story is told in general terms: the formulas and values
+   on screen are examples, taken from the Studio with its defaults (the published Perov-5 model, the cubic halide
+   perovskite family, targets 2 eV and −0.1 eV/atom), and the closing chapter sends the visitor to MEIDNet Matter,
+   which runs the same steps on real data and shows this tour with the numbers of its own run. */
 (function () {
   "use strict";
   var P = window.Prism3D;
@@ -99,12 +101,12 @@
        var c = cam(770, 268, 80, -0.7 + 1.2 * t);
        P.crystal(ctx, c, cell(FOUND[0].e), {s: 1, explode: 1 - T.ease(T.seg(t, 0.32, 0.72)), glass: T.seg(t, 0.62, 0.82), edges: T.seg(t, 0.62, 0.82),
                                             labels: t > 0.6, dark: th.dark, alpha: T.seg(t, 0.28, 0.4)});
-       label("NaNiI₃", 770, 420, {size: 20, weight: 700, color: th.muted, align: "center", alpha: T.seg(t, 0.75, 0.9)});
+       label("a candidate crystal", 770, 420, {size: 20, weight: 700, color: th.muted, align: "center", alpha: T.seg(t, 0.75, 0.9)});
        label("inverse design: from properties to crystals", 480, 492, {size: 25, color: th.muted, align: "center", alpha: T.seg(t, 0.6, 0.82)});
      }},
 
     {block: "data", title: "Data", ms: 7000,
-     cap: "MEIDNet learns from known materials: a table in which each row is a crystal structure with its properties. Here, 11,356 materials.",
+     cap: "MEIDNet learns from known materials: a table in which each row is a crystal structure with its properties, from your own work or from a public database.",
      draw: function (t) {
        card(32, 60, 600, 420);
        var hd = {size: 15, weight: 700, color: th.muted};
@@ -120,13 +122,13 @@
          ctx.fillStyle = th.line; ctx.fillRect(48, y + 79, 568, 1);
          ctx.restore();
        });
-       label("four real rows of the Perov-5 training set", 56, 466, {size: 14, color: th.faint, alpha: T.seg(t, 0.4, 0.6)});
+       label("example rows: perovskites with two computed properties", 56, 466, {size: 14, color: th.faint, alpha: T.seg(t, 0.4, 0.6)});
        // the whole table: one point per material
        var c = cam(800, 220, 82, -0.5 + 0.9 * t, -0.3), n = Math.round(DATA_CLOUD.length * T.ease(T.seg(t, 0.38, 0.85)));
        var pts = DATA_CLOUD.slice(0, n).map(function (p) { return [c.proj(p), p]; }).sort(function (a, b) { return a[0][2] - b[0][2]; });
        pts.forEach(function (q) { var d = (q[0][2] + 1.3) / 2.6; dot(c, q[1], 0.045, P.css(P.mix(P.rgbOf(COL.data), [255, 255, 255], 0.5 * (1 - d))), 0.55 + 0.45 * d); });
-       label((Math.round(11356 * T.ease(T.seg(t, 0.4, 0.85)))).toLocaleString("en-US"), 800, 420, {size: 52, weight: 800, color: tc("data"), align: "center", alpha: T.seg(t, 0.38, 0.45)});
-       label("materials · 2 properties each", 800, 456, {size: 20, weight: 600, align: "center", color: th.muted, alpha: T.seg(t, 0.7, 0.88)});
+       label("your table", 800, 420, {size: 44, weight: 800, color: tc("data"), align: "center", alpha: T.seg(t, 0.38, 0.45)});
+       label("one point per material", 800, 456, {size: 20, weight: 600, align: "center", color: th.muted, alpha: T.seg(t, 0.7, 0.88)});
      }},
 
     {block: "model", title: "Model", ms: 7800,
@@ -171,7 +173,7 @@
      }},
 
     {block: "family", title: "Family", ms: 7000,
-     cap: "You choose a crystal type, here the cubic ABX₃ halide perovskite, and the elements allowed on each site: 924 compositions.",
+     cap: "You choose a crystal type, for example the cubic ABX₃ perovskite, and the elements allowed on each site. Every combination is a candidate composition.",
      draw: function (t) {
        var step = Math.min(5, Math.floor(t * 7)), combo = {};
        GROUPS.forEach(function (g, j) { var vis = g.sample.slice(0, 6); combo[g.g] = vis[(step * (j + 2) + j) % vis.length]; });
@@ -185,15 +187,16 @@
          g.sample.slice(0, 6).forEach(function (el, m) { chip(x, 132 + m * 40, el, "family", el === combo[g.g], {w: 72, alpha: a}); });
          if (g.sample.length > 6) label("+" + (g.sample.length - 6) + " more", x, 132 + 6 * 40 + 2, {size: 15, color: th.muted, align: "center", alpha: a});
        });
-       label("21 × 11 × 4 = " + Math.round(924 * T.ease(T.seg(t, 0.42, 0.85))).toLocaleString("en-US") + " compositions", x0 + W / 2, 470,
+       label("A × B × X: every combination", x0 + W / 2, 470,
              {size: 26, weight: 800, color: tc("family"), align: "center", alpha: T.seg(t, 0.4, 0.48)});
      }},
 
     {block: "rules", title: "Rules", ms: 8000,
-     cap: "Simple chemistry rules remove impossible combinations: charges must balance and ions must fit. 27 of 924 pass every rule.",
+     cap: "Simple chemistry rules remove impossible combinations: charges must balance and ions must fit. Only a few pass every rule.",
      draw: function (t) {
        var c = cam(470, 300, 66, -0.42, -0.42), GX = [-2.6, -0.6, 1.4], EXIT = 3.9, START = -6.2;
-       label(Math.round(T.lerp(924, 27, T.ease(T.seg(t, 0.1, 0.92)))).toLocaleString("en-US"), 40, 96, {size: 40, weight: 800});
+       var left = T.lerp(1, 0.03, T.ease(T.seg(t, 0.1, 0.92)));      // the share still standing: a bar, not a count
+       card(40, 76, 180, 16, {r: 8, fill: th.line, stroke: null}); card(40, 76, Math.max(16, 180 * left), 16, {r: 8, fill: COL.rules, stroke: null});
        label("compositions left", 40, 122, {size: 15, color: th.muted});
        // the belt
        var shade = th.dark ? "rgba(148,163,184,.35)" : "rgba(100,116,139,.38)";
@@ -208,8 +211,6 @@
          var top = c.proj([gx, 1.6, 0]), words = RULES[j].name.split(" ");
          label(words[0], top[0], top[1] - 24, {size: 16, weight: 800, color: tc("rules"), align: "center"});
          label(words.slice(1).join(" "), top[0], top[1] - 6, {size: 16, weight: 800, color: tc("rules"), align: "center"});
-         var bot = c.proj([gx, -0.75, 1.35]);
-         label("−" + RULES[j].lost, bot[0], bot[1] + 26, {size: 19, weight: 800, color: th.bad, align: "center", alpha: T.seg(t, 0.25 + j * 0.13, 0.35 + j * 0.13)});
        });
        var ex = c.proj([EXIT + 0.4, 1.6, 0]);
        label("pass every", ex[0] + 26, ex[1] - 24, {size: 16, weight: 800, color: th.good, align: "center"});
@@ -270,7 +271,7 @@
          label(sub(f), 712, y, {size: 22, weight: 800, alpha: b});
          label(fmt(r[2]) + " eV · " + fmt(r[1]) + " eV/atom", 712, y + 24, {size: 15, color: th.muted, alpha: b});
        });
-       label("27 compositions that pass every rule", 670, 400, {size: 13, color: th.faint, alpha: a});
+       label("example values · compositions that pass every rule", 670, 400, {size: 13, color: th.faint, alpha: a});
      }},
 
     {block: "search", title: "Search", ms: 8800,
@@ -315,7 +316,7 @@
     {block: "candidates", title: "Candidates", ms: 7800,
      cap: "Each new material comes with its crystal, the rules it passed and its predicted properties. Confirm the best ones with calculations or experiments.",
      draw: function (t) {
-       label("example: a search with the Studio defaults", 930, 52, {size: 13, weight: 700, color: th.muted, align: "right", alpha: T.seg(t, 0.1, 0.25)});
+       label("example: three crystals a search returned", 930, 52, {size: 13, weight: 700, color: th.muted, align: "right", alpha: T.seg(t, 0.1, 0.25)});
        FOUND.forEach(function (f, k) {
          var x0 = 34 + k * 302, a = T.out(T.seg(t, 0.04 + k * 0.12, 0.3 + k * 0.12));
          ctx.save(); ctx.translate(0, 50 * (1 - a)); ctx.globalAlpha *= a;
@@ -341,13 +342,13 @@
      }},
 
     {block: "outro", title: "Your turn", ms: 4600,
-     cap: "Your turn: open the Studio, change any block and watch the effect flow through the next ones. A good start: Targets, then Search.",
+     cap: "Your turn: run these steps on real data in MEIDNet Matter, or open the Studio and change any block to watch the effect flow through the next ones.",
      draw: function (t) {
        P.crystal(ctx, cam(480, 250, 120, -0.6 + 0.9 * t, -0.35), cell(FOUND[0].e), {dark: th.dark, alpha: th.dark ? 0.07 : 0.1, glass: 0.6});
        var a = T.out(T.seg(t, 0, 0.25));
        label("Your turn", 480, 178, {size: 54, weight: 800, align: "center", alpha: a});
-       label("Open the Studio and change any block:", 480, 226, {size: 23, color: th.muted, align: "center", alpha: T.seg(t, 0.15, 0.35)});
-       label("the effect flows to the blocks after it.", 480, 258, {size: 23, color: th.muted, align: "center", alpha: T.seg(t, 0.2, 0.4)});
+       label("Run these steps on real data in MEIDNet Matter,", 480, 226, {size: 23, color: th.muted, align: "center", alpha: T.seg(t, 0.15, 0.35)});
+       label("or change any block in the Studio.", 480, 258, {size: 23, color: th.muted, align: "center", alpha: T.seg(t, 0.2, 0.4)});
        var wave = (t * 2.2) % 1;
        BLOCKS.forEach(function (b, k) {
          var x = 165 + k * 105, on = Math.abs(wave * 7 - k - 0.5) < 0.8, al = T.seg(t, 0.25 + k * 0.03, 0.35 + k * 0.03);
@@ -413,8 +414,9 @@
       var blk = BLOCKS[bi];
       cap.innerHTML = (blk ? '<b style="color:' + tc(blk.id) + '">' + blk.name + ".</b> " : "") + sc.cap;
       root.style.setProperty("--t3c", blk ? blk.c : COL.family);
-      open.href = blk ? "/studio/?panel=" + blk.id : "/studio/";
-      open.textContent = blk ? "Open " + blk.name + " in the Studio →" : "Open the Studio →";
+      var matter = sc.block === "outro";        // the closing chapter: the same steps on real data, in MEIDNet Matter
+      open.href = matter ? "https://babu09-meidnet-matter.hf.space/" : blk ? "/studio/?panel=" + blk.id : "/studio/";
+      open.textContent = matter ? "Try it in MEIDNet Matter ↗" : blk ? "Open " + blk.name + " in the Studio →" : "Open the Studio →";
     }
   }
   function loop(now) {

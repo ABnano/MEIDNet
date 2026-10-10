@@ -1,0 +1,3395 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Multimodal inverse design of crystalline materials — with your own data, rules and families.">
+      
+      
+      
+        <link rel="canonical" href="https://babu09-meidnet.hf.space/docs/explore/databases.html">
+      
+      
+        <link rel="prev" href="datasets.html">
+      
+      
+        <link rel="next" href="../community/contribute.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/favicon-64.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Databases by application - MEIDNet Prism</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../assets/extra.css">
+    
+      <link rel="stylesheet" href="../assets/prism-docs.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#databases-by-application" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="MEIDNet Prism" class="md-header__button md-logo" aria-label="MEIDNet Prism" data-md-component="logo">
+      
+  <img src="../assets/prism-mark.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MEIDNet Prism
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Databases by application
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ABnano/MEIDNet" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ABnano/MEIDNet
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../learn/index.html" class="md-tabs__link">
+          
+  
+  
+  Learn
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../benchmarks/index.html" class="md-tabs__link">
+          
+  
+  
+  Benchmark
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../develop.html" class="md-tabs__link">
+          
+  
+  
+  Develop
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://babu09-meidnet-matter.hf.space/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Matter ↗
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="MEIDNet Prism" class="md-nav__button md-logo" aria-label="MEIDNet Prism" data-md-component="logo">
+      
+  <img src="../assets/prism-mark.png" alt="logo">
+
+    </a>
+    MEIDNet Prism
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ABnano/MEIDNet" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ABnano/MEIDNet
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Learn
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Learn
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../learn/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Learn multimodality
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../learn/architectures.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architectures
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../learn/recipes.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recipes by problem
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../understand/how-it-works.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How MEIDNet works
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../understand/interpretability.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interpreting a candidate
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../understand/limits.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scope and roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ecosystem.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The ecosystem
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../research/paper.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Paper and citation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Benchmark
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Benchmark
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../benchmarks/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MEIDNet Benchmarks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../benchmarks/compatibility.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Benchmark compatibility
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../benchmarks/perov5.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Perov-5
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../benchmarks/perov5-reproduction.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Perov-5: alignment across seeds
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../benchmarks/perov5-insights.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Perov-5: what the runs show
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../benchmarks/perov5-guide.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Perov-5: choose a model and generate
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../benchmarks/mp20.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MP-20
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../benchmarks/carbon24.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Carbon-24
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="datasets.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Datasets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Databases by application
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="databases.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Databases by application
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#solar-cells-and-photovoltaics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Solar cells and photovoltaics
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#semiconductor-physics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Semiconductor physics
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#batteries-and-ionic-conductors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Batteries and ionic conductors
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#thermoelectrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Thermoelectrics
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#catalysis-and-surfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Catalysis and surfaces
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#magnetism-and-superconductivity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Magnetism and superconductivity
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mechanical-dielectric-and-piezoelectric" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mechanical, dielectric and piezoelectric
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2d-materials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2D materials
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#porous-materials-and-mofs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Porous materials and MOFs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generative-model-benchmarks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generative-model benchmarks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#all-databases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        All databases
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../community/contribute.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contribute a result
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../community/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Community results
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Develop
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Develop
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../develop.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Develop with MEIDNet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../start/quickstart.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5-minute quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../start/what-data.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What data do I need?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../start/colab.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Run in Colab
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../use/studio.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MEIDNet Studio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../use/your-data.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bring your own dataset
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../use/config.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The configuration file
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../use/explore-3d.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Explore in 3D
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../use/reports.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reading the reports
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="capabilities.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capabilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_11" id="__nav_4_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recipes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Recipes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../recipes/change-targets.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Change the target properties
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../recipes/add-property.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Add a property
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../recipes/elements.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exclude or restrict elements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../recipes/change-family.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Change the material family
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../recipes/add-constraint.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Add a rule (constraint)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../recipes/screen.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Screen stability with MACE
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_12" id="__nav_4_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/perov5.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Perov-5 (the paper)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/double-perovskite.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Double perovskites
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_13" id="__nav_4_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/cli.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Command line
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/config.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/families.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Family files
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/rules.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rules and search terms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/api.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../community/help.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting help
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://babu09-meidnet-matter.hf.space/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Matter ↗
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#solar-cells-and-photovoltaics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Solar cells and photovoltaics
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#semiconductor-physics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Semiconductor physics
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#batteries-and-ionic-conductors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Batteries and ionic conductors
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#thermoelectrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Thermoelectrics
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#catalysis-and-surfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Catalysis and surfaces
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#magnetism-and-superconductivity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Magnetism and superconductivity
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mechanical-dielectric-and-piezoelectric" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mechanical, dielectric and piezoelectric
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2d-materials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2D materials
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#porous-materials-and-mofs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Porous materials and MOFs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generative-model-benchmarks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generative-model benchmarks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#all-databases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        All databases
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="databases-by-application">Databases by application<a class="headerlink" href="#databases-by-application" title="Permanent link">&para;</a></h1>
+<p>Where to find training data and realistic targets: <strong>computed</strong> (DFT) databases give structures with properties, <strong>experimental</strong> databases give measured values and refined structures. MEIDNet needs, per material, one crystal structure plus one or more scalar properties (<a href="../start/what-data.html">what data do I need?</a>); the last column says how far each source is from that.</p>
+<p>Pick an application:</p>
+<ul>
+<li><a href="#solar-cells-and-photovoltaics">Solar cells and photovoltaics</a></li>
+<li><a href="#semiconductor-physics">Semiconductor physics</a></li>
+<li><a href="#batteries-and-ionic-conductors">Batteries and ionic conductors</a></li>
+<li><a href="#thermoelectrics">Thermoelectrics</a></li>
+<li><a href="#catalysis-and-surfaces">Catalysis and surfaces</a></li>
+<li><a href="#magnetism-and-superconductivity">Magnetism and superconductivity</a></li>
+<li><a href="#mechanical-dielectric-and-piezoelectric">Mechanical, dielectric and piezoelectric</a></li>
+<li><a href="#2d-materials">2D materials</a></li>
+<li><a href="#porous-materials-and-mofs">Porous materials and MOFs</a></li>
+<li><a href="#generative-model-benchmarks">Generative-model benchmarks</a></li>
+<li><a href="#all-databases">All databases</a></li>
+</ul>
+<h2 id="solar-cells-and-photovoltaics">Solar cells and photovoltaics<a class="headerlink" href="#solar-cells-and-photovoltaics" title="Permanent link">&para;</a></h2>
+<p><strong>What to look for:</strong> band gap in the 1.1-1.8 eV window (single junction) or 1.6-2.0 eV (tandem top cell), direct gap, strong absorption, formation energy / hull distance, defect tolerance, device records for the experimental side</p>
+<p><strong>As MEIDNet targets:</strong> dir_gap or any gap column + heat_all / e_above_hull; family = perovskite_abx3 (halide, oxide, chalcogenide), or your own prototype</p>
+<table>
+<thead>
+<tr>
+<th>database</th>
+<th>kind</th>
+<th>size</th>
+<th>features</th>
+<th>use with MEIDNet</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://materialsproject.org">Materials Project</a></td>
+<td>computed</td>
+<td>about 150,000 inorganic compounds</td>
+<td>relaxed structures, formation energy, energy above hull, PBE/r2SCAN band gaps, magnetic ordering, elastic / dielectric / piezoelectric tensors, phonons for a subset, X-ray absorption, battery (intercalation) electrodes</td>
+<td>ready: export CIFs + a property table with the API; one prototype family per table</td>
+</tr>
+<tr>
+<td><a href="https://oqmd.org">OQMD</a></td>
+<td>computed</td>
+<td>more than 1,000,000 structures</td>
+<td>formation energy, stability (hull), band gap (PBE), many hypothetical prototypes (Heusler, perovskite, ...)</td>
+<td>ready: prototype-decorated entries are exactly what a MEIDNet family describes</td>
+</tr>
+<tr>
+<td><a href="https://jarvis.nist.gov/jarvisdft">JARVIS-DFT (NIST)</a></td>
+<td>computed</td>
+<td>about 80,000 3D and 1,000 2D materials</td>
+<td>OptB88vdW and TBmBJ band gaps, effective masses, dielectric functions, solar-cell efficiency (SLME), elastic tensors, piezoelectric and thermoelectric (BoltzTraP) properties, exfoliation energies, superconducting Tc (electron-phonon) for a subset</td>
+<td>ready; the richest single source of scalar targets per structure</td>
+</tr>
+<tr>
+<td><a href="https://nomad-lab.eu">NOMAD</a></td>
+<td>computed</td>
+<td>more than 10,000,000 calculations</td>
+<td>raw and normalised DFT outputs from many codes; band structures, DOS, energies; FAIR provenance</td>
+<td>needs curation: pick one code and functional before building a table</td>
+</tr>
+<tr>
+<td><a href="https://cmr.fysik.dtu.dk/c2db/c2db.html">C2DB</a></td>
+<td>computed</td>
+<td>about 4,000 monolayers</td>
+<td>stability (dynamic and thermodynamic), PBE / HSE / GW gaps, magnetic state, optical absorption, piezoelectric and Raman data for monolayers</td>
+<td>ready for a 2D prototype family</td>
+</tr>
+<tr>
+<td><a href="https://cmr.fysik.dtu.dk/cubic_perovskites/cubic_perovskites.html">Cubic perovskites (CMR, Castelli et al.)</a></td>
+<td>computed</td>
+<td>about 19,000 ABX3 compositions</td>
+<td>formation (heat of formation) energies and direct / indirect gaps (GLLB-SC) for cubic ABX3 with O, N, S, F anions and their mixtures - the source of Perov-5</td>
+<td>the published MEIDNet benchmark (Perov-5 split): meidnet download-data</td>
+</tr>
+<tr>
+<td><a href="https://hackingmaterials.lbl.gov/matminer/dataset_summary.html">matminer datasets</a></td>
+<td>computed + experimental</td>
+<td>about 50 curated tables</td>
+<td>one-line loaders for experimental band gaps (Zhuo 2018, 6,354 compounds; matbench_expt_gap 4,604), experimental formation enthalpies (Kim 2017), UCSB thermoelectrics, elastic tensors, dielectric constants, piezoelectric tensors, phonon data, superhard materials, HOIP perovskites</td>
+<td>experimental tables are composition-only: join with a structure source (COD, Materials Project) to train; use them directly as realistic targets</td>
+</tr>
+<tr>
+<td><a href="https://www.crystallography.net/cod/">Crystallography Open Database (COD)</a></td>
+<td>experimental</td>
+<td>more than 500,000 crystal structures</td>
+<td>experimentally determined structures (organic and inorganic) as CIFs with references; no properties</td>
+<td>structures: join with a property table to train; the natural source of experimental prototypes for family files</td>
+</tr>
+<tr>
+<td><a href="https://icsd.products.fiz-karlsruhe.de">ICSD</a></td>
+<td>experimental</td>
+<td>about 300,000 inorganic structures</td>
+<td>the reference collection of experimentally determined inorganic structures; the ground truth most DFT databases start from</td>
+<td>structures: licence forbids redistribution, train locally</td>
+</tr>
+<tr>
+<td><a href="https://www.perovskitedatabase.com">Perovskite Database Project</a></td>
+<td>experimental</td>
+<td>more than 42,000 solar-cell devices</td>
+<td>device-level records: composition, architecture, efficiency, Voc, Jsc, FF, stability, processing conditions, from the literature</td>
+<td>no crystal structures per record: use it to choose realistic gap / composition targets and to check candidates against what has been made</td>
+</tr>
+<tr>
+<td><a href="https://www.nature.com/articles/sdata201757">Hybrid organic-inorganic perovskites (Kim et al. 2017)</a></td>
+<td>computed</td>
+<td>1,346 HOIPs</td>
+<td>DFT structures, band gaps and dielectric constants of ABX3 hybrid perovskites</td>
+<td>ready, but organic A-site cations need a family file with molecular site groups (not shipped)</td>
+</tr>
+<tr>
+<td><a href="https://pubs.acs.org/doi/10.1021/acs.jpclett.8b00124">Experimental band gaps (Zhuo et al. 2018)</a></td>
+<td>experimental</td>
+<td>6,354 compounds</td>
+<td>measured band gaps by composition, with the matbench_expt_gap subset as a standard task</td>
+<td>targets and validation of predicted gaps; no structures</td>
+</tr>
+<tr>
+<td><a href="https://materialsdatafacility.org">Materials Data Facility</a></td>
+<td>computed + experimental</td>
+<td>hundreds of datasets</td>
+<td>a registry of published materials datasets, experimental and computed, with DOIs</td>
+<td>a place to find and to publish tables</td>
+</tr>
+</tbody>
+</table>
+<h2 id="semiconductor-physics">Semiconductor physics<a class="headerlink" href="#semiconductor-physics" title="Permanent link">&para;</a></h2>
+<p><strong>What to look for:</strong> band gaps at several levels of theory (PBE, HSE, mBJ) and experimental, effective masses, dielectric constants, carrier mobility proxies, band edges, phonons</p>
+<p><strong>As MEIDNet targets:</strong> gap, effective mass or dielectric constant as scalar targets; keep the level of theory consistent inside one table</p>
+<table>
+<thead>
+<tr>
+<th>database</th>
+<th>kind</th>
+<th>size</th>
+<th>features</th>
+<th>use with MEIDNet</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://materialsproject.org">Materials Project</a></td>
+<td>computed</td>
+<td>about 150,000 inorganic compounds</td>
+<td>relaxed structures, formation energy, energy above hull, PBE/r2SCAN band gaps, magnetic ordering, elastic / dielectric / piezoelectric tensors, phonons for a subset, X-ray absorption, battery (intercalation) electrodes</td>
+<td>ready: export CIFs + a property table with the API; one prototype family per table</td>
+</tr>
+<tr>
+<td><a href="https://oqmd.org">OQMD</a></td>
+<td>computed</td>
+<td>more than 1,000,000 structures</td>
+<td>formation energy, stability (hull), band gap (PBE), many hypothetical prototypes (Heusler, perovskite, ...)</td>
+<td>ready: prototype-decorated entries are exactly what a MEIDNet family describes</td>
+</tr>
+<tr>
+<td><a href="https://aflowlib.org">AFLOW</a></td>
+<td>computed</td>
+<td>more than 3,500,000 entries</td>
+<td>formation enthalpy, band gaps, elastic and thermal properties (AGL), Debye temperature, magnetic moments, prototype encyclopedia</td>
+<td>ready; the AFLOW prototype library is a good source of family files</td>
+</tr>
+<tr>
+<td><a href="https://jarvis.nist.gov/jarvisdft">JARVIS-DFT (NIST)</a></td>
+<td>computed</td>
+<td>about 80,000 3D and 1,000 2D materials</td>
+<td>OptB88vdW and TBmBJ band gaps, effective masses, dielectric functions, solar-cell efficiency (SLME), elastic tensors, piezoelectric and thermoelectric (BoltzTraP) properties, exfoliation energies, superconducting Tc (electron-phonon) for a subset</td>
+<td>ready; the richest single source of scalar targets per structure</td>
+</tr>
+<tr>
+<td><a href="https://alexandria.icams.rub.de">Alexandria</a></td>
+<td>computed</td>
+<td>about 4,500,000 PBE and 400,000 PBEsol / SCAN structures</td>
+<td>formation energy, hull distance, band gap, magnetic moment, for a very large set of hypothetical compounds (1D, 2D, 3D)</td>
+<td>ready; the usual pre-training set of generative models (MatterGen's Alex-MP-20 split)</td>
+</tr>
+<tr>
+<td><a href="https://nomad-lab.eu">NOMAD</a></td>
+<td>computed</td>
+<td>more than 10,000,000 calculations</td>
+<td>raw and normalised DFT outputs from many codes; band structures, DOS, energies; FAIR provenance</td>
+<td>needs curation: pick one code and functional before building a table</td>
+</tr>
+<tr>
+<td><a href="https://www.materialscloud.org">Materials Cloud</a></td>
+<td>computed</td>
+<td>curated archives (MC3D, MC2D, phonons, ...)</td>
+<td>MC3D relaxed structures, MC2D exfoliable monolayers, phonon database, Sssp pseudopotential sets, workflow provenance (AiiDA)</td>
+<td>ready for MC3D / MC2D tables</td>
+</tr>
+<tr>
+<td><a href="https://cmr.fysik.dtu.dk/c2db/c2db.html">C2DB</a></td>
+<td>computed</td>
+<td>about 4,000 monolayers</td>
+<td>stability (dynamic and thermodynamic), PBE / HSE / GW gaps, magnetic state, optical absorption, piezoelectric and Raman data for monolayers</td>
+<td>ready for a 2D prototype family</td>
+</tr>
+<tr>
+<td><a href="https://cmr.fysik.dtu.dk/cubic_perovskites/cubic_perovskites.html">Cubic perovskites (CMR, Castelli et al.)</a></td>
+<td>computed</td>
+<td>about 19,000 ABX3 compositions</td>
+<td>formation (heat of formation) energies and direct / indirect gaps (GLLB-SC) for cubic ABX3 with O, N, S, F anions and their mixtures - the source of Perov-5</td>
+<td>the published MEIDNet benchmark (Perov-5 split): meidnet download-data</td>
+</tr>
+<tr>
+<td><a href="https://matbench.materialsproject.org">Matbench</a></td>
+<td>computed</td>
+<td>13 tasks</td>
+<td>standardised property-prediction tasks (band gap, formation energy, moduli, dielectric constant, ...) with fixed cross-validation folds</td>
+<td>use the structure-based tasks as property tables</td>
+</tr>
+<tr>
+<td><a href="https://hackingmaterials.lbl.gov/matminer/dataset_summary.html">matminer datasets</a></td>
+<td>computed + experimental</td>
+<td>about 50 curated tables</td>
+<td>one-line loaders for experimental band gaps (Zhuo 2018, 6,354 compounds; matbench_expt_gap 4,604), experimental formation enthalpies (Kim 2017), UCSB thermoelectrics, elastic tensors, dielectric constants, piezoelectric tensors, phonon data, superhard materials, HOIP perovskites</td>
+<td>experimental tables are composition-only: join with a structure source (COD, Materials Project) to train; use them directly as realistic targets</td>
+</tr>
+<tr>
+<td><a href="https://www.crystallography.net/cod/">Crystallography Open Database (COD)</a></td>
+<td>experimental</td>
+<td>more than 500,000 crystal structures</td>
+<td>experimentally determined structures (organic and inorganic) as CIFs with references; no properties</td>
+<td>structures: join with a property table to train; the natural source of experimental prototypes for family files</td>
+</tr>
+<tr>
+<td><a href="https://icsd.products.fiz-karlsruhe.de">ICSD</a></td>
+<td>experimental</td>
+<td>about 300,000 inorganic structures</td>
+<td>the reference collection of experimentally determined inorganic structures; the ground truth most DFT databases start from</td>
+<td>structures: licence forbids redistribution, train locally</td>
+</tr>
+<tr>
+<td><a href="https://www.nature.com/articles/sdata201757">Hybrid organic-inorganic perovskites (Kim et al. 2017)</a></td>
+<td>computed</td>
+<td>1,346 HOIPs</td>
+<td>DFT structures, band gaps and dielectric constants of ABX3 hybrid perovskites</td>
+<td>ready, but organic A-site cations need a family file with molecular site groups (not shipped)</td>
+</tr>
+<tr>
+<td><a href="https://pubs.acs.org/doi/10.1021/acs.jpclett.8b00124">Experimental band gaps (Zhuo et al. 2018)</a></td>
+<td>experimental</td>
+<td>6,354 compounds</td>
+<td>measured band gaps by composition, with the matbench_expt_gap subset as a standard task</td>
+<td>targets and validation of predicted gaps; no structures</td>
+</tr>
+<tr>
+<td><a href="https://github.com/Andrew-S-Rosen/QMOF">QMOF</a></td>
+<td>computed</td>
+<td>about 20,000 MOFs</td>
+<td>DFT-optimised MOF structures with band gaps and charges</td>
+<td>beyond today's cell-size limit; targets and descriptors</td>
+</tr>
+<tr>
+<td><a href="https://materialsdatafacility.org">Materials Data Facility</a></td>
+<td>computed + experimental</td>
+<td>hundreds of datasets</td>
+<td>a registry of published materials datasets, experimental and computed, with DOIs</td>
+<td>a place to find and to publish tables</td>
+</tr>
+</tbody>
+</table>
+<h2 id="batteries-and-ionic-conductors">Batteries and ionic conductors<a class="headerlink" href="#batteries-and-ionic-conductors" title="Permanent link">&para;</a></h2>
+<p><strong>What to look for:</strong> ionic conductivity, migration barriers, voltage, stability window, volume change, hull distance</p>
+<p><strong>As MEIDNet targets:</strong> formation energy + conductivity (log scale) as targets; families with a mobile-ion site group</p>
+<table>
+<thead>
+<tr>
+<th>database</th>
+<th>kind</th>
+<th>size</th>
+<th>features</th>
+<th>use with MEIDNet</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://materialsproject.org">Materials Project</a></td>
+<td>computed</td>
+<td>about 150,000 inorganic compounds</td>
+<td>relaxed structures, formation energy, energy above hull, PBE/r2SCAN band gaps, magnetic ordering, elastic / dielectric / piezoelectric tensors, phonons for a subset, X-ray absorption, battery (intercalation) electrodes</td>
+<td>ready: export CIFs + a property table with the API; one prototype family per table</td>
+</tr>
+<tr>
+<td><a href="https://www.crystallography.net/cod/">Crystallography Open Database (COD)</a></td>
+<td>experimental</td>
+<td>more than 500,000 crystal structures</td>
+<td>experimentally determined structures (organic and inorganic) as CIFs with references; no properties</td>
+<td>structures: join with a property table to train; the natural source of experimental prototypes for family files</td>
+</tr>
+<tr>
+<td><a href="https://icsd.products.fiz-karlsruhe.de">ICSD</a></td>
+<td>experimental</td>
+<td>about 300,000 inorganic structures</td>
+<td>the reference collection of experimentally determined inorganic structures; the ground truth most DFT databases start from</td>
+<td>structures: licence forbids redistribution, train locally</td>
+</tr>
+<tr>
+<td><a href="https://pcwww.liv.ac.uk/~msd30/lmds/LiIonDatabase.html">Liverpool Ionic Conductivity Database (LiIonDB)</a></td>
+<td>experimental</td>
+<td>about 800 measurements</td>
+<td>experimental Li-ion conductivities with temperature and the reported phase, from the literature</td>
+<td>targets (log conductivity); join with COD / Materials Project structures</td>
+</tr>
+<tr>
+<td><a href="https://next-gen.materialsproject.org/batteries">Materials Project battery explorer</a></td>
+<td>computed</td>
+<td>about 4,000 intercalation electrodes</td>
+<td>average voltage, capacity, volume change and stability of intercalation electrodes computed from the MP structures</td>
+<td>ready: voltage and capacity as targets on the host-structure family</td>
+</tr>
+<tr>
+<td><a href="https://materialsdatafacility.org">Materials Data Facility</a></td>
+<td>computed + experimental</td>
+<td>hundreds of datasets</td>
+<td>a registry of published materials datasets, experimental and computed, with DOIs</td>
+<td>a place to find and to publish tables</td>
+</tr>
+</tbody>
+</table>
+<h2 id="thermoelectrics">Thermoelectrics<a class="headerlink" href="#thermoelectrics" title="Permanent link">&para;</a></h2>
+<p><strong>What to look for:</strong> Seebeck coefficient, electrical and thermal conductivity, zT, carrier concentration and temperature; experimental data is temperature-resolved</p>
+<p><strong>As MEIDNet targets:</strong> zT or Seebeck at a fixed temperature as a scalar target</p>
+<table>
+<thead>
+<tr>
+<th>database</th>
+<th>kind</th>
+<th>size</th>
+<th>features</th>
+<th>use with MEIDNet</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://aflowlib.org">AFLOW</a></td>
+<td>computed</td>
+<td>more than 3,500,000 entries</td>
+<td>formation enthalpy, band gaps, elastic and thermal properties (AGL), Debye temperature, magnetic moments, prototype encyclopedia</td>
+<td>ready; the AFLOW prototype library is a good source of family files</td>
+</tr>
+<tr>
+<td><a href="https://jarvis.nist.gov/jarvisdft">JARVIS-DFT (NIST)</a></td>
+<td>computed</td>
+<td>about 80,000 3D and 1,000 2D materials</td>
+<td>OptB88vdW and TBmBJ band gaps, effective masses, dielectric functions, solar-cell efficiency (SLME), elastic tensors, piezoelectric and thermoelectric (BoltzTraP) properties, exfoliation energies, superconducting Tc (electron-phonon) for a subset</td>
+<td>ready; the richest single source of scalar targets per structure</td>
+</tr>
+<tr>
+<td><a href="https://hackingmaterials.lbl.gov/matminer/dataset_summary.html">matminer datasets</a></td>
+<td>computed + experimental</td>
+<td>about 50 curated tables</td>
+<td>one-line loaders for experimental band gaps (Zhuo 2018, 6,354 compounds; matbench_expt_gap 4,604), experimental formation enthalpies (Kim 2017), UCSB thermoelectrics, elastic tensors, dielectric constants, piezoelectric tensors, phonon data, superhard materials, HOIP perovskites</td>
+<td>experimental tables are composition-only: join with a structure source (COD, Materials Project) to train; use them directly as realistic targets</td>
+</tr>
+<tr>
+<td><a href="https://hackingmaterials.lbl.gov/matminer/dataset_summary.html#ucsb-thermoelectrics">UCSB thermoelectrics (Gaultois et al.)</a></td>
+<td>experimental</td>
+<td>about 1,100 compounds</td>
+<td>experimental Seebeck, resistivity, thermal conductivity, zT at a given temperature</td>
+<td>targets; join with structures</td>
+</tr>
+<tr>
+<td><a href="https://www.starrydata2.org">Starrydata</a></td>
+<td>experimental</td>
+<td>tens of thousands of digitised curves</td>
+<td>temperature-dependent thermoelectric and other property curves digitised from papers</td>
+<td>targets at a chosen temperature</td>
+</tr>
+<tr>
+<td><a href="https://materialsdatafacility.org">Materials Data Facility</a></td>
+<td>computed + experimental</td>
+<td>hundreds of datasets</td>
+<td>a registry of published materials datasets, experimental and computed, with DOIs</td>
+<td>a place to find and to publish tables</td>
+</tr>
+</tbody>
+</table>
+<h2 id="catalysis-and-surfaces">Catalysis and surfaces<a class="headerlink" href="#catalysis-and-surfaces" title="Permanent link">&para;</a></h2>
+<p><strong>What to look for:</strong> adsorption energies, reaction barriers, surface energies, work functions</p>
+<p><strong>As MEIDNet targets:</strong> bulk descriptors (formation energy, d-band proxies) only - MEIDNet works on bulk prototypes, not slabs</p>
+<table>
+<thead>
+<tr>
+<th>database</th>
+<th>kind</th>
+<th>size</th>
+<th>features</th>
+<th>use with MEIDNet</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://materialsproject.org">Materials Project</a></td>
+<td>computed</td>
+<td>about 150,000 inorganic compounds</td>
+<td>relaxed structures, formation energy, energy above hull, PBE/r2SCAN band gaps, magnetic ordering, elastic / dielectric / piezoelectric tensors, phonons for a subset, X-ray absorption, battery (intercalation) electrodes</td>
+<td>ready: export CIFs + a property table with the API; one prototype family per table</td>
+</tr>
+<tr>
+<td><a href="https://nomad-lab.eu">NOMAD</a></td>
+<td>computed</td>
+<td>more than 10,000,000 calculations</td>
+<td>raw and normalised DFT outputs from many codes; band structures, DOS, energies; FAIR provenance</td>
+<td>needs curation: pick one code and functional before building a table</td>
+</tr>
+<tr>
+<td><a href="https://opencatalystproject.org">Open Catalyst (OC20 / OC22)</a></td>
+<td>computed</td>
+<td>more than 1,300,000 relaxations</td>
+<td>adsorbate-surface relaxations with energies and forces; the standard catalysis ML benchmark</td>
+<td>surfaces are out of MEIDNet's scope; use the bulk subsets as structure sources</td>
+</tr>
+<tr>
+<td><a href="https://www.catalysis-hub.org">Catalysis-Hub</a></td>
+<td>computed</td>
+<td>more than 100,000 reaction energies</td>
+<td>adsorption and reaction energies on surfaces with the DFT settings used</td>
+<td>descriptors only</td>
+</tr>
+<tr>
+<td><a href="https://materialsdatafacility.org">Materials Data Facility</a></td>
+<td>computed + experimental</td>
+<td>hundreds of datasets</td>
+<td>a registry of published materials datasets, experimental and computed, with DOIs</td>
+<td>a place to find and to publish tables</td>
+</tr>
+</tbody>
+</table>
+<h2 id="magnetism-and-superconductivity">Magnetism and superconductivity<a class="headerlink" href="#magnetism-and-superconductivity" title="Permanent link">&para;</a></h2>
+<p><strong>What to look for:</strong> magnetic moment and ordering, Curie / Neel temperature, superconducting Tc with the structure it belongs to</p>
+<p><strong>As MEIDNet targets:</strong> total magnetization per formula unit, Tc (log scale) as scalar targets</p>
+<table>
+<thead>
+<tr>
+<th>database</th>
+<th>kind</th>
+<th>size</th>
+<th>features</th>
+<th>use with MEIDNet</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://materialsproject.org">Materials Project</a></td>
+<td>computed</td>
+<td>about 150,000 inorganic compounds</td>
+<td>relaxed structures, formation energy, energy above hull, PBE/r2SCAN band gaps, magnetic ordering, elastic / dielectric / piezoelectric tensors, phonons for a subset, X-ray absorption, battery (intercalation) electrodes</td>
+<td>ready: export CIFs + a property table with the API; one prototype family per table</td>
+</tr>
+<tr>
+<td><a href="https://oqmd.org">OQMD</a></td>
+<td>computed</td>
+<td>more than 1,000,000 structures</td>
+<td>formation energy, stability (hull), band gap (PBE), many hypothetical prototypes (Heusler, perovskite, ...)</td>
+<td>ready: prototype-decorated entries are exactly what a MEIDNet family describes</td>
+</tr>
+<tr>
+<td><a href="https://aflowlib.org">AFLOW</a></td>
+<td>computed</td>
+<td>more than 3,500,000 entries</td>
+<td>formation enthalpy, band gaps, elastic and thermal properties (AGL), Debye temperature, magnetic moments, prototype encyclopedia</td>
+<td>ready; the AFLOW prototype library is a good source of family files</td>
+</tr>
+<tr>
+<td><a href="https://jarvis.nist.gov/jarvisdft">JARVIS-DFT (NIST)</a></td>
+<td>computed</td>
+<td>about 80,000 3D and 1,000 2D materials</td>
+<td>OptB88vdW and TBmBJ band gaps, effective masses, dielectric functions, solar-cell efficiency (SLME), elastic tensors, piezoelectric and thermoelectric (BoltzTraP) properties, exfoliation energies, superconducting Tc (electron-phonon) for a subset</td>
+<td>ready; the richest single source of scalar targets per structure</td>
+</tr>
+<tr>
+<td><a href="https://alexandria.icams.rub.de">Alexandria</a></td>
+<td>computed</td>
+<td>about 4,500,000 PBE and 400,000 PBEsol / SCAN structures</td>
+<td>formation energy, hull distance, band gap, magnetic moment, for a very large set of hypothetical compounds (1D, 2D, 3D)</td>
+<td>ready; the usual pre-training set of generative models (MatterGen's Alex-MP-20 split)</td>
+</tr>
+<tr>
+<td><a href="https://www.crystallography.net/cod/">Crystallography Open Database (COD)</a></td>
+<td>experimental</td>
+<td>more than 500,000 crystal structures</td>
+<td>experimentally determined structures (organic and inorganic) as CIFs with references; no properties</td>
+<td>structures: join with a property table to train; the natural source of experimental prototypes for family files</td>
+</tr>
+<tr>
+<td><a href="https://icsd.products.fiz-karlsruhe.de">ICSD</a></td>
+<td>experimental</td>
+<td>about 300,000 inorganic structures</td>
+<td>the reference collection of experimentally determined inorganic structures; the ground truth most DFT databases start from</td>
+<td>structures: licence forbids redistribution, train locally</td>
+</tr>
+<tr>
+<td><a href="https://github.com/aimat-lab/3DSC">SuperCon (NIMS) and 3DSC</a></td>
+<td>experimental</td>
+<td>about 16,000 Tc entries; 3DSC links 5,700 to structures</td>
+<td>experimental superconducting critical temperatures; 3DSC matches them to ICSD / Materials Project structures</td>
+<td>3DSC is ready (structure + Tc); use log Tc as the target</td>
+</tr>
+<tr>
+<td><a href="https://cryst.ehu.es/magndata/">MAGNDATA (Bilbao)</a></td>
+<td>experimental</td>
+<td>about 2,000 magnetic structures</td>
+<td>experimentally determined commensurate and incommensurate magnetic structures</td>
+<td>structures with magnetic ordering; join with moments as targets</td>
+</tr>
+</tbody>
+</table>
+<h2 id="mechanical-dielectric-and-piezoelectric">Mechanical, dielectric and piezoelectric<a class="headerlink" href="#mechanical-dielectric-and-piezoelectric" title="Permanent link">&para;</a></h2>
+<p><strong>What to look for:</strong> bulk and shear moduli, hardness, dielectric tensor, piezoelectric coefficients, phonon stability</p>
+<p><strong>As MEIDNet targets:</strong> bulk modulus, dielectric constant or a piezoelectric scalar as targets</p>
+<table>
+<thead>
+<tr>
+<th>database</th>
+<th>kind</th>
+<th>size</th>
+<th>features</th>
+<th>use with MEIDNet</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://materialsproject.org">Materials Project</a></td>
+<td>computed</td>
+<td>about 150,000 inorganic compounds</td>
+<td>relaxed structures, formation energy, energy above hull, PBE/r2SCAN band gaps, magnetic ordering, elastic / dielectric / piezoelectric tensors, phonons for a subset, X-ray absorption, battery (intercalation) electrodes</td>
+<td>ready: export CIFs + a property table with the API; one prototype family per table</td>
+</tr>
+<tr>
+<td><a href="https://aflowlib.org">AFLOW</a></td>
+<td>computed</td>
+<td>more than 3,500,000 entries</td>
+<td>formation enthalpy, band gaps, elastic and thermal properties (AGL), Debye temperature, magnetic moments, prototype encyclopedia</td>
+<td>ready; the AFLOW prototype library is a good source of family files</td>
+</tr>
+<tr>
+<td><a href="https://jarvis.nist.gov/jarvisdft">JARVIS-DFT (NIST)</a></td>
+<td>computed</td>
+<td>about 80,000 3D and 1,000 2D materials</td>
+<td>OptB88vdW and TBmBJ band gaps, effective masses, dielectric functions, solar-cell efficiency (SLME), elastic tensors, piezoelectric and thermoelectric (BoltzTraP) properties, exfoliation energies, superconducting Tc (electron-phonon) for a subset</td>
+<td>ready; the richest single source of scalar targets per structure</td>
+</tr>
+<tr>
+<td><a href="https://www.materialscloud.org">Materials Cloud</a></td>
+<td>computed</td>
+<td>curated archives (MC3D, MC2D, phonons, ...)</td>
+<td>MC3D relaxed structures, MC2D exfoliable monolayers, phonon database, Sssp pseudopotential sets, workflow provenance (AiiDA)</td>
+<td>ready for MC3D / MC2D tables</td>
+</tr>
+<tr>
+<td><a href="https://matbench.materialsproject.org">Matbench</a></td>
+<td>computed</td>
+<td>13 tasks</td>
+<td>standardised property-prediction tasks (band gap, formation energy, moduli, dielectric constant, ...) with fixed cross-validation folds</td>
+<td>use the structure-based tasks as property tables</td>
+</tr>
+<tr>
+<td><a href="https://hackingmaterials.lbl.gov/matminer/dataset_summary.html">matminer datasets</a></td>
+<td>computed + experimental</td>
+<td>about 50 curated tables</td>
+<td>one-line loaders for experimental band gaps (Zhuo 2018, 6,354 compounds; matbench_expt_gap 4,604), experimental formation enthalpies (Kim 2017), UCSB thermoelectrics, elastic tensors, dielectric constants, piezoelectric tensors, phonon data, superhard materials, HOIP perovskites</td>
+<td>experimental tables are composition-only: join with a structure source (COD, Materials Project) to train; use them directly as realistic targets</td>
+</tr>
+<tr>
+<td><a href="https://www.crystallography.net/cod/">Crystallography Open Database (COD)</a></td>
+<td>experimental</td>
+<td>more than 500,000 crystal structures</td>
+<td>experimentally determined structures (organic and inorganic) as CIFs with references; no properties</td>
+<td>structures: join with a property table to train; the natural source of experimental prototypes for family files</td>
+</tr>
+<tr>
+<td><a href="https://icsd.products.fiz-karlsruhe.de">ICSD</a></td>
+<td>experimental</td>
+<td>about 300,000 inorganic structures</td>
+<td>the reference collection of experimentally determined inorganic structures; the ground truth most DFT databases start from</td>
+<td>structures: licence forbids redistribution, train locally</td>
+</tr>
+<tr>
+<td><a href="https://materialsdatafacility.org">Materials Data Facility</a></td>
+<td>computed + experimental</td>
+<td>hundreds of datasets</td>
+<td>a registry of published materials datasets, experimental and computed, with DOIs</td>
+<td>a place to find and to publish tables</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2d-materials">2D materials<a class="headerlink" href="#2d-materials" title="Permanent link">&para;</a></h2>
+<p><strong>What to look for:</strong> exfoliation energy, gap, magnetic state, dynamic stability of monolayers</p>
+<p><strong>As MEIDNet targets:</strong> a 2D prototype family (e.g. MXene or TMD) with gap and exfoliation energy as targets</p>
+<table>
+<thead>
+<tr>
+<th>database</th>
+<th>kind</th>
+<th>size</th>
+<th>features</th>
+<th>use with MEIDNet</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://jarvis.nist.gov/jarvisdft">JARVIS-DFT (NIST)</a></td>
+<td>computed</td>
+<td>about 80,000 3D and 1,000 2D materials</td>
+<td>OptB88vdW and TBmBJ band gaps, effective masses, dielectric functions, solar-cell efficiency (SLME), elastic tensors, piezoelectric and thermoelectric (BoltzTraP) properties, exfoliation energies, superconducting Tc (electron-phonon) for a subset</td>
+<td>ready; the richest single source of scalar targets per structure</td>
+</tr>
+<tr>
+<td><a href="https://alexandria.icams.rub.de">Alexandria</a></td>
+<td>computed</td>
+<td>about 4,500,000 PBE and 400,000 PBEsol / SCAN structures</td>
+<td>formation energy, hull distance, band gap, magnetic moment, for a very large set of hypothetical compounds (1D, 2D, 3D)</td>
+<td>ready; the usual pre-training set of generative models (MatterGen's Alex-MP-20 split)</td>
+</tr>
+<tr>
+<td><a href="https://www.materialscloud.org">Materials Cloud</a></td>
+<td>computed</td>
+<td>curated archives (MC3D, MC2D, phonons, ...)</td>
+<td>MC3D relaxed structures, MC2D exfoliable monolayers, phonon database, Sssp pseudopotential sets, workflow provenance (AiiDA)</td>
+<td>ready for MC3D / MC2D tables</td>
+</tr>
+<tr>
+<td><a href="https://cmr.fysik.dtu.dk/c2db/c2db.html">C2DB</a></td>
+<td>computed</td>
+<td>about 4,000 monolayers</td>
+<td>stability (dynamic and thermodynamic), PBE / HSE / GW gaps, magnetic state, optical absorption, piezoelectric and Raman data for monolayers</td>
+<td>ready for a 2D prototype family</td>
+</tr>
+<tr>
+<td><a href="http://www.2dmatpedia.org">2DMatPedia</a></td>
+<td>computed</td>
+<td>about 6,000 monolayers</td>
+<td>exfoliation energy, band gap, magnetic moment of monolayers derived from bulk databases</td>
+<td>ready for a 2D prototype family</td>
+</tr>
+</tbody>
+</table>
+<h2 id="porous-materials-and-mofs">Porous materials and MOFs<a class="headerlink" href="#porous-materials-and-mofs" title="Permanent link">&para;</a></h2>
+<p><strong>What to look for:</strong> pore geometry, gas uptake, band gap of the framework, stability</p>
+<p><strong>As MEIDNet targets:</strong> frameworks exceed MEIDNet's cell-size limit today (max_sites); use the property tables to set targets and the descriptors as inspiration</p>
+<table>
+<thead>
+<tr>
+<th>database</th>
+<th>kind</th>
+<th>size</th>
+<th>features</th>
+<th>use with MEIDNet</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.crystallography.net/cod/">Crystallography Open Database (COD)</a></td>
+<td>experimental</td>
+<td>more than 500,000 crystal structures</td>
+<td>experimentally determined structures (organic and inorganic) as CIFs with references; no properties</td>
+<td>structures: join with a property table to train; the natural source of experimental prototypes for family files</td>
+</tr>
+<tr>
+<td><a href="https://www.ccdc.cam.ac.uk/solutions/software/csd/">Cambridge Structural Database (CSD)</a></td>
+<td>experimental</td>
+<td>more than 1,300,000 organic and metal-organic structures</td>
+<td>experimental molecular and MOF crystal structures</td>
+<td>beyond today's cell-size limit; descriptors only</td>
+</tr>
+<tr>
+<td><a href="https://github.com/Andrew-S-Rosen/QMOF">QMOF</a></td>
+<td>computed</td>
+<td>about 20,000 MOFs</td>
+<td>DFT-optimised MOF structures with band gaps and charges</td>
+<td>beyond today's cell-size limit; targets and descriptors</td>
+</tr>
+<tr>
+<td><a href="https://zenodo.org/records/3677685">CoRE MOF</a></td>
+<td>experimental</td>
+<td>about 14,000 experimental MOFs</td>
+<td>computation-ready experimental MOF structures with pore descriptors</td>
+<td>beyond today's cell-size limit</td>
+</tr>
+</tbody>
+</table>
+<h2 id="generative-model-benchmarks">Generative-model benchmarks<a class="headerlink" href="#generative-model-benchmarks" title="Permanent link">&para;</a></h2>
+<p><strong>What to look for:</strong> fixed splits used by CDVAE, DiffCSP, MatterGen and MEIDNet; validity, uniqueness, novelty and stability metrics</p>
+<p><strong>As MEIDNet targets:</strong> the Perov-5 split is the published MEIDNet benchmark; MP-20 and Carbon-24 test structure representation</p>
+<table>
+<thead>
+<tr>
+<th>database</th>
+<th>kind</th>
+<th>size</th>
+<th>features</th>
+<th>use with MEIDNet</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://oqmd.org">OQMD</a></td>
+<td>computed</td>
+<td>more than 1,000,000 structures</td>
+<td>formation energy, stability (hull), band gap (PBE), many hypothetical prototypes (Heusler, perovskite, ...)</td>
+<td>ready: prototype-decorated entries are exactly what a MEIDNet family describes</td>
+</tr>
+<tr>
+<td><a href="https://alexandria.icams.rub.de">Alexandria</a></td>
+<td>computed</td>
+<td>about 4,500,000 PBE and 400,000 PBEsol / SCAN structures</td>
+<td>formation energy, hull distance, band gap, magnetic moment, for a very large set of hypothetical compounds (1D, 2D, 3D)</td>
+<td>ready; the usual pre-training set of generative models (MatterGen's Alex-MP-20 split)</td>
+</tr>
+<tr>
+<td><a href="https://github.com/google-deepmind/materials_discovery">GNoME (DeepMind)</a></td>
+<td>computed</td>
+<td>about 380,000 stable crystals</td>
+<td>structures predicted stable with DFT energies and hull distances; no electronic properties</td>
+<td>structures only: join with a computed property before training</td>
+</tr>
+<tr>
+<td><a href="https://cmr.fysik.dtu.dk/cubic_perovskites/cubic_perovskites.html">Cubic perovskites (CMR, Castelli et al.)</a></td>
+<td>computed</td>
+<td>about 19,000 ABX3 compositions</td>
+<td>formation (heat of formation) energies and direct / indirect gaps (GLLB-SC) for cubic ABX3 with O, N, S, F anions and their mixtures - the source of Perov-5</td>
+<td>the published MEIDNet benchmark (Perov-5 split): meidnet download-data</td>
+</tr>
+<tr>
+<td><a href="https://github.com/txie-93/cdvae/tree/main/data">CDVAE splits (Perov-5, MP-20, Carbon-24)</a></td>
+<td>computed</td>
+<td>18,928 / 45,231 / 10,153 structures</td>
+<td>fixed train / val / test splits used by generative-model papers; Perov-5 carries formation energy and band gap, the others energies only</td>
+<td>ready: the format meidnet reads directly (id, cif, property columns)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="all-databases">All databases<a class="headerlink" href="#all-databases" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>database</th>
+<th>kind</th>
+<th>access</th>
+<th>licence</th>
+<th>applications</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://materialsproject.org">Materials Project</a></td>
+<td>computed</td>
+<td>web, mp-api (free key)</td>
+<td>CC BY 4.0</td>
+<td>Solar cells and photovoltaics, Semiconductor physics, Batteries and ionic conductors, Magnetism and superconductivity, Mechanical, dielectric and piezoelectric, Catalysis and surfaces</td>
+</tr>
+<tr>
+<td><a href="https://oqmd.org">OQMD</a></td>
+<td>computed</td>
+<td>web, REST API, full download</td>
+<td>open</td>
+<td>Solar cells and photovoltaics, Semiconductor physics, Magnetism and superconductivity, Generative-model benchmarks</td>
+</tr>
+<tr>
+<td><a href="https://aflowlib.org">AFLOW</a></td>
+<td>computed</td>
+<td>web, REST / AFLUX API</td>
+<td>open</td>
+<td>Semiconductor physics, Mechanical, dielectric and piezoelectric, Thermoelectrics, Magnetism and superconductivity</td>
+</tr>
+<tr>
+<td><a href="https://jarvis.nist.gov/jarvisdft">JARVIS-DFT (NIST)</a></td>
+<td>computed</td>
+<td>web, jarvis-tools (figshare downloads)</td>
+<td>open (NIST)</td>
+<td>Solar cells and photovoltaics, Semiconductor physics, Thermoelectrics, Mechanical, dielectric and piezoelectric, 2D materials, Magnetism and superconductivity</td>
+</tr>
+<tr>
+<td><a href="https://alexandria.icams.rub.de">Alexandria</a></td>
+<td>computed</td>
+<td>bulk download</td>
+<td>CC BY 4.0</td>
+<td>Generative-model benchmarks, Semiconductor physics, Magnetism and superconductivity, 2D materials</td>
+</tr>
+<tr>
+<td><a href="https://github.com/google-deepmind/materials_discovery">GNoME (DeepMind)</a></td>
+<td>computed</td>
+<td>download</td>
+<td>CC BY-NC 4.0</td>
+<td>Generative-model benchmarks</td>
+</tr>
+<tr>
+<td><a href="https://nomad-lab.eu">NOMAD</a></td>
+<td>computed</td>
+<td>web, API, raw calculation files</td>
+<td>CC BY 4.0</td>
+<td>Semiconductor physics, Solar cells and photovoltaics, Catalysis and surfaces</td>
+</tr>
+<tr>
+<td><a href="https://www.materialscloud.org">Materials Cloud</a></td>
+<td>computed</td>
+<td>web, archive downloads</td>
+<td>CC BY 4.0 (per archive)</td>
+<td>2D materials, Mechanical, dielectric and piezoelectric, Semiconductor physics</td>
+</tr>
+<tr>
+<td><a href="https://cmr.fysik.dtu.dk/c2db/c2db.html">C2DB</a></td>
+<td>computed</td>
+<td>web, ASE database download</td>
+<td>CC BY 4.0</td>
+<td>2D materials, Semiconductor physics, Solar cells and photovoltaics</td>
+</tr>
+<tr>
+<td><a href="http://www.2dmatpedia.org">2DMatPedia</a></td>
+<td>computed</td>
+<td>web, download</td>
+<td>open</td>
+<td>2D materials</td>
+</tr>
+<tr>
+<td><a href="https://cmr.fysik.dtu.dk/cubic_perovskites/cubic_perovskites.html">Cubic perovskites (CMR, Castelli et al.)</a></td>
+<td>computed</td>
+<td>web, ASE database download</td>
+<td>CC BY 4.0</td>
+<td>Solar cells and photovoltaics, Semiconductor physics, Generative-model benchmarks</td>
+</tr>
+<tr>
+<td><a href="https://github.com/txie-93/cdvae/tree/main/data">CDVAE splits (Perov-5, MP-20, Carbon-24)</a></td>
+<td>computed</td>
+<td>download (CSV with CIF column)</td>
+<td>MIT (repository)</td>
+<td>Generative-model benchmarks</td>
+</tr>
+<tr>
+<td><a href="https://matbench.materialsproject.org">Matbench</a></td>
+<td>computed</td>
+<td>web, matbench package</td>
+<td>open</td>
+<td>Semiconductor physics, Mechanical, dielectric and piezoelectric</td>
+</tr>
+<tr>
+<td><a href="https://hackingmaterials.lbl.gov/matminer/dataset_summary.html">matminer datasets</a></td>
+<td>computed + experimental</td>
+<td>matminer.datasets.load_dataset</td>
+<td>per dataset</td>
+<td>Semiconductor physics, Solar cells and photovoltaics, Thermoelectrics, Mechanical, dielectric and piezoelectric</td>
+</tr>
+<tr>
+<td><a href="https://www.crystallography.net/cod/">Crystallography Open Database (COD)</a></td>
+<td>experimental</td>
+<td>web, full download, REST</td>
+<td>public domain (CC0)</td>
+<td>Semiconductor physics, Solar cells and photovoltaics, Batteries and ionic conductors, Magnetism and superconductivity, Mechanical, dielectric and piezoelectric, Porous materials and MOFs</td>
+</tr>
+<tr>
+<td><a href="https://icsd.products.fiz-karlsruhe.de">ICSD</a></td>
+<td>experimental</td>
+<td>licence (most universities have it)</td>
+<td>commercial</td>
+<td>Semiconductor physics, Solar cells and photovoltaics, Batteries and ionic conductors, Magnetism and superconductivity, Mechanical, dielectric and piezoelectric</td>
+</tr>
+<tr>
+<td><a href="https://www.ccdc.cam.ac.uk/solutions/software/csd/">Cambridge Structural Database (CSD)</a></td>
+<td>experimental</td>
+<td>licence</td>
+<td>commercial (CSD-Community subset free)</td>
+<td>Porous materials and MOFs</td>
+</tr>
+<tr>
+<td><a href="https://www.perovskitedatabase.com">Perovskite Database Project</a></td>
+<td>experimental</td>
+<td>web, download</td>
+<td>CC BY 4.0</td>
+<td>Solar cells and photovoltaics</td>
+</tr>
+<tr>
+<td><a href="https://www.nature.com/articles/sdata201757">Hybrid organic-inorganic perovskites (Kim et al. 2017)</a></td>
+<td>computed</td>
+<td>download (Scientific Data), matminer</td>
+<td>CC BY 4.0</td>
+<td>Solar cells and photovoltaics, Semiconductor physics</td>
+</tr>
+<tr>
+<td><a href="https://pubs.acs.org/doi/10.1021/acs.jpclett.8b00124">Experimental band gaps (Zhuo et al. 2018)</a></td>
+<td>experimental</td>
+<td>paper SI, matminer expt_gap</td>
+<td>per paper</td>
+<td>Semiconductor physics, Solar cells and photovoltaics</td>
+</tr>
+<tr>
+<td><a href="https://pcwww.liv.ac.uk/~msd30/lmds/LiIonDatabase.html">Liverpool Ionic Conductivity Database (LiIonDB)</a></td>
+<td>experimental</td>
+<td>web, download</td>
+<td>open</td>
+<td>Batteries and ionic conductors</td>
+</tr>
+<tr>
+<td><a href="https://next-gen.materialsproject.org/batteries">Materials Project battery explorer</a></td>
+<td>computed</td>
+<td>web, mp-api</td>
+<td>CC BY 4.0</td>
+<td>Batteries and ionic conductors</td>
+</tr>
+<tr>
+<td><a href="https://hackingmaterials.lbl.gov/matminer/dataset_summary.html#ucsb-thermoelectrics">UCSB thermoelectrics (Gaultois et al.)</a></td>
+<td>experimental</td>
+<td>matminer ucsb_thermoelectrics</td>
+<td>open</td>
+<td>Thermoelectrics</td>
+</tr>
+<tr>
+<td><a href="https://www.starrydata2.org">Starrydata</a></td>
+<td>experimental</td>
+<td>web, download</td>
+<td>open</td>
+<td>Thermoelectrics</td>
+</tr>
+<tr>
+<td><a href="https://opencatalystproject.org">Open Catalyst (OC20 / OC22)</a></td>
+<td>computed</td>
+<td>download, fairchem</td>
+<td>CC BY 4.0</td>
+<td>Catalysis and surfaces</td>
+</tr>
+<tr>
+<td><a href="https://www.catalysis-hub.org">Catalysis-Hub</a></td>
+<td>computed</td>
+<td>web, GraphQL API</td>
+<td>open</td>
+<td>Catalysis and surfaces</td>
+</tr>
+<tr>
+<td><a href="https://github.com/aimat-lab/3DSC">SuperCon (NIMS) and 3DSC</a></td>
+<td>experimental</td>
+<td>NIMS MDR, 3DSC on GitHub</td>
+<td>open (3DSC)</td>
+<td>Magnetism and superconductivity</td>
+</tr>
+<tr>
+<td><a href="https://cryst.ehu.es/magndata/">MAGNDATA (Bilbao)</a></td>
+<td>experimental</td>
+<td>web</td>
+<td>open</td>
+<td>Magnetism and superconductivity</td>
+</tr>
+<tr>
+<td><a href="https://github.com/Andrew-S-Rosen/QMOF">QMOF</a></td>
+<td>computed</td>
+<td>download (figshare)</td>
+<td>CC BY 4.0</td>
+<td>Porous materials and MOFs, Semiconductor physics</td>
+</tr>
+<tr>
+<td><a href="https://zenodo.org/records/3677685">CoRE MOF</a></td>
+<td>experimental</td>
+<td>download</td>
+<td>CC BY 4.0</td>
+<td>Porous materials and MOFs</td>
+</tr>
+<tr>
+<td><a href="https://materialsdatafacility.org">Materials Data Facility</a></td>
+<td>computed + experimental</td>
+<td>web, API</td>
+<td>per dataset</td>
+<td>Semiconductor physics, Solar cells and photovoltaics, Batteries and ionic conductors, Thermoelectrics, Catalysis and surfaces, Mechanical, dielectric and piezoelectric</td>
+</tr>
+</tbody>
+</table>
+<p>Missing one you use? <a href="https://github.com/ABnano/MEIDNet/issues">Open an issue</a> or edit <code>benchmarks/catalog/databases.json</code>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      MIT licence · Anand Babu
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "content.code.copy", "content.tabs.link", "search.suggest"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../assets/vendor/mathjax-3.2.2/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../assets/vendor/tablesort-5.3.0/tablesort.min.js"></script>
+      
+        <script src="../assets/vendor/tablesort-5.3.0/sorts/tablesort.number.min.js"></script>
+      
+        <script src="../assets/tablesort.js"></script>
+      
+        <script src="../assets/learn.js"></script>
+      
+        <script src="../assets/links.js"></script>
+      
+        <script src="../assets/prism3d.js"></script>
+      
+        <script src="../assets/prism-tour.js"></script>
+      
+        <script src="../assets/prism-docs.js"></script>
+      
+        <script src="../assets/ask-prism.js"></script>
+      
+    
+  </body>
+</html>

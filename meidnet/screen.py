@@ -1,11 +1,11 @@
 """
-Stability screening of generated CIFs with the MACE-MP-0 universal potential.
+Formation-energy screening of generated CIFs with the MACE-MP-0 universal potential.
 
 For each structure: relax cell + positions, compute the formation energy per atom
 against elemental reference phases, and report S/U/N:
 
-    S — stable:  ΔH_f ≤ threshold (default 0.10 eV/atom, the Materials Project
-                 "potentially synthesisable" criterion)
+    S — stable:  ΔH_f ≤ threshold (default 0.10 eV/atom against the elemental phases): a
+                 formation-energy filter, not the energy above the convex hull
     U — unique:  no structural duplicate among the candidates (StructureMatcher)
     N — novel:   reduced formula absent from the training table
 

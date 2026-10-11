@@ -300,7 +300,7 @@ def page_insights(F) -> str:
            "    This is why inverse design in MEIDNet is a search and not a lookup: a material family fixes the sites, rules remove impossible "
            "compositions, and the search moves through the latent space ([How MEIDNet works](../understand/how-it-works.md)).", "",
 
-           "### Less stable materials align better and reconstruct worse", "",
+           "### Materials with a higher formation enthalpy align better and reconstruct worse", "",
            "By fifths of the formation enthalpy, from the lowest to the highest:", "",
            "| formation enthalpy up to (eV/atom) | " + " | ".join(f(v, 2) for v in BE["quintile_upper_edges"]) + " |",
            "|---|" + "---|" * 5,
@@ -377,22 +377,24 @@ def page_guide(F) -> str:
     out += ["", "    Each candidate is a CIF file in `runs/demo/generation/cifs/`; `runs/demo/generation_report.html` shows every rule each one passed.", "",
             "3. **Screen with the MLIP.** MACE-MP-0 relaxes each crystal and computes its formation energy.", "",
             "    ```bash", "    meidnet screen runs/demo/generation/cifs --train-csv data/perov5/train.csv", "    ```", "",
-            "    It printed:", "", "    | candidate | MACE formation energy (eV/atom) | stable | unique | novel |", "    |---|---|---|---|---|"]
+            "    It printed:", "", "    | candidate | MACE formation energy (eV/atom) | passes the ΔHf filter | unique | novel |", "    |---|---|---|---|---|"]
     for c in cands:
         s = stab[c["formula"]]
         yn = lambda v: "yes" if v == "True" else "no"   # noqa: E731
         out.append(f"    | {formula(c['formula'])} | {float(s['dHf']):.2f} | {yn(s['stable'])} | {yn(s['unique'])} | {yn(s['novel'])} |")
     n_sun = sum(1 for s in stab.values() if s["stable"] == s["unique"] == s["novel"] == "True")
-    out += ["", f"    {n_sun} of {len(cands)} are stable (formation energy at most 0.10 eV/atom), unique and novel. `--train-csv` needs "
+    out += ["", f"    {n_sun} of {len(cands)} pass the formation-energy filter (at most 0.10 eV/atom against the elements; the report calls "
+            f"them stable) and are unique and novel. `--train-csv` needs "
             "`meidnet download-data` once; without it, novelty is skipped.", "",
-            "4. **Confirm.** An MLIP is a first filter. Before any claim about a candidate, confirm its stability and its band gap with DFT.", "",
+            "4. **Confirm.** An MLIP is a first filter. Before any claim about a candidate, confirm its stability (the energy above the "
+            "convex hull) and its band gap with DFT.", "",
             "</div>", "",
             f"The outputs of this run are kept in [`benchmarks/reproduction/perov5/demo/`]({GH}benchmarks/reproduction/perov5/demo). "
             "No installation: the same search runs in the [Studio](https://babu09-meidnet.hf.space/studio/?panel=targets).", "",
             "## Which model", "",
             "All public checkpoints, measured under the same protocol ([leaderboard](perov5.md)): 54 candidates for three band-gap targets "
             "in three chemical families, screened with MACE-MP-0.", "",
-            "| model | delivered (of 54) | stable, unique, novel (of 54) | stable (share) | band-gap target met, of candidates with a DFT value | alignment (cosine) | retrieval, top 1 |", "|---|---|---|---|---|---|---|"]
+            "| model | delivered (of 54) | ΔHf·U·N (of 54) | passes the ΔHf filter (share) | band-gap target met, of candidates with a DFT value | alignment (cosine) | retrieval, top 1 |", "|---|---|---|---|---|---|---|"]
     for m, name in rows:
         if recs.get(m) is None or "inverse_design" not in recs[m]["results"]:
             continue
@@ -440,9 +442,10 @@ def guide_reading() -> str:
     al = record("meidnet-alignment")["results"]["representation"]
     two = record("meidnet-2k")["results"]["representation"]
     lines = ['!!! key "How to read this table, and what to start with"',
-             f"    - **The checkpoints are close on stability.** They deliver between {lo} and {hi} stable, unique and novel candidates of 54. Each is a "
+             f"    - **The checkpoints are close on the formation-energy filter.** They deliver between {lo} and {hi} candidates of 54 that "
+             f"pass it and are unique and novel (ΔHf·U·N). Each is a "
              f"single run; how much this count changes with the seed has not been measured.",
-             f"    - **Stable, unique and novel is not the design goal.** The two baselines score higher on it ({scr} and {rnd} of 54), in part because they "
+             f"    - **ΔHf·U·N is not the design goal.** The two baselines score higher on it ({scr} and {rnd} of 54), in part because they "
              f"rarely return a material of the data set. Whether the band-gap target is met is only known where a DFT value exists: "
              f"{min(known.values())} to {max(known.values())} candidates per model, too few to rank the models.",
              "    - **To generate, start with the published model**: it is the model of `meidnet demo` and of the Studio, and its decoder (like that of the "

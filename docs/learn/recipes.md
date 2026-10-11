@@ -9,7 +9,7 @@ For step-by-step changes to a MEIDNet configuration (another target, another fam
 
 | problem | architecture | implementation |
 |---|---|---|
-| [Perovskites with a target band gap that are likely to be stable](#target-band-gap) | shared latent + contrastive | MEIDNet |
+| [Perovskites with a target band gap and a negative formation enthalpy](#target-band-gap) | shared latent + contrastive | MEIDNet |
 | [Candidates from your own DFT results for one family](#own-family) | shared latent + contrastive | MEIDNet |
 | [Screen a whole family for a target before searching](#screen-family) | structure encoder of the shared space | MEIDNet |
 | [Identify the crystal structure from an XRD pattern](#xrd-structure) | 1D convolutional network; contrastive pattern ↔ structure | 1D CNN classifiers; pattern encoder planned for MEIDNet |
@@ -17,7 +17,7 @@ For step-by-step changes to a MEIDNet configuration (another target, another fam
 | [Connect synthesis text with structures](#synthesis-text) | text encoder + contrastive or cross-attention | text encoder planned for MEIDNet |
 | [Design new atomic arrangements](#new-arrangements) | conditional generative model over full geometry | MatterGen, CDVAE |
 
-## Perovskites with a target band gap that are likely to be stable { #target-band-gap }
+## Perovskites with a target band gap and a negative formation enthalpy { #target-band-gap }
 
 | | |
 |---|---|

@@ -18,19 +18,19 @@ The 26 candidate structures in examples/perov5/paper_results, relaxed with MACE-
 
 | metric | value | definition |
 |---|---|---|
-| SUN | 0.654 | stable, unique and novel candidates divided by the budget of 54; a candidate that was not delivered counts as a failure |
-| Stable | 1.000 | fraction of delivered candidates whose MACE-MP-0 formation energy after relaxation is at most 0.10 eV/atom, against elemental reference phases (the criterion of `meidnet screen` and of the paper) |
+| ΔHf·U·N | 0.654 | candidates that pass the formation-energy filter (ΔHf at most 0.10 eV/atom against the elements) and are unique and novel, divided by the budget of 54; a candidate that was not delivered counts as a failure. The paper called this SUN; it is not the hull-based SUN of LeMat-GenBench or MatterGen |
+| ΔHf filter | 1.000 | fraction of delivered candidates that pass the formation-energy filter: MACE-MP-0 formation energy after relaxation at most 0.10 eV/atom against elemental reference phases (the filter of `meidnet screen` and of the paper). It is not stability on the convex hull: a candidate can pass it and still decompose into competing compounds |
 | Unique | 0.923 | fraction of delivered candidates whose composition does not repeat an earlier one |
 | Novel | 0.692 | fraction of delivered candidates whose composition is not in the data set (training, validation and test splits) |
 | ΔHf | -1.27 eV/atom | median MACE-MP-0 formation energy of the delivered candidates |
 | Delivered | 26 | candidates delivered out of the budget of 54 |
-| SUN count | 17 | stable, unique and novel candidates |
+| ΔHf·U·N count | 17 | candidates that pass the formation-energy filter and are unique and novel |
 
 ### Candidates
 
 Every candidate with its MLIP formation energy, novelty and, where Perov-5 has the same sites, the DFT band gap.
 
-| candidate | formula | target gap (eV) | ΔHf (eV/atom) | stable | novel | DFT gap (eV) |
+| candidate | formula | target gap (eV) | ΔHf (eV/atom) | passes ΔHf filter | novel | DFT gap (eV) |
 |---|---|---|---|---|---|---|
 | chalcogenide_chalcogenide_T1_R1_2 | LaCrTe3 |  | -1.485 | yes | yes | – |
 | chalcogenide_chalcogenide_T1_R1_3 | NaNbTe3 |  | -1.208 | yes | yes | – |

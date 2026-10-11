@@ -34,4 +34,5 @@ MEIDNet shows its reasoning rather than a score. Where to look:
 ## What a candidate is
 
 A candidate is a *composition on an ideal prototype with model-predicted properties*. Whether it is stable,
-synthesisable, or has those properties is for `meidnet screen`, DFT and the lab to decide.
+synthesisable, or has those properties is for DFT (the energy above the convex hull) and the lab to decide;
+`meidnet screen` is a first filter on formation energy.

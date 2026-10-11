@@ -132,7 +132,8 @@ def capabilities_reference(verified_modalities=()) -> str:
     out += ["", "## Search terms (soft)", ""]
     for name in SEARCH_TERMS.names():
         out.append(f"- `{name}` - {SEARCH_TERMS.doc(name)}")
-    out += ["", "## After generation", "", "- `meidnet screen`: MACE-MP-0 relaxation and the stable / unique / novel (SUN) counts "
+    out += ["", "## After generation", "", "- `meidnet screen`: MACE-MP-0 relaxation, a formation-energy filter (ΔHf at most 0.10 eV/atom against the elements; "
+            "not the energy above the convex hull) and the unique / novel counts "
             "(optional `pip install meidnet[stability]`). DFT and experiments are yours: the [benchmark evidence ladder](../benchmarks/index.md) records them.", ""]
     return "\n".join(out)
 

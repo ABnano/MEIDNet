@@ -13,9 +13,9 @@ Two families of metrics, so that a result here can be read next to results elsew
 | novelty | fraction not in LeMat-Bulk (BAWL or StructureMatcher) | against a reference you name (`--reference`: the Perov-5 split, or any CSV with `cif`/`formula` columns): by composition (reduced formula) and by structure (StructureMatcher against the reference entries of the same composition) |
 | diversity | Vendi scores and Shannon entropy of elements, space groups, site numbers, physical size | Shannon entropy (bits) and counts of the elements, space groups (spglib, symprec 0.1) and site numbers; the density's mean and spread |
 | distribution | JSD of categorical properties, MMD of volume and density, Fréchet distance of MLIP embeddings | Jensen–Shannon distance (base 2) of the element frequencies and of the site numbers against the reference. MMD and Fréchet distances are not computed. |
-| stability | energy above the convex hull from several MLIPs (stable ≤ 0, metastable ≤ 0.1 eV/atom) | with `--mlip`: relaxation with MACE-MP and the formation energy per atom against elemental reference phases (`meidnet screen`'s proxy), stable if ≤ 0.1 eV/atom. This is not the energy above the hull. |
+| stability | energy above the convex hull from several MLIPs (stable ≤ 0, metastable ≤ 0.1 eV/atom) | with `--mlip`: relaxation with MACE-MP and the formation energy per atom against elemental reference phases (`meidnet screen`'s filter); the report counts a structure as stable when it passes the filter (≤ 0.1 eV/atom). This is a formation-energy filter, not the energy above the hull: its rates are not comparable with LeMat-GenBench's. |
 | hhi | production and reserve supply risk | not computed |
-| sun | stable ∧ unique ∧ novel; MetaSUN | stable ∧ unique ∧ novel by structure, with `--mlip` and a reference with CIFs |
+| sun | stable ∧ unique ∧ novel; MetaSUN | passes the formation-energy filter ∧ unique ∧ novel by structure, with `--mlip` and a reference with CIFs; reported as sun, but not comparable with LeMat-GenBench's hull-based SUN |
 
 ## Conditional inverse-design quality: the MEIDNet extension
 

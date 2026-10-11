@@ -2,6 +2,8 @@
 
 ## Current capabilities
 
+In the released package, meidnet 2.3.1, which these pages document:
+
 | | |
 |---|---|
 | **Structures** | any CIF with up to `max_sites` atoms (default 20); any elements |
@@ -15,7 +17,11 @@
 
 - **New atomic arrangements.** The decoder's positions are not used to create geometry; candidates are
   compositions placed on the family prototype. Generating free geometry needs a decoder trained to produce it
-  (the published decoder receives the true positions during training).
+  (the published decoder receives the true positions during training). [MEIDNet Matter](https://babu09-meidnet-matter.hf.space/method) runs a
+  development snapshot of the engine, meidnet 2.4.0.dev4, whose symmetry decoder, trained on MP-20, builds new cells
+  without a family and samples at the target's anchor instead of optimising the latent point. It is not in a release of
+  this package yet; its measured limits (on MP-20 more than half of the relaxed cells collapse, and a delivered gap is
+  good to about ±0.7 eV) are on [Matter's Methodology page](https://babu09-meidnet-matter.hf.space/method#limits).
 - **Spectra, images, text as modalities.** The property modality is a vector of scalars. Binned XRD or DOS
   could be added as a vector modality with its own encoder; it is designed for but not implemented.
 - **Large cells.** `max_sites` can be raised, but memory and time grow with the square of it, and the

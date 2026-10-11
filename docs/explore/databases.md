@@ -183,7 +183,7 @@ Pick an application:
 | [Alexandria](https://alexandria.icams.rub.de) | computed | about 4,500,000 PBE and 400,000 PBEsol / SCAN structures | formation energy, hull distance, band gap, magnetic moment, for a very large set of hypothetical compounds (1D, 2D, 3D) | ready; the usual pre-training set of generative models (MatterGen's Alex-MP-20 split) |
 | [GNoME (DeepMind)](https://github.com/google-deepmind/materials_discovery) | computed | about 380,000 stable crystals | structures predicted stable with DFT energies and hull distances; no electronic properties | structures only: join with a computed property before training |
 | [Cubic perovskites (CMR, Castelli et al.)](https://cmr.fysik.dtu.dk/cubic_perovskites/cubic_perovskites.html) | computed | about 19,000 ABX3 compositions | formation (heat of formation) energies and direct / indirect gaps (GLLB-SC) for cubic ABX3 with O, N, S, F anions and their mixtures - the source of Perov-5 | the published MEIDNet benchmark (Perov-5 split): meidnet download-data |
-| [CDVAE splits (Perov-5, MP-20, Carbon-24)](https://github.com/txie-93/cdvae/tree/main/data) | computed | 18,928 / 45,231 / 10,153 structures | fixed train / val / test splits used by generative-model papers; Perov-5 carries formation energy and band gap, the others energies only | ready: the format meidnet reads directly (id, cif, property columns) |
+| [CDVAE splits (Perov-5, MP-20, Carbon-24)](https://github.com/txie-93/cdvae/tree/main/data) | computed | 18,928 / 45,229 / 10,153 structures | fixed train / val / test splits used by generative-model papers; Perov-5 carries formation energy and band gap, the others energies only | ready: the format meidnet reads directly (id, cif, property columns) |
 
 ## All databases
 

@@ -20,8 +20,8 @@ The inverse-design campaign reported in the paper: candidates generated from pro
 | metric | value | definition |
 |---|---|---|
 | Generated | 140 | candidates generated (reported in the paper) |
-| SUN count | 19 | stable, unique and novel candidates |
-| SUN | 0.136 | stable, unique and novel candidates divided by the budget of 54; a candidate that was not delivered counts as a failure |
+| ΔHf·U·N count | 19 | candidates that pass the formation-energy filter and are unique and novel |
+| ΔHf·U·N | 0.136 | candidates that pass the formation-energy filter (ΔHf at most 0.10 eV/atom against the elements) and are unique and novel, divided by the budget of 54; a candidate that was not delivered counts as a failure. The paper called this SUN; it is not the hull-based SUN of LeMat-GenBench or MatterGen |
 
 ## Evidence
 

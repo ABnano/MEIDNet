@@ -61,4 +61,4 @@ Any other prototype family can be described in a [family file](../reference/fami
 
 ## After generation
 
-- `meidnet screen`: MACE-MP-0 relaxation and the stable / unique / novel (SUN) counts (optional `pip install meidnet[stability]`). DFT and experiments are yours: the [benchmark evidence ladder](../benchmarks/index.md) records them.
+- `meidnet screen`: MACE-MP-0 relaxation, a formation-energy filter (ΔHf at most 0.10 eV/atom against the elements; not the energy above the convex hull) and the unique / novel counts (optional `pip install meidnet[stability]`). DFT and experiments are yours: the [benchmark evidence ladder](../benchmarks/index.md) records them.

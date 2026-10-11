@@ -95,7 +95,7 @@ nav:
           - Exclude or restrict elements: recipes/elements.md
           - Change the material family: recipes/change-family.md
           - Add a rule (constraint): recipes/add-constraint.md
-          - Screen stability with MACE: recipes/screen.md
+          - Screen with MACE: recipes/screen.md
       - Examples:
           - Perov-5 (the paper): examples/perov5.md
           - Double perovskites: examples/double-perovskite.md

@@ -76,7 +76,7 @@
    "features": "formation (heat of formation) energies and direct / indirect gaps (GLLB-SC) for cubic ABX3 with O, N, S, F anions and their mixtures - the source of Perov-5",
    "applications": ["pv", "semi", "gen"], "licence": "CC BY 4.0",
    "meidnet": "the published MEIDNet benchmark (Perov-5 split): meidnet download-data"},
-  {"id": "cdvae", "name": "CDVAE splits (Perov-5, MP-20, Carbon-24)", "kind": "theoretical", "url": "https://github.com/txie-93/cdvae/tree/main/data", "access": "download (CSV with CIF column)", "size": "18,928 / 45,231 / 10,153 structures",
+  {"id": "cdvae", "name": "CDVAE splits (Perov-5, MP-20, Carbon-24)", "kind": "theoretical", "url": "https://github.com/txie-93/cdvae/tree/main/data", "access": "download (CSV with CIF column)", "size": "18,928 / 45,229 / 10,153 structures",
    "features": "fixed train / val / test splits used by generative-model papers; Perov-5 carries formation energy and band gap, the others energies only",
    "applications": ["gen"], "licence": "MIT (repository)",
    "meidnet": "ready: the format meidnet reads directly (id, cif, property columns)"},

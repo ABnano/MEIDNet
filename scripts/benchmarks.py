@@ -521,7 +521,7 @@ def _scored_rows(s: Submission) -> list[dict]:
 
 
 def _by_variant(task: Task, rows: list[Submission]) -> str:
-    """SUN rate per chemical family: where the methods differ."""
+    """ΔHf·U·N rate per chemical family: where the methods differ."""
     variants = task.settings.get("variants", [])
     if not variants:
         return ""
@@ -615,7 +615,8 @@ def _protocol_section(ds: Dataset) -> list[str]:
                     f"| budget | {st.get('per_target')} candidates per target and variant "
                     f"({st.get('per_target', 0) * len(st.get('targets', [])) * len(st.get('variants', []))} in total), each passing the family's rules |",
                     f"| MEIDNet search | the generation settings of `{st.get('generation_config')}`, at most {st.get('max_rounds')} rounds per target |",
-                    f"| stability | {st.get('mlip')}; formation energy against elemental phases at most {st.get('stability_threshold')} eV/atom |",
+                    f"| formation-energy filter | {st.get('mlip')}; formation energy against elemental phases at most "
+                    f"{st.get('stability_threshold')} eV/atom (not the energy above the convex hull) |",
                     f"| novelty | composition absent from the data set (all {ds.rows:,} materials) |",
                     f"| DFT check | Perov-5 entries with the same A, B and X sites; hit within {st.get('gap_tolerance')} eV of the target band gap |", ""]
         else:
@@ -628,7 +629,7 @@ def _protocol_section(ds: Dataset) -> list[str]:
             "```", "",
             "`preds.csv` has one row per test material: `id` (the dataset's `material_id`) and `pred_<property>` for each "
             "property. `candidates.csv` has `id`, `variant`, `target` (1, 2, 3), `formula`, `elements` (JSON of the sites, "
-            "e.g. `{\"A\": \"Ba\", \"B\": \"Ti\", \"X\": \"O\"}`) and `cif` (path of the structure). Stability needs MACE: "
+            "e.g. `{\"A\": \"Ba\", \"B\": \"Ti\", \"X\": \"O\"}`) and `cif` (path of the structure). The formation-energy filter needs MACE: "
             "set `--mlip-python` or `MEIDNET_MLIP_PYTHON` if it lives in another environment.", ""]
     return out
 
@@ -685,7 +686,7 @@ def render_dataset(ds: Dataset, rows: list[Submission]) -> str:
         if t.id == "inverse_design":
             bv = _by_variant(t, trows)
             if bv:
-                out += ["**SUN by chemical family.** Stable, unique and novel candidates out of the budget of each family; "
+                out += ["**ΔHf·U·N by chemical family.** Candidates that pass the formation-energy filter and are unique and novel, out of the budget of each family; "
                         "hover a cell for the number of novel candidates.", "", bv, ""]
         if t.id == "property_prediction":
             charts = []
@@ -757,7 +758,7 @@ def render_result(s: Submission, ds: Dataset | None) -> str:
             if sr:
                 out += ["### Candidates", "",
                         "Every candidate with its MLIP formation energy, novelty and, where Perov-5 has the same sites, the DFT band gap.", "",
-                        "| candidate | formula | target gap (eV) | ΔHf (eV/atom) | stable | novel | DFT gap (eV) |", "|---|---|---|---|---|---|---|"]
+                        "| candidate | formula | target gap (eV) | ΔHf (eV/atom) | passes ΔHf filter | novel | DFT gap (eV) |", "|---|---|---|---|---|---|---|"]
                 for x in sr:
                     dhf = x.get("dHf") or ""
                     dft = x.get("dft_dir_gap") or ""
@@ -839,7 +840,8 @@ def render_hub(ds: dict[str, Dataset], by_ds: dict[str, list[Submission]]) -> st
             "## Score any model's generated structures", "",
             "`meidnet score generated/ --reference data/perov5 [--targets targets.csv] [--mlip]` reports the generation "
             "quality of a folder of CIF files from any model in the metric families of LeMat-GenBench (validity, "
-            "uniqueness, novelty, diversity, distribution, stability, SUN) and MEIDNet's conditional extension (target "
+            "uniqueness, novelty, diversity, distribution, stability, SUN; stability and SUN here rest on a formation-energy filter, "
+            "not on the convex hull) and MEIDNet's conditional extension (target "
             "success, target error, multi-property success, constraint satisfaction, conditional diversity, target "
             "coverage). The [compatibility page](compatibility.md) defines every metric and states where this "
             "implementation differs from LeMat-GenBench. A run bundle from MEIDNet Matter is scored the same way.", "",
@@ -1216,7 +1218,7 @@ def paper_candidates(dataset: str, mlip_python: str | None = None, log=print) ->
            "modalities": ["structure", *[f"property:{c}" for c in ds.properties]],
            "method": {"name": "Candidates shipped with the paper, screened here", "kind": "model",
                       "description": f"The {len(rows)} candidate structures in examples/{dataset}/paper_results, relaxed with "
-                                     "MACE-MP-0 and scored with the protocol's stability, uniqueness and novelty criteria. "
+                                     "MACE-MP-0 and scored with the protocol's formation-energy filter, uniqueness and novelty criteria. "
                                      "Their targets and budget are those of the paper, so the record is not ranked.",
                       "meidnet_version": ver, "parameters": None, "training_data": "Perov-5 train (11,356)",
                       "checkpoint": "", "checkpoint_sha256": "", "links": {"paper": PAPER_URL, "code": CODE_URL, "weights": ""}},

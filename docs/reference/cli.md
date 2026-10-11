@@ -32,6 +32,6 @@ meidnet download-data   fetch the Perov-5 dataset used in the paper
 | `demo --family oxide --band-gap 3 --enthalpy -0.2 -n 5` | demo targets |
 | `score DIR --reference data/perov5` | validity, uniqueness, novelty, diversity and distribution of a folder of CIFs from any model ([the metrics](../benchmarks/compatibility.md)) |
 | `score DIR --targets targets.csv --tolerance dir_gap=0.3` | the conditional metrics: target success, target error, multi-property success, constraint success, conditional diversity, target coverage |
-| `score DIR --mlip --out report.json` | relax with MACE for stability and SUN; write the full JSON report |
+| `score DIR --mlip --out report.json` | relax with MACE for the formation-energy filter (reported as stability and SUN; not the energy above the hull); write the full JSON report |
 
 If `meidnet` is not on your PATH, `python -m meidnet.cli …` is equivalent.

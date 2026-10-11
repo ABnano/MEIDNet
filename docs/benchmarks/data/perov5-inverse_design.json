@@ -6,21 +6,21 @@
  "metrics": [
   {
    "id": "sun_rate",
-   "label": "SUN",
+   "label": "ΔH<sub>f</sub>·U·N",
    "unit": "",
    "better": "higher",
    "digits": 3,
    "show": true,
-   "definition": "stable, unique and novel candidates divided by the budget of 54; a candidate that was not delivered counts as a failure"
+   "definition": "candidates that pass the formation-energy filter (ΔHf at most 0.10 eV/atom against the elements) and are unique and novel, divided by the budget of 54; a candidate that was not delivered counts as a failure. The paper called this SUN; it is not the hull-based SUN of LeMat-GenBench or MatterGen"
   },
   {
    "id": "stable_rate",
-   "label": "Stable",
+   "label": "ΔH<sub>f</sub> filter",
    "unit": "",
    "better": "higher",
    "digits": 3,
    "show": true,
-   "definition": "fraction of delivered candidates whose MACE-MP-0 formation energy after relaxation is at most 0.10 eV/atom, against elemental reference phases (the criterion of `meidnet screen` and of the paper)"
+   "definition": "fraction of delivered candidates that pass the formation-energy filter: MACE-MP-0 formation energy after relaxation at most 0.10 eV/atom against elemental reference phases (the filter of `meidnet screen` and of the paper). It is not stability on the convex hull: a candidate can pass it and still decompose into competing compounds"
   },
   {
    "id": "unique_rate",
@@ -87,12 +87,12 @@
   },
   {
    "id": "n_sun",
-   "label": "SUN count",
+   "label": "ΔH<sub>f</sub>·U·N count",
    "unit": "",
    "better": "higher",
    "digits": 0,
    "show": false,
-   "definition": "stable, unique and novel candidates"
+   "definition": "candidates that pass the formation-energy filter and are unique and novel"
   },
   {
    "id": "n_budget",

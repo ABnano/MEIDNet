@@ -19,8 +19,8 @@ Enumerates the compositions of each chemical family that pass its rules and keep
 
 | metric | value | definition |
 |---|---|---|
-| SUN | 0.852 | stable, unique and novel candidates divided by the budget of 54; a candidate that was not delivered counts as a failure |
-| Stable | 0.852 | fraction of delivered candidates whose MACE-MP-0 formation energy after relaxation is at most 0.10 eV/atom, against elemental reference phases (the criterion of `meidnet screen` and of the paper) |
+| ΔHf·U·N | 0.852 | candidates that pass the formation-energy filter (ΔHf at most 0.10 eV/atom against the elements) and are unique and novel, divided by the budget of 54; a candidate that was not delivered counts as a failure. The paper called this SUN; it is not the hull-based SUN of LeMat-GenBench or MatterGen |
+| ΔHf filter | 0.852 | fraction of delivered candidates that pass the formation-energy filter: MACE-MP-0 formation energy after relaxation at most 0.10 eV/atom against elemental reference phases (the filter of `meidnet screen` and of the paper). It is not stability on the convex hull: a candidate can pass it and still decompose into competing compounds |
 | Unique | 1.000 | fraction of delivered candidates whose composition does not repeat an earlier one |
 | Novel | 1.000 | fraction of delivered candidates whose composition is not in the data set (training, validation and test splits) |
 | ΔHf | -1.28 eV/atom | median MACE-MP-0 formation energy of the delivered candidates |
@@ -28,14 +28,14 @@ Enumerates the compositions of each chemical family that pass its rules and keep
 | DFT known | 0 | candidates with a known DFT band gap (the denominator of DFT hit) |
 | Delivered | 54 | candidates delivered out of the budget of 54 |
 | Valid | 1.000 | fraction of the budget that passes every rule of the family |
-| SUN count | 46 | stable, unique and novel candidates |
+| ΔHf·U·N count | 46 | candidates that pass the formation-energy filter and are unique and novel |
 | Budget | 54 | candidates requested |
 
 ### Candidates
 
 Every candidate with its MLIP formation energy, novelty and, where Perov-5 has the same sites, the DFT band gap.
 
-| candidate | formula | target gap (eV) | ΔHf (eV/atom) | stable | novel | DFT gap (eV) |
+| candidate | formula | target gap (eV) | ΔHf (eV/atom) | passes ΔHf filter | novel | DFT gap (eV) |
 |---|---|---|---|---|---|---|
 | oxide_T1_1 | NdInO3 | 1.5 | -2.353 | yes | yes | – |
 | oxide_T1_2 | HoNiO3 | 1.5 | -1.619 | yes | yes | – |

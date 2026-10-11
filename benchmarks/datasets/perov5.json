@@ -23,7 +23,7 @@
     "summary": "Propose cubic ABX3 perovskites for three band-gap targets in three chemical families (54 candidates); score them for stability with an MLIP, uniqueness, novelty and, where a DFT value exists, the target band gap.",
     "split": "all splits (novelty reference)",
     "headline": "sun_rate",
-    "notes": "SUN measures stability, uniqueness and novelty, not whether a candidate has the target band gap: methods that never return a composition of the data set, such as the two baselines, set a high reference for it. Of the compositions that pass the family's rules, 40 of the 106 oxides are in the data set and no chalcogenide or halide is, so novelty separates methods among oxides only. The DFT check is the only measure of the target and is possible for oxides whose A and B sites match a Perov-5 entry (40 of the 106 rule-passing oxides; 26 of them have a non-zero direct gap).",
+    "notes": "ΔHf·U·N counts candidates that pass the formation-energy filter and are unique and novel; it measures neither stability on the convex hull nor whether a candidate has the target band gap: methods that never return a composition of the data set, such as the two baselines, set a high reference for it. Of the compositions that pass the family's rules, 40 of the 106 oxides are in the data set and no chalcogenide or halide is, so novelty separates methods among oxides only. The DFT check is the only measure of the target and is possible for oxides whose A and B sites match a Perov-5 entry (40 of the 106 rule-passing oxides; 26 of them have a non-zero direct gap).",
     "settings": {
      "family": "perovskite_abx3",
      "variants": ["oxide", "chalcogenide", "halide"],
@@ -36,8 +36,8 @@
      "mlip": "MACE-MP-0 (medium), float32; BFGS with cell relaxation (FrechetCellFilter), fmax 0.05 eV/Å, at most 500 steps"
     },
     "metrics": [
-     {"id": "sun_rate", "label": "SUN", "better": "higher", "digits": 3, "definition": "stable, unique and novel candidates divided by the budget of 54; a candidate that was not delivered counts as a failure"},
-     {"id": "stable_rate", "label": "Stable", "better": "higher", "digits": 3, "definition": "fraction of delivered candidates whose MACE-MP-0 formation energy after relaxation is at most 0.10 eV/atom, against elemental reference phases (the criterion of `meidnet screen` and of the paper)"},
+     {"id": "sun_rate", "label": "ΔH<sub>f</sub>·U·N", "better": "higher", "digits": 3, "definition": "candidates that pass the formation-energy filter (ΔHf at most 0.10 eV/atom against the elements) and are unique and novel, divided by the budget of 54; a candidate that was not delivered counts as a failure. The paper called this SUN; it is not the hull-based SUN of LeMat-GenBench or MatterGen"},
+     {"id": "stable_rate", "label": "ΔH<sub>f</sub> filter", "better": "higher", "digits": 3, "definition": "fraction of delivered candidates that pass the formation-energy filter: MACE-MP-0 formation energy after relaxation at most 0.10 eV/atom against elemental reference phases (the filter of `meidnet screen` and of the paper). It is not stability on the convex hull: a candidate can pass it and still decompose into competing compounds"},
      {"id": "unique_rate", "label": "Unique", "better": "higher", "digits": 3, "definition": "fraction of delivered candidates whose composition does not repeat an earlier one"},
      {"id": "novel_rate", "label": "Novel", "better": "higher", "digits": 3, "definition": "fraction of delivered candidates whose composition is not in the data set (training, validation and test splits)"},
      {"id": "dhf_median", "label": "ΔH<sub>f</sub>", "unit": "eV/atom", "better": "lower", "digits": 2, "definition": "median MACE-MP-0 formation energy of the delivered candidates"},
@@ -45,7 +45,7 @@
      {"id": "dft_known", "label": "DFT known", "better": "none", "digits": 0, "definition": "candidates with a known DFT band gap (the denominator of DFT hit)"},
      {"id": "n_delivered", "label": "Delivered", "better": "higher", "digits": 0, "definition": "candidates delivered out of the budget of 54"},
      {"id": "valid_rate", "label": "Valid", "better": "higher", "digits": 3, "show": false, "definition": "fraction of the budget that passes every rule of the family"},
-     {"id": "n_sun", "label": "SUN count", "better": "higher", "digits": 0, "show": false, "definition": "stable, unique and novel candidates"},
+     {"id": "n_sun", "label": "ΔH<sub>f</sub>·U·N count", "better": "higher", "digits": 0, "show": false, "definition": "candidates that pass the formation-energy filter and are unique and novel"},
      {"id": "n_budget", "label": "Budget", "better": "none", "digits": 0, "show": false, "definition": "candidates requested"},
      {"id": "n_generated", "label": "Generated", "better": "none", "digits": 0, "show": false, "definition": "candidates generated (reported in the paper)"}
     ]

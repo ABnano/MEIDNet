@@ -140,7 +140,7 @@ Ranks are among all 18,928 materials; a material sharing its properties with oth
 !!! key "What this means for you"
     This is why inverse design in MEIDNet is a search and not a lookup: a material family fixes the sites, rules remove impossible compositions, and the search moves through the latent space ([How MEIDNet works](../understand/how-it-works.md)).
 
-### Less stable materials align better and reconstruct worse
+### Materials with a higher formation enthalpy align better and reconstruct worse
 
 By fifths of the formation enthalpy, from the lowest to the highest:
 

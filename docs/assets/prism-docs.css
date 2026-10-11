@@ -178,3 +178,27 @@
 .t3-time{font:500 13px/1 var(--mono);color:var(--muted)}.t3-open{font-weight:700;text-decoration:none;margin-left:auto}
 @media(max-width:700px){.tour3d{padding:12px 10px}.t3-strip{grid-template-columns:repeat(4,minmax(0,1fr))}.t3-strip button{font-size:13px;padding:7px 2px}.t3-cap{font-size:15.5px}.t3-open{margin-left:0;width:100%}}
 .md-typeset ol.t3-strip:not([hidden]){display:grid;margin-left:0}.md-typeset .t3-strip li{margin:0;list-style:none}.md-typeset .t3-cap{margin:12px 2px}
+
+/* the full MEIDNet walkthrough on the method page (understand/how-it-works): prism-tour.js's player, which the landing
+   page used to carry; the landing's tour styles, scoped to the documentation */
+.md-typeset .tour3d{margin:1.2em 0 1.8em;border:1px solid var(--line);border-top:4px solid var(--t3c,#1baf7a);border-radius:16px;background:var(--card);padding:14px 16px 12px;transition:border-color .3s}
+.md-typeset .tour3d .t3-title{margin:0 0 .2em;color:var(--muted);font-size:.95em}
+.md-typeset .tour3d .t3-title b{color:var(--ink)}
+.md-typeset .t3-strip{list-style:none;margin:10px 0 10px;padding:0;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}
+.md-typeset .t3-strip li{margin:0;padding:0}
+.md-typeset .t3-strip button{position:relative;width:100%;border:2px solid var(--bc);background:var(--card);color:color-mix(in oklab,var(--bc) 78%,var(--ink));border-radius:999px;padding:7px 1px;font:700 11.5px/1 var(--display);cursor:pointer;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.md-typeset .t3-strip button.on{background:var(--bc);color:#fff}
+.md-typeset .t3-strip button:hover{box-shadow:0 4px 14px -8px var(--bc)}
+.md-typeset .t3-strip button i{position:absolute;left:0;bottom:0;height:3px;width:0;background:rgba(255,255,255,.9)}
+.md-typeset .t3-stage{position:relative;aspect-ratio:16/9;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:radial-gradient(60% 70% at 72% 40%,rgba(99,102,241,.08),transparent 70%),radial-gradient(50% 60% at 20% 80%,rgba(20,184,166,.07),transparent 70%),var(--bg)}
+.md-typeset .t3-stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.md-typeset .t3-cap{font-size:.95em;line-height:1.5;margin:10px 2px;min-height:3em}
+.md-typeset .t3-bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.md-typeset .t3-b{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;padding:7px 11px;font:600 13.5px/1 system-ui,sans-serif;cursor:pointer}
+.md-typeset .t3-b:hover{box-shadow:0 4px 14px -8px rgba(0,0,0,.5)}
+.md-typeset .t3-b.primary{background:var(--p1);border-color:var(--p1);color:#fff;min-width:96px}
+.md-typeset .t3-prog{flex:1 1 160px;height:8px;border-radius:4px;background:var(--line);cursor:pointer;overflow:hidden}
+.md-typeset .t3-prog i{display:block;height:100%;width:0;background:var(--t3c,var(--p1))}
+.md-typeset .t3-time{font:500 12.5px/1 var(--mono);color:var(--muted)}
+.md-typeset .t3-open{font-weight:700;text-decoration:none;margin-left:auto}
+@media(max-width:700px){.md-typeset .tour3d{padding:12px 10px}.md-typeset .t3-strip{grid-template-columns:repeat(4,minmax(0,1fr))}.md-typeset .t3-open{margin-left:0;width:100%}}

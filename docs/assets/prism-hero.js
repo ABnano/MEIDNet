@@ -172,30 +172,79 @@
     span.insertBefore(svg, span.firstChild);
   });
 
-  /* ═══════════ the 3D scene: an ABX3 perovskite and what MEIDNet makes of it ═══════════ */
+  /* ═══════════ the 3D scene: one material, many views ═══════════
+     A crystal turns slowly and changes, every few seconds, between three families (a cubic perovskite, rock salt and a
+     layered crystal). Around it, one description of the material at a time appears: its crystal graph and its numerical
+     properties (what MEIDNet learns from today, solid panels), a diffraction pattern, a microscope image and a text
+     (concepts beyond MEIDNet today, dashed panels). Each lights up its point in the shared representation, where the
+     views of one material meet. A panel turning edge-on fades out, and the floor grid fades from the middle, so that no
+     sliver or stray line shows at any angle. */
   var canvas = document.getElementById("hero3d");
   if (!canvas || !canvas.getContext) return;
   var ctx = canvas.getContext("2d");
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var caption = canvas.parentNode && canvas.parentNode.querySelector && canvas.parentNode.querySelector("figcaption");
 
-  // the cubic ABX3 cell (A on the corners, the BX6 octahedron in the centre), half edge 1.25 in this scene
-  var CELL = P3.perovskite({A: "A", B: "B", X: "X"});
-
-  // panels behind the crystal: centre, half sizes, rotation about y, what they show
-  var r = P3.T.rng(7), LATENT = [];
-  for (var i = 0; i < 90; i++) {                 // paired points: a structure (teal) and its properties (violet), close together
-    var t = r() * 2 - 1, u = r() * 2 - 1, cx = 0.75 * t, cy = 0.55 * Math.sin(2.2 * t) * 0.8 + 0.25 * u;
-    LATENT.push({u: cx, v: cy, du: (r() - 0.5) * 0.09, dv: (r() - 0.5) * 0.09, c: t});
+  // ---- three crystal families, in crystal()'s format (half edge 1; edges and faces join atom positions)
+  function octaFaces() {               // the octahedron of the six face centres around the cell's centre
+    var xs = [[1, 0, 0], [-1, 0, 0], [0, 1, 0], [0, -1, 0], [0, 0, 1], [0, 0, -1]];
+    return [[0, 2, 4], [0, 4, 3], [0, 3, 5], [0, 5, 2], [1, 4, 2], [1, 3, 4], [1, 5, 3], [1, 2, 5]].map(function (f) { return [xs[f[0]], xs[f[1]], xs[f[2]]]; });
   }
-  var GRAPH = {n: [[-0.62, -0.35], [-0.22, 0.42], [0.18, -0.12], [0.6, 0.38], [0.52, -0.5], [-0.05, -0.62], [-0.68, 0.38]],
-               e: [[0, 1], [1, 2], [2, 3], [2, 4], [0, 5], [5, 2], [1, 6], [6, 0], [3, 4]]};
-  var PANELS = [
-    {c: [-2.2, 1.5, -2.4], h: [0.95, 0.68], ry: 0.5, kind: "graph", label: "crystal graph"},
-    {c: [1.45, 2.0, -2.9], h: [1.15, 0.75], ry: -0.32, kind: "latent", label: "latent space z ∈ ℝ¹²⁸"},
-    {c: [2.25, -1.25, -1.6], h: [0.8, 0.56], ry: -0.62, kind: "property", label: "property: band gap"}
+  function cubeEdges() {
+    var c = [], e = [];
+    [-1, 1].forEach(function (x) { [-1, 1].forEach(function (y) { [-1, 1].forEach(function (z) { c.push([x, y, z]); }); }); });
+    c.forEach(function (a, i) { c.forEach(function (b, j) { if (j > i && Math.abs(a[0] - b[0]) + Math.abs(a[1] - b[1]) + Math.abs(a[2] - b[2]) === 2) e.push([a, b]); }); });
+    return e;
+  }
+  function rocksalt() {                // NaCl type: anions on the corners and face centres, cations on the edge centres and the centre
+    var atoms = [];
+    for (var x = -1; x <= 1; x++) for (var y = -1; y <= 1; y++) for (var z = -1; z <= 1; z++) {
+      var anion = (Math.abs(x) + Math.abs(y) + Math.abs(z)) % 2 === 1;
+      atoms.push({p: [x, y, z], site: anion ? "A" : "X", el: anion ? "X" : "A"});
+    }
+    return {atoms: atoms, edges: cubeEdges(), faces: octaFaces()};
+  }
+  function layered() {                 // two slabs (a square net of cations, anions above and below in alternate hollows), a gap between
+    var atoms = [], edges = [], faces = [];
+    [-0.62, 0.62].forEach(function (y0) {
+      for (var x = -1; x <= 1; x++) for (var z = -1; z <= 1; z++) atoms.push({p: [x, y0, z], site: "X", el: "M"});
+      [[-0.5, -0.5, 1], [0.5, 0.5, 1], [-0.5, 0.5, -1], [0.5, -0.5, -1]].forEach(function (q) {
+        var p = [q[0], +(y0 + 0.32 * q[2]).toFixed(3), q[1]];
+        atoms.push({p: p, site: "A", el: "X"});
+        [[-0.5, -0.5], [0.5, -0.5], [-0.5, 0.5], [0.5, 0.5]].forEach(function (d) { edges.push([p, [q[0] + d[0], y0, q[1] + d[1]]]); });
+      });
+      faces.push([[-1, y0, -1], [1, y0, -1], [1, y0, 1]], [[-1, y0, -1], [1, y0, 1], [-1, y0, 1]]);
+    });
+    return {atoms: atoms, edges: edges, faces: faces};
+  }
+  var FAMILIES = [
+    {cell: P3.perovskite({A: "A", B: "B", X: "X"}), name: "cubic perovskite ABX₃"},
+    {cell: rocksalt(), name: "rock salt AB", colors: {A: "#10b981", X: "#3b82f6"}, atomScale: 0.48, size: 1.12},
+    {cell: layered(), name: "layered crystal", colors: {A: "#f59e0b", X: "#8b5cf6"}, atomScale: 0.5, size: 1.15},
   ];
 
-  var W = 0, H = 0, DPR = 1, yaw = 0, pitch = 0, dragYaw = 0, dragPitch = 0, t0 = performance.now(), cam = null;
+  // ---- the views of a material, shown one at a time; the first two are what MEIDNet learns from today
+  var MODALITIES = [
+    {key: "graph", label: "crystal graph", concept: false, mark: "circle", color: "#3b82f6"},
+    {key: "props", label: "numerical properties", concept: false, mark: "ring", color: "#e87ba4"},
+    {key: "xrd", label: "diffraction · concept", concept: true, mark: "diamond", color: "#f59e0b"},
+    {key: "img", label: "microscopy · concept", concept: true, mark: "square", color: "#14b8a6"},
+    {key: "text", label: "text · concept", concept: true, mark: "triangle", color: "#8b5cf6"},
+  ];
+  var SLOTS = [{c: [-2.65, 1.5, -2.3], h: [0.95, 0.68], ry: 0.5}, {c: [2.25, -1.2, -1.6], h: [0.9, 0.62], ry: -0.62}];
+  var REPR = {c: [1.45, 2.0, -2.9], h: [1.15, 0.75], ry: -0.32, label: "shared representation"};
+  var FAMILY_S = 8, MOD_S = 3.4;          // seconds per crystal family, per view
+
+  var r = P3.T.rng(7), CLOUD = [];        // the shared representation: other materials (faint) and this one's five views
+  for (var i = 0; i < 60; i++) { var tt = r() * 2 - 1; CLOUD.push({u: 0.85 * tt, v: 0.5 * Math.sin(2.1 * tt) * 0.8 + 0.3 * (r() * 2 - 1)}); }
+  var HOME = [0.18, 0.12], VIEWS = [[-0.12, 0.36], [0.46, 0.34], [0.5, -0.12], [0.06, -0.24], [-0.22, 0.04]];
+  var GRAPH = {n: [[-0.62, -0.35], [-0.22, 0.42], [0.18, -0.12], [0.6, 0.38], [0.52, -0.5], [-0.05, -0.62], [-0.68, 0.38]],
+               e: [[0, 1], [1, 2], [2, 3], [2, 4], [0, 5], [5, 2], [1, 6], [6, 0], [3, 4]]};
+  var PEAKS = [[[0.12, 0.35], [0.3, 1], [0.42, 0.3], [0.52, 0.55], [0.66, 0.4], [0.8, 0.25]],    // a diffraction pattern per family
+               [[0.22, 0.45], [0.33, 1], [0.6, 0.62], [0.74, 0.2], [0.86, 0.3]],
+               [[0.08, 1], [0.24, 0.25], [0.36, 0.5], [0.55, 0.3], [0.7, 0.45], [0.88, 0.2]]];
+
+  var W = 0, H = 0, DPR = 1, yaw = 0, pitch = 0, dragYaw = 0, dragPitch = 0, t0 = performance.now(), cam = null, tnow = 0, frozen = null;
   function resize() {
     var b = canvas.getBoundingClientRect();
     DPR = Math.min(2, window.devicePixelRatio || 1);
@@ -209,82 +258,157 @@
     return [P.c[0] + x * c + (w || 0) * sn, P.c[1] + y, P.c[2] - x * sn + (w || 0) * c];
   }
   function poly(pts) { ctx.beginPath(); pts.forEach(function (p, j) { j ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]); }); ctx.closePath(); }
+  function font(px, w) { ctx.font = (w || 500) + " " + Math.round(px) + "px 'IBM Plex Mono', ui-monospace, monospace"; }
+  function marker(kind, x, y, s, color) {
+    ctx.beginPath();
+    if (kind === "circle") ctx.arc(x, y, s, 0, 2 * Math.PI);
+    else if (kind === "ring") { ctx.arc(x, y, s, 0, 2 * Math.PI); ctx.lineWidth = Math.max(1.2, s * 0.45); ctx.strokeStyle = color; ctx.stroke(); return; }
+    else if (kind === "diamond") { ctx.moveTo(x, y - s * 1.2); ctx.lineTo(x + s * 1.2, y); ctx.lineTo(x, y + s * 1.2); ctx.lineTo(x - s * 1.2, y); ctx.closePath(); }
+    else if (kind === "square") ctx.rect(x - s, y - s, 2 * s, 2 * s);
+    else { ctx.moveTo(x, y - s * 1.2); ctx.lineTo(x + s * 1.1, y + s * 0.8); ctx.lineTo(x - s * 1.1, y + s * 0.8); ctx.closePath(); }
+    ctx.fillStyle = color; ctx.fill();
+  }
 
-  function drawPanel(P, dark) {
+  // one panel: a glass card in the scene; o.concept draws it dashed; fades as it turns edge-on
+  function drawPanel(P, dark, alpha, o, paint) {
     var corners = [[-1, -1], [1, -1], [1, 1], [-1, 1]].map(function (c) { return proj(panelPoint(P, c[0], c[1])); });
+    var area = 0;
+    for (var k = 0; k < 4; k++) { var p0 = corners[k], p1 = corners[(k + 1) % 4]; area += p0[0] * p1[1] - p1[0] * p0[1]; }
+    var sc = proj(P.c)[3], face = Math.abs(area) / 2 / (4 * P.h[0] * P.h[1] * sc * sc), fade = P3.T.clamp((face - 0.2) / 0.3);
+    alpha *= fade * fade * (3 - 2 * fade);
+    if (alpha < 0.02) return;
+    ctx.save(); ctx.globalAlpha *= alpha;
     poly(corners);
     var g = ctx.createLinearGradient(corners[3][0], corners[3][1], corners[1][0], corners[1][1]);
-    g.addColorStop(0, dark ? "rgba(51,65,85,.55)" : "rgba(255,255,255,.78)");
-    g.addColorStop(1, dark ? "rgba(30,41,59,.28)" : "rgba(226,232,255,.42)");
+    g.addColorStop(0, dark ? "rgba(51,65,85,.55)" : "rgba(255,255,255,.82)");
+    g.addColorStop(1, dark ? "rgba(30,41,59,.3)" : "rgba(226,232,255,.46)");
     ctx.fillStyle = g; ctx.fill();
-    ctx.lineWidth = 1; ctx.strokeStyle = dark ? "rgba(148,163,184,.45)" : "rgba(148,163,184,.55)"; ctx.stroke();
-    var L = function (u, v) { return proj(panelPoint(P, u, v)); };
-    if (P.kind === "graph") {
-      ctx.lineWidth = 1.4; ctx.strokeStyle = dark ? "rgba(148,163,184,.75)" : "rgba(100,116,139,.6)";
+    ctx.lineWidth = o.concept ? 1.3 : 1; if (o.concept) ctx.setLineDash([5, 4]);
+    ctx.strokeStyle = o.stroke || (dark ? "rgba(148,163,184,.5)" : "rgba(148,163,184,.6)"); ctx.stroke(); ctx.setLineDash([]);
+    paint(function (u, v) { return proj(panelPoint(P, u, v)); }, corners);
+    var tl = corners[3];
+    font(Math.max(10, Math.min(12.5, W / 46)));
+    ctx.fillStyle = dark ? "rgba(203,213,225,.88)" : "rgba(71,85,105,.92)";
+    ctx.fillText(o.label, Math.max(4, Math.min(tl[0] + 2, W - ctx.measureText(o.label).width - 4)), tl[1] - 7);   // inside the canvas
+    ctx.restore();
+  }
+
+  function paintModality(m, L, dark, fam) {
+    var line = dark ? "rgba(148,163,184,.75)" : "rgba(100,116,139,.6)", soft = dark ? "rgba(203,213,225,.32)" : "rgba(100,116,139,.3)";
+    if (m.key === "graph") {
+      ctx.lineWidth = 1.4; ctx.strokeStyle = line;
       GRAPH.e.forEach(function (e) { var a = L(GRAPH.n[e[0]][0] * 0.8, GRAPH.n[e[0]][1] * 0.8), b = L(GRAPH.n[e[1]][0] * 0.8, GRAPH.n[e[1]][1] * 0.8);
         ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.stroke(); });
       GRAPH.n.forEach(function (n, j) { var q = L(n[0] * 0.8, n[1] * 0.8);
-        ctx.beginPath(); ctx.arc(q[0], q[1], Math.max(2.5, 0.07 * q[3]), 0, 2 * Math.PI);
-        ctx.fillStyle = ["#3b82f6", "#14b8a6", "#8b5cf6"][j % 3]; ctx.fill(); });
-    } else if (P.kind === "latent") {
-      LATENT.forEach(function (p) {
-        var a = L(p.u, p.v), b = L(p.u + p.du, p.v + p.dv), rad = Math.max(1.4, 0.028 * a[3]);
-        ctx.strokeStyle = dark ? "rgba(203,213,225,.3)" : "rgba(100,116,139,.28)"; ctx.lineWidth = 0.8;
-        ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.stroke();
-        var h = 175 + (p.c + 1) * 50;
-        ctx.fillStyle = "hsla(" + h + ",70%," + (dark ? 62 : 48) + "%,.9)";
-        ctx.beginPath(); ctx.arc(a[0], a[1], rad, 0, 2 * Math.PI); ctx.fill();
-        ctx.fillStyle = "hsla(" + (h + 80) + ",70%," + (dark ? 70 : 58) + "%,.85)";
-        ctx.beginPath(); ctx.arc(b[0], b[1], rad * 0.85, 0, 2 * Math.PI); ctx.fill();
+        ctx.beginPath(); ctx.arc(q[0], q[1], Math.max(2.5, 0.07 * q[3]), 0, 2 * Math.PI); ctx.fillStyle = ["#3b82f6", "#14b8a6", "#8b5cf6"][j % 3]; ctx.fill(); });
+    } else if (m.key === "props") {              // several numerical properties as bars, no particular values
+      [["#e87ba4", 0.72], ["#8b5cf6", 0.45], ["#3b82f6", 0.86], ["#14b8a6", 0.32]].forEach(function (b, j) {
+        var v = 0.55 - j * 0.36, a = L(-0.78, v + 0.1), c = L(-0.78 + 1.56 * b[1], v + 0.1), d = L(-0.78 + 1.56 * b[1], v - 0.1), e = L(-0.78, v - 0.1);
+        poly([a, c, d, e]); ctx.fillStyle = b[0]; ctx.globalAlpha *= 0.85; ctx.fill(); ctx.globalAlpha /= 0.85;
+        var f = L(-0.78, v - 0.1), g2 = L(0.78, v - 0.1); ctx.strokeStyle = soft; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(f[0], f[1]); ctx.lineTo(g2[0], g2[1]); ctx.stroke();
       });
-    } else {
-      ctx.strokeStyle = dark ? "rgba(148,163,184,.6)" : "rgba(100,116,139,.55)"; ctx.lineWidth = 1;
-      var o = L(-0.85, -0.7), xe = L(0.85, -0.7), ye = L(-0.85, 0.75);
-      ctx.beginPath(); ctx.moveTo(ye[0], ye[1]); ctx.lineTo(o[0], o[1]); ctx.lineTo(xe[0], xe[1]); ctx.stroke();
-      ctx.beginPath();
-      for (var j = 0; j <= 60; j++) {
-        var u = -0.85 + 1.7 * j / 60, xg = (u + 0.85) * 3,      // band gap axis, 0 to ~5 eV
-            yv = Math.exp(-Math.pow((xg - 1.6) / 0.6, 2)) + 0.55 * Math.exp(-Math.pow((xg - 3.4) / 0.8, 2)),
-            q = L(u, -0.7 + 1.3 * yv);
-        j ? ctx.lineTo(q[0], q[1]) : ctx.moveTo(q[0], q[1]);
+    } else if (m.key === "xrd") {                // peaks against 2θ
+      var o0 = L(-0.85, -0.72), x1 = L(0.85, -0.72);
+      ctx.strokeStyle = line; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(o0[0], o0[1]); ctx.lineTo(x1[0], x1[1]); ctx.stroke();
+      ctx.strokeStyle = "#f59e0b"; ctx.lineWidth = 1.6;
+      PEAKS[fam].forEach(function (p) { var u = -0.85 + 1.7 * p[0], a = L(u, -0.72), b = L(u, -0.72 + 1.4 * p[1]); ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.stroke(); });
+      var lab = L(0.62, -0.95); font(Math.max(9, Math.min(11, W / 56))); ctx.fillStyle = soft.replace(/,\.3\d?\)/, ",.9)"); ctx.fillText("2θ", lab[0], lab[1]);
+    } else if (m.key === "img") {                // a lattice image: bright columns on a dark field
+      var q0 = L(-0.82, 0.78), q1 = L(0.82, 0.78), q2 = L(0.82, -0.78), q3 = L(-0.82, -0.78);
+      poly([q0, q1, q2, q3]); ctx.fillStyle = dark ? "rgba(2,6,23,.85)" : "rgba(15,23,42,.88)"; ctx.fill();
+      for (var a = -0.62; a <= 0.63; a += 0.31) for (var b = -0.6; b <= 0.61; b += 0.3) {
+        var p = L(a, b), rad = Math.max(1.2, 0.035 * p[3]);
+        var gr = ctx.createRadialGradient(p[0], p[1], 0, p[0], p[1], rad * 2.2);
+        gr.addColorStop(0, "rgba(255,255,255,.95)"); gr.addColorStop(0.45, "rgba(203,213,225,.55)"); gr.addColorStop(1, "rgba(203,213,225,0)");
+        ctx.fillStyle = gr; ctx.beginPath(); ctx.arc(p[0], p[1], rad * 2.2, 0, 2 * Math.PI); ctx.fill();
       }
-      ctx.strokeStyle = "#8b5cf6"; ctx.lineWidth = 2; ctx.stroke();
-      var tu = -0.85 + 2.0 / 3, a = L(tu, -0.7), b = L(tu, 0.7);   // the target, 2 eV
-      ctx.setLineDash([4, 3]); ctx.strokeStyle = "#e87ba4"; ctx.lineWidth = 1.4;
-      ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.stroke(); ctx.setLineDash([]);
+    } else {                                     // a text: a few lines of words
+      ctx.strokeStyle = dark ? "rgba(203,213,225,.55)" : "rgba(71,85,105,.5)"; ctx.lineCap = "round";
+      [[0.55, 0.9], [0.22, 0.75], [-0.11, 0.86], [-0.44, 0.52]].forEach(function (l, j) {
+        var x = -0.82, words = j === 1 ? [0.3, 0.5, 0.25] : [0.4, 0.22, 0.48];
+        words.forEach(function (w) { if (x + w > -0.82 + 1.64 * l[1]) return; var a = L(x, l[0]), b = L(x + w, l[0]); ctx.lineWidth = Math.max(2, 0.05 * a[3]); ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.stroke(); x += w + 0.1; });
+      });
+      ctx.lineCap = "butt";
     }
-    var tl = corners[3];
-    ctx.font = "500 " + Math.round(Math.max(10, Math.min(12.5, W / 46))) + "px 'IBM Plex Mono', ui-monospace, monospace";
-    ctx.fillStyle = dark ? "rgba(203,213,225,.85)" : "rgba(71,85,105,.9)";
-    ctx.fillText(P.label, Math.max(4, Math.min(tl[0] + 2, W - ctx.measureText(P.label).width - 4)), tl[1] - 7);   // inside the canvas
   }
 
+  function paintRepr(L, dark, lit) {
+    CLOUD.forEach(function (p) { var q = L(p.u, p.v); ctx.beginPath(); ctx.arc(q[0], q[1], Math.max(1.2, 0.022 * q[3]), 0, 2 * Math.PI); ctx.fillStyle = dark ? "rgba(148,163,184,.35)" : "rgba(100,116,139,.3)"; ctx.fill(); });
+    var home = L(HOME[0], HOME[1]);
+    MODALITIES.forEach(function (m, j) {
+      var a = lit[j]; if (a <= 0.01) return;
+      var p = L(HOME[0] + VIEWS[j][0] * 0.55, HOME[1] + VIEWS[j][1] * 0.55), s = Math.max(2.2, 0.045 * p[3]);
+      ctx.save(); ctx.globalAlpha *= a;
+      ctx.strokeStyle = m.color; ctx.lineWidth = 1; ctx.setLineDash([3, 3]); ctx.beginPath(); ctx.moveTo(home[0], home[1]); ctx.lineTo(p[0], p[1]); ctx.stroke(); ctx.setLineDash([]);
+      if (m.concept) ctx.globalAlpha *= 0.85;
+      marker(m.mark, p[0], p[1], s, m.color);
+      ctx.restore();
+    });
+    var on = lit.reduce(function (a, b) { return a + b; }, 0) / lit.length;
+    if (on > 0.01) { var g = ctx.createRadialGradient(home[0], home[1], 0, home[0], home[1], 14); g.addColorStop(0, "rgba(255,255,255," + (0.85 * on) + ")"); g.addColorStop(1, "rgba(255,255,255,0)"); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(home[0], home[1], 14, 0, 2 * Math.PI); ctx.fill(); }
+  }
+
+  // what is on screen at time t (seconds): the family and its transition, the view in each slot, the lit views
+  function state(t) {
+    if (reduce) return {fam: 0, famA: 1, explode: 0, shown: [{m: 0, slot: 0, a: 1}, {m: 2, slot: 1, a: 1}], lit: [1, 1, 1, 1, 1]};
+    t = Math.max(0, t);
+    var cycle = Math.floor(t / FAMILY_S), ft = t - cycle * FAMILY_S, fam = cycle % FAMILIES.length;
+    var out = P3.T.seg(ft, FAMILY_S - 0.6, FAMILY_S), inn = P3.T.seg(ft, 0, 0.8);
+    var famA = Math.min(1 - out, cycle === 0 ? 1 : inn), explode = Math.max(0.5 * out, cycle === 0 ? 0 : 0.5 * (1 - P3.T.ease(inn)));
+    var k = Math.floor(t / MOD_S), mt = t - k * MOD_S, shown = [];
+    [k - 1, k].forEach(function (kk) {
+      if (kk < 0) return;
+      var local = t - kk * MOD_S, a = P3.T.seg(local, 0, 0.55) * (1 - P3.T.seg(local, MOD_S + 0.05, MOD_S + 0.6));
+      if (a > 0.01) shown.push({m: kk % MODALITIES.length, slot: kk % 2, a: a});
+    });
+    var lit = MODALITIES.map(function (m, j) {         // a view lights up when it appears and stays lit through the round
+      var round = Math.floor(k / MODALITIES.length), first = round * MODALITIES.length + j;
+      if (first > k) return 0;
+      var since = t - first * MOD_S;
+      return P3.T.seg(since, 0.2, 0.8) * (1 - P3.T.seg(t - (round + 1) * MODALITIES.length * MOD_S, -0.7, 0));
+    });
+    return {fam: fam, famA: famA, explode: explode, shown: shown, lit: lit, mt: mt};
+  }
+
+  var lastFam = -1;
   function draw() {
     if (!W) return;
-    var dark = isDark();
+    var dark = isDark(), S = state(tnow);
     cam = P3.camera({cx: W * 0.52, cy: H * 0.5, scale: Math.min(W, H * 1.1) / 8.3, yaw: yaw, pitch: pitch});
     ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
     ctx.clearRect(0, 0, W, H);
-    // floor grid
-    ctx.lineWidth = 1; ctx.strokeStyle = dark ? "rgba(148,163,184,.12)" : "rgba(100,116,139,.14)";
-    for (var g = -3; g <= 3; g += 0.75) {
-      var a = proj([g, -2.05, -3]), b = proj([g, -2.05, 3]), c = proj([-3, -2.05, g]), d = proj([3, -2.05, g]);
-      ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.moveTo(c[0], c[1]); ctx.lineTo(d[0], d[1]); ctx.stroke();
+    // floor grid, fading with the distance from the middle
+    ctx.lineWidth = 1;
+    var gcol = dark ? "148,163,184" : "100,116,139", g0 = dark ? 0.18 : 0.2;
+    for (var g = -3; g <= 3; g += 0.75) for (var n = 0; n < 12; n++) {
+      var s0 = -3 + n * 0.5, s1 = s0 + 0.5, sm = s0 + 0.25;
+      [[g, s0, g, s1, Math.hypot(g, sm)], [s0, g, s1, g, Math.hypot(sm, g)]].forEach(function (e) {
+        var al = g0 * (1 - P3.T.clamp((e[4] - 1.6) / 1.4)); if (al < 0.004) return;
+        var a = proj([e[0], -2.05, e[1]]), b = proj([e[2], -2.05, e[3]]);
+        ctx.strokeStyle = "rgba(" + gcol + "," + al.toFixed(3) + ")"; ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.stroke();
+      });
     }
-    // the cation's shadow on the floor
+    // the shadow of the crystal on the floor
     var f = proj([0, -2.05, 0]), sh = ctx.createRadialGradient(f[0], f[1], 0, f[0], f[1], 2.0 * f[3]);
     sh.addColorStop(0, dark ? "rgba(0,0,0,.35)" : "rgba(30,41,90,.07)"); sh.addColorStop(1, "rgba(0,0,0,0)");
     ctx.fillStyle = sh; ctx.beginPath(); ctx.ellipse(f[0], f[1], 2.0 * f[3], 0.62 * f[3], 0, 0, 2 * Math.PI); ctx.fill();
-    // panels, far first
-    PANELS.slice().sort(function (p, q) { return proj(p.c)[2] - proj(q.c)[2]; }).forEach(function (P) { drawPanel(P, dark); });
-    P3.crystal(ctx, cam, CELL, {s: 1.25, atomScale: 0.6, dark: dark});
+    // panels, far first: the shared representation, and the views on screen
+    var items = [{P: REPR, z: proj(REPR.c)[2], repr: true}];
+    S.shown.forEach(function (sv) { var P = SLOTS[sv.slot]; items.push({P: P, z: proj(P.c)[2], sv: sv}); });
+    items.sort(function (p, q) { return p.z - q.z; }).forEach(function (it) {
+      if (it.repr) drawPanel(it.P, dark, 1, {label: REPR.label}, function (L) { paintRepr(L, dark, S.lit); });
+      else { var m = MODALITIES[it.sv.m]; drawPanel(it.P, dark, it.sv.a, {label: m.label, concept: m.concept, stroke: m.concept ? m.color : null}, function (L) { paintModality(m, L, dark, S.fam); }); }
+    });
+    var F = FAMILIES[S.fam];
+    P3.crystal(ctx, cam, F.cell, {s: F.size || 1.25, atomScale: F.atomScale || 0.6, dark: dark, colors: F.colors, alpha: S.famA, explode: S.explode, seed: 5});
+    if (caption && S.fam !== lastFam) { caption.textContent = F.name + " · dashed panels are concepts · drag to rotate"; lastFam = S.fam; }
   }
 
   var running = false, visible = true;
   function frame(now) {
-    var t = (now - t0) / 1000;
-    yaw = -0.5 + 0.38 * Math.sin(t * 0.21) + dragYaw;
-    pitch = -0.33 + 0.05 * Math.sin(t * 0.16) + dragPitch;
+    tnow = frozen === null ? Math.max(0, (now - t0) / 1000) : frozen;   // a frame can be stamped just before t0
+    yaw = -0.5 + 0.38 * Math.sin(tnow * 0.21) + dragYaw;
+    pitch = -0.33 + 0.05 * Math.sin(tnow * 0.16) + dragPitch;
     draw();
     if (running) requestAnimationFrame(frame);
   }
@@ -308,6 +432,7 @@
   document.addEventListener("visibilitychange", function () { document.hidden ? stop() : start(); });
   var th = document.getElementById("theme");
   if (th) th.addEventListener("click", function () { setTimeout(draw, 0); });
+  window.prismHero = {seek: function (s) { frozen = s; tnow = s; draw(); }, play: function () { frozen = null; }};   // seek: hold the scene at a time (screenshots)
   resize();
   start();
 })();

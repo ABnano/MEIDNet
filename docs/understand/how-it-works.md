@@ -4,6 +4,21 @@ MEIDNet learns one latent space shared by crystal structures and their propertie
 structure side; inverse design reads it from the property side and searches it for crystals with the properties you
 want.
 
+<section class="tour3d" id="tour3d" aria-labelledby="t3-title">
+  <p class="t3-title" id="t3-title"><b>The MEIDNet method in one minute.</b> From the properties you want to candidate crystals, block by block; click a block to jump to it. MEIDNet Matter runs the same steps on real data.</p>
+  <ol class="t3-strip" aria-label="Chapters"></ol>
+  <div class="t3-stage"><canvas tabindex="0" role="img" aria-label="Animated walkthrough of the MEIDNet method in three dimensions: data, model, family, rules, targets, search and candidates. The caption below gives each step in words."></canvas></div>
+  <p class="t3-cap" aria-live="polite"></p>
+  <div class="t3-bar">
+    <button type="button" class="t3-b primary" data-t3="play" aria-label="Play the tour">▶ Play</button>
+    <button type="button" class="t3-b" data-t3="prev" aria-label="Previous chapter">◀</button>
+    <button type="button" class="t3-b" data-t3="next" aria-label="Next chapter">▶</button>
+    <div class="t3-prog" role="slider" tabindex="0" aria-label="Position in the tour, in seconds" aria-valuemin="0" aria-valuemax="63" aria-valuenow="0"><i></i></div>
+    <span class="t3-time">0:00</span>
+    <a class="t3-open" href="/studio/">Open the Studio →</a>
+  </div>
+</section>
+
 ## One latent space for two modalities
 
 <div class="pdiagram" data-diagram="architecture"></div>

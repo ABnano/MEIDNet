@@ -140,8 +140,8 @@ footer{color:var(--faint);font-size:13.5px;padding:10px 0 40px;display:flex;gap:
     </div>
     </div>
     <figure class="scene">
-      <canvas id="hero3d" role="img" aria-label="A cubic ABX3 perovskite: eight corner-sharing BX6 octahedra around an A-site cation, with panels for its crystal graph, a band-gap property curve and the shared latent space where structures and properties are paired."></canvas>
-      <figcaption>cubic ABX<sub>3</sub> perovskite · drag to rotate</figcaption>
+      <canvas id="hero3d" role="img" aria-label="A crystal turning slowly, changing between a cubic perovskite, rock salt and a layered crystal, while its descriptions appear one at a time (its crystal graph, numerical properties, a diffraction pattern, a microscope image and a text) and meet in one shared representation. Diffraction, images and text are concepts beyond MEIDNet today."></canvas>
+      <figcaption>cubic perovskite ABX₃ · dashed panels are concepts · drag to rotate</figcaption>
     </figure>
   </section>
 
@@ -155,18 +155,18 @@ footer{color:var(--faint);font-size:13.5px;padding:10px 0 40px;display:flex;gap:
   </section>
 
   <section class="tour3d" id="tour3d" aria-labelledby="t3-title">
-    <h2 class="sec" id="t3-title">MEIDNet: from concept to demonstration</h2>
-    <p class="sec-sub">From the properties you want to candidate crystals, block by block. Click a block to jump to it.</p>
+    <h2 class="sec" id="t3-title">How multimodal learning connects materials data</h2>
+    <p class="sec-sub">From the many descriptions of a material to one learned representation, its uses and its tests. Click a chapter to jump to it.</p>
     <ol class="t3-strip" aria-label="Chapters"></ol>
-    <div class="t3-stage"><canvas tabindex="0" role="img" aria-label="Animated tour of MEIDNet in three dimensions: data, model, family, rules, targets, search and candidates. The caption below gives each step in words."></canvas></div>
+    <div class="t3-stage"><canvas tabindex="0" role="img" aria-label="Animated introduction to multimodal learning for materials, in seven chapters: modalities, encoders, alignment and fusion, tasks, evaluation, MEIDNet as one reference implementation, and where to go next. The caption below gives each chapter in words."></canvas></div>
     <p class="t3-cap" aria-live="polite"></p>
     <div class="t3-bar">
       <button type="button" class="t3-b primary" data-t3="play" aria-label="Play the tour">▶ Play</button>
       <button type="button" class="t3-b" data-t3="prev" aria-label="Previous chapter">◀</button>
       <button type="button" class="t3-b" data-t3="next" aria-label="Next chapter">▶</button>
-      <div class="t3-prog" role="slider" tabindex="0" aria-label="Position in the tour, in seconds" aria-valuemin="0" aria-valuemax="63" aria-valuenow="0"><i></i></div>
+      <div class="t3-prog" role="slider" tabindex="0" aria-label="Position in the tour, in seconds" aria-valuemin="0" aria-valuemax="60" aria-valuenow="0"><i></i></div>
       <span class="t3-time">0:00</span>
-      <a class="t3-open" href="/studio/">Open the Studio →</a>
+      <a class="t3-open" href="/docs/learn/index.html#what-is-a-modality">What is a modality? →</a>
     </div>
   </section>
 
@@ -235,7 +235,7 @@ footer{color:var(--faint);font-size:13.5px;padding:10px 0 40px;display:flex;gap:
 </script>
 <script src="/docs/assets/prism3d.js" defer></script>
 <script src="/docs/assets/prism-hero.js" defer></script>
-<script src="/docs/assets/prism-tour.js" defer></script>
+<script src="/docs/assets/prism-intro.js" defer></script>
 <script src="/ask-prism.js" defer></script>
 </body>
 </html>

@@ -271,7 +271,7 @@
          label(sub(f), 712, y, {size: 22, weight: 800, alpha: b});
          label(fmt(r[2]) + " eV · " + fmt(r[1]) + " eV/atom", 712, y + 24, {size: 15, color: th.muted, alpha: b});
        });
-       label("example values · compositions that pass every rule", 670, 400, {size: 13, color: th.faint, alpha: a});
+       label("example values", 670, 400, {size: 13, color: th.faint, alpha: a});
      }},
 
     {block: "search", title: "Search", ms: 8800,

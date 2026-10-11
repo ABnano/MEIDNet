@@ -43,7 +43,7 @@
      text: "Each candidate lists every rule with its measured value, and the predicted properties next to your targets. " +
            "Predictions are the model's estimates; targets outside the range of the training data are extrapolations.",
      links: [["Interpreting a candidate", "/docs/understand/interpretability.html"], ["Reading the reports", "/docs/use/reports.html"],
-             ["How MEIDNet works", "/docs/understand/how-it-works.html"], ["Screen stability with MACE", "/docs/recipes/screen.html"]]},
+             ["How MEIDNet works", "/docs/understand/how-it-works.html"], ["Screen with MACE", "/docs/recipes/screen.html"]]},
     {id: "benchmark", title: "I cannot reproduce a benchmark",
      text: "Each benchmark page states its protocol and data split. When a number differs, include the command you ran " +
            "and the value you obtained in your question.",
@@ -51,13 +51,14 @@
              ["Perov-5 example", "/docs/examples/perov5.html"], ["Contribute a result", "/docs/community/contribute.html"]]},
     {id: "score", title: "Can I benchmark my own model's structures?",
      text: "Yes: `meidnet score generated/ --reference data/perov5` reports validity, uniqueness, novelty, diversity and " +
-           "distribution for a folder of CIF files from any model, with stability through MACE and the conditional " +
+           "distribution for a folder of CIF files from any model, with a MACE formation-energy filter and the conditional " +
            "metrics when you add targets.csv. The metric families are named as in LeMat-GenBench.",
      links: [["Benchmark compatibility", "/docs/benchmarks/compatibility.html"], ["MEIDNet Benchmarks", "/docs/benchmarks/index.html"],
              ["Contribute a result", "/docs/community/contribute.html"]]},
     {id: "matter", title: "Where do I design with my own data?",
-     text: "MEIDNet Matter is the companion application for that: bring a dataset, set a design goal, read whether the " +
-           "data and model support it, search for candidates with evidence next to each one, and export them. Prism " +
+     text: "MEIDNet Matter is the companion application for that: set a design goal, read whether the data and model " +
+           "support it, search for candidates with evidence next to each one, and export them; your own data runs on " +
+           "your computer with its package. Prism " +
            "stays the place to learn the method, benchmark models and develop with the package.",
      links: [["Open MEIDNet Matter", "https://babu09-meidnet-matter.hf.space/"], ["The ecosystem", "/docs/ecosystem.html"],
              ["Bring your own dataset (package)", "/docs/use/your-data.html"]]},

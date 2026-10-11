@@ -69,5 +69,5 @@ matches no rule, a group left empty after your filters.
 
 ## Worked example
 
-The [double perovskite](../examples/double-perovskite.md) page walks through a 10-site, non-cubic-primitive
-family written this way.
+The [double perovskite](../examples/double-perovskite.md) page walks through a 10-site family in the rhombohedral primitive
+cell of the cubic Fm-3m lattice, written this way.

@@ -6,7 +6,7 @@ explanations; errors name the offending key or element.
 | key | required | meaning |
 |---|---|---|
 | `name`, `title`, `description` | name | identification; `description` appears in the Studio |
-| `prototype.lattice` | yes | `cubic`, `fcc_primitive`, `bcc_primitive`, or explicit `a, b, c, alpha, beta, gamma` |
+| `prototype.lattice` | yes | `cubic`, `fcc_primitive`, `bcc_primitive`, or explicit `a, b, c, alpha, beta, gamma` (a general cell is scaled from one edge with its shape fixed; no non-cubic family ships or has been tested) |
 | `prototype.reference_a` | | typical cubic cell edge (Å), used by the `cubic_cell` search term |
 | `prototype.sites[]` | yes | `{group, frac}` in decoder slot order; fractional coordinates |
 | `groups.<G>.description` | | sentence shown in reports |

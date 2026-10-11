@@ -24,8 +24,20 @@ CSV, Excel (`.xlsx`) and JSON tables are read; Parquet too once `pyarrow` is ins
 
 ## How much data?
 
-The published model used 11k structures. A few thousand is typical; a few hundred lets you try the pipeline,
-but expect rough predictions (the training report tells you how rough).
+What the rows contain matters more than how many there are. Measured on the case studies of
+[MEIDNet Matter](https://babu09-meidnet-matter.hf.space/limits#data):
+
+| to do this | what it needs | measured |
+|---|---|---|
+| predict a property from structure | a well-posed property: continuous, few zero values, few materials sharing one property profile | 166 training structures read a band gap with r 0.97 and a 0.65 eV error (34 test structures); 897 with 35 % zero gaps fell short on telling metals from non-metals |
+| screen an enumerated family | data that fit one family, and a property model that passes | 166 to 897 training structures |
+| generate | one prototype, and hundreds of distinct compositions per element for the decoder | Perov-5 generates; data with 11 to 48 compositions per element went to screening |
+
+A few hundred structures train a property model, not a generator: with 236 structures of 40 elements (11 compositions
+per element), the decoder rebuilt none of the test compositions, and every candidate came from screening. Count the rows
+that carry the property: Perov-5 is mostly metals, and 441 of the 11,356 structures of its training split have a
+non-zero band gap. `meidnet check` warns below 200 usable rows; the training report's note below 500 training materials
+is a rule of thumb. [Scope, limitations and roadmap](../understand/limits.md)
 
 ## What happens to each row
 

@@ -124,9 +124,10 @@ report that each step writes. Click a block to read about it.
 ## Scope
 
 !!! meidnet "What MEIDNet generates, and what it does not"
-    Generation works for **prototype families**: a fixed arrangement of sites whose occupants and cell size are
-    chosen (ABX₃ perovskites, A₂BB′X₆ double perovskites, and anything you describe the same way). MEIDNet does
-    not invent new atomic arrangements. [Details and roadmap](understand/limits.md).
+    In this package (meidnet 2.3.1), generation works for **prototype families**: a fixed arrangement of sites whose
+    occupants and cell size are chosen (cubic ABX₃ perovskites, A₂BB′X₆ double perovskites, and anything you describe
+    the same way); it does not invent new atomic arrangements. The development engine that MEIDNet Matter runs adds a
+    family-free generator. [Scope, limitations and roadmap](understand/limits.md).
 
     Predicted properties are the model's estimates, and the reports say when a prediction is an extrapolation.
     Confirm candidates with DFT or experiment; `meidnet screen` is a first filter.

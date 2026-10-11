@@ -62,7 +62,7 @@ nav:
       - Recipes by problem: learn/recipes.md
       - How MEIDNet works: understand/how-it-works.md
       - Interpreting a candidate: understand/interpretability.md
-      - Scope and roadmap: understand/limits.md
+      - Scope, limitations and roadmap: understand/limits.md
       - The ecosystem: ecosystem.md
       - Paper and citation: research/paper.md
   - Benchmark:

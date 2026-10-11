@@ -16,7 +16,7 @@ meidnet studio                 # the same workflow in your browser
 | know whether my data fits | [What data do I need?](start/what-data.md), [bring your own dataset](use/your-data.md) |
 | train and design without installing anything | [Run in Colab](start/colab.md), [the Studio](use/studio.md) |
 | change what the search looks for | [targets](recipes/change-targets.md), [properties](recipes/add-property.md), [elements](recipes/elements.md), [family](recipes/change-family.md), [rules](recipes/add-constraint.md) |
-| check candidates with a machine-learned potential | [Screen stability with MACE](recipes/screen.md) |
+| check candidates with a machine-learned potential | [Screen with MACE](recipes/screen.md) |
 | score my own model's structures | [Benchmark compatibility](benchmarks/compatibility.md) |
 | call it from Python | [Python API](reference/api.md), [the configuration file](reference/config.md), [family files](reference/families.md) |
 | read the reports | [Reading the reports](use/reports.md), [interpreting a candidate](understand/interpretability.md) |

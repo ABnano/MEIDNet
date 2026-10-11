@@ -151,7 +151,7 @@ footer{color:var(--faint);font-size:13.5px;padding:10px 0 40px;display:flex;gap:
     <div style="--k:var(--p2)"><b>Fuse</b><span class="eq">z = ½ (z<sub>s</sub> + z<sub>p</sub>) <span class="up">∈ ℝ<sup>128</sup></span></span></div>
     <div style="--k:var(--c-targets)"><b>Design</b><span class="eq">z<sup>*</sup> = argmin<sub>z</sub> ‖g(z) − y<sup>*</sup>‖²</span></div>
     <div style="--k:var(--c-candidates)"><b>Decode</b><span class="eq">x<sup>*</sup> = D(z<sup>*</sup>)</span></div>
-    <div style="--k:var(--c-search)"><b>Validate</b><span class="eq">E<sub>hull</sub>(x<sup>*</sup>) ≤ ε</span></div>
+    <div style="--k:var(--c-search)"><b>Screen</b><span class="eq">ΔH<sub>f</sub>(x<sup>*</sup>) ≤ 0.1 eV/atom</span></div>
   </section>
 
   <section class="tour3d" id="tour3d" aria-labelledby="t3-title">
@@ -173,13 +173,13 @@ footer{color:var(--faint);font-size:13.5px;padding:10px 0 40px;display:flex;gap:
   <h2 class="sec">Contents</h2>
   <p class="sec-sub">Learn the method, benchmark any model against it, develop with the package and the Studio, and design with your own data in MEIDNet Matter.</p>
   <section class="layers">
-    <div class="card" style="--accent:var(--c-data)"><h2><small>Learn</small>Multimodal learning for materials</h2><p>Modalities and the five challenges of multimodal learning, contrastive learning with a playground, the Architecture Atlas with an advisor, how MEIDNet works and where it stops.</p>
+    <div class="card" style="--accent:var(--c-data)"><h2><small>Learn</small>Multimodal learning for materials</h2><p>Modalities and the five challenges of multimodal learning, contrastive learning with a playground, the Architecture Atlas with an advisor, how MEIDNet works and <a href="/docs/understand/limits.html">where it stops</a>.</p>
       <p><a class="more" href="/docs/learn/index.html">Learn multimodality →</a> &nbsp; <a class="more" href="/docs/learn/architectures.html">Architecture Atlas →</a></p></div>
     <div class="card" style="--accent:var(--c-targets)"><h2><small>Benchmark</small>Leaderboards and metrics</h2><p>Fixed protocols per dataset, metric families named as in LeMat-GenBench plus a conditional extension, datasets and databases, and <code>meidnet score</code> for any model's generated structures. Results are contributed through GitHub and re-run before they are marked as computed here.</p>
       <p><a class="more" href="/docs/benchmarks/index.html">Benchmarks →</a> &nbsp; <a class="more" href="/docs/benchmarks/compatibility.html">Score your structures →</a></p></div>
     <div class="card" style="--accent:var(--c-model)"><h2><small>Develop</small>The package and the Studio</h2><p>Install <code>meidnet</code>, train on a table of structures and properties, set targets and rules in one YAML file, run the search and inspect every candidate in 3D, from the command line, Python or the Studio in the browser.</p>
       <p><a class="more" href="/studio/">Open the Studio →</a> &nbsp; <a class="more" href="/docs/develop.html">Develop with MEIDNet →</a></p></div>
-    <div class="card" style="--accent:var(--c-candidates)"><h2><small>Matter ↗</small>Design with your data</h2><p>MEIDNet Matter is the companion application for researchers: bring a dataset, set a design goal, read whether the data and model support it, search for candidates with evidence next to each one, and export them with a validation ladder.</p>
+    <div class="card" style="--accent:var(--c-candidates)"><h2><small>Matter ↗</small>Design with your data</h2><p>MEIDNet Matter is the companion application for researchers: set a design goal, read whether the data and model support it, search for candidates with evidence next to each one, and export them with a validation ladder; your own data runs on your computer with its package.</p>
       <p><a class="more" href="https://babu09-meidnet-matter.hf.space/">Open MEIDNet Matter ↗</a> &nbsp; <a class="more" href="/docs/ecosystem.html">The ecosystem →</a></p></div>
   </section>
 

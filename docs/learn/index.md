@@ -152,8 +152,9 @@ The search in practice:
 The full objective and every step are in [How MEIDNet works](../understand/how-it-works.md).
 
 !!! meidnet "Two limits that matter"
-    MEIDNet does not invent new atomic arrangements: candidates are compositions on a known prototype. Its
-    predicted properties are estimates to confirm with DFT or experiment ([scope and roadmap](../understand/limits.md)).
+    The released package (2.3.1) does not invent new atomic arrangements: candidates are compositions on a known
+    prototype (the engine MEIDNet Matter runs adds a family-free generator). Its predicted properties are estimates to
+    confirm with DFT or experiment ([scope, limitations and roadmap](../understand/limits.md)).
 
 *Further reading:* the MEIDNet paper (Babu *et al.* 2026) · Babu, Gouvêa and Rignanese 2026 (generative models,
 multimodal learning and closed-loop workflows in inverse materials design) · Moro, Loh *et al.* 2025 (multimodal

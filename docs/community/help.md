@@ -40,4 +40,4 @@ on your own computer: [5-minute quickstart](../start/quickstart.md).
 **Are the predicted properties reliable?**
 They are the model's estimates. Targets outside the range of the training data are extrapolations; confirm
 candidates with calculations or experiments: [Interpreting a candidate](../understand/interpretability.md) and
-[Screen stability with MACE](../recipes/screen.md).
+[Screen with MACE](../recipes/screen.md).

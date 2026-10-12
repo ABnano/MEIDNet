@@ -60,7 +60,6 @@ h1.mh .ln{display:block}h1.mh .for{font-weight:700;letter-spacing:-.01em}
 .scene{position:absolute;z-index:1;right:-36px;top:0;bottom:0;width:56%;margin:0}
 .scene canvas{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:grab;touch-action:pan-y}
 .scene canvas.grabbing{cursor:grabbing}
-.scene figcaption{position:absolute;right:4px;bottom:0;font:500 11.5px/1.3 var(--mono);color:var(--faint);letter-spacing:.02em}
 @media(max-width:900px){.scene{position:relative;right:auto;width:100%;max-width:560px;aspect-ratio:1/.86;margin:-28px auto 0}}
 .method{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr) minmax(0,1.05fr) minmax(0,1.3fr) minmax(0,.8fr) minmax(0,.9fr);gap:0;margin:6px 0 30px;border:1px solid var(--line);border-radius:14px;background:var(--card);overflow:hidden}
 .method div{padding:12px 12px 13px;border-left:1px solid var(--line);position:relative}.method div:first-child{border-left:0}
@@ -141,7 +140,6 @@ footer{color:var(--faint);font-size:13.5px;padding:10px 0 40px;display:flex;gap:
     </div>
     <figure class="scene">
       <canvas id="hero3d" role="img" aria-label="Six views of one material turn around a sphere that stands for the shared representation: its crystal structure (changing between a cubic perovskite, rock salt and a layered crystal), its crystal graph and its numerical properties, and, as concepts beyond MEIDNet today, a diffraction pattern, a microscope image and a text. Each view is encoded into the sphere along a beam, and the views of one material meet at one point."></canvas>
-      <figcaption>views of one material meet in one shared representation · dashed: concepts · drag to rotate</figcaption>
     </figure>
   </section>
 
@@ -192,19 +190,6 @@ footer{color:var(--faint);font-size:13.5px;padding:10px 0 40px;display:flex;gap:
     <div style="--bc:var(--c-candidates)">Candidates<small>new materials</small></div>
   </div>
 
-  <section class="cite" id="cite">
-    <h2 style="margin:0 0 4px;font-size:20px">Citation</h2>
-    <p style="margin:0;color:var(--muted)">A. Babu, R. A. Gouvêa, P. Vandergheynst and G.-M. Rignanese, <i>MEIDNet: Multimodal generative AI framework for inverse materials design</i>, npj Computational Materials (2026). <a href="https://doi.org/10.1038/s41524-026-02153-3">doi:10.1038/s41524-026-02153-3</a> · <a href="https://arxiv.org/abs/2601.22009">arXiv:2601.22009</a></p>
-    <p style="margin:10px 0 0"><button id="copybib">Copy BibTeX</button> <span id="copied" style="color:var(--c-search);font-weight:700"></span></p>
-<pre id="bib">@article{meidnet2026,
-  title   = {MEIDNet: Multimodal generative AI framework for inverse materials design},
-  author  = {Anand Babu and Rog{\'e}rio Almeida Gouv{\^e}a and Pierre Vandergheynst and Gian-Marco Rignanese},
-  journal = {npj Computational Materials},
-  year    = {2026},
-  doi     = {10.1038/s41524-026-02153-3}
-}</pre>
-  </section>
-
   <section class="cite" id="reading">
     <h2 style="margin:0 0 6px;font-size:20px">Further reading</h2>
     <ol class="reading">
@@ -230,7 +215,6 @@ footer{color:var(--faint);font-size:13.5px;padding:10px 0 40px;display:flex;gap:
   const b=document.getElementById('theme'); const isDark=()=>d.dataset.theme==='dark'||(!d.dataset.theme&&matchMedia('(prefers-color-scheme: dark)').matches);
   const paint=()=>{ b.textContent=isDark()?'☀️':'🌙'; }; paint();
   b.onclick=()=>{ d.dataset.theme=isDark()?'light':'dark'; try{localStorage.setItem('meidnet_theme', d.dataset.theme);}catch(e){} paint(); };
-  document.getElementById('copybib').onclick=async()=>{ const m=document.getElementById('copied'); try{ await navigator.clipboard.writeText(document.getElementById('bib').textContent); m.textContent='copied'; setTimeout(()=>m.textContent='',1500); }catch(e){ m.textContent='select the text below and copy it'; } };
 })();
 </script>
 <script src="/docs/assets/prism3d.js" defer></script>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="MEIDNet Prism">
+  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4f46e5"/><stop offset="1" stop-color="#9333ea"/></linearGradient></defs>
+  <path d="M4 20H22" stroke="#1baf7a" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M4 32H22" stroke="#e87ba4" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M4 44H22" stroke="#eda100" stroke-width="3.5" stroke-linecap="round"/>
+  <polygon points="36,8 20,56 52,56" fill="url(#g)"/>
+  <path d="M22 20L38 34M22 32L38 34M22 44L38 34" stroke="#fff" stroke-opacity=".6" stroke-width="1.5" fill="none"/>
+  <path d="M38 34H60" stroke="#4a3aa7" stroke-width="4" stroke-linecap="round"/>
+</svg>

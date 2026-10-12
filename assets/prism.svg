@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 240" width="560" height="240" role="img" aria-labelledby="t d">
+  <title id="t">MEIDNet Prism</title>
+  <desc id="d">Crystal structures and material properties enter a prism and leave it as one shared representation, from which new materials are designed.</desc>
+  <defs>
+    <linearGradient id="prism" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4f46e5"/><stop offset="1" stop-color="#9333ea"/></linearGradient>
+    <linearGradient id="out" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7c3aed"/><stop offset="1" stop-color="#4a3aa7"/></linearGradient>
+    <style>
+      .lab{font:600 13px system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;fill:#52514e}
+      .lab.on{fill:#0b0b0b}
+      .beam{fill:none;stroke-width:3.2;stroke-linecap:round}
+      .planned{stroke-dasharray:6 5;opacity:.45}
+    </style>
+  </defs>
+  <!-- modalities entering the prism: solid = supported today, dashed = extensible -->
+  <path class="beam" d="M22 60 L212 108" stroke="#1baf7a"/>
+  <path class="beam" d="M22 96 L212 120" stroke="#e87ba4"/>
+  <path class="beam" d="M22 132 L212 132" stroke="#eda100"/>
+  <path class="beam planned" d="M22 168 L212 146" stroke="#2a78d6"/>
+  <path class="beam planned" d="M22 204 L212 158" stroke="#2a78d6"/>
+  <text class="lab on" x="22" y="52">Crystal structure</text>
+  <text class="lab on" x="22" y="88">Band gap</text>
+  <text class="lab on" x="22" y="124">Formation enthalpy</text>
+  <text class="lab" x="22" y="160">Your property</text>
+  <text class="lab" x="22" y="196">XRD · DOS · spectra <tspan font-weight="400">(extensible)</tspan></text>
+  <!-- the prism: beams converge inside it (early fusion: the latents are averaged) -->
+  <polygon points="280,40 212,180 348,180" fill="url(#prism)" stroke="#fff" stroke-width="2"/>
+  <path d="M212 108 L284 128 M212 120 L284 128 M212 132 L284 128 M212 146 L284 128 M212 158 L284 128" stroke="#fff" stroke-opacity=".55" stroke-width="1.6" fill="none"/>
+  <circle cx="284" cy="128" r="5" fill="#fff"/>
+  <!-- one shared representation leaves, and candidates come out of it -->
+  <path class="beam" d="M284 128 L430 128" stroke="url(#out)" stroke-width="4.5"/>
+  <path d="M430 128 L452 128" stroke="#4a3aa7" stroke-width="4.5" stroke-linecap="round"/>
+  <circle cx="478" cy="110" r="7" fill="#4a3aa7"/><circle cx="498" cy="128" r="7" fill="#4a3aa7"/><circle cx="478" cy="146" r="7" fill="#4a3aa7"/>
+  <text class="lab on" x="372" y="112" text-anchor="middle">shared representation</text>
+  <text class="lab" x="372" y="150" text-anchor="middle">one 128-d latent space</text>
+  <text class="lab on" x="520" y="132" text-anchor="middle">new</text>
+  <text class="lab on" x="520" y="148" text-anchor="middle">materials</text>
+</svg>
